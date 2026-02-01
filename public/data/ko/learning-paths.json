@@ -1,0 +1,474 @@
+{
+  "paths": {
+    "ko-topik1": {
+      "id": "ko-topik1",
+      "type": "linear",
+      "name": "TOPIK1 Beginner Level 1",
+      "description": "Complete TOPIK1 course with 4 units",
+      "icon": "graduation",
+      "language": "ko",
+      "estimatedHours": 9,
+      "difficulty": "beginner",
+      "milestones": [
+        {
+          "id": "topik1-unit-1",
+          "level": "TOPIK1",
+          "name": "Hangul and Self-Introduction",
+          "description": "After completing this unit, students will be able to read and write all basic Hangul characters, greet people politely, and introduce themselves with their name, nationality, and age using appropriate polite forms.",
+          "module": "lessons",
+          "requirement": {
+            "type": "complete-all"
+          },
+          "estimatedHours": 2.5,
+          "lessons": [
+            "topik1-u1-l1",
+            "topik1-u1-l2",
+            "topik1-u1-l3",
+            "topik1-u1-l4",
+            "topik1-u1-l5",
+            "topik1-u1-l6"
+          ]
+        },
+        {
+          "id": "topik1-unit-2",
+          "level": "TOPIK1",
+          "name": "Family and Daily Life",
+          "description": "After completing this unit, students will be able to introduce their family members, describe occupations, talk about daily activities using proper time expressions, and give a basic description of their family's daily routine using present tense verbs and essential particles.",
+          "module": "lessons",
+          "requirement": {
+            "type": "complete-all"
+          },
+          "estimatedHours": 2.4,
+          "lessons": [
+            "topik1-u2-l1",
+            "topik1-u2-l2",
+            "topik1-u2-l3",
+            "topik1-u2-l4",
+            "topik1-u2-l5"
+          ]
+        },
+        {
+          "id": "topik1-unit-3",
+          "level": "TOPIK1",
+          "name": "Food and Shopping",
+          "description": "After completing this unit, students will be able to order food at restaurants, ask about prices, use Korean numbers for money, make purchases in shops, and handle basic food shopping situations using appropriate polite language.",
+          "module": "lessons",
+          "requirement": {
+            "type": "complete-all"
+          },
+          "estimatedHours": 2.7,
+          "lessons": [
+            "topik1-u3-l1",
+            "topik1-u3-l2",
+            "topik1-u3-l3",
+            "topik1-u3-l4",
+            "topik1-u3-l5"
+          ]
+        },
+        {
+          "id": "topik1-unit-4",
+          "level": "TOPIK1",
+          "name": "Places and Transportation",
+          "description": "After completing this unit, students will be able to navigate basic transportation conversations, ask for and give simple directions, identify common places in a city, and describe how they travel to different locations using appropriate particles and transportation vocabulary.",
+          "module": "lessons",
+          "requirement": {
+            "type": "complete-all"
+          },
+          "estimatedHours": 1.8,
+          "lessons": [
+            "topik1-u4-l1",
+            "topik1-u4-l2",
+            "topik1-u4-l3",
+            "topik1-u4-l4"
+          ]
+        }
+      ]
+    },
+    "ko-topik2": {
+      "id": "ko-topik2",
+      "type": "linear",
+      "name": "TOPIK2 Beginner Level 2",
+      "description": "Complete TOPIK2 course with 4 units",
+      "icon": "book",
+      "language": "ko",
+      "estimatedHours": 10,
+      "difficulty": "elementary",
+      "milestones": [
+        {
+          "id": "topik2-unit-1",
+          "level": "TOPIK2",
+          "name": "Weather and Seasons",
+          "description": "After completing this unit, students will be able to describe weather conditions, discuss seasonal activities, express how weather affects their mood and plans, make conditional statements about future activities based on weather forecasts, and give detailed reasons for their seasonal preferences using multiple grammar patterns including irregular verbs, conditional expressions, and cause-effect relationships.",
+          "module": "lessons",
+          "requirement": {
+            "type": "complete-all"
+          },
+          "estimatedHours": 2.7,
+          "lessons": [
+            "topik2-u1-l1",
+            "topik2-u1-l2",
+            "topik2-u1-l3",
+            "topik2-u1-l4",
+            "topik2-u1-l5"
+          ]
+        },
+        {
+          "id": "topik2-unit-2",
+          "level": "TOPIK2",
+          "name": "Health and Body",
+          "description": "After completing this unit, students will be able to describe physical symptoms and health problems, navigate basic medical appointments using formal language, give and receive health advice, and discuss healthy lifestyle choices using past and conditional forms.",
+          "module": "lessons",
+          "requirement": {
+            "type": "complete-all"
+          },
+          "estimatedHours": 2.7,
+          "lessons": [
+            "topik2-u2-l1",
+            "topik2-u2-l2",
+            "topik2-u2-l3",
+            "topik2-u2-l4",
+            "topik2-u2-l5"
+          ]
+        },
+        {
+          "id": "topik2-unit-3",
+          "level": "TOPIK2",
+          "name": "Hobbies and Entertainment",
+          "description": "After completing this unit, students will be able to talk about their hobbies, express preferences and frequency, make invitations for entertainment activities, and discuss plans with friends using appropriate Korean expressions.",
+          "module": "lessons",
+          "requirement": {
+            "type": "complete-all"
+          },
+          "estimatedHours": 2.2,
+          "lessons": [
+            "topik2-u3-l1",
+            "topik2-u3-l2",
+            "topik2-u3-l3",
+            "topik2-u3-l4"
+          ]
+        },
+        {
+          "id": "topik2-unit-4",
+          "level": "TOPIK2",
+          "name": "Travel and Public Services",
+          "description": "After completing this unit, students will be able to handle travel-related tasks, make formal requests at public service locations, schedule appointments, and seek help in emergency situations using appropriate formal Korean language.",
+          "module": "lessons",
+          "requirement": {
+            "type": "complete-all"
+          },
+          "estimatedHours": 2.7,
+          "lessons": [
+            "topik2-u4-l1",
+            "topik2-u4-l2",
+            "topik2-u4-l3",
+            "topik2-u4-l4",
+            "topik2-u4-l5",
+            "topik2-u4-l6"
+          ]
+        }
+      ]
+    },
+    "ko-topik3": {
+      "id": "ko-topik3",
+      "type": "linear",
+      "name": "TOPIK3 Intermediate Level 3",
+      "description": "Complete TOPIK3 course with 4 units",
+      "icon": "graduation",
+      "language": "ko",
+      "estimatedHours": 10,
+      "difficulty": "intermediate",
+      "milestones": [
+        {
+          "id": "topik3-unit-1",
+          "level": "TOPIK3",
+          "name": "Work and Career",
+          "description": "After completing this unit, students will be able to discuss career-related topics confidently, understand Korean workplace culture, communicate professionally in formal situations, and express future career plans using intermediate-level grammar patterns. They will have mastered key decision-making expressions and formal communication styles essential for professional contexts.",
+          "module": "lessons",
+          "requirement": {
+            "type": "complete-all"
+          },
+          "estimatedHours": 2.7,
+          "lessons": [
+            "topik3-u1-l1",
+            "topik3-u1-l2",
+            "topik3-u1-l3",
+            "topik3-u1-l4",
+            "topik3-u1-l5"
+          ]
+        },
+        {
+          "id": "topik3-unit-2",
+          "level": "TOPIK3",
+          "name": "Education and Learning",
+          "description": "After completing this unit, students will be able to discuss educational topics using intermediate-level Korean, express opinions about learning methods, narrate academic experiences, and communicate future educational goals using appropriate formal language and complex grammatical structures.",
+          "module": "lessons",
+          "requirement": {
+            "type": "complete-all"
+          },
+          "estimatedHours": 2.7,
+          "lessons": [
+            "topik3-u2-l1",
+            "topik3-u2-l2",
+            "topik3-u2-l3",
+            "topik3-u2-l4",
+            "topik3-u2-l5"
+          ]
+        },
+        {
+          "id": "topik3-unit-3",
+          "level": "TOPIK3",
+          "name": "Korean Culture and Traditions",
+          "description": "After completing this unit, students will be able to discuss Korean cultural practices with appropriate formal language, compare traditional and modern Korean customs, express opinions about cultural preservation and change, and demonstrate understanding of Korean social etiquette and hierarchy.",
+          "module": "lessons",
+          "requirement": {
+            "type": "complete-all"
+          },
+          "estimatedHours": 1.9,
+          "lessons": [
+            "topik3-u3-l1",
+            "topik3-u3-l2",
+            "topik3-u3-l3",
+            "topik3-u3-l4"
+          ]
+        },
+        {
+          "id": "topik3-unit-4",
+          "level": "TOPIK3",
+          "name": "Media and Current Events",
+          "description": "After completing this unit, students will be able to understand news articles and broadcasts, express opinions about current events, make predictions about future developments, and discuss the role of media in society using appropriate formal and informal language.",
+          "module": "lessons",
+          "requirement": {
+            "type": "complete-all"
+          },
+          "estimatedHours": 2.8,
+          "lessons": [
+            "topik3-u4-l1",
+            "topik3-u4-l2",
+            "topik3-u4-l3",
+            "topik3-u4-l4",
+            "topik3-u4-l5",
+            "topik3-u4-l6"
+          ]
+        }
+      ]
+    },
+    "ko-topik4": {
+      "id": "ko-topik4",
+      "type": "linear",
+      "name": "TOPIK4 Intermediate Level 4",
+      "description": "Complete TOPIK4 course with 4 units",
+      "icon": "graduation",
+      "language": "ko",
+      "estimatedHours": 10,
+      "difficulty": "intermediate",
+      "milestones": [
+        {
+          "id": "topik4-unit-1",
+          "level": "TOPIK4",
+          "name": "Economics and Business",
+          "description": "After completing this unit, students will be able to understand complex economic and business content, participate in professional discussions, write formal business communications, and analyze economic trends and market information at an intermediate-advanced level.",
+          "module": "lessons",
+          "requirement": {
+            "type": "complete-all"
+          },
+          "estimatedHours": 2.7,
+          "lessons": [
+            "topik4-u1-l1",
+            "topik4-u1-l2",
+            "topik4-u1-l3",
+            "topik4-u1-l4",
+            "topik4-u1-l5"
+          ]
+        },
+        {
+          "id": "topik4-unit-2",
+          "level": "TOPIK4",
+          "name": "Environment and Science",
+          "description": "After completing this unit, students will be able to understand news articles about environmental and scientific topics, express complex opinions about environmental policies, and use advanced formal Korean patterns for academic discourse about climate change and technological solutions.",
+          "module": "lessons",
+          "requirement": {
+            "type": "complete-all"
+          },
+          "estimatedHours": 2.5,
+          "lessons": [
+            "topik4-u2-l1",
+            "topik4-u2-l2",
+            "topik4-u2-l3",
+            "topik4-u2-l4",
+            "topik4-u2-l5"
+          ]
+        },
+        {
+          "id": "topik4-unit-3",
+          "level": "TOPIK4",
+          "name": "History and Society",
+          "description": "After completing this unit, students will be able to understand complex historical texts, analyze social changes throughout Korean history, discuss cultural evolution using formal academic language, and write structured essays about historical and social topics using advanced grammar patterns and formal written style.",
+          "module": "lessons",
+          "requirement": {
+            "type": "complete-all"
+          },
+          "estimatedHours": 2.2,
+          "lessons": [
+            "topik4-u3-l1",
+            "topik4-u3-l2",
+            "topik4-u3-l3",
+            "topik4-u3-l4"
+          ]
+        },
+        {
+          "id": "topik4-unit-4",
+          "level": "TOPIK4",
+          "name": "Academic Discourse",
+          "description": "After completing this unit, students will be able to comprehend complex academic texts, participate in scholarly discussions, write formal academic papers with proper structure and argumentation, and engage effectively in academic conferences and professional meetings using appropriate formal language and terminology.",
+          "module": "lessons",
+          "requirement": {
+            "type": "complete-all"
+          },
+          "estimatedHours": 2.8,
+          "lessons": [
+            "topik4-u4-l1",
+            "topik4-u4-l2",
+            "topik4-u4-l3",
+            "topik4-u4-l4",
+            "topik4-u4-l5",
+            "topik4-u4-l6"
+          ]
+        }
+      ]
+    },
+    "ko-topik6": {
+      "id": "ko-topik6",
+      "type": "linear",
+      "name": "TOPIK6 Advanced Level 6",
+      "description": "Complete TOPIK6 course with 3 units",
+      "icon": "graduation",
+      "language": "ko",
+      "estimatedHours": 9,
+      "difficulty": "intermediate",
+      "milestones": [
+        {
+          "id": "topik6-unit-1",
+          "level": "TOPIK6",
+          "name": "Literature and Arts",
+          "description": "After completing this unit, students will be able to analyze Korean literary works with sophisticated critical frameworks, express nuanced aesthetic judgments, engage in scholarly discourse about literature and arts, and demonstrate near-native proficiency in discussing cultural and artistic topics using advanced literary and aesthetic vocabulary.",
+          "module": "lessons",
+          "requirement": {
+            "type": "complete-all"
+          },
+          "estimatedHours": 3.2,
+          "lessons": [
+            "topik6-u1-l1",
+            "topik6-u1-l2",
+            "topik6-u1-l3",
+            "topik6-u1-l4"
+          ]
+        },
+        {
+          "id": "topik6-unit-2",
+          "level": "TOPIK6",
+          "name": "Philosophy and Abstract Thought",
+          "description": "After completing this unit, students will be able to engage in sophisticated philosophical discourse at a native-like level, analyze complex abstract concepts with nuanced understanding, construct logical arguments using advanced reasoning patterns, and participate meaningfully in academic philosophical debates across various schools of thought.",
+          "module": "lessons",
+          "requirement": {
+            "type": "complete-all"
+          },
+          "estimatedHours": 2,
+          "lessons": [
+            "topik6-u2-l1",
+            "topik6-u2-l2",
+            "topik6-u2-l3",
+            "topik6-u2-l4"
+          ]
+        },
+        {
+          "id": "topik6-unit-3",
+          "level": "TOPIK6",
+          "name": "Professional Mastery",
+          "description": "After completing this unit, students will have achieved native-level proficiency in Korean, capable of handling any professional, academic, or cultural situation with sophistication and complete cultural awareness. They can engage in executive-level business communication, produce doctoral-level academic work, understand deep cultural and literary references, and communicate naturally across all registers and dialects.",
+          "module": "lessons",
+          "requirement": {
+            "type": "complete-all"
+          },
+          "estimatedHours": 3.5,
+          "lessons": [
+            "topik6-u3-l1",
+            "topik6-u3-l2",
+            "topik6-u3-l3",
+            "topik6-u3-l4"
+          ]
+        }
+      ]
+    },
+    "ko-topik5": {
+      "id": "ko-topik5",
+      "type": "linear",
+      "name": "TOPIK5 Advanced Level 5",
+      "description": "Complete TOPIK5 course with 3 units",
+      "icon": "graduation",
+      "language": "ko",
+      "estimatedHours": 7,
+      "difficulty": "intermediate",
+      "milestones": [
+        {
+          "id": "topik5-unit-1",
+          "level": "TOPIK5",
+          "name": "Advanced Professional Communication",
+          "description": "After completing this unit, students will be able to communicate at the highest professional level in Korean business contexts, using sophisticated language appropriate for executive-level interactions, strategic business discussions, international negotiations, and formal presentations with native-like fluency and cultural awareness.",
+          "module": "lessons",
+          "requirement": {
+            "type": "complete-all"
+          },
+          "estimatedHours": 2.2,
+          "lessons": [
+            "topik5-u1-l1",
+            "topik5-u1-l2",
+            "topik5-u1-l3",
+            "topik5-u1-l4"
+          ]
+        },
+        {
+          "id": "topik5-unit-2",
+          "level": "TOPIK5",
+          "name": "Cultural and Linguistic Sophistication",
+          "description": "After completing this unit, students will be able to understand and use Korean proverbs and idioms naturally, adjust their language register appropriately for different social contexts, recognize cultural nuances in Korean communication, and express themselves with near-native sophistication in both formal and informal settings.",
+          "module": "lessons",
+          "requirement": {
+            "type": "complete-all"
+          },
+          "estimatedHours": 2.2,
+          "lessons": [
+            "topik5-u2-l1",
+            "topik5-u2-l2",
+            "topik5-u2-l3",
+            "topik5-u2-l4"
+          ]
+        },
+        {
+          "id": "topik5-unit-3",
+          "level": "TOPIK5",
+          "name": "Near-Native Proficiency",
+          "description": "After completing this unit, students will have achieved near-native proficiency in Korean, with the ability to express themselves with sophisticated precision, navigate any cultural context appropriately, and handle complex academic and professional communication with complete confidence and native-like fluency.",
+          "module": "lessons",
+          "requirement": {
+            "type": "complete-all"
+          },
+          "estimatedHours": 2.8,
+          "lessons": [
+            "topik5-u3-l1",
+            "topik5-u3-l2",
+            "topik5-u3-l3",
+            "topik5-u3-l4"
+          ]
+        }
+      ]
+    }
+  },
+  "pathOrder": [
+    "ko-topik1",
+    "ko-topik2",
+    "ko-topik3",
+    "ko-topik4",
+    "ko-topik6",
+    "ko-topik5"
+  ]
+}
