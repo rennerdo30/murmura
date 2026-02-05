@@ -83,10 +83,19 @@ Each language has its own theme (applied via `data-theme` attribute):
 
 **DO NOT** show Japanese elements when learning other languages.
 
+### Navigation
+- **Mobile**: `BottomNavBar` (fixed bottom, 5 tabs: Home, Study, Paths, Review, Settings)
+  - Rendered in `ClientLayout.tsx`, hidden on desktop (≥769px)
+  - Uses `usePathname()` for active tab highlighting
+  - Glass morphism + safe area padding for notch/island devices
+- **Desktop**: Top `Navigation` component with back button
+
 ### Key Components
 - `useTargetLanguage()` - Language state, levels, theme
 - `LanguageContentGuard` - Shows "Coming Soon" if no data
 - `dataLoader.ts` - Registry-based vocabulary loading
+- `BottomNavBar` - Persistent mobile navigation (auto-included in layout)
+- `ReviewProgress` - Sticky progress bar with inline exit button
 
 ### Module Page Pattern
 ```typescript
@@ -128,6 +137,7 @@ Generate auth keys: `node tools/generateAuthKeys.mjs`
 | Path | Description |
 |------|-------------|
 | `src/app/` | Next.js pages (alphabet, vocabulary, kanji, grammar, reading, listening) |
+| `src/components/common/` | Shared components (Navigation, BottomNavBar) |
 | `src/components/ui/` | Reusable UI components |
 | `src/hooks/` | Custom hooks (useTTS, useTimer, useSRS, etc.) |
 | `src/lib/` | Utilities (kokoroTTS, storage, dataLoader, etc.) |
@@ -170,5 +180,11 @@ For Kokoro (local): `npm run setup-kokoro` first
 - TTS uses dynamic language from `useTargetLanguage()`
 - Error boundaries on all pages
 - Focus states and accessibility
+- Persistent bottom navigation bar on mobile
+- Dashboard widgets collapsible on mobile (accordion)
+- Locked learning paths disabled for keyboard/mouse
+- Vocabulary pagination with load-more
+- Sticky review progress bar with exit button
+- Color picker aria-labels for accessibility
 
 See `SPECIFICATION.md` for detailed design specifications.
