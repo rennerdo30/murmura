@@ -7,9 +7,9 @@ const reviewDataValidator = v.object({
   interval: v.number(),
   easeFactor: v.number(),
   repetitions: v.number(),
-  dueDate: v.number(),
-  lastReview: v.optional(v.number()),
-  lastQuality: v.optional(v.number()),
+  quality: v.array(v.number()),
+  lastReview: v.number(),
+  nextReview: v.number(),
 });
 
 export default defineSchema({
@@ -69,6 +69,13 @@ export default defineSchema({
         stats: v.object({
           textsRead: v.number(),
           comprehensionScore: v.number(),
+          correct: v.optional(v.number()),
+          total: v.optional(v.number()),
+          streak: v.optional(v.number()),
+          bestStreak: v.optional(v.number()),
+          totalAttempts: v.optional(v.number()),
+          comprehensionTotal: v.optional(v.number()),
+          comprehensionCorrect: v.optional(v.number()),
         }),
       }),
       listening: v.object({
@@ -76,6 +83,10 @@ export default defineSchema({
         stats: v.object({
           exercisesCompleted: v.number(),
           accuracy: v.number(),
+          correct: v.optional(v.number()),
+          total: v.optional(v.number()),
+          streak: v.optional(v.number()),
+          bestStreak: v.optional(v.number()),
         }),
       }),
     }),

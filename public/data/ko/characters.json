@@ -35,7 +35,11 @@
     "audioUrl": null,
     "language_id": 3,
     "script_id": null,
-    "content_translations": null,
+    "content_translations": {
+      "meaning": {
+        "de": "g/k-Laut, Konsonant"
+      }
+    },
     "group": "consonants",
     "order": 1,
     "name": "g/k",
@@ -79,7 +83,11 @@
     "audioUrl": null,
     "language_id": 3,
     "script_id": null,
-    "content_translations": null,
+    "content_translations": {
+      "meaning": {
+        "de": "kk-Laut (gespannt)"
+      }
+    },
     "group": "consonants",
     "order": 15,
     "name": "kk",
@@ -123,7 +131,11 @@
     "audioUrl": null,
     "language_id": 3,
     "script_id": null,
-    "content_translations": null,
+    "content_translations": {
+      "meaning": {
+        "de": "n-Laut, Konsonant"
+      }
+    },
     "group": "consonants",
     "order": 2,
     "name": "n",
@@ -167,7 +179,11 @@
     "audioUrl": null,
     "language_id": 3,
     "script_id": null,
-    "content_translations": null,
+    "content_translations": {
+      "meaning": {
+        "de": "d/t-Laut, Konsonant"
+      }
+    },
     "group": "consonants",
     "order": 3,
     "name": "d/t",
@@ -211,7 +227,11 @@
     "audioUrl": null,
     "language_id": 3,
     "script_id": null,
-    "content_translations": null,
+    "content_translations": {
+      "meaning": {
+        "de": "tt-Laut (gespannt)"
+      }
+    },
     "group": "consonants",
     "order": 16,
     "name": "tt",
@@ -255,7 +275,11 @@
     "audioUrl": null,
     "language_id": 3,
     "script_id": null,
-    "content_translations": null,
+    "content_translations": {
+      "meaning": {
+        "de": "r/l-Laut, Konsonant"
+      }
+    },
     "group": "consonants",
     "order": 4,
     "name": "r/l",
@@ -299,7 +323,11 @@
     "audioUrl": null,
     "language_id": 3,
     "script_id": null,
-    "content_translations": null,
+    "content_translations": {
+      "meaning": {
+        "de": "m-Laut, Konsonant"
+      }
+    },
     "group": "consonants",
     "order": 5,
     "name": "m",
@@ -343,7 +371,11 @@
     "audioUrl": null,
     "language_id": 3,
     "script_id": null,
-    "content_translations": null,
+    "content_translations": {
+      "meaning": {
+        "de": "b/p-Laut, Konsonant"
+      }
+    },
     "group": "consonants",
     "order": 6,
     "name": "b/p",
@@ -387,7 +419,11 @@
     "audioUrl": null,
     "language_id": 3,
     "script_id": null,
-    "content_translations": null,
+    "content_translations": {
+      "meaning": {
+        "de": "pp-Laut (gespannt)"
+      }
+    },
     "group": "consonants",
     "order": 17,
     "name": "pp",
@@ -431,7 +467,11 @@
     "audioUrl": null,
     "language_id": 3,
     "script_id": null,
-    "content_translations": null,
+    "content_translations": {
+      "meaning": {
+        "de": "s-Laut, Konsonant"
+      }
+    },
     "group": "consonants",
     "order": 7,
     "name": "s",
@@ -475,7 +515,11 @@
     "audioUrl": null,
     "language_id": 3,
     "script_id": null,
-    "content_translations": null,
+    "content_translations": {
+      "meaning": {
+        "de": "ss-Laut (gespannt)"
+      }
+    },
     "group": "consonants",
     "order": 18,
     "name": "ss",
@@ -519,7 +563,11 @@
     "audioUrl": null,
     "language_id": 3,
     "script_id": null,
-    "content_translations": null,
+    "content_translations": {
+      "meaning": {
+        "de": "stumm/ng-Laut, Konsonant"
+      }
+    },
     "group": "consonants",
     "order": 8,
     "name": "silent/ng",
@@ -563,7 +611,11 @@
     "audioUrl": null,
     "language_id": 3,
     "script_id": null,
-    "content_translations": null,
+    "content_translations": {
+      "meaning": {
+        "de": "j-Laut, Konsonant"
+      }
+    },
     "group": "consonants",
     "order": 9,
     "name": "j",
@@ -607,7 +659,11 @@
     "audioUrl": null,
     "language_id": 3,
     "script_id": null,
-    "content_translations": null,
+    "content_translations": {
+      "meaning": {
+        "de": "jj-Laut (gespannt)"
+      }
+    },
     "group": "consonants",
     "order": 19,
     "name": "jj",
@@ -651,7 +707,11 @@
     "audioUrl": null,
     "language_id": 3,
     "script_id": null,
-    "content_translations": null,
+    "content_translations": {
+      "meaning": {
+        "de": "ch-Laut, Konsonant"
+      }
+    },
     "group": "consonants",
     "order": 10,
     "name": "ch",
@@ -695,7 +755,11 @@
     "audioUrl": null,
     "language_id": 3,
     "script_id": null,
-    "content_translations": null,
+    "content_translations": {
+      "meaning": {
+        "de": "k-Laut (aspiriert)"
+      }
+    },
     "group": "consonants",
     "order": 11,
     "name": "k",
@@ -739,7 +803,11 @@
     "audioUrl": null,
     "language_id": 3,
     "script_id": null,
-    "content_translations": null,
+    "content_translations": {
+      "meaning": {
+        "de": "t-Laut (aspiriert)"
+      }
+    },
     "group": "consonants",
     "order": 12,
     "name": "t",
@@ -783,7 +851,11 @@
     "audioUrl": null,
     "language_id": 3,
     "script_id": null,
-    "content_translations": null,
+    "content_translations": {
+      "meaning": {
+        "de": "p-Laut (aspiriert)"
+      }
+    },
     "group": "consonants",
     "order": 13,
     "name": "p",
@@ -827,7 +899,11 @@
     "audioUrl": null,
     "language_id": 3,
     "script_id": null,
-    "content_translations": null,
+    "content_translations": {
+      "meaning": {
+        "de": "h-Laut"
+      }
+    },
     "group": "consonants",
     "order": 14,
     "name": "h",
@@ -871,7 +947,11 @@
     "audioUrl": null,
     "language_id": 3,
     "script_id": null,
-    "content_translations": null,
+    "content_translations": {
+      "meaning": {
+        "de": "a-Laut"
+      }
+    },
     "group": "vowels",
     "order": 20,
     "name": "a",
@@ -920,7 +1000,11 @@
     "audioUrl": null,
     "language_id": 3,
     "script_id": null,
-    "content_translations": null,
+    "content_translations": {
+      "meaning": {
+        "de": "ae-Laut (Vokal)"
+      }
+    },
     "group": "vowels",
     "order": 21,
     "name": "ae",
@@ -969,7 +1053,11 @@
     "audioUrl": null,
     "language_id": 3,
     "script_id": null,
-    "content_translations": null,
+    "content_translations": {
+      "meaning": {
+        "de": "ya-Laut (Vokal)"
+      }
+    },
     "group": "vowels",
     "order": 22,
     "name": "ya",
@@ -1018,7 +1106,11 @@
     "audioUrl": null,
     "language_id": 3,
     "script_id": null,
-    "content_translations": null,
+    "content_translations": {
+      "meaning": {
+        "de": "yae-Laut (Vokal)"
+      }
+    },
     "group": "vowels",
     "order": 23,
     "name": "yae",
@@ -1066,7 +1158,11 @@
     "audioUrl": null,
     "language_id": 3,
     "script_id": null,
-    "content_translations": null,
+    "content_translations": {
+      "meaning": {
+        "de": "eo-Laut (Vokal)"
+      }
+    },
     "group": "vowels",
     "order": 24,
     "name": "eo",
@@ -1115,7 +1211,11 @@
     "audioUrl": null,
     "language_id": 3,
     "script_id": null,
-    "content_translations": null,
+    "content_translations": {
+      "meaning": {
+        "de": "e-Laut (Vokal)"
+      }
+    },
     "group": "vowels",
     "order": 25,
     "name": "e",
@@ -1164,7 +1264,11 @@
     "audioUrl": null,
     "language_id": 3,
     "script_id": null,
-    "content_translations": null,
+    "content_translations": {
+      "meaning": {
+        "de": "yeo-Laut (Vokal)"
+      }
+    },
     "group": "vowels",
     "order": 26,
     "name": "yeo",
@@ -1213,7 +1317,11 @@
     "audioUrl": null,
     "language_id": 3,
     "script_id": null,
-    "content_translations": null,
+    "content_translations": {
+      "meaning": {
+        "de": "ye-Laut (Vokal)"
+      }
+    },
     "group": "vowels",
     "order": 27,
     "name": "ye",
@@ -1261,7 +1369,11 @@
     "audioUrl": null,
     "language_id": 3,
     "script_id": null,
-    "content_translations": null,
+    "content_translations": {
+      "meaning": {
+        "de": "o-Laut (Vokal)"
+      }
+    },
     "group": "vowels",
     "order": 28,
     "name": "o",
@@ -1310,7 +1422,11 @@
     "audioUrl": null,
     "language_id": 3,
     "script_id": null,
-    "content_translations": null,
+    "content_translations": {
+      "meaning": {
+        "de": "wa-Laut (Vokal)"
+      }
+    },
     "group": "vowels",
     "order": 29,
     "name": "wa",
@@ -1359,7 +1475,11 @@
     "audioUrl": null,
     "language_id": 3,
     "script_id": null,
-    "content_translations": null,
+    "content_translations": {
+      "meaning": {
+        "de": "wae-Laut (Vokal)"
+      }
+    },
     "group": "vowels",
     "order": 30,
     "name": "wae",
@@ -1403,7 +1523,11 @@
     "audioUrl": null,
     "language_id": 3,
     "script_id": null,
-    "content_translations": null,
+    "content_translations": {
+      "meaning": {
+        "de": "oe-Laut (Vokal)"
+      }
+    },
     "group": "vowels",
     "order": 31,
     "name": "oe",
@@ -1447,7 +1571,11 @@
     "audioUrl": null,
     "language_id": 3,
     "script_id": null,
-    "content_translations": null,
+    "content_translations": {
+      "meaning": {
+        "de": "yo-Laut (Vokal)"
+      }
+    },
     "group": "vowels",
     "order": 32,
     "name": "yo",
@@ -1491,7 +1619,11 @@
     "audioUrl": null,
     "language_id": 3,
     "script_id": null,
-    "content_translations": null,
+    "content_translations": {
+      "meaning": {
+        "de": "u-Laut (Vokal)"
+      }
+    },
     "group": "vowels",
     "order": 33,
     "name": "u",
@@ -1535,7 +1667,11 @@
     "audioUrl": null,
     "language_id": 3,
     "script_id": null,
-    "content_translations": null,
+    "content_translations": {
+      "meaning": {
+        "de": "wo-Laut (Vokal)"
+      }
+    },
     "group": "vowels",
     "order": 34,
     "name": "wo",
@@ -1579,7 +1715,11 @@
     "audioUrl": null,
     "language_id": 3,
     "script_id": null,
-    "content_translations": null,
+    "content_translations": {
+      "meaning": {
+        "de": "we-Laut (Vokal)"
+      }
+    },
     "group": "vowels",
     "order": 35,
     "name": "we",
@@ -1623,7 +1763,11 @@
     "audioUrl": null,
     "language_id": 3,
     "script_id": null,
-    "content_translations": null,
+    "content_translations": {
+      "meaning": {
+        "de": "wi-Laut (Vokal)"
+      }
+    },
     "group": "vowels",
     "order": 36,
     "name": "wi",
@@ -1667,7 +1811,11 @@
     "audioUrl": null,
     "language_id": 3,
     "script_id": null,
-    "content_translations": null,
+    "content_translations": {
+      "meaning": {
+        "de": "yu-Laut (Vokal)"
+      }
+    },
     "group": "vowels",
     "order": 37,
     "name": "yu",
@@ -1708,7 +1856,11 @@
     "audioUrl": null,
     "language_id": 3,
     "script_id": null,
-    "content_translations": null,
+    "content_translations": {
+      "meaning": {
+        "de": "eu-Laut (Vokal)"
+      }
+    },
     "group": "vowels",
     "order": 38,
     "name": "eu",
@@ -1752,7 +1904,11 @@
     "audioUrl": null,
     "language_id": 3,
     "script_id": null,
-    "content_translations": null,
+    "content_translations": {
+      "meaning": {
+        "de": "ui-Laut (Vokal)"
+      }
+    },
     "group": "vowels",
     "order": 39,
     "name": "ui",
@@ -1793,7 +1949,11 @@
     "audioUrl": null,
     "language_id": 3,
     "script_id": null,
-    "content_translations": null,
+    "content_translations": {
+      "meaning": {
+        "de": "i-Laut (Vokal)"
+      }
+    },
     "group": "vowels",
     "order": 40,
     "name": "i",

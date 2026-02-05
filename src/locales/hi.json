@@ -321,7 +321,9 @@
       "goodEvening": "शुभ संध्या",
       "goodNight": "शुभ रात्रि"
     },
-    "notifications": "सूचनाएं"
+    "notifications": "सूचनाएं",
+    "placementTest": "स्तर निर्धारण परीक्षण",
+    "pronunciation": "उच्चारण"
   },
   "stats": {
     "correct": "सही",
@@ -633,7 +635,8 @@
       "learning": "सीखना",
       "practice": "अभ्यास",
       "stop": "रोकें",
-      "tapToContinueHint": "जारी रखने के लिए टैप या स्वाइप करें"
+      "tapToContinueHint": "जारी रखने के लिए टैप या स्वाइप करें",
+      "pronunciation": "उच्चारण"
     },
     "vocabulary": {
       "examples": "उदाहरण"
@@ -644,7 +647,14 @@
       "hideExplanation": "स्पष्टीकरण छिपाएं",
       "showExplanation": "स्पष्टीकरण दिखाएं",
       "iUnderstand": "मैं समझ गया",
-      "formation": "गठन"
+      "formation": "गठन",
+      "negativeForm": "नकारात्मक रूप",
+      "questionForm": "प्रश्नवाचक रूप",
+      "conjugation": "रूपांतरण",
+      "whenToUse": "कब उपयोग करें",
+      "commonMistakes": "सामान्य गलतियाँ",
+      "whatNotToSay": "क्या नहीं कहना चाहिए",
+      "relatedPatterns": "संबंधित पैटर्न"
     },
     "character": {
       "strokeOrder": "स्ट्रोक क्रम",
@@ -684,6 +694,13 @@
     "lockedDescription": "इसे अनलॉक करने के लिए पिछले पाठ पूरे करें।",
     "exercise": {
       "completeExercise": "अभ्यास पूरा करें"
+    },
+    "pronunciation": {
+      "noDrills": "उच्चारण अभ्यास नहीं हैं",
+      "noDrillsDesc": "इस पाठ में उच्चारण अभ्यास शामिल नहीं हैं।",
+      "continueToExercises": "अभ्यासों पर जाएँ",
+      "unknownDrillType": "अज्ञात उच्चारण अभ्यास प्रकार।",
+      "skip": "छोड़ें"
     }
   },
   "exercises": {
@@ -699,7 +716,8 @@
       "quitConfirmMessage": "इस सत्र में आपकी प्रगति खो जाएगी।",
       "confirmQuit": "छोड़ें",
       "cancel": "रद्द करें",
-      "unsupported": "अभ्यास प्रकार अभी समर्थित नहीं है"
+      "unsupported": "अभ्यास प्रकार अभी समर्थित नहीं है",
+      "incorrectTryAgain": "गलत। फिर से कोशिश करें।"
     },
     "matching": {
       "success": "सभी जोड़े सही मिले!",

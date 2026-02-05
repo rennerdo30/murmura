@@ -1,7 +1,7 @@
 .timerRing {
     position: absolute;
-    top: 2rem;
-    right: 2rem;
+    top: 1.5rem;
+    right: 1.5rem;
     width: 54px;
     height: 54px;
     display: flex;
@@ -44,3 +44,15 @@
     font-family: 'Zen Kaku Gothic New', sans-serif;
 }
 
+@media (max-width: 480px) {
+    .timerRing {
+        top: 0.75rem;
+        right: 0.75rem;
+        width: 46px;
+        height: 46px;
+    }
+
+    .timerText {
+        font-size: 0.78rem;
+    }
+}

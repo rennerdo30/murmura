@@ -69,10 +69,10 @@ export function getUserId(): string {
     return userId;
 }
 
-// Get default data structure
-function getDefaultData(): StorageData {
+// Create default data structure (shared between localStorage and Convex)
+export function createDefaultStorageData(userId: string | null): StorageData {
     return {
-        userId: getUserId(),
+        userId,
         modules: {
             alphabet: {
                 learned: [],
@@ -124,7 +124,9 @@ function getDefaultData(): StorageData {
                     streak: 0,
                     textsRead: 0,
                     comprehensionScore: 0,
-                    totalAttempts: 0
+                    totalAttempts: 0,
+                    comprehensionTotal: 0,
+                    comprehensionCorrect: 0
                 },
                 completed: []
             },
@@ -147,6 +149,11 @@ function getDefaultData(): StorageData {
             createdAt: Date.now()
         }
     };
+}
+
+// Get default data structure for localStorage
+function getDefaultData(): StorageData {
+    return createDefaultStorageData(getUserId());
 }
 
 // Get all stored data

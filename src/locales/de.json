@@ -321,7 +321,9 @@
       "goodEvening": "Guten Abend",
       "goodNight": "Gute Nacht"
     },
-    "notifications": "Benachrichtigungen"
+    "notifications": "Benachrichtigungen",
+    "placementTest": "Einstufungstest",
+    "pronunciation": "Aussprache"
   },
   "stats": {
     "correct": "Richtig",
@@ -633,7 +635,8 @@
       "learning": "Lernen",
       "practice": "Üben",
       "stop": "Stopp",
-      "tapToContinueHint": "Tippen oder wischen, um fortzufahren"
+      "tapToContinueHint": "Tippen oder wischen, um fortzufahren",
+      "pronunciation": "Aussprache"
     },
     "vocabulary": {
       "examples": "Beispiele"
@@ -644,7 +647,14 @@
       "hideExplanation": "Erklärung ausblenden",
       "showExplanation": "Erklärung anzeigen",
       "iUnderstand": "Ich verstehe",
-      "formation": "Bildung"
+      "formation": "Bildung",
+      "negativeForm": "Negativform",
+      "questionForm": "Frageform",
+      "conjugation": "Konjugation",
+      "whenToUse": "Wann man es verwendet",
+      "commonMistakes": "Haeufige Fehler",
+      "whatNotToSay": "Was man NICHT sagen sollte",
+      "relatedPatterns": "Verwandte Muster"
     },
     "character": {
       "strokeOrder": "Strichreihenfolge",
@@ -684,6 +694,13 @@
     "lockedDescription": "Schließe die vorherigen Lektionen ab, um diese freizuschalten.",
     "exercise": {
       "completeExercise": "Übung abschließen"
+    },
+    "pronunciation": {
+      "noDrills": "Keine Ausspracheuebungen",
+      "noDrillsDesc": "Diese Lektion enthaelt keine Ausspracheuebungen.",
+      "continueToExercises": "Weiter zu den Uebungen",
+      "unknownDrillType": "Unbekannter Typ einer Ausspracheuebung.",
+      "skip": "Ueberspringen"
     }
   },
   "exercises": {
@@ -699,7 +716,8 @@
       "quitConfirmMessage": "Dein Fortschritt in dieser Sitzung geht verloren.",
       "confirmQuit": "Beenden",
       "cancel": "Abbrechen",
-      "unsupported": "Übungstyp noch nicht unterstützt"
+      "unsupported": "Übungstyp noch nicht unterstützt",
+      "incorrectTryAgain": "Falsch. Versuche es erneut."
     },
     "matching": {
       "success": "Alle Paare korrekt zugeordnet!",

@@ -98,3 +98,19 @@
 .submitButton {
   margin-top: 0.5rem;
 }
+
+@media (max-width: 480px) {
+  .container {
+    gap: 1rem;
+  }
+
+  .question {
+    gap: 0.5rem;
+  }
+
+  .option {
+    padding: 0.8rem 0.9rem;
+    font-size: 0.92rem;
+    gap: 0.5rem;
+  }
+}

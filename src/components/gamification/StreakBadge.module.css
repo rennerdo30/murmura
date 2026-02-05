@@ -113,3 +113,27 @@
   --streak-color: #FFD700;
   --streak-bg: rgba(255, 215, 0, 0.1);
 }
+
+@media (max-width: 480px) {
+  .container {
+    gap: 0.5rem;
+  }
+
+  .md .badge {
+    width: 42px;
+    height: 42px;
+  }
+
+  .md .flameIcon {
+    font-size: 1.05rem;
+  }
+
+  .displayText {
+    font-size: 0.9rem;
+  }
+
+  .message,
+  .best {
+    font-size: 0.78rem;
+  }
+}

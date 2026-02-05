@@ -7,6 +7,11 @@
   justify-content: center;
   z-index: 1000;
   animation: fadeIn 0.2s ease;
+  padding:
+    calc(1rem + var(--safe-area-top))
+    calc(1rem + var(--safe-area-right))
+    calc(1rem + var(--safe-area-bottom))
+    calc(1rem + var(--safe-area-left));
 }
 
 @keyframes fadeIn {
@@ -185,4 +190,32 @@
 .tier-diamond {
   --tier-color: #B9F2FF;
   --tier-bg: rgba(185, 242, 255, 0.1);
+}
+
+@media (max-width: 480px) {
+  .modalContainer {
+    width: 100%;
+    max-width: 340px;
+  }
+
+  .card {
+    gap: 1.25rem;
+    padding: 1.5rem 1rem;
+  }
+
+  .closeButton {
+    top: 0.5rem;
+    right: 0.5rem;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 999px;
+  }
+
+  .levelTransition {
+    gap: 1rem;
+  }
+
+  .newLevel {
+    width: 80px;
+    height: 80px;
+  }
 }

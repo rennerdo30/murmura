@@ -321,7 +321,9 @@
       "goodEvening": "Bonsoir",
       "goodNight": "Bonne nuit"
     },
-    "notifications": "Notifications"
+    "notifications": "Notifications",
+    "placementTest": "Test de niveau",
+    "pronunciation": "Prononciation"
   },
   "stats": {
     "correct": "Correct",
@@ -633,7 +635,8 @@
       "learning": "Apprentissage",
       "practice": "Pratique",
       "stop": "Arrêter",
-      "tapToContinueHint": "Tapez ou glissez pour continuer"
+      "tapToContinueHint": "Tapez ou glissez pour continuer",
+      "pronunciation": "Prononciation"
     },
     "vocabulary": {
       "examples": "Exemples"
@@ -644,7 +647,14 @@
       "hideExplanation": "Masquer l'explication",
       "showExplanation": "Afficher l'explication",
       "iUnderstand": "Je comprends",
-      "formation": "Formation"
+      "formation": "Formation",
+      "negativeForm": "Forme negative",
+      "questionForm": "Forme interrogative",
+      "conjugation": "Conjugaison",
+      "whenToUse": "Quand l'utiliser",
+      "commonMistakes": "Erreurs courantes",
+      "whatNotToSay": "Ce qu'il NE faut PAS dire",
+      "relatedPatterns": "Structures associees"
     },
     "character": {
       "strokeOrder": "Ordre des traits",
@@ -684,6 +694,13 @@
     "lockedDescription": "Terminez les leçons précédentes pour débloquer celle-ci.",
     "exercise": {
       "completeExercise": "Terminer l'exercice"
+    },
+    "pronunciation": {
+      "noDrills": "Aucun exercice de prononciation",
+      "noDrillsDesc": "Cette lecon n'inclut pas d'exercices de prononciation.",
+      "continueToExercises": "Continuer vers les exercices",
+      "unknownDrillType": "Type d'exercice de prononciation inconnu.",
+      "skip": "Passer"
     }
   },
   "exercises": {
@@ -699,7 +716,8 @@
       "quitConfirmMessage": "Votre progression dans cette session sera perdue.",
       "confirmQuit": "Quitter",
       "cancel": "Annuler",
-      "unsupported": "Type d'exercice non pris en charge pour l'instant"
+      "unsupported": "Type d'exercice non pris en charge pour l'instant",
+      "incorrectTryAgain": "Incorrect. Reessaie."
     },
     "matching": {
       "success": "Toutes les paires correctement associées !",

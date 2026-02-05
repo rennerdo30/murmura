@@ -5,11 +5,13 @@
       "type": "linear",
       "name": "N5 Elementary",
       "nameTranslations": {
-        "de": "N5 Grundstufe"
+        "de": "N5 Grundstufe",
+        "pt": "N5 Básico"
       },
       "description": "Complete N5 course with 6 units",
       "descriptionTranslations": {
-        "de": "Vollständiger N5-Kurs"
+        "de": "Vollständiger N5-Kurs",
+        "pt": "Curso completo de nível N5"
       },
       "icon": "graduation",
       "language": "ja",
@@ -21,11 +23,13 @@
           "level": "N5",
           "name": "Foundation & Self-Introduction",
           "nameTranslations": {
-            "de": "Grundlagen & Selbstvorstellung"
+            "de": "Grundlagen & Selbstvorstellung",
+            "pt": "Fundamentos e Autoapresentação"
           },
           "description": "After completing this unit, students will be able to read and write hiragana and katakana, introduce themselves with basic personal information, use appropriate greetings in different situations, and understand the fundamental sentence structure using です and basic particles は and が.",
           "descriptionTranslations": {
-            "de": "Nach Abschluss dieser Einheit können die Lernenden Hiragana und Katakana lesen und schreiben, sich mit grundlegenden persönlichen Informationen vorstellen, angemessene Grußformeln in verschiedenen Situationen verwenden und die grundlegende Satzstruktur mit です und den Basisteilchen は und が verstehen."
+            "de": "Nach Abschluss dieser Einheit können die Lernenden Hiragana und Katakana lesen und schreiben, sich mit grundlegenden persönlichen Informationen vorstellen, angemessene Grußformeln in verschiedenen Situationen verwenden und die grundlegende Satzstruktur mit です und den Basisteilchen は und が verstehen.",
+            "pt": "Após concluir esta unidade, os alunos serão capazes de ler e escrever hiragana e katakana, apresentar-se com informações pessoais básicas, usar saudações apropriadas em diferentes situações e compreender a estrutura fundamental das frases usando です e as partículas básicas は e が."
           },
           "module": "lessons",
           "requirement": {
@@ -46,11 +50,13 @@
           "level": "N5",
           "name": "Time & Daily Routines",
           "nameTranslations": {
-            "de": "Zeit & Tagesroutine"
+            "de": "Zeit & Tagesroutine",
+            "pt": "Tempo e Rotinas Diárias"
           },
           "description": "After completing this unit, students will be able to tell time, describe daily activities using polite verb forms, explain when things happen using time expressions with に particle, connect activities using て-form, and give a complete description of their daily routine.",
           "descriptionTranslations": {
-            "de": "Nach Abschluss dieser Einheit können die Lernenden die Uhrzeit angeben, tägliche Aktivitäten mit höflichen Verbformen beschreiben, erklären wann etwas passiert unter Verwendung von Zeitausdrücken mit dem Teilchen に, Aktivitäten mit der て-Form verbinden und eine vollständige Beschreibung ihrer Tagesroutine geben."
+            "de": "Nach Abschluss dieser Einheit können die Lernenden die Uhrzeit angeben, tägliche Aktivitäten mit höflichen Verbformen beschreiben, erklären wann etwas passiert unter Verwendung von Zeitausdrücken mit dem Teilchen に, Aktivitäten mit der て-Form verbinden und eine vollständige Beschreibung ihrer Tagesroutine geben.",
+            "pt": "Após concluir esta unidade, os alunos serão capazes de dizer as horas, descrever atividades diárias usando formas verbais polidas, explicar quando as coisas acontecem usando expressões de tempo com a partícula に, conectar atividades usando a forma て e fazer uma descrição completa de sua rotina diária."
           },
           "module": "lessons",
           "requirement": {
@@ -70,11 +76,13 @@
           "level": "N5",
           "name": "Family & Describing People",
           "nameTranslations": {
-            "de": "Familie & Personenbeschreibung"
+            "de": "Familie & Personenbeschreibung",
+            "pt": "Família e Descrição de Pessoas"
           },
           "description": "After completing this unit, students will be able to describe their family members using basic adjectives, explain where people are located, and engage in simple conversations about families and personal characteristics using the possessive particle の and existence verbs いる/ある.",
           "descriptionTranslations": {
-            "de": "Nach Abschluss dieser Einheit können die Lernenden ihre Familienmitglieder mit grundlegenden Adjektiven beschreiben, erklären wo sich Personen befinden und einfache Gespräche über Familien und persönliche Eigenschaften führen unter Verwendung des Possessivteilchens の und der Existenzverben いる/ある."
+            "de": "Nach Abschluss dieser Einheit können die Lernenden ihre Familienmitglieder mit grundlegenden Adjektiven beschreiben, erklären wo sich Personen befinden und einfache Gespräche über Familien und persönliche Eigenschaften führen unter Verwendung des Possessivteilchens の und der Existenzverben いる/ある.",
+            "pt": "Após concluir esta unidade, os alunos serão capazes de descrever seus familiares usando adjetivos básicos, explicar onde as pessoas estão localizadas e participar de conversas simples sobre famílias e características pessoais usando a partícula de posse の e os verbos de existência いる/ある."
           },
           "module": "lessons",
           "requirement": {
@@ -93,11 +101,13 @@
           "level": "N5",
           "name": "Shopping & Food",
           "nameTranslations": {
-            "de": "Einkaufen & Essen"
+            "de": "Einkaufen & Essen",
+            "pt": "Compras e Alimentação"
           },
           "description": "After completing this unit, students will be able to navigate basic shopping and dining situations in Japanese, including ordering food, asking for prices, making purchases, and expressing food preferences using polite request forms and appropriate particles.",
           "descriptionTranslations": {
-            "de": "Nach Abschluss dieser Einheit können die Lernenden grundlegende Einkaufs- und Esssituationen auf Japanisch bewältigen, einschließlich Essen bestellen, nach Preisen fragen, Einkäufe tätigen und Essenspräferenzen ausdrücken unter Verwendung höflicher Bittformen und angemessener Teilchen."
+            "de": "Nach Abschluss dieser Einheit können die Lernenden grundlegende Einkaufs- und Esssituationen auf Japanisch bewältigen, einschließlich Essen bestellen, nach Preisen fragen, Einkäufe tätigen und Essenspräferenzen ausdrücken unter Verwendung höflicher Bittformen und angemessener Teilchen.",
+            "pt": "Após concluir esta unidade, os alunos serão capazes de lidar com situações básicas de compras e refeições em japonês, incluindo pedir comida, perguntar preços, fazer compras e expressar preferências alimentares usando formas de pedido polidas e partículas apropriadas."
           },
           "module": "lessons",
           "requirement": {
@@ -117,11 +127,13 @@
           "level": "N5",
           "name": "Places & Transportation",
           "nameTranslations": {
-            "de": "Orte & Verkehrsmittel"
+            "de": "Orte & Verkehrsmittel",
+            "pt": "Lugares e Transporte"
           },
           "description": "After completing this unit, students will be able to navigate conversations about places and transportation, describe past travel experiences, and ask for or give basic directions using appropriate particles and past tense forms.",
           "descriptionTranslations": {
-            "de": "Nach Abschluss dieser Einheit können die Lernenden Gespräche über Orte und Verkehrsmittel führen, vergangene Reiseerfahrungen beschreiben und grundlegende Wegbeschreibungen erfragen oder geben unter Verwendung angemessener Teilchen und Vergangenheitsformen."
+            "de": "Nach Abschluss dieser Einheit können die Lernenden Gespräche über Orte und Verkehrsmittel führen, vergangene Reiseerfahrungen beschreiben und grundlegende Wegbeschreibungen erfragen oder geben unter Verwendung angemessener Teilchen und Vergangenheitsformen.",
+            "pt": "Após concluir esta unidade, os alunos serão capazes de participar de conversas sobre lugares e transporte, descrever experiências de viagens passadas e pedir ou dar direções básicas usando partículas apropriadas e formas do tempo passado."
           },
           "module": "lessons",
           "requirement": {
@@ -140,11 +152,13 @@
           "level": "N5",
           "name": "Integrated Communication",
           "nameTranslations": {
-            "de": "Integrierte Kommunikation"
+            "de": "Integrierte Kommunikation",
+            "pt": "Comunicação Integrada"
           },
           "description": "After completing this unit, students will be able to participate confidently in everyday conversations, ask detailed questions, connect ideas naturally, adjust politeness levels appropriately, and integrate all N5-level grammar and vocabulary in real communication scenarios.",
           "descriptionTranslations": {
-            "de": "Nach Abschluss dieser Einheit können die Lernenden selbstbewusst an alltäglichen Gesprächen teilnehmen, detaillierte Fragen stellen, Ideen natürlich verbinden, Höflichkeitsebenen angemessen anpassen und alle N5-Level Grammatik und Vokabular in echten Kommunikationssituationen integrieren."
+            "de": "Nach Abschluss dieser Einheit können die Lernenden selbstbewusst an alltäglichen Gesprächen teilnehmen, detaillierte Fragen stellen, Ideen natürlich verbinden, Höflichkeitsebenen angemessen anpassen und alle N5-Level Grammatik und Vokabular in echten Kommunikationssituationen integrieren.",
+            "pt": "Após concluir esta unidade, os alunos serão capazes de participar com confiança em conversas cotidianas, fazer perguntas detalhadas, conectar ideias de forma natural, ajustar os níveis de polidez apropriadamente e integrar toda a gramática e vocabulário do nível N5 em cenários reais de comunicação."
           },
           "module": "lessons",
           "requirement": {
@@ -165,11 +179,13 @@
       "type": "linear",
       "name": "N4 Elementary-Intermediate",
       "nameTranslations": {
-        "de": "N4 Grundstufe-Mittelstufe"
+        "de": "N4 Grundstufe-Mittelstufe",
+        "pt": "N4 Básico-Intermediário"
       },
       "description": "Complete N4 course with 7 units",
       "descriptionTranslations": {
-        "de": "Vollständiger N4-Kurs"
+        "de": "Vollständiger N4-Kurs",
+        "pt": "Curso completo de nível N4"
       },
       "icon": "book",
       "language": "ja",
@@ -181,11 +197,13 @@
           "level": "N4",
           "name": "Abilities & Potential",
           "nameTranslations": {
-            "de": "Fähigkeiten & Potenzial"
+            "de": "Fähigkeiten & Potenzial",
+            "pt": "Habilidades e Potencial"
           },
           "description": "After completing this unit, students will be able to express their abilities using potential form, describe what they are good or bad at, use basic plain form in casual contexts, and have conversations about talents and skills.",
           "descriptionTranslations": {
-            "de": "Nach Abschluss dieser Einheit können die Lernenden ihre Fähigkeiten mit der Potenzialform ausdrücken, beschreiben worin sie gut oder schlecht sind, grundlegende Normalform in lockeren Kontexten verwenden und Gespräche über Talente und Fertigkeiten führen."
+            "de": "Nach Abschluss dieser Einheit können die Lernenden ihre Fähigkeiten mit der Potenzialform ausdrücken, beschreiben worin sie gut oder schlecht sind, grundlegende Normalform in lockeren Kontexten verwenden und Gespräche über Talente und Fertigkeiten führen.",
+            "pt": "Após concluir esta unidade, os alunos serão capazes de expressar suas habilidades usando a forma potencial, descrever o que fazem bem ou mal, usar a forma simples básica em contextos casuais e ter conversas sobre talentos e aptidões."
           },
           "module": "lessons",
           "requirement": {
@@ -205,11 +223,13 @@
           "level": "N4",
           "name": "Plans & Intentions",
           "nameTranslations": {
-            "de": "Pläne & Absichten"
+            "de": "Pläne & Absichten",
+            "pt": "Planos e Intenções"
           },
           "description": "After completing this unit, students will be able to express various types of future intentions and plans, discuss weather-related activities, make suggestions using the volitional form, and engage in natural conversations about scheduling and planning activities with Japanese speakers.",
           "descriptionTranslations": {
-            "de": "Nach Abschluss dieser Einheit können die Lernenden verschiedene Arten von zukünftigen Absichten und Plänen ausdrücken, wetterbezogene Aktivitäten besprechen, Vorschläge mit der Volitionalform machen und natürliche Gespräche über Terminplanung und Aktivitätenplanung mit japanischen Sprechern führen."
+            "de": "Nach Abschluss dieser Einheit können die Lernenden verschiedene Arten von zukünftigen Absichten und Plänen ausdrücken, wetterbezogene Aktivitäten besprechen, Vorschläge mit der Volitionalform machen und natürliche Gespräche über Terminplanung und Aktivitätenplanung mit japanischen Sprechern führen.",
+            "pt": "Após concluir esta unidade, os alunos serão capazes de expressar vários tipos de intenções e planos futuros, discutir atividades relacionadas ao clima, fazer sugestões usando a forma volitiva e participar de conversas naturais sobre agendamento e planejamento de atividades com falantes de japonês."
           },
           "module": "lessons",
           "requirement": {
@@ -228,11 +248,13 @@
           "level": "N4",
           "name": "Health & Conditions",
           "nameTranslations": {
-            "de": "Gesundheit & Befinden"
+            "de": "Gesundheit & Befinden",
+            "pt": "Saúde e Condições"
           },
           "description": "After completing this unit, students will be able to describe physical symptoms and health conditions, give and receive health advice using conditional expressions, and participate in basic medical consultations with appropriate vocabulary and grammar structures.",
           "descriptionTranslations": {
-            "de": "Nach Abschluss dieser Einheit können die Lernenden körperliche Symptome und Gesundheitszustände beschreiben, Gesundheitsratschläge mit konditionalen Ausdrücken geben und erhalten und an grundlegenden medizinischen Beratungen mit angemessenem Vokabular und Grammatikstrukturen teilnehmen."
+            "de": "Nach Abschluss dieser Einheit können die Lernenden körperliche Symptome und Gesundheitszustände beschreiben, Gesundheitsratschläge mit konditionalen Ausdrücken geben und erhalten und an grundlegenden medizinischen Beratungen mit angemessenem Vokabular und Grammatikstrukturen teilnehmen.",
+            "pt": "Após concluir esta unidade, os alunos serão capazes de descrever sintomas físicos e condições de saúde, dar e receber conselhos de saúde usando expressões condicionais e participar de consultas médicas básicas com vocabulário e estruturas gramaticais apropriadas."
           },
           "module": "lessons",
           "requirement": {
@@ -252,11 +274,13 @@
           "level": "N4",
           "name": "School & Education",
           "nameTranslations": {
-            "de": "Schule & Bildung"
+            "de": "Schule & Bildung",
+            "pt": "Escola e Educação"
           },
           "description": "After completing this unit, students will be able to describe their educational background, discuss school subjects and activities, express academic experiences using relative clauses and experience patterns, and communicate about educational goals and plans. They will have developed vocabulary for academic contexts and can use complex grammatical structures to modify nouns and express various temporal relationships in educational settings.",
           "descriptionTranslations": {
-            "de": "Nach Abschluss dieser Einheit können die Lernenden ihren Bildungshintergrund beschreiben, Schulfächer und Aktivitäten besprechen, schulische Erfahrungen mit Relativsätzen und Erfahrungsmustern ausdrücken und über Bildungsziele und -pläne kommunizieren. Sie haben Vokabular für akademische Kontexte entwickelt und können komplexe grammatikalische Strukturen verwenden, um Nomen zu modifizieren und verschiedene zeitliche Beziehungen in Bildungskontexten auszudrücken."
+            "de": "Nach Abschluss dieser Einheit können die Lernenden ihren Bildungshintergrund beschreiben, Schulfächer und Aktivitäten besprechen, schulische Erfahrungen mit Relativsätzen und Erfahrungsmustern ausdrücken und über Bildungsziele und -pläne kommunizieren. Sie haben Vokabular für akademische Kontexte entwickelt und können komplexe grammatikalische Strukturen verwenden, um Nomen zu modifizieren und verschiedene zeitliche Beziehungen in Bildungskontexten auszudrücken.",
+            "pt": "Após concluir esta unidade, os alunos serão capazes de descrever sua trajetória educacional, discutir disciplinas e atividades escolares, expressar experiências acadêmicas usando orações relativas e padrões de experiência, e comunicar-se sobre objetivos e planos educacionais. Eles terão desenvolvido vocabulário para contextos acadêmicos e poderão usar estruturas gramaticais complexas para modificar substantivos e expressar várias relações temporais em ambientes educacionais."
           },
           "module": "lessons",
           "requirement": {
@@ -275,11 +299,13 @@
           "level": "N4",
           "name": "Giving & Receiving",
           "nameTranslations": {
-            "de": "Geben & Nehmen"
+            "de": "Geben & Nehmen",
+            "pt": "Dar e Receber"
           },
           "description": "After completing this unit, students will be able to express giving and receiving actions appropriately based on social hierarchy, request and offer help using various politeness levels, and engage in natural conversations involving favors and social courtesy.",
           "descriptionTranslations": {
-            "de": "Nach Abschluss dieser Lektion können die Studierenden Handlungen des Gebens und Nehmens entsprechend der sozialen Hierarchie angemessen ausdrücken, um Hilfe bitten und Hilfe anbieten unter Verwendung verschiedener Höflichkeitsebenen, und an natürlichen Gesprächen teilnehmen, die Gefälligkeiten und gesellschaftliche Höflichkeit beinhalten."
+            "de": "Nach Abschluss dieser Lektion können die Studierenden Handlungen des Gebens und Nehmens entsprechend der sozialen Hierarchie angemessen ausdrücken, um Hilfe bitten und Hilfe anbieten unter Verwendung verschiedener Höflichkeitsebenen, und an natürlichen Gesprächen teilnehmen, die Gefälligkeiten und gesellschaftliche Höflichkeit beinhalten.",
+            "pt": "Ao completar esta unidade, os alunos serão capazes de expressar ações de dar e receber apropriadamente com base na hierarquia social, solicitar e oferecer ajuda usando vários níveis de polidez, e participar de conversas naturais envolvendo favores e cortesia social."
           },
           "module": "lessons",
           "requirement": {
@@ -299,11 +325,13 @@
           "level": "N4",
           "name": "Travel & Experiences",
           "nameTranslations": {
-            "de": "Reisen & Erfahrungen"
+            "de": "Reisen & Erfahrungen",
+            "pt": "Viagens e Experiências"
           },
           "description": "After completing this unit, students will be able to plan trips, ask for information while traveling, describe past travel experiences using passive voice, and discuss cultural activities and cross-cultural encounters with appropriate politeness levels.",
           "descriptionTranslations": {
-            "de": "Nach Abschluss dieser Lektion können die Studierenden Reisen planen, während des Reisens nach Informationen fragen, vergangene Reiseerfahrungen mit Passiv beschreiben und kulturelle Aktivitäten sowie interkulturelle Begegnungen mit angemessenen Höflichkeitsebenen diskutieren."
+            "de": "Nach Abschluss dieser Lektion können die Studierenden Reisen planen, während des Reisens nach Informationen fragen, vergangene Reiseerfahrungen mit Passiv beschreiben und kulturelle Aktivitäten sowie interkulturelle Begegnungen mit angemessenen Höflichkeitsebenen diskutieren.",
+            "pt": "Ao completar esta unidade, os alunos serão capazes de planejar viagens, pedir informações durante viagens, descrever experiências de viagem passadas usando a voz passiva, e discutir atividades culturais e encontros interculturais com níveis apropriados de polidez."
           },
           "module": "lessons",
           "requirement": {
@@ -322,11 +350,13 @@
           "level": "N4",
           "name": "Changes & Decisions",
           "nameTranslations": {
-            "de": "Veränderungen & Entscheidungen"
+            "de": "Veränderungen & Entscheidungen",
+            "pt": "Mudanças e Decisões"
           },
           "description": "After completing this unit, students will be able to express personal changes using ようになる/なくなる, discuss decisions with ことにする/なる, understand major life transitions, give advice using たほうがいい, and integrate all N4 grammar patterns when talking about changes and decisions in their lives.",
           "descriptionTranslations": {
-            "de": "Nach Abschluss dieser Lektion können die Studierenden persönliche Veränderungen mit ようになる/なくなる ausdrücken, Entscheidungen mit ことにする/なる diskutieren, wichtige Lebensübergänge verstehen, Ratschläge mit たほうがいい geben und alle N4-Grammatikmuster integrieren, wenn sie über Veränderungen und Entscheidungen in ihrem Leben sprechen."
+            "de": "Nach Abschluss dieser Lektion können die Studierenden persönliche Veränderungen mit ようになる/なくなる ausdrücken, Entscheidungen mit ことにする/なる diskutieren, wichtige Lebensübergänge verstehen, Ratschläge mit たほうがいい geben und alle N4-Grammatikmuster integrieren, wenn sie über Veränderungen und Entscheidungen in ihrem Leben sprechen.",
+            "pt": "Ao completar esta unidade, os alunos serão capazes de expressar mudanças pessoais usando ようになる/なくなる, discutir decisões com ことにする/なる, compreender transições de vida importantes, dar conselhos usando たほうがいい, e integrar todos os padrões gramaticais do N4 ao falar sobre mudanças e decisões em suas vidas."
           },
           "module": "lessons",
           "requirement": {
@@ -348,11 +378,13 @@
       "type": "linear",
       "name": "N3 Intermediate",
       "nameTranslations": {
-        "de": "N3 Mittelstufe"
+        "de": "N3 Mittelstufe",
+        "pt": "N3 Intermediário"
       },
       "description": "Complete N3 course with 6 units",
       "descriptionTranslations": {
-        "de": "Vollständiger N3-Kurs"
+        "de": "Vollständiger N3-Kurs",
+        "pt": "Curso completo de nível N3"
       },
       "icon": "star",
       "language": "ja",
@@ -364,11 +396,13 @@
           "level": "N3",
           "name": "Work & Professional Life",
           "nameTranslations": {
-            "de": "Arbeit & Berufsleben"
+            "de": "Arbeit & Berufsleben",
+            "pt": "Trabalho e Vida Profissional"
           },
           "description": "After completing this unit, students will be able to describe work environments and job responsibilities, use basic keigo in professional settings, express work-related obligations and necessity, and participate in simple workplace communications with appropriate politeness levels.",
           "descriptionTranslations": {
-            "de": "Nach Abschluss dieser Lektion können die Studierenden Arbeitsumgebungen und Arbeitsaufgaben beschreiben, grundlegendes Keigo in beruflichen Kontexten verwenden, arbeitsbezogene Verpflichtungen und Notwendigkeiten ausdrücken und an einfachen beruflichen Kommunikationen mit angemessenen Höflichkeitsebenen teilnehmen."
+            "de": "Nach Abschluss dieser Lektion können die Studierenden Arbeitsumgebungen und Arbeitsaufgaben beschreiben, grundlegendes Keigo in beruflichen Kontexten verwenden, arbeitsbezogene Verpflichtungen und Notwendigkeiten ausdrücken und an einfachen beruflichen Kommunikationen mit angemessenen Höflichkeitsebenen teilnehmen.",
+            "pt": "Ao completar esta unidade, os alunos serão capazes de descrever ambientes de trabalho e responsabilidades profissionais, usar keigo básico em contextos profissionais, expressar obrigações e necessidades relacionadas ao trabalho, e participar de comunicações simples no local de trabalho com níveis apropriados de polidez."
           },
           "module": "lessons",
           "requirement": {
@@ -389,11 +423,13 @@
           "level": "N3",
           "name": "Media & Information",
           "nameTranslations": {
-            "de": "Medien & Information"
+            "de": "Medien & Information",
+            "pt": "Mídia e Informação"
           },
           "description": "After completing this unit, students will be able to understand news reports and articles about familiar topics, report information from various sources using appropriate grammar patterns, and discuss the reliability of different media sources while expressing their own opinions about current events.",
           "descriptionTranslations": {
-            "de": "Nach Abschluss dieser Lektion können die Studierenden Nachrichtenberichte und Artikel über vertraute Themen verstehen, Informationen aus verschiedenen Quellen unter Verwendung angemessener Grammatikmuster berichten und die Zuverlässigkeit verschiedener Medienquellen diskutieren, während sie ihre eigenen Meinungen zu aktuellen Ereignissen äußern."
+            "de": "Nach Abschluss dieser Lektion können die Studierenden Nachrichtenberichte und Artikel über vertraute Themen verstehen, Informationen aus verschiedenen Quellen unter Verwendung angemessener Grammatikmuster berichten und die Zuverlässigkeit verschiedener Medienquellen diskutieren, während sie ihre eigenen Meinungen zu aktuellen Ereignissen äußern.",
+            "pt": "Ao completar esta unidade, os alunos serão capazes de compreender notícias e artigos sobre tópicos familiares, relatar informações de várias fontes usando padrões gramaticais apropriados, e discutir a confiabilidade de diferentes fontes de mídia enquanto expressam suas próprias opiniões sobre eventos atuais."
           },
           "module": "lessons",
           "requirement": {
@@ -413,11 +449,13 @@
           "level": "N3",
           "name": "Expectations & Assumptions",
           "nameTranslations": {
-            "de": "Erwartungen & Annahmen"
+            "de": "Erwartungen & Annahmen",
+            "pt": "Expectativas e Suposições"
           },
           "description": "After completing this unit, students will be able to express expectations and predictions confidently, explain circumstances and reasoning clearly, and engage with news media and opinion-based discussions at an intermediate level.",
           "descriptionTranslations": {
-            "de": "Nach Abschluss dieser Lektion können die Studierenden Erwartungen und Vorhersagen selbstbewusst ausdrücken, Umstände und Begründungen klar erklären und sich auf einem mittleren Niveau mit Nachrichtenmedien und meinungsbasierten Diskussionen auseinandersetzen."
+            "de": "Nach Abschluss dieser Lektion können die Studierenden Erwartungen und Vorhersagen selbstbewusst ausdrücken, Umstände und Begründungen klar erklären und sich auf einem mittleren Niveau mit Nachrichtenmedien und meinungsbasierten Diskussionen auseinandersetzen.",
+            "pt": "Ao completar esta unidade, os alunos serão capazes de expressar expectativas e previsões com confiança, explicar circunstâncias e raciocínios de forma clara, e interagir com meios de comunicação e discussões baseadas em opiniões em um nível intermediário."
           },
           "module": "lessons",
           "requirement": {
@@ -436,11 +474,13 @@
           "level": "N3",
           "name": "Social Relationships",
           "nameTranslations": {
-            "de": "Soziale Beziehungen"
+            "de": "Soziale Beziehungen",
+            "pt": "Relacionamentos Sociais"
           },
           "description": "After completing this unit, students will be able to navigate complex social situations, use appropriate levels of politeness, discuss relationship challenges diplomatically, understand group dynamics in Japanese culture, and engage professionally in business networking contexts.",
           "descriptionTranslations": {
-            "de": "Nach Abschluss dieser Lektion können die Studierenden komplexe soziale Situationen meistern, angemessene Höflichkeitsebenen verwenden, Beziehungsherausforderungen diplomatisch diskutieren, Gruppendynamiken in der japanischen Kultur verstehen und professionell in geschäftlichen Networking-Kontexten agieren."
+            "de": "Nach Abschluss dieser Lektion können die Studierenden komplexe soziale Situationen meistern, angemessene Höflichkeitsebenen verwenden, Beziehungsherausforderungen diplomatisch diskutieren, Gruppendynamiken in der japanischen Kultur verstehen und professionell in geschäftlichen Networking-Kontexten agieren.",
+            "pt": "Ao completar esta unidade, os alunos serão capazes de navegar em situações sociais complexas, usar níveis apropriados de polidez, discutir desafios de relacionamento diplomaticamente, compreender dinâmicas de grupo na cultura japonesa e engajar-se profissionalmente em contextos de networking empresarial."
           },
           "module": "lessons",
           "requirement": {
@@ -460,11 +500,13 @@
           "level": "N3",
           "name": "Culture & Traditions",
           "nameTranslations": {
-            "de": "Kultur & Traditionen"
+            "de": "Kultur & Traditionen",
+            "pt": "Cultura e Tradições"
           },
           "description": "After completing this unit, students will be able to describe traditional festivals and customs, compare different cultures meaningfully, explain cultural practices and their social significance, and discuss how traditional values adapt to modern society using advanced grammar patterns for obligation, comparison, and cultural expectations.",
           "descriptionTranslations": {
-            "de": "Nach Abschluss dieser Lektion können die Studierenden traditionelle Festivals und Bräuche beschreiben, verschiedene Kulturen sinnvoll vergleichen, kulturelle Praktiken und ihre gesellschaftliche Bedeutung erklären und diskutieren, wie sich traditionelle Werte an die moderne Gesellschaft anpassen, unter Verwendung fortgeschrittener Grammatikmuster für Verpflichtung, Vergleich und kulturelle Erwartungen."
+            "de": "Nach Abschluss dieser Lektion können die Studierenden traditionelle Festivals und Bräuche beschreiben, verschiedene Kulturen sinnvoll vergleichen, kulturelle Praktiken und ihre gesellschaftliche Bedeutung erklären und diskutieren, wie sich traditionelle Werte an die moderne Gesellschaft anpassen, unter Verwendung fortgeschrittener Grammatikmuster für Verpflichtung, Vergleich und kulturelle Erwartungen.",
+            "pt": "Ao completar esta unidade, os alunos serão capazes de descrever festivais e costumes tradicionais, comparar diferentes culturas de forma significativa, explicar práticas culturais e seu significado social, e discutir como valores tradicionais se adaptam à sociedade moderna usando padrões gramaticais avançados para obrigação, comparação e expectativas culturais."
           },
           "module": "lessons",
           "requirement": {
@@ -483,11 +525,13 @@
           "level": "N3",
           "name": "Abstract Concepts",
           "nameTranslations": {
-            "de": "Abstrakte Konzepte"
+            "de": "Abstrakte Konzepte",
+            "pt": "Conceitos Abstratos"
           },
           "description": "After completing this unit, students will be able to express complex abstract ideas, discuss philosophical and cultural concepts, engage with formal written Japanese, and integrate all N3 grammar patterns for sophisticated communication about intangible topics and future possibilities.",
           "descriptionTranslations": {
-            "de": "Nach Abschluss dieser Lektion können die Studierenden komplexe abstrakte Ideen ausdrücken, philosophische und kulturelle Konzepte diskutieren, sich mit formellem schriftlichem Japanisch auseinandersetzen und alle N3-Grammatikmuster für anspruchsvolle Kommunikation über immaterielle Themen und zukünftige Möglichkeiten integrieren."
+            "de": "Nach Abschluss dieser Lektion können die Studierenden komplexe abstrakte Ideen ausdrücken, philosophische und kulturelle Konzepte diskutieren, sich mit formellem schriftlichem Japanisch auseinandersetzen und alle N3-Grammatikmuster für anspruchsvolle Kommunikation über immaterielle Themen und zukünftige Möglichkeiten integrieren.",
+            "pt": "Ao completar esta unidade, os alunos serão capazes de expressar ideias abstratas complexas, discutir conceitos filosóficos e culturais, envolver-se com japonês escrito formal e integrar todos os padrões gramaticais do N3 para uma comunicação sofisticada sobre tópicos intangíveis e possibilidades futuras."
           },
           "module": "lessons",
           "requirement": {
@@ -510,11 +554,13 @@
       "type": "linear",
       "name": "N2 Upper-Intermediate",
       "nameTranslations": {
-        "de": "N2 Obere Mittelstufe"
+        "de": "N2 Obere Mittelstufe",
+        "pt": "N2 Intermediário Superior"
       },
       "description": "Complete N2 course with 6 units",
       "descriptionTranslations": {
-        "de": "Vollständiger N2-Kurs"
+        "de": "Vollständiger N2-Kurs",
+        "pt": "Curso completo de nível N2"
       },
       "icon": "trophy",
       "language": "ja",
@@ -526,11 +572,13 @@
           "level": "N2",
           "name": "Current Affairs & Society",
           "nameTranslations": {
-            "de": "Aktuelle Ereignisse & Gesellschaft"
+            "de": "Aktuelle Ereignisse & Gesellschaft",
+            "pt": "Atualidades e Sociedade"
           },
           "description": "After completing this unit, students will be able to read and understand newspaper articles, editorials, and government announcements about current social and political issues. They will have mastered formal written Japanese patterns and can express their own opinions on social topics using appropriate register and complex grammatical structures.",
           "descriptionTranslations": {
-            "de": "Nach Abschluss dieser Lektion können die Studierenden Zeitungsartikel, Leitartikel und Regierungsankündigungen zu aktuellen sozialen und politischen Themen lesen und verstehen. Sie haben formelle schriftliche japanische Muster gemeistert und können ihre eigenen Meinungen zu sozialen Themen unter Verwendung angemessener Register und komplexer grammatikalischer Strukturen ausdrücken."
+            "de": "Nach Abschluss dieser Lektion können die Studierenden Zeitungsartikel, Leitartikel und Regierungsankündigungen zu aktuellen sozialen und politischen Themen lesen und verstehen. Sie haben formelle schriftliche japanische Muster gemeistert und können ihre eigenen Meinungen zu sozialen Themen unter Verwendung angemessener Register und komplexer grammatikalischer Strukturen ausdrücken.",
+            "pt": "Ao completar esta unidade, os alunos serão capazes de ler e compreender artigos de jornal, editoriais e anúncios governamentais sobre questões sociais e políticas atuais. Eles terão dominado os padrões formais do japonês escrito e poderão expressar suas próprias opiniões sobre tópicos sociais usando o registro apropriado e estruturas gramaticais complexas."
           },
           "module": "lessons",
           "requirement": {
@@ -551,11 +599,13 @@
           "level": "N2",
           "name": "Academic & Research",
           "nameTranslations": {
-            "de": "Akademisches & Forschung"
+            "de": "Akademisches & Forschung",
+            "pt": "Acadêmico e Pesquisa"
           },
           "description": "After completing this unit, students will be able to read academic texts with understanding, write structured research summaries, express hypotheses and theories formally, and participate in academic discussions using appropriate terminology and formal language patterns.",
           "descriptionTranslations": {
-            "de": "Nach Abschluss dieser Einheit können Studierende akademische Texte verstehend lesen, strukturierte Forschungszusammenfassungen schreiben, Hypothesen und Theorien formal ausdrücken und an akademischen Diskussionen mit angemessener Terminologie und formellen Sprachmustern teilnehmen."
+            "de": "Nach Abschluss dieser Einheit können Studierende akademische Texte verstehend lesen, strukturierte Forschungszusammenfassungen schreiben, Hypothesen und Theorien formal ausdrücken und an akademischen Diskussionen mit angemessener Terminologie und formellen Sprachmustern teilnehmen.",
+            "pt": "Ao concluir esta unidade, os alunos serão capazes de ler textos acadêmicos com compreensão, escrever resumos de pesquisa estruturados, expressar hipóteses e teorias formalmente e participar de discussões acadêmicas usando terminologia apropriada e padrões de linguagem formal."
           },
           "module": "lessons",
           "requirement": {
@@ -575,11 +625,13 @@
           "level": "N2",
           "name": "Business & Economics",
           "nameTranslations": {
-            "de": "Geschäftswelt & Wirtschaft"
+            "de": "Geschäftswelt & Wirtschaft",
+            "pt": "Negócios e Economia"
           },
           "description": "After completing this unit, students will be able to read business newspapers and economic reports, participate in formal business meetings using advanced keigo, understand international trade discussions, and write professional business documents using appropriate formal Japanese expressions.",
           "descriptionTranslations": {
-            "de": "Nach Abschluss dieser Einheit können Studierende Wirtschaftszeitungen und Wirtschaftsberichte lesen, an formellen Geschäftsbesprechungen mit fortgeschrittenem Keigo teilnehmen, internationale Handelsdiskussionen verstehen und professionelle Geschäftsdokumente mit angemessenen formellen japanischen Ausdrücken verfassen."
+            "de": "Nach Abschluss dieser Einheit können Studierende Wirtschaftszeitungen und Wirtschaftsberichte lesen, an formellen Geschäftsbesprechungen mit fortgeschrittenem Keigo teilnehmen, internationale Handelsdiskussionen verstehen und professionelle Geschäftsdokumente mit angemessenen formellen japanischen Ausdrücken verfassen.",
+            "pt": "Ao concluir esta unidade, os alunos serão capazes de ler jornais de negócios e relatórios econômicos, participar de reuniões de negócios formais usando keigo avançado, compreender discussões sobre comércio internacional e escrever documentos de negócios profissionais usando expressões formais japonesas apropriadas."
           },
           "module": "lessons",
           "requirement": {
@@ -599,11 +651,13 @@
           "level": "N2",
           "name": "Science & Technology",
           "nameTranslations": {
-            "de": "Wissenschaft & Technologie"
+            "de": "Wissenschaft & Technologie",
+            "pt": "Ciência e Tecnologia"
           },
           "description": "After completing this unit, students will be able to comprehend scientific articles and technology news, use appropriate academic language to discuss research and innovation, understand environmental science discussions, and participate in formal academic conversations about scientific topics using N2-level grammar patterns and specialized vocabulary.",
           "descriptionTranslations": {
-            "de": "Nach Abschluss dieser Einheit können Studierende wissenschaftliche Artikel und Technologienachrichten verstehen, angemessene akademische Sprache zur Diskussion von Forschung und Innovation verwenden, umweltwissenschaftliche Diskussionen verstehen und an formellen akademischen Gesprächen über wissenschaftliche Themen mit N2-Grammatikmustern und Fachvokabular teilnehmen."
+            "de": "Nach Abschluss dieser Einheit können Studierende wissenschaftliche Artikel und Technologienachrichten verstehen, angemessene akademische Sprache zur Diskussion von Forschung und Innovation verwenden, umweltwissenschaftliche Diskussionen verstehen und an formellen akademischen Gesprächen über wissenschaftliche Themen mit N2-Grammatikmustern und Fachvokabular teilnehmen.",
+            "pt": "Ao concluir esta unidade, os alunos serão capazes de compreender artigos científicos e notícias de tecnologia, usar linguagem acadêmica apropriada para discutir pesquisa e inovação, entender discussões sobre ciências ambientais e participar de conversas acadêmicas formais sobre tópicos científicos usando padrões gramaticais de nível N2 e vocabulário especializado."
           },
           "module": "lessons",
           "requirement": {
@@ -622,11 +676,13 @@
           "level": "N2",
           "name": "Literature & Arts",
           "nameTranslations": {
-            "de": "Literatur & Künste"
+            "de": "Literatur & Künste",
+            "pt": "Literatura e Artes"
           },
           "description": "After completing this unit, students will be able to read and analyze Japanese literary texts, understand artistic terminology and movements, write cultural criticism using formal academic style, and engage in sophisticated discussions about arts and culture using N2-level vocabulary and grammar patterns.",
           "descriptionTranslations": {
-            "de": "Nach Abschluss dieser Einheit können Studierende japanische literarische Texte lesen und analysieren, künstlerische Terminologie und Bewegungen verstehen, Kulturkritik im formellen akademischen Stil schreiben und an anspruchsvollen Diskussionen über Kunst und Kultur mit N2-Vokabular und Grammatikmustern teilnehmen."
+            "de": "Nach Abschluss dieser Einheit können Studierende japanische literarische Texte lesen und analysieren, künstlerische Terminologie und Bewegungen verstehen, Kulturkritik im formellen akademischen Stil schreiben und an anspruchsvollen Diskussionen über Kunst und Kultur mit N2-Vokabular und Grammatikmustern teilnehmen.",
+            "pt": "Ao concluir esta unidade, os alunos serão capazes de ler e analisar textos literários japoneses, compreender terminologia e movimentos artísticos, escrever críticas culturais usando um estilo acadêmico formal e participar de discussões sofisticadas sobre artes e cultura usando vocabulário e padrões gramaticais de nível N2."
           },
           "module": "lessons",
           "requirement": {
@@ -646,11 +702,13 @@
           "level": "N2",
           "name": "Advanced Communication",
           "nameTranslations": {
-            "de": "Fortgeschrittene Kommunikation"
+            "de": "Fortgeschrittene Kommunikation",
+            "pt": "Comunicação Avançada"
           },
           "description": "After completing this unit, students will be able to communicate at a sophisticated professional and academic level, using diplomatic language, advanced honorifics, implicit communication styles, effective presentation skills, and complex negotiation techniques. They will have mastered the nuanced expressions and register variations necessary for high-level Japanese communication in formal contexts.",
           "descriptionTranslations": {
-            "de": "Nach Abschluss dieser Einheit können Studierende auf anspruchsvollem beruflichem und akademischem Niveau kommunizieren, diplomatische Sprache, fortgeschrittene Höflichkeitsformen, implizite Kommunikationsstile, effektive Präsentationsfähigkeiten und komplexe Verhandlungstechniken verwenden. Sie werden die nuancierten Ausdrücke und Registervariationen beherrscht haben, die für hochrangige japanische Kommunikation in formellen Kontexten notwendig sind."
+            "de": "Nach Abschluss dieser Einheit können Studierende auf anspruchsvollem beruflichem und akademischem Niveau kommunizieren, diplomatische Sprache, fortgeschrittene Höflichkeitsformen, implizite Kommunikationsstile, effektive Präsentationsfähigkeiten und komplexe Verhandlungstechniken verwenden. Sie werden die nuancierten Ausdrücke und Registervariationen beherrscht haben, die für hochrangige japanische Kommunikation in formellen Kontexten notwendig sind.",
+            "pt": "Ao concluir esta unidade, os alunos serão capazes de se comunicar em um nível profissional e acadêmico sofisticado, usando linguagem diplomática, honoríficos avançados, estilos de comunicação implícita, habilidades de apresentação eficazes e técnicas complexas de negociação. Eles terão dominado as expressões matizadas e as variações de registro necessárias para a comunicação japonesa de alto nível em contextos formais."
           },
           "module": "lessons",
           "requirement": {
@@ -673,11 +731,13 @@
       "type": "linear",
       "name": "N1 Advanced",
       "nameTranslations": {
-        "de": "N1 Fortgeschritten"
+        "de": "N1 Fortgeschritten",
+        "pt": "N1 Avançado"
       },
       "description": "Complete N1 course with 6 units",
       "descriptionTranslations": {
-        "de": "Vollständiger N1-Kurs"
+        "de": "Vollständiger N1-Kurs",
+        "pt": "Curso completo de nível N1"
       },
       "icon": "crown",
       "language": "ja",
@@ -689,11 +749,13 @@
           "level": "N1",
           "name": "Classical & Literary Japanese",
           "nameTranslations": {
-            "de": "Klassisches & Literarisches Japanisch"
+            "de": "Klassisches & Literarisches Japanisch",
+            "pt": "Japonês Clássico e Literário"
           },
           "description": "After completing this unit, students will be able to recognize and understand classical Japanese patterns that appear in modern literary works, appreciate the cultural and aesthetic significance of traditional language forms, and analyze how classical elements contribute to the richness and depth of contemporary Japanese literature and cultural texts.",
           "descriptionTranslations": {
-            "de": "Nach Abschluss dieser Einheit können Studierende klassische japanische Muster, die in modernen literarischen Werken erscheinen, erkennen und verstehen, die kulturelle und ästhetische Bedeutung traditioneller Sprachformen würdigen und analysieren, wie klassische Elemente zur Reichhaltigkeit und Tiefe zeitgenössischer japanischer Literatur und Kulturtexte beitragen."
+            "de": "Nach Abschluss dieser Einheit können Studierende klassische japanische Muster, die in modernen literarischen Werken erscheinen, erkennen und verstehen, die kulturelle und ästhetische Bedeutung traditioneller Sprachformen würdigen und analysieren, wie klassische Elemente zur Reichhaltigkeit und Tiefe zeitgenössischer japanischer Literatur und Kulturtexte beitragen.",
+            "pt": "Ao concluir esta unidade, os alunos serão capazes de reconhecer e compreender padrões clássicos do japonês que aparecem em obras literárias modernas, apreciar o significado cultural e estético das formas de linguagem tradicionais e analisar como os elementos clássicos contribuem para a riqueza e profundidade da literatura e dos textos culturais japoneses contemporâneos."
           },
           "module": "lessons",
           "requirement": {
@@ -714,11 +776,13 @@
           "level": "N1",
           "name": "Legal & Official Language",
           "nameTranslations": {
-            "de": "Rechts- & Amtssprache"
+            "de": "Rechts- & Amtssprache",
+            "pt": "Linguagem Jurídica e Oficial"
           },
           "description": "After completing this unit, students will be able to navigate the Japanese legal system linguistically, understand official documents, and communicate effectively in formal administrative contexts using appropriate legal and bureaucratic language.",
           "descriptionTranslations": {
-            "de": "Nach Abschluss dieser Einheit können Studierende sich sprachlich im japanischen Rechtssystem zurechtfinden, offizielle Dokumente verstehen und effektiv in formellen Verwaltungskontexten mit angemessener Rechts- und Bürokratiesprache kommunizieren."
+            "de": "Nach Abschluss dieser Einheit können Studierende sich sprachlich im japanischen Rechtssystem zurechtfinden, offizielle Dokumente verstehen und effektiv in formellen Verwaltungskontexten mit angemessener Rechts- und Bürokratiesprache kommunizieren.",
+            "pt": "Ao concluir esta unidade, os alunos serão capazes de navegar linguisticamente no sistema jurídico japonês, compreender documentos oficiais e comunicar-se de forma eficaz em contextos administrativos formais usando linguagem jurídica e burocrática apropriada."
           },
           "module": "lessons",
           "requirement": {
@@ -738,11 +802,13 @@
           "level": "N1",
           "name": "Specialized Fields",
           "nameTranslations": {
-            "de": "Spezialisierte Fachbereiche"
+            "de": "Spezialisierte Fachbereiche",
+            "pt": "Áreas Especializadas"
           },
           "description": "After completing this unit, students will be able to navigate complex specialized texts across multiple professional domains, understand field-specific terminology and conventions, and communicate effectively in expert-level contexts including medical, legal, engineering, and academic fields.",
           "descriptionTranslations": {
-            "de": "Nach Abschluss dieser Einheit können Studierende komplexe spezialisierte Texte aus mehreren beruflichen Bereichen verstehen, fachspezifische Terminologie und Konventionen verstehen und effektiv in Expertenkonzexten kommunizieren, einschließlich medizinischer, rechtlicher, technischer und akademischer Bereiche."
+            "de": "Nach Abschluss dieser Einheit können Studierende komplexe spezialisierte Texte aus mehreren beruflichen Bereichen verstehen, fachspezifische Terminologie und Konventionen verstehen und effektiv in Expertenkonzexten kommunizieren, einschließlich medizinischer, rechtlicher, technischer und akademischer Bereiche.",
+            "pt": "Ao concluir esta unidade, os alunos serão capazes de navegar por textos especializados complexos em múltiplos domínios profissionais, compreender a terminologia e as convenções específicas de cada área e comunicar-se de forma eficaz em contextos de nível especializado, incluindo as áreas médica, jurídica, de engenharia e acadêmica."
           },
           "module": "lessons",
           "requirement": {
@@ -762,11 +828,13 @@
           "level": "N1",
           "name": "Cultural Mastery",
           "nameTranslations": {
-            "de": "Kulturelle Meisterschaft"
+            "de": "Kulturelle Meisterschaft",
+            "pt": "Domínio Cultural"
           },
           "description": "After completing this unit, students will have achieved native-level cultural competency, understanding regional variations, classical influences in modern Japanese, traditional arts terminology, and the subtle art of implicit communication that defines advanced Japanese cultural fluency.",
           "descriptionTranslations": {
-            "de": "Nach Abschluss dieser Einheit haben Studierende muttersprachliche kulturelle Kompetenz erreicht, verstehen regionale Variationen, klassische Einflüsse im modernen Japanisch, traditionelle Kunstterminologie und die subtile Kunst der impliziten Kommunikation, die fortgeschrittene japanische kulturelle Gewandtheit definiert."
+            "de": "Nach Abschluss dieser Einheit haben Studierende muttersprachliche kulturelle Kompetenz erreicht, verstehen regionale Variationen, klassische Einflüsse im modernen Japanisch, traditionelle Kunstterminologie und die subtile Kunst der impliziten Kommunikation, die fortgeschrittene japanische kulturelle Gewandtheit definiert.",
+            "pt": "Ao concluir esta unidade, os alunos terão alcançado uma competência cultural de nível nativo, compreendendo variações regionais, influências clássicas no japonês moderno, terminologia das artes tradicionais e a arte sutil da comunicação implícita que define a fluência cultural japonesa avançada."
           },
           "module": "lessons",
           "requirement": {
@@ -785,11 +853,13 @@
           "level": "N1",
           "name": "Advanced Discourse",
           "nameTranslations": {
-            "de": "Fortgeschrittener Diskurs"
+            "de": "Fortgeschrittener Diskurs",
+            "pt": "Discurso Avançado"
           },
           "description": "After completing this unit, students will be able to engage in sophisticated intellectual discourse, comprehend complex theoretical texts, construct nuanced arguments, critically analyze abstract concepts, participate in high-level debates, and synthesize information from multiple sources for comprehensive understanding.",
           "descriptionTranslations": {
-            "de": "Nach Abschluss dieser Einheit können Studierende an anspruchsvollem intellektuellem Diskurs teilnehmen, komplexe theoretische Texte verstehen, nuancierte Argumente konstruieren, abstrakte Konzepte kritisch analysieren, an hochrangigen Debatten teilnehmen und Informationen aus mehreren Quellen für umfassendes Verständnis synthetisieren."
+            "de": "Nach Abschluss dieser Einheit können Studierende an anspruchsvollem intellektuellem Diskurs teilnehmen, komplexe theoretische Texte verstehen, nuancierte Argumente konstruieren, abstrakte Konzepte kritisch analysieren, an hochrangigen Debatten teilnehmen und Informationen aus mehreren Quellen für umfassendes Verständnis synthetisieren.",
+            "pt": "Ao concluir esta unidade, os alunos serão capazes de se envolver em um discurso intelectual sofisticado, compreender textos teóricos complexos, construir argumentos matizados, analisar criticamente conceitos abstratos, participar de debates de alto nível e sintetizar informações de múltiplas fontes para uma compreensão abrangente."
           },
           "module": "lessons",
           "requirement": {
@@ -810,11 +880,13 @@
           "level": "N1",
           "name": "Native-Level Integration",
           "nameTranslations": {
-            "de": "Native-Level Integration"
+            "de": "Native-Level Integration",
+            "pt": "Integração em Nível Nativo"
           },
           "description": "After completing this unit, students will have achieved native-level integration of Japanese language skills, demonstrating sophisticated understanding of cultural subtext, masterful use of idiomatic expressions, sensitivity to contextual nuances, integration of classical elements, natural communicative rhythm, and comprehensive synthesis of all advanced language competencies for authentic Japanese communication.",
           "descriptionTranslations": {
-            "de": "Nach Abschluss dieser Einheit haben die Lernenden eine muttersprachliche Integration der japanischen Sprachkenntnisse erreicht und demonstrieren ein ausgereiftes Verständnis kultureller Untertöne, meisterhafte Verwendung idiomatischer Ausdrücke, Sensibilität für kontextuelle Nuancen, Integration klassischer Elemente, natürlichen kommunikativen Rhythmus und umfassende Synthese aller fortgeschrittenen Sprachkompetenzen für authentische japanische Kommunikation."
+            "de": "Nach Abschluss dieser Einheit haben die Lernenden eine muttersprachliche Integration der japanischen Sprachkenntnisse erreicht und demonstrieren ein ausgereiftes Verständnis kultureller Untertöne, meisterhafte Verwendung idiomatischer Ausdrücke, Sensibilität für kontextuelle Nuancen, Integration klassischer Elemente, natürlichen kommunikativen Rhythmus und umfassende Synthese aller fortgeschrittenen Sprachkompetenzen für authentische japanische Kommunikation.",
+            "pt": "Após a conclusão desta unidade, os alunos terão alcançado uma integração em nível nativo das competências na língua japonesa, demonstrando uma compreensão sofisticada do subtexto cultural, uso magistral de expressões idiomáticas, sensibilidade a nuances contextuais, integração de elementos clássicos, ritmo comunicativo natural e uma síntese abrangente de todas as competências linguísticas avançadas para uma comunicação autêntica em japonês."
           },
           "module": "lessons",
           "requirement": {

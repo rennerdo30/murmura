@@ -249,3 +249,27 @@
   background: #3a7fc9;
   transform: translateY(-2px);
 }
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0.5rem;
+    gap: 1rem;
+  }
+
+  .wordOptions {
+    gap: 0.5rem;
+    padding: 0.5rem 0;
+  }
+
+  .wordButton {
+    padding: 1rem 0.5rem;
+  }
+
+  .wordText {
+    font-size: 1.1rem;
+  }
+
+  .wordMeaning {
+    font-size: 0.78rem;
+  }
+}

@@ -321,7 +321,9 @@
       "goodEvening": "晚上好",
       "goodNight": "晚安"
     },
-    "notifications": "通知"
+    "notifications": "通知",
+    "placementTest": "分级测试",
+    "pronunciation": "发音"
   },
   "stats": {
     "correct": "正确",
@@ -633,7 +635,8 @@
       "learning": "学习",
       "practice": "练习",
       "stop": "停止",
-      "tapToContinueHint": "点击或滑动继续"
+      "tapToContinueHint": "点击或滑动继续",
+      "pronunciation": "发音"
     },
     "vocabulary": {
       "examples": "示例"
@@ -644,7 +647,14 @@
       "hideExplanation": "隐藏解释",
       "showExplanation": "显示解释",
       "iUnderstand": "我明白了",
-      "formation": "构成"
+      "formation": "构成",
+      "negativeForm": "否定形式",
+      "questionForm": "疑问形式",
+      "conjugation": "变位",
+      "whenToUse": "何时使用",
+      "commonMistakes": "常见错误",
+      "whatNotToSay": "不该说什么",
+      "relatedPatterns": "相关句型"
     },
     "character": {
       "strokeOrder": "笔画顺序",
@@ -684,6 +694,13 @@
     "lockedDescription": "完成前面的课程以解锁此课程。",
     "exercise": {
       "completeExercise": "完成练习"
+    },
+    "pronunciation": {
+      "noDrills": "没有发音练习",
+      "noDrillsDesc": "本课不包含发音练习。",
+      "continueToExercises": "继续做练习",
+      "unknownDrillType": "未知的发音练习类型。",
+      "skip": "跳过"
     }
   },
   "exercises": {
@@ -699,7 +716,8 @@
       "quitConfirmMessage": "此会话中的进度将丢失。",
       "confirmQuit": "退出",
       "cancel": "取消",
-      "unsupported": "暂不支持此练习类型"
+      "unsupported": "暂不支持此练习类型",
+      "incorrectTryAgain": "不正确。请再试一次。"
     },
     "matching": {
       "success": "所有配对正确匹配！",

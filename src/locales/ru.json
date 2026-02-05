@@ -321,7 +321,9 @@
       "goodEvening": "Добрый вечер",
       "goodNight": "Доброй ночи"
     },
-    "notifications": "Уведомления"
+    "notifications": "Уведомления",
+    "placementTest": "Тест на уровень",
+    "pronunciation": "Произношение"
   },
   "stats": {
     "correct": "Правильно",
@@ -633,7 +635,8 @@
       "learning": "Обучение",
       "practice": "Практика",
       "stop": "Остановить",
-      "tapToContinueHint": "Нажмите или проведите, чтобы продолжить"
+      "tapToContinueHint": "Нажмите или проведите, чтобы продолжить",
+      "pronunciation": "Произношение"
     },
     "vocabulary": {
       "examples": "Примеры"
@@ -644,7 +647,14 @@
       "hideExplanation": "Скрыть объяснение",
       "showExplanation": "Показать объяснение",
       "iUnderstand": "Я понимаю",
-      "formation": "Образование"
+      "formation": "Образование",
+      "negativeForm": "Отрицательная форма",
+      "questionForm": "Вопросительная форма",
+      "conjugation": "Спряжение",
+      "whenToUse": "Когда использовать",
+      "commonMistakes": "Распространённые ошибки",
+      "whatNotToSay": "Чего НЕ стоит говорить",
+      "relatedPatterns": "Связанные конструкции"
     },
     "character": {
       "strokeOrder": "Порядок черт",
@@ -684,6 +694,13 @@
     "lockedDescription": "Пройдите предыдущие уроки, чтобы разблокировать этот.",
     "exercise": {
       "completeExercise": "Выполните упражнение"
+    },
+    "pronunciation": {
+      "noDrills": "Нет упражнений на произношение",
+      "noDrillsDesc": "В этом уроке нет упражнений на произношение.",
+      "continueToExercises": "Перейти к упражнениям",
+      "unknownDrillType": "Неизвестный тип упражнения на произношение.",
+      "skip": "Пропустить"
     }
   },
   "exercises": {
@@ -699,7 +716,8 @@
       "quitConfirmMessage": "Ваш прогресс в этой сессии будет потерян.",
       "confirmQuit": "Завершить",
       "cancel": "Отмена",
-      "unsupported": "Тип упражнения пока не поддерживается"
+      "unsupported": "Тип упражнения пока не поддерживается",
+      "incorrectTryAgain": "Неправильно. Попробуйте снова."
     },
     "matching": {
       "success": "Все пары сопоставлены верно!",

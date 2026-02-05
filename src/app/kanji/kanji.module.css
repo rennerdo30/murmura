@@ -30,3 +30,19 @@
 .exampleItem {
   font-size: 0.85rem;
 }
+
+@media (max-width: 480px) {
+  .kanjiDisplay {
+    font-size: clamp(4.5rem, 28vw, 7rem);
+  }
+
+  .kanjiMeaning {
+    font-size: clamp(1.1rem, 5.5vw, 1.5rem);
+    text-align: center;
+  }
+
+  .kanjiReadings {
+    font-size: 0.95rem;
+    text-align: center;
+  }
+}

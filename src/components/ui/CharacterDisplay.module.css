@@ -13,6 +13,7 @@
   text-shadow: 0 0 60px rgba(255, 255, 255, 0.1);
   transition: all 0.3s ease;
   white-space: nowrap;
+  max-width: 100%;
 }
 
 /* Word variant for multi-character vocabulary items */
@@ -36,6 +37,25 @@
 .correct {
   animation: pulseSuccess 0.5s ease-out;
   text-shadow: 0 0 40px var(--success-glow);
+}
+
+@media (max-width: 480px) {
+  .display {
+    font-size: clamp(4.5rem, 24vw, 7rem);
+  }
+
+  .wordDisplay {
+    font-size: clamp(2rem, 11vw, 3.25rem);
+    white-space: normal;
+    overflow-wrap: anywhere;
+    line-height: 1.15;
+    text-align: center;
+  }
+
+  .subtext {
+    font-size: 1.1rem;
+    text-align: center;
+  }
 }
 
 @keyframes characterEnter {

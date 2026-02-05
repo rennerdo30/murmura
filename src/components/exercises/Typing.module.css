@@ -160,3 +160,23 @@
   font-weight: 500;
   font-size: 1.125rem;
 }
+
+@media (max-width: 480px) {
+  .container {
+    gap: 1rem;
+  }
+
+  .prompt {
+    font-size: 1.3rem;
+    overflow-wrap: anywhere;
+  }
+
+  .input {
+    font-size: 1rem;
+    padding: 0.85rem 0.9rem;
+  }
+
+  .feedback {
+    padding: 0.8rem;
+  }
+}

@@ -249,3 +249,31 @@
   background: #3a7fc9;
   transform: translateY(-2px);
 }
+
+@media (max-width: 480px) {
+  .container {
+    gap: 1rem;
+    padding: 0.5rem;
+    min-height: 260px;
+  }
+
+  .speedControls {
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+
+  .segmentText {
+    font-size: 1.2rem;
+    overflow-wrap: anywhere;
+  }
+
+  .controls {
+    gap: 0.6rem;
+  }
+
+  .playButton {
+    width: 58px;
+    height: 58px;
+    font-size: 1.2rem;
+  }
+}

@@ -321,7 +321,9 @@
       "goodEvening": "Buenas noches",
       "goodNight": "Buenas noches"
     },
-    "notifications": "Notificaciones"
+    "notifications": "Notificaciones",
+    "placementTest": "Prueba de nivel",
+    "pronunciation": "Pronunciacion"
   },
   "stats": {
     "correct": "Correcto",
@@ -633,7 +635,8 @@
       "learning": "Aprendizaje",
       "practice": "Práctica",
       "stop": "Detener",
-      "tapToContinueHint": "Toca o desliza para continuar"
+      "tapToContinueHint": "Toca o desliza para continuar",
+      "pronunciation": "Pronunciacion"
     },
     "vocabulary": {
       "examples": "Ejemplos"
@@ -644,7 +647,14 @@
       "hideExplanation": "Ocultar explicación",
       "showExplanation": "Mostrar explicación",
       "iUnderstand": "Entiendo",
-      "formation": "Formación"
+      "formation": "Formación",
+      "negativeForm": "Forma negativa",
+      "questionForm": "Forma interrogativa",
+      "conjugation": "Conjugacion",
+      "whenToUse": "Cuando usar",
+      "commonMistakes": "Errores comunes",
+      "whatNotToSay": "Que NO decir",
+      "relatedPatterns": "Patrones relacionados"
     },
     "character": {
       "strokeOrder": "Orden de trazos",
@@ -684,6 +694,13 @@
     "lockedDescription": "Completa las lecciones anteriores para desbloquear esta.",
     "exercise": {
       "completeExercise": "Completa el ejercicio"
+    },
+    "pronunciation": {
+      "noDrills": "No hay ejercicios de pronunciacion",
+      "noDrillsDesc": "Esta leccion no incluye ejercicios de pronunciacion.",
+      "continueToExercises": "Continuar a los ejercicios",
+      "unknownDrillType": "Tipo de ejercicio de pronunciacion desconocido.",
+      "skip": "Omitir"
     }
   },
   "exercises": {
@@ -699,7 +716,8 @@
       "quitConfirmMessage": "Tu progreso en esta sesión se perderá.",
       "confirmQuit": "Salir",
       "cancel": "Cancelar",
-      "unsupported": "Tipo de ejercicio aún no compatible"
+      "unsupported": "Tipo de ejercicio aún no compatible",
+      "incorrectTryAgain": "Incorrecto. Intentalo de nuevo."
     },
     "matching": {
       "success": "¡Todos los pares emparejados correctamente!",

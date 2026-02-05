@@ -67945,7 +67945,12 @@
     "examples": [],
     "audioUrl": null,
     "language_id": 6,
-    "content_translations": null
+    "content_translations": {
+      "meaning": {
+        "ja": "助けや支援、慈悲を求める真剣な要求。また、魅力的で興味深い性質。法的文脈では、上級裁判所に判決の見直しを求める正式な要請。"
+      },
+      "examples": []
+    }
   },
   {
     "id": 7963,
@@ -67964,7 +67969,12 @@
     "examples": [],
     "audioUrl": null,
     "language_id": 6,
-    "content_translations": null
+    "content_translations": {
+      "meaning": {
+        "ja": "興味、魅力、欲望を呼び起こす性質。感情的または知的なつながりを通じて聴衆を引きつけ、関与させる力。"
+      },
+      "examples": []
+    }
   },
   {
     "id": 3866,
@@ -68339,7 +68349,18 @@
     ],
     "audioUrl": null,
     "language_id": 6,
-    "content_translations": null
+    "content_translations": {
+      "meaning": {
+        "ja": "真面目なものをばかばかしくコミカルに誇張して模倣したもので、ユーモア効果を狙ったもの。もともとは高貴な主題を些細な方法で扱ったり、その逆を行ったりして嘲笑する文学的・演劇的形式。"
+      },
+      "examples": [
+        {
+          "translation": {
+            "ja": "学術会議のバーレスク的扱いは、真の知的議論と簡単に間違えられがちな尊大な儀式を暴露しているようだ。"
+          }
+        }
+      ]
+    }
   },
   {
     "id": 3814,
@@ -68712,7 +68733,18 @@
     ],
     "audioUrl": null,
     "language_id": 6,
-    "content_translations": null
+    "content_translations": {
+      "meaning": {
+        "ja": "特定の特徴や性格をコミカルまたは批判的効果のために強調する、誇張された表現。視覚的（絵画）または言語的（描写）なものがある。誇張は意図的で風刺的目的を果たす。"
+      },
+      "examples": [
+        {
+          "translation": {
+            "ja": "政治漫画家は巧妙な戯画を通じて、どんな公人でも最大限のコミカル効果のために最も認識しやすい特徴を誇張して厳しく批判できた。"
+          }
+        }
+      ]
+    }
   },
   {
     "id": 7962,
@@ -68736,7 +68768,18 @@
     ],
     "audioUrl": null,
     "language_id": 6,
-    "content_translations": null
+    "content_translations": {
+      "meaning": {
+        "ja": "風刺的効果のために特徴的な特色を強調する誇張された表現。意図的な誇張によって真実を明らかにする歪曲。"
+      },
+      "examples": [
+        {
+          "translation": {
+            "ja": "コメディアンの政治討論の破壊的戯画は、嘲笑されている問題について信頼性を欠く人々からの手厳しい反応を見ると、痛いところを突いたに違いない。"
+          }
+        }
+      ]
+    }
   },
   {
     "id": 4028,
@@ -69921,7 +69964,12 @@
     "examples": [],
     "audioUrl": null,
     "language_id": 6,
-    "content_translations": null
+    "content_translations": {
+      "meaning": {
+        "ja": "強力に魅力的または説得力がある。議論や表現の力によって注意を引きつけ、考慮を求める性質を持つ。"
+      },
+      "examples": []
+    }
   },
   {
     "id": 3769,
@@ -70617,7 +70665,12 @@
     "examples": [],
     "audioUrl": null,
     "language_id": 6,
-    "content_translations": null
+    "content_translations": {
+      "meaning": {
+        "ja": "信頼され信じられる性質。何かまたは誰かが信頼でき信用できると考えられる度合い。説得や議論において不可欠。"
+      },
+      "examples": []
+    }
   },
   {
     "id": 7964,
@@ -70636,7 +70689,12 @@
     "examples": [],
     "audioUrl": null,
     "language_id": 6,
-    "content_translations": null
+    "content_translations": {
+      "meaning": {
+        "ja": "信頼され信じられる性質。認識される専門知識、正直さ、信頼性を通じた効果的コミュニケーションの基盤。"
+      },
+      "examples": []
+    }
   },
   {
     "id": 3820,
@@ -72115,7 +72173,18 @@
     ],
     "audioUrl": null,
     "language_id": 6,
-    "content_translations": null
+    "content_translations": {
+      "meaning": {
+        "ja": "乾いたユーモアを誘発するような奇妙で異常な様子。ユーモラスで風変わり、または奇妙な性質を持つ。しばしば控えめなユーモアや予想外の方法でおかしな状況を表現する。"
+      },
+      "examples": [
+        {
+          "translation": {
+            "ja": "風刺作家の企業文化に対する不敬なパロディは部外者にはひょうきんに見えたかもしれないが、従業員はその正確性を不快なほど精密だと感じた。"
+          }
+        }
+      ]
+    }
   },
   {
     "id": 4040,
@@ -74942,7 +75011,18 @@
     ],
     "audioUrl": null,
     "language_id": 6,
-    "content_translations": null
+    "content_translations": {
+      "meaning": {
+        "ja": "一般的に真剣に受け取られる人や物事に対する敬意の欠如を示す。ユーモラスな方法での無礼さ。しばしば権威、伝統、従来の態度に挑戦するコメディや論評に適用される。"
+      },
+      "examples": [
+        {
+          "translation": {
+            "ja": "風刺作家の企業文化に対する不敬なパロディは部外者にはひょうきんに見えたかもしれないが、従業員はその正確性を不快なほど精密だと感じた。"
+          }
+        }
+      ]
+    }
   },
   {
     "id": 3719,
@@ -75195,7 +75275,18 @@
     ],
     "audioUrl": null,
     "language_id": 6,
-    "content_translations": null
+    "content_translations": {
+      "meaning": {
+        "ja": "しばしば文書形式で風刺的攻撃を通じて誰かまたは何かを公然と批判または嘲笑すること。一般的な嘲笑とは公的性質と文学的洗練によって区別される。正式な文脈や文学批評で使用される。"
+      },
+      "examples": [
+        {
+          "translation": {
+            "ja": "コメディアンの辛辣な機知は外科的精密さでどんな政治家でも風刺でき、観客を楽しませると同時に不快にさせた。"
+          }
+        }
+      ]
+    }
   },
   {
     "id": 7955,
@@ -75219,7 +75310,18 @@
     ],
     "audioUrl": null,
     "language_id": 6,
-    "content_translations": null
+    "content_translations": {
+      "meaning": {
+        "ja": "厳しい風刺的文章や発言を通じて公然と嘲笑または攻撃すること。誇張された批判と嘲笑を通じて愚かさや悪徳を暴露する風刺攻撃の形式。"
+      },
+      "examples": [
+        {
+          "translation": {
+            "ja": "風刺作家の魅力は穏やかなユーモアではなく、社会的矛盾をあまりにも精密に風刺して、標的が防御的反応を裏付けることができないところにある。"
+          }
+        }
+      ]
+    }
   },
   {
     "id": 3724,
@@ -75719,7 +75821,12 @@
     "examples": [],
     "audioUrl": null,
     "language_id": 6,
-    "content_translations": null
+    "content_translations": {
+      "meaning": {
+        "ja": "個人的利益のために他者を不道徳に操作または影響を与えることを特徴とする。しばしば他者の感情や弱点を悪用する行動、戦術、または人々を表現する。"
+      },
+      "examples": []
+    }
   },
   {
     "id": 7965,
@@ -75738,7 +75845,12 @@
     "examples": [],
     "audioUrl": null,
     "language_id": 6,
-    "content_translations": null
+    "content_translations": {
+      "meaning": {
+        "ja": "しばしば個人的利益のために巧妙な操作や影響を与えることを特徴とする。間接的手段を通じて思考や行動を形作るよう設計された。"
+      },
+      "examples": []
+    }
   },
   {
     "id": 3745,
@@ -76389,7 +76501,18 @@
     ],
     "audioUrl": null,
     "language_id": 6,
-    "content_translations": null
+    "content_translations": {
+      "meaning": {
+        "ja": "鋭く皮肉的または痛烈な性質を持つ。スタイルや態度において辛辣で腐食性のある。深く正確に切り込む機知、ユーモア、批判に適用される。ラテン語「mordere」（噛む）に由来。"
+      },
+      "examples": [
+        {
+          "translation": {
+            "ja": "コメディアンの辛辣な機知は外科的精密さでどんな政治家でも風刺でき、観客を楽しませると同時に不快にさせた。"
+          }
+        }
+      ]
+    }
   },
   {
     "id": 7957,
@@ -76413,7 +76536,18 @@
     ],
     "audioUrl": null,
     "language_id": 6,
-    "content_translations": null
+    "content_translations": {
+      "meaning": {
+        "ja": "鋭く批判的または苦い性質を持つ。知的精密さと感情的な痛みを通じて深く切り込み、持続的な影響を残す腐食性の機知。"
+      },
+      "examples": [
+        {
+          "translation": {
+            "ja": "コラムニストの辛辣な批評は気取ったレストランを風刺し、これほど精巧な演出がこれほど平凡な食材を隠すために使われたことは決してないと示唆した。"
+          }
+        }
+      ]
+    }
   },
   {
     "id": 3843,
@@ -77524,7 +77658,18 @@
     ],
     "audioUrl": null,
     "language_id": 6,
-    "content_translations": null
+    "content_translations": {
+      "meaning": {
+        "ja": "他の芸術家や時代のスタイルを模倣する芸術作品で、しばしば嘲笑よりもオマージュとして。パロディとは批判的でなく敬意を払うという点で異なる。異なるスタイルや要素のメドレーを指すこともある。"
+      },
+      "examples": [
+        {
+          "translation": {
+            "ja": "作者のビクトリア朝文学のパスティーシュは、原作時代のあらゆる尊大な文句と大げさな感情を捉えているようだ。"
+          }
+        }
+      ]
+    }
   },
   {
     "id": 7956,
@@ -77548,7 +77693,18 @@
     ],
     "audioUrl": null,
     "language_id": 6,
-    "content_translations": null
+    "content_translations": {
+      "meaning": {
+        "ja": "他の作品、芸術家、時代のスタイルを模倣する芸術作品で、しばしば嘲笑よりも敬意として。パロディとは批判的でなく敬意を払う意図という点で異なる。"
+      },
+      "examples": [
+        {
+          "translation": {
+            "ja": "彼女の企業コミュニケーションのパスティーシュは非常に正確で、操作的なビジネス修辞についてのあらゆる批判を裏付けているようだった。"
+          }
+        }
+      ]
+    }
   },
   {
     "id": 3779,
@@ -79750,7 +79906,18 @@
     ],
     "audioUrl": null,
     "language_id": 6,
-    "content_translations": null
+    "content_translations": {
+      "meaning": {
+        "ja": "厳しく批判的な。その強度と精密さにおいて枯らすような、雄弁な非難の力によって標的を暴露し貶める。"
+      },
+      "examples": [
+        {
+          "translation": {
+            "ja": "コメディアンの政治討論の破壊的戯画は、嘲笑されている問題について信頼性を欠く人々からの手厳しい反応を見ると、痛いところを突いたに違いない。"
+          }
+        }
+      ]
+    }
   },
   {
     "id": 3735,
@@ -79927,7 +80094,18 @@
     ],
     "audioUrl": null,
     "language_id": 6,
-    "content_translations": null
+    "content_translations": {
+      "meaning": {
+        "ja": "特徴を誇張することで誰かまたは何かを嘲笑するユーモラスな模倣やパロディ。一般的に風刺よりも軽い調子。しばしばイギリス英語で使用される。悪意的でなく遊び心のある意図を示唆する。"
+      },
+      "examples": [
+        {
+          "translation": {
+            "ja": "風刺作家の企業文化に対する不敬なパロディは部外者にはひょうきんに見えたかもしれないが、従業員はその正確性を不快なほど精密だと感じた。"
+          }
+        }
+      ]
+    }
   },
   {
     "id": 3881,
@@ -80030,7 +80208,18 @@
     ],
     "audioUrl": null,
     "language_id": 6,
-    "content_translations": null
+    "content_translations": {
+      "meaning": {
+        "ja": "辛辣で効果的な批判をすること。風刺的手段を通じて行われることが多い。串で肉を刺すという行為から比喩的に派生し、批判の的確性と徹底性を含意する。"
+      },
+      "examples": [
+        {
+          "translation": {
+            "ja": "政治風刺漫画家は巧妙な戯画を通じて公人を厳しく批判することができ、最大の喜劇効果を得るために最も特徴的な部分を誇張していた。"
+          }
+        }
+      ]
+    }
   },
   {
     "id": 7958,
@@ -80054,7 +80243,18 @@
     ],
     "audioUrl": null,
     "language_id": 6,
-    "content_translations": null
+    "content_translations": {
+      "meaning": {
+        "ja": "鋭く辛辣な批判で突き刺すこと。防御を突破して根本的な真実を明らかにする風刺的攻撃を通じて弱点や偽善を暴露すること。"
+      },
+      "examples": [
+        {
+          "translation": {
+            "ja": "マーケティング部門の尊敬する同僚たちが言うように、「我々は顧客エンゲージメントにおけるこのパラダイムシフトを活用することに興奮している」が、その過程で本物の人間的つながりを都合よく批判で突き刺している。"
+          }
+        }
+      ]
+    }
   },
   {
     "id": 3871,
@@ -80974,7 +81174,12 @@
     "examples": [],
     "audioUrl": null,
     "language_id": 6,
-    "content_translations": null
+    "content_translations": {
+      "meaning": {
+        "ja": "主張を支持する証拠や証明を提供すること。検証可能な事実や論理的議論を通じて主張に実質と信頼性を与えること。"
+      },
+      "examples": []
+    }
   },
   {
     "id": 4027,
@@ -81296,7 +81501,18 @@
     ],
     "audioUrl": null,
     "language_id": 6,
-    "content_translations": null
+    "content_translations": {
+      "meaning": {
+        "ja": "間接的手段を通じて既存の権威、価値観、制度を弱体化させようとすること。ユーモアと批評を通じて権力構造に挑戦する風刺的内容。"
+      },
+      "examples": [
+        {
+          "translation": {
+            "ja": "コメディアンの政治討論に対する破壊的な戯画は神経を逆撫でしたに違いない。まさにその嘲笑されている問題について信頼性を欠く人々からの辛辣な反応を考えれば。"
+          }
+        }
+      ]
+    }
   },
   {
     "id": 3725,
@@ -82188,7 +82404,18 @@
     ],
     "audioUrl": null,
     "language_id": 6,
-    "content_translations": null
+    "content_translations": {
+      "meaning": {
+        "ja": "グロテスクで品位を下げた模倣。原作を認識できないほど歪める風刺の一形態で、しばしばその根本的な不条理や腐敗を暴露するために使われる。"
+      },
+      "examples": [
+        {
+          "translation": {
+            "ja": "研究者が自分たちの方法論で些細な観察の深い意味を明らかにできると主張するような、学術的議論のこれほど説得力のあるグロテスクな模倣に遭遇することは稀である。"
+          }
+        }
+      ]
+    }
   },
   {
     "id": 3905,
@@ -82710,7 +82937,18 @@
     ],
     "audioUrl": null,
     "language_id": 6,
-    "content_translations": null
+    "content_translations": {
+      "meaning": {
+        "ja": "苦い批判や悪意に満ちた。表現において極めて厳しく腐食性のある。元来硫酸（vitriol）を指していたが、今では強烈さによって燃やしたり腐食させたりする言論や文章に比喩的に使われる。"
+      },
+      "examples": [
+        {
+          "translation": {
+            "ja": "これほど辛辣なレストランレビューはかつてなかった。批評家はこれほど辛辣な評価を書くほどの並外れた失望を味わったに違いない。"
+          }
+        }
+      ]
+    }
   },
   {
     "id": 3736,

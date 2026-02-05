@@ -4,7 +4,13 @@
       "id": "ko-topik1",
       "type": "linear",
       "name": "TOPIK1 Beginner Level 1",
+      "nameTranslations": {
+        "de": "TOPIK1 Anfängerstufe 1"
+      },
       "description": "Complete TOPIK1 course with 4 units",
+      "descriptionTranslations": {
+        "de": "Vollständiger TOPIK1-Kurs"
+      },
       "icon": "graduation",
       "language": "ko",
       "estimatedHours": 9,
@@ -14,7 +20,13 @@
           "id": "topik1-unit-1",
           "level": "TOPIK1",
           "name": "Hangul and Self-Introduction",
+          "nameTranslations": {
+            "de": "Hangul und Selbstvorstellung"
+          },
           "description": "After completing this unit, students will be able to read and write all basic Hangul characters, greet people politely, and introduce themselves with their name, nationality, and age using appropriate polite forms.",
+          "descriptionTranslations": {
+            "de": "Nach Abschluss dieser Einheit können die Studierenden alle grundlegenden Hangul-Zeichen lesen und schreiben, Menschen höflich begrüßen und sich mit Namen, Nationalität und Alter unter Verwendung angemessener Höflichkeitsformen vorstellen."
+          },
           "module": "lessons",
           "requirement": {
             "type": "complete-all"
@@ -33,7 +45,13 @@
           "id": "topik1-unit-2",
           "level": "TOPIK1",
           "name": "Family and Daily Life",
+          "nameTranslations": {
+            "de": "Familie und Alltag"
+          },
           "description": "After completing this unit, students will be able to introduce their family members, describe occupations, talk about daily activities using proper time expressions, and give a basic description of their family's daily routine using present tense verbs and essential particles.",
+          "descriptionTranslations": {
+            "de": "Nach Abschluss dieser Einheit können die Studierenden ihre Familienmitglieder vorstellen, Berufe beschreiben, über tägliche Aktivitäten mit korrekten Zeitausdrücken sprechen und eine grundlegende Beschreibung der täglichen Routine ihrer Familie unter Verwendung von Präsensverben und wichtigen Partikeln geben."
+          },
           "module": "lessons",
           "requirement": {
             "type": "complete-all"
@@ -51,7 +69,13 @@
           "id": "topik1-unit-3",
           "level": "TOPIK1",
           "name": "Food and Shopping",
+          "nameTranslations": {
+            "de": "Essen und Einkaufen"
+          },
           "description": "After completing this unit, students will be able to order food at restaurants, ask about prices, use Korean numbers for money, make purchases in shops, and handle basic food shopping situations using appropriate polite language.",
+          "descriptionTranslations": {
+            "de": "Nach Abschluss dieser Einheit können die Studierenden in Restaurants Essen bestellen, nach Preisen fragen, koreanische Zahlen für Geld verwenden, Einkäufe in Geschäften tätigen und grundlegende Lebensmitteleinkaufssituationen unter Verwendung angemessener höflicher Sprache bewältigen."
+          },
           "module": "lessons",
           "requirement": {
             "type": "complete-all"
@@ -69,7 +93,13 @@
           "id": "topik1-unit-4",
           "level": "TOPIK1",
           "name": "Places and Transportation",
+          "nameTranslations": {
+            "de": "Orte und Verkehrsmittel"
+          },
           "description": "After completing this unit, students will be able to navigate basic transportation conversations, ask for and give simple directions, identify common places in a city, and describe how they travel to different locations using appropriate particles and transportation vocabulary.",
+          "descriptionTranslations": {
+            "de": "Nach Abschluss dieser Einheit können die Studierenden grundlegende Gespräche über Verkehrsmittel führen, nach einfachen Wegbeschreibungen fragen und diese geben, häufige Orte in einer Stadt identifizieren und beschreiben, wie sie zu verschiedenen Orten reisen, unter Verwendung angemessener Partikeln und Verkehrsvokabular."
+          },
           "module": "lessons",
           "requirement": {
             "type": "complete-all"
@@ -88,7 +118,13 @@
       "id": "ko-topik2",
       "type": "linear",
       "name": "TOPIK2 Beginner Level 2",
+      "nameTranslations": {
+        "de": "TOPIK2 Anfängerstufe 2"
+      },
       "description": "Complete TOPIK2 course with 4 units",
+      "descriptionTranslations": {
+        "de": "Vollständiger TOPIK2-Kurs"
+      },
       "icon": "book",
       "language": "ko",
       "estimatedHours": 10,
@@ -98,7 +134,13 @@
           "id": "topik2-unit-1",
           "level": "TOPIK2",
           "name": "Weather and Seasons",
+          "nameTranslations": {
+            "de": "Wetter und Jahreszeiten"
+          },
           "description": "After completing this unit, students will be able to describe weather conditions, discuss seasonal activities, express how weather affects their mood and plans, make conditional statements about future activities based on weather forecasts, and give detailed reasons for their seasonal preferences using multiple grammar patterns including irregular verbs, conditional expressions, and cause-effect relationships.",
+          "descriptionTranslations": {
+            "de": "Nach Abschluss dieser Einheit können die Studierenden Wetterbedingungen beschreiben, saisonale Aktivitäten besprechen, ausdrücken, wie das Wetter ihre Stimmung und Pläne beeinflusst, bedingte Aussagen über zukünftige Aktivitäten basierend auf Wettervorhersagen machen und detaillierte Gründe für ihre saisonalen Vorlieben unter Verwendung mehrerer Grammatikstrukturen einschließlich unregelmäßiger Verben, bedingter Ausdrücke und Ursache-Wirkungs-Beziehungen geben."
+          },
           "module": "lessons",
           "requirement": {
             "type": "complete-all"
@@ -116,7 +158,13 @@
           "id": "topik2-unit-2",
           "level": "TOPIK2",
           "name": "Health and Body",
+          "nameTranslations": {
+            "de": "Gesundheit und Körper"
+          },
           "description": "After completing this unit, students will be able to describe physical symptoms and health problems, navigate basic medical appointments using formal language, give and receive health advice, and discuss healthy lifestyle choices using past and conditional forms.",
+          "descriptionTranslations": {
+            "de": "Nach Abschluss dieser Einheit können die Studierenden körperliche Symptome und Gesundheitsprobleme beschreiben, grundlegende Arzttermine unter Verwendung formeller Sprache bewältigen, Gesundheitsratschläge geben und erhalten sowie gesunde Lebensgewohnheiten unter Verwendung von Vergangenheits- und Bedingungsformen besprechen."
+          },
           "module": "lessons",
           "requirement": {
             "type": "complete-all"
@@ -134,7 +182,13 @@
           "id": "topik2-unit-3",
           "level": "TOPIK2",
           "name": "Hobbies and Entertainment",
+          "nameTranslations": {
+            "de": "Hobbys und Unterhaltung"
+          },
           "description": "After completing this unit, students will be able to talk about their hobbies, express preferences and frequency, make invitations for entertainment activities, and discuss plans with friends using appropriate Korean expressions.",
+          "descriptionTranslations": {
+            "de": "Nach Abschluss dieser Einheit können die Studierenden über ihre Hobbys sprechen, Vorlieben und Häufigkeit ausdrücken, Einladungen zu Unterhaltungsaktivitäten aussprechen und Pläne mit Freunden unter Verwendung angemessener koreanischer Ausdrücke besprechen."
+          },
           "module": "lessons",
           "requirement": {
             "type": "complete-all"
@@ -151,7 +205,13 @@
           "id": "topik2-unit-4",
           "level": "TOPIK2",
           "name": "Travel and Public Services",
+          "nameTranslations": {
+            "de": "Reisen und öffentliche Dienstleistungen"
+          },
           "description": "After completing this unit, students will be able to handle travel-related tasks, make formal requests at public service locations, schedule appointments, and seek help in emergency situations using appropriate formal Korean language.",
+          "descriptionTranslations": {
+            "de": "Nach Abschluss dieser Einheit können die Studierenden reisebezogene Aufgaben bewältigen, formelle Anfragen bei öffentlichen Dienstleistungsstellen stellen, Termine vereinbaren und in Notfallsituationen Hilfe suchen, unter Verwendung angemessener formeller koreanischer Sprache."
+          },
           "module": "lessons",
           "requirement": {
             "type": "complete-all"
@@ -172,7 +232,13 @@
       "id": "ko-topik3",
       "type": "linear",
       "name": "TOPIK3 Intermediate Level 3",
+      "nameTranslations": {
+        "de": "TOPIK3 Mittelstufe 3"
+      },
       "description": "Complete TOPIK3 course with 4 units",
+      "descriptionTranslations": {
+        "de": "Vollständiger TOPIK3-Kurs"
+      },
       "icon": "graduation",
       "language": "ko",
       "estimatedHours": 10,
@@ -182,7 +248,13 @@
           "id": "topik3-unit-1",
           "level": "TOPIK3",
           "name": "Work and Career",
+          "nameTranslations": {
+            "de": "Arbeit und Karriere"
+          },
           "description": "After completing this unit, students will be able to discuss career-related topics confidently, understand Korean workplace culture, communicate professionally in formal situations, and express future career plans using intermediate-level grammar patterns. They will have mastered key decision-making expressions and formal communication styles essential for professional contexts.",
+          "descriptionTranslations": {
+            "de": "Nach Abschluss dieser Einheit können die Studierenden selbstbewusst über karrierebezogene Themen diskutieren, die koreanische Arbeitsplatzkultur verstehen, professionell in formellen Situationen kommunizieren und zukünftige Karrierepläne unter Verwendung von Grammatikstrukturen der Mittelstufe ausdrücken. Sie werden wichtige Entscheidungsausdrücke und formelle Kommunikationsstile gemeistert haben, die für professionelle Kontexte unerlässlich sind."
+          },
           "module": "lessons",
           "requirement": {
             "type": "complete-all"
@@ -200,7 +272,13 @@
           "id": "topik3-unit-2",
           "level": "TOPIK3",
           "name": "Education and Learning",
+          "nameTranslations": {
+            "de": "Bildung und Lernen"
+          },
           "description": "After completing this unit, students will be able to discuss educational topics using intermediate-level Korean, express opinions about learning methods, narrate academic experiences, and communicate future educational goals using appropriate formal language and complex grammatical structures.",
+          "descriptionTranslations": {
+            "de": "Nach Abschluss dieser Einheit können die Studierenden Bildungsthemen unter Verwendung von Koreanisch der Mittelstufe diskutieren, Meinungen über Lernmethoden ausdrücken, akademische Erfahrungen erzählen und zukünftige Bildungsziele unter Verwendung angemessener formeller Sprache und komplexer grammatischer Strukturen kommunizieren."
+          },
           "module": "lessons",
           "requirement": {
             "type": "complete-all"
@@ -218,7 +296,13 @@
           "id": "topik3-unit-3",
           "level": "TOPIK3",
           "name": "Korean Culture and Traditions",
+          "nameTranslations": {
+            "de": "Koreanische Kultur und Traditionen"
+          },
           "description": "After completing this unit, students will be able to discuss Korean cultural practices with appropriate formal language, compare traditional and modern Korean customs, express opinions about cultural preservation and change, and demonstrate understanding of Korean social etiquette and hierarchy.",
+          "descriptionTranslations": {
+            "de": "Nach Abschluss dieser Einheit können Studierende koreanische Kulturpraktiken mit angemessener formeller Sprache diskutieren, traditionelle und moderne koreanische Bräuche vergleichen, Meinungen über Kulturerhaltung und -wandel äußern und Verständnis für koreanische Sozialnormen und Hierarchien demonstrieren."
+          },
           "module": "lessons",
           "requirement": {
             "type": "complete-all"
@@ -235,7 +319,13 @@
           "id": "topik3-unit-4",
           "level": "TOPIK3",
           "name": "Media and Current Events",
+          "nameTranslations": {
+            "de": "Medien und aktuelle Ereignisse"
+          },
           "description": "After completing this unit, students will be able to understand news articles and broadcasts, express opinions about current events, make predictions about future developments, and discuss the role of media in society using appropriate formal and informal language.",
+          "descriptionTranslations": {
+            "de": "Nach Abschluss dieser Einheit können Studierende Nachrichtenartikel und Sendungen verstehen, Meinungen zu aktuellen Ereignissen äußern, Vorhersagen über zukünftige Entwicklungen treffen und die Rolle der Medien in der Gesellschaft mit angemessener formeller und informeller Sprache diskutieren."
+          },
           "module": "lessons",
           "requirement": {
             "type": "complete-all"
@@ -256,7 +346,13 @@
       "id": "ko-topik4",
       "type": "linear",
       "name": "TOPIK4 Intermediate Level 4",
+      "nameTranslations": {
+        "de": "TOPIK4 Mittelstufe 4"
+      },
       "description": "Complete TOPIK4 course with 4 units",
+      "descriptionTranslations": {
+        "de": "Vollständiger TOPIK4-Kurs"
+      },
       "icon": "graduation",
       "language": "ko",
       "estimatedHours": 10,
@@ -266,7 +362,13 @@
           "id": "topik4-unit-1",
           "level": "TOPIK4",
           "name": "Economics and Business",
+          "nameTranslations": {
+            "de": "Wirtschaft und Business"
+          },
           "description": "After completing this unit, students will be able to understand complex economic and business content, participate in professional discussions, write formal business communications, and analyze economic trends and market information at an intermediate-advanced level.",
+          "descriptionTranslations": {
+            "de": "Nach Abschluss dieser Einheit können Studierende komplexe wirtschaftliche und geschäftliche Inhalte verstehen, an professionellen Diskussionen teilnehmen, formelle Geschäftskommunikation verfassen und wirtschaftliche Trends und Marktinformationen auf mittlerem bis fortgeschrittenem Niveau analysieren."
+          },
           "module": "lessons",
           "requirement": {
             "type": "complete-all"
@@ -284,7 +386,13 @@
           "id": "topik4-unit-2",
           "level": "TOPIK4",
           "name": "Environment and Science",
+          "nameTranslations": {
+            "de": "Umwelt und Wissenschaft"
+          },
           "description": "After completing this unit, students will be able to understand news articles about environmental and scientific topics, express complex opinions about environmental policies, and use advanced formal Korean patterns for academic discourse about climate change and technological solutions.",
+          "descriptionTranslations": {
+            "de": "Nach Abschluss dieser Einheit können Studierende Nachrichtenartikel zu Umwelt- und Wissenschaftsthemen verstehen, komplexe Meinungen zu Umweltpolitik äußern und fortgeschrittene formelle koreanische Strukturen für akademischen Diskurs über Klimawandel und technologische Lösungen verwenden."
+          },
           "module": "lessons",
           "requirement": {
             "type": "complete-all"
@@ -302,7 +410,13 @@
           "id": "topik4-unit-3",
           "level": "TOPIK4",
           "name": "History and Society",
+          "nameTranslations": {
+            "de": "Geschichte und Gesellschaft"
+          },
           "description": "After completing this unit, students will be able to understand complex historical texts, analyze social changes throughout Korean history, discuss cultural evolution using formal academic language, and write structured essays about historical and social topics using advanced grammar patterns and formal written style.",
+          "descriptionTranslations": {
+            "de": "Nach Abschluss dieser Einheit können Studierende komplexe historische Texte verstehen, gesellschaftliche Veränderungen in der koreanischen Geschichte analysieren, kulturelle Entwicklung mit formeller akademischer Sprache diskutieren und strukturierte Essays zu historischen und gesellschaftlichen Themen mit fortgeschrittenen Grammatikmustern und formellem Schreibstil verfassen."
+          },
           "module": "lessons",
           "requirement": {
             "type": "complete-all"
@@ -319,7 +433,13 @@
           "id": "topik4-unit-4",
           "level": "TOPIK4",
           "name": "Academic Discourse",
+          "nameTranslations": {
+            "de": "Akademischer Diskurs"
+          },
           "description": "After completing this unit, students will be able to comprehend complex academic texts, participate in scholarly discussions, write formal academic papers with proper structure and argumentation, and engage effectively in academic conferences and professional meetings using appropriate formal language and terminology.",
+          "descriptionTranslations": {
+            "de": "Nach Abschluss dieser Einheit können Studierende komplexe akademische Texte verstehen, an wissenschaftlichen Diskussionen teilnehmen, formelle akademische Arbeiten mit angemessener Struktur und Argumentation verfassen und effektiv an akademischen Konferenzen und professionellen Meetings mit angemessener formeller Sprache und Terminologie teilnehmen."
+          },
           "module": "lessons",
           "requirement": {
             "type": "complete-all"
@@ -340,7 +460,13 @@
       "id": "ko-topik6",
       "type": "linear",
       "name": "TOPIK6 Advanced Level 6",
+      "nameTranslations": {
+        "de": "TOPIK6 Fortgeschrittene Stufe 6"
+      },
       "description": "Complete TOPIK6 course with 3 units",
+      "descriptionTranslations": {
+        "de": "Vollständiger TOPIK6-Kurs"
+      },
       "icon": "graduation",
       "language": "ko",
       "estimatedHours": 9,
@@ -350,7 +476,13 @@
           "id": "topik6-unit-1",
           "level": "TOPIK6",
           "name": "Literature and Arts",
+          "nameTranslations": {
+            "de": "Literatur und Kunst"
+          },
           "description": "After completing this unit, students will be able to analyze Korean literary works with sophisticated critical frameworks, express nuanced aesthetic judgments, engage in scholarly discourse about literature and arts, and demonstrate near-native proficiency in discussing cultural and artistic topics using advanced literary and aesthetic vocabulary.",
+          "descriptionTranslations": {
+            "de": "Nach Abschluss dieser Einheit können Studierende koreanische Literaturwerke mit anspruchsvollen kritischen Rahmen analysieren, nuancierte ästhetische Urteile äußern, an wissenschaftlichem Diskurs über Literatur und Kunst teilnehmen und nahezu muttersprachliche Kompetenz beim Diskutieren kultureller und künstlerischer Themen mit fortgeschrittenem literarischem und ästhetischem Vokabular demonstrieren."
+          },
           "module": "lessons",
           "requirement": {
             "type": "complete-all"
@@ -367,7 +499,13 @@
           "id": "topik6-unit-2",
           "level": "TOPIK6",
           "name": "Philosophy and Abstract Thought",
+          "nameTranslations": {
+            "de": "Philosophie und abstraktes Denken"
+          },
           "description": "After completing this unit, students will be able to engage in sophisticated philosophical discourse at a native-like level, analyze complex abstract concepts with nuanced understanding, construct logical arguments using advanced reasoning patterns, and participate meaningfully in academic philosophical debates across various schools of thought.",
+          "descriptionTranslations": {
+            "de": "Nach Abschluss dieser Einheit können Studierende anspruchsvollen philosophischen Diskurs auf muttersprachlichem Niveau führen, komplexe abstrakte Konzepte mit nuanciertem Verständnis analysieren, logische Argumente mit fortgeschrittenen Denkmustern konstruieren und sinnvoll an akademischen philosophischen Debatten verschiedener Denkschulen teilnehmen."
+          },
           "module": "lessons",
           "requirement": {
             "type": "complete-all"
@@ -384,7 +522,13 @@
           "id": "topik6-unit-3",
           "level": "TOPIK6",
           "name": "Professional Mastery",
+          "nameTranslations": {
+            "de": "Professionelle Meisterschaft"
+          },
           "description": "After completing this unit, students will have achieved native-level proficiency in Korean, capable of handling any professional, academic, or cultural situation with sophistication and complete cultural awareness. They can engage in executive-level business communication, produce doctoral-level academic work, understand deep cultural and literary references, and communicate naturally across all registers and dialects.",
+          "descriptionTranslations": {
+            "de": "Nach Abschluss dieser Einheit haben Studierende muttersprachliche Kompetenz im Koreanischen erreicht und können jede professionelle, akademische oder kulturelle Situation mit Raffinesse und vollständigem kulturellem Bewusstsein meistern. Sie können Geschäftskommunikation auf Führungsebene betreiben, akademische Arbeiten auf Doktorandenniveau erstellen, tiefe kulturelle und literarische Bezüge verstehen und natürlich in allen Sprachregistern und Dialekten kommunizieren."
+          },
           "module": "lessons",
           "requirement": {
             "type": "complete-all"
@@ -403,7 +547,13 @@
       "id": "ko-topik5",
       "type": "linear",
       "name": "TOPIK5 Advanced Level 5",
+      "nameTranslations": {
+        "de": "TOPIK5 Fortgeschrittene Stufe 5"
+      },
       "description": "Complete TOPIK5 course with 3 units",
+      "descriptionTranslations": {
+        "de": "Vollständiger TOPIK5-Kurs"
+      },
       "icon": "graduation",
       "language": "ko",
       "estimatedHours": 7,
@@ -413,7 +563,13 @@
           "id": "topik5-unit-1",
           "level": "TOPIK5",
           "name": "Advanced Professional Communication",
+          "nameTranslations": {
+            "de": "Fortgeschrittene professionelle Kommunikation"
+          },
           "description": "After completing this unit, students will be able to communicate at the highest professional level in Korean business contexts, using sophisticated language appropriate for executive-level interactions, strategic business discussions, international negotiations, and formal presentations with native-like fluency and cultural awareness.",
+          "descriptionTranslations": {
+            "de": "Nach Abschluss dieser Einheit können Studierende auf höchstem professionellem Niveau in koreanischen Geschäftskontexten kommunizieren, anspruchsvolle Sprache für Interaktionen auf Führungsebene, strategische Geschäftsdiskussionen, internationale Verhandlungen und formelle Präsentationen mit muttersprachlicher Flüssigkeit und kulturellem Bewusstsein verwenden."
+          },
           "module": "lessons",
           "requirement": {
             "type": "complete-all"
@@ -430,7 +586,13 @@
           "id": "topik5-unit-2",
           "level": "TOPIK5",
           "name": "Cultural and Linguistic Sophistication",
+          "nameTranslations": {
+            "de": "Kulturelle und sprachliche Raffinesse"
+          },
           "description": "After completing this unit, students will be able to understand and use Korean proverbs and idioms naturally, adjust their language register appropriately for different social contexts, recognize cultural nuances in Korean communication, and express themselves with near-native sophistication in both formal and informal settings.",
+          "descriptionTranslations": {
+            "de": "Nach Abschluss dieser Einheit können die Studierenden koreanische Sprichwörter und Redewendungen natürlich verstehen und verwenden, ihren Sprachstil angemessen an verschiedene soziale Kontexte anpassen, kulturelle Nuancen in der koreanischen Kommunikation erkennen und sich sowohl in formellen als auch informellen Situationen mit nahezu muttersprachlicher Raffinesse ausdrücken."
+          },
           "module": "lessons",
           "requirement": {
             "type": "complete-all"
@@ -447,7 +609,13 @@
           "id": "topik5-unit-3",
           "level": "TOPIK5",
           "name": "Near-Native Proficiency",
+          "nameTranslations": {
+            "de": "Nahezu muttersprachliche Kompetenz"
+          },
           "description": "After completing this unit, students will have achieved near-native proficiency in Korean, with the ability to express themselves with sophisticated precision, navigate any cultural context appropriately, and handle complex academic and professional communication with complete confidence and native-like fluency.",
+          "descriptionTranslations": {
+            "de": "Nach Abschluss dieser Einheit haben die Studierenden nahezu muttersprachliche Kompetenz im Koreanischen erreicht und können sich mit raffinierter Präzision ausdrücken, jeden kulturellen Kontext angemessen bewältigen und komplexe akademische und berufliche Kommunikation mit vollständigem Selbstvertrauen und muttersprachlicher Gewandtheit handhaben."
+          },
           "module": "lessons",
           "requirement": {
             "type": "complete-all"

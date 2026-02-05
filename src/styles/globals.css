@@ -24,6 +24,11 @@
 
 /* Base/default theme variables (Japanese) - themes override these via html[data-theme] */
 :root {
+  --safe-area-top: env(safe-area-inset-top, 0px);
+  --safe-area-right: env(safe-area-inset-right, 0px);
+  --safe-area-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-area-left: env(safe-area-inset-left, 0px);
+
   --bg-primary: #0f0f1a;
   --bg-secondary: #1a1a2e;
   --bg-card: #16162a;
@@ -66,6 +71,14 @@ body {
   word-wrap: break-word;
   overflow-wrap: break-word;
   transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+img,
+svg,
+video,
+canvas {
+  max-width: 100%;
+  height: auto;
 }
 
 /* Global link styles - remove default underlines and blue/purple colors */

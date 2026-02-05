@@ -2,6 +2,9 @@
   {
     "id": 21,
     "title": "我的一天 - My Day",
+    "titleTranslations": {
+      "pt": "我的一天 - Meu Dia"
+    },
     "level": "hsk1",
     "framework": null,
     "text": "我每天早上六点起床。我先洗脸刷牙，然后吃早饭。早饭我喜欢吃面包和喝牛奶。七点半我去上学。我坐公交车去学校。上午我有四节课。中午我在学校食堂吃午饭。下午我有两节课。下午四点放学后，我去图书馆学习。晚上我回家吃晚饭，然后做作业。十点我睡觉。",
@@ -9,6 +12,9 @@
     "questions": [
       {
         "question": "What time does the speaker wake up?",
+        "questionTranslations": {
+          "pt": "A que horas o narrador acorda?"
+        },
         "options": [
           "5 o'clock",
           "6 o'clock",
@@ -19,6 +25,9 @@
       },
       {
         "question": "What does the speaker like to eat for breakfast?",
+        "questionTranslations": {
+          "pt": "O que o narrador gosta de comer no café da manhã?"
+        },
         "options": [
           "Rice and tea",
           "Bread and milk",
@@ -29,6 +38,9 @@
       },
       {
         "question": "How many classes does the speaker have in the morning?",
+        "questionTranslations": {
+          "pt": "Quantas aulas o narrador tem de manhã?"
+        },
         "options": [
           "Two",
           "Three",
@@ -52,11 +64,35 @@
     "grammar_ids": null,
     "audioUrl": "",
     "language_id": 4,
-    "content_translations": null
+    "content_translations": {
+      "title": {
+        "pt": "我的一天 - Meu Dia"
+      },
+      "questions": [
+        {
+          "question": {
+            "pt": "A que horas o narrador acorda?"
+          }
+        },
+        {
+          "question": {
+            "pt": "O que o narrador gosta de comer no café da manhã?"
+          }
+        },
+        {
+          "question": {
+            "pt": "Quantas aulas o narrador tem de manhã?"
+          }
+        }
+      ]
+    }
   },
   {
     "id": 20,
     "title": "自我介绍 - Self Introduction",
+    "titleTranslations": {
+      "pt": "自我介绍 - Apresentação Pessoal"
+    },
     "level": "hsk1",
     "framework": null,
     "text": "你好！我叫李明。我是中国人。我今年二十岁。我是大学生。我学习英语。我喜欢看书和听音乐。我有一个哥哥和一个妹妹。我们住在北京。很高兴认识你！",
@@ -64,6 +100,9 @@
     "questions": [
       {
         "question": "What is the speaker's name?",
+        "questionTranslations": {
+          "pt": "Qual é o nome do narrador?"
+        },
         "options": [
           "王伟",
           "李明",
@@ -74,6 +113,9 @@
       },
       {
         "question": "How old is the speaker?",
+        "questionTranslations": {
+          "pt": "Quantos anos o narrador tem?"
+        },
         "options": [
           "18 years old",
           "19 years old",
@@ -84,6 +126,9 @@
       },
       {
         "question": "What does the speaker study?",
+        "questionTranslations": {
+          "pt": "O que o narrador estuda?"
+        },
         "options": [
           "Chinese",
           "English",
@@ -107,11 +152,35 @@
     "grammar_ids": null,
     "audioUrl": "",
     "language_id": 4,
-    "content_translations": null
+    "content_translations": {
+      "title": {
+        "pt": "自我介绍 - Apresentação Pessoal"
+      },
+      "questions": [
+        {
+          "question": {
+            "pt": "Qual é o nome do narrador?"
+          }
+        },
+        {
+          "question": {
+            "pt": "Quantos anos o narrador tem?"
+          }
+        },
+        {
+          "question": {
+            "pt": "O que o narrador estuda?"
+          }
+        }
+      ]
+    }
   },
   {
     "id": 22,
     "title": "在餐厅 - At the Restaurant",
+    "titleTranslations": {
+      "pt": "在餐厅 - No Restaurante"
+    },
     "level": "hsk2",
     "framework": null,
     "text": "今天是星期六。我和朋友去餐厅吃饭。这家餐厅很有名。我们到餐厅的时候，人很多。我们等了十分钟。服务员给我们菜单。我点了一碗米饭和一个红烧肉。我的朋友点了面条。我们还要了两杯茶。菜很好吃。吃完饭后，我们付了一百二十元。虽然有点贵，但是我们很满意。",
@@ -119,6 +188,9 @@
     "questions": [
       {
         "question": "What day is it?",
+        "questionTranslations": {
+          "pt": "Que dia é hoje?"
+        },
         "options": [
           "Friday",
           "Saturday",
@@ -129,6 +201,9 @@
       },
       {
         "question": "How long did they wait?",
+        "questionTranslations": {
+          "pt": "Quanto tempo eles esperaram?"
+        },
         "options": [
           "5 minutes",
           "10 minutes",
@@ -139,6 +214,9 @@
       },
       {
         "question": "What did the speaker order?",
+        "questionTranslations": {
+          "pt": "O que o narrador pediu?"
+        },
         "options": [
           "Noodles and tea",
           "Rice and braised pork",
@@ -162,11 +240,35 @@
     "grammar_ids": null,
     "audioUrl": "",
     "language_id": 4,
-    "content_translations": null
+    "content_translations": {
+      "title": {
+        "pt": "在餐厅 - No Restaurante"
+      },
+      "questions": [
+        {
+          "question": {
+            "pt": "Que dia é hoje?"
+          }
+        },
+        {
+          "question": {
+            "pt": "Quanto tempo eles esperaram?"
+          }
+        },
+        {
+          "question": {
+            "pt": "O que o narrador pediu?"
+          }
+        }
+      ]
+    }
   },
   {
     "id": 23,
     "title": "天气 - The Weather",
+    "titleTranslations": {
+      "pt": "天气 - O Tempo"
+    },
     "level": "hsk2",
     "framework": null,
     "text": "今天天气很好。早上有点冷，但是现在很暖和。昨天下雨了，所以今天空气很新鲜。我和家人决定去公园散步。公园里有很多人。有的人在跑步，有的人在打太极。孩子们在玩。树上有很多鸟。花也开了，很漂亮。我们在公园待了两个小时。明天天气预报说会下雨，所以我们很高兴今天出来了。",
@@ -174,6 +276,9 @@
     "questions": [
       {
         "question": "How is the weather today?",
+        "questionTranslations": {
+          "pt": "Como está o tempo hoje?"
+        },
         "options": [
           "Rainy",
           "Cold",
@@ -184,6 +289,9 @@
       },
       {
         "question": "What happened yesterday?",
+        "questionTranslations": {
+          "pt": "O que aconteceu ontem?"
+        },
         "options": [
           "It was sunny",
           "It rained",
@@ -194,6 +302,9 @@
       },
       {
         "question": "How long did they stay in the park?",
+        "questionTranslations": {
+          "pt": "Quanto tempo eles ficaram no parque?"
+        },
         "options": [
           "One hour",
           "Two hours",
@@ -217,11 +328,35 @@
     "grammar_ids": null,
     "audioUrl": "",
     "language_id": 4,
-    "content_translations": null
+    "content_translations": {
+      "title": {
+        "pt": "天气 - O Tempo"
+      },
+      "questions": [
+        {
+          "question": {
+            "pt": "Como está o tempo hoje?"
+          }
+        },
+        {
+          "question": {
+            "pt": "O que aconteceu ontem?"
+          }
+        },
+        {
+          "question": {
+            "pt": "Quanto tempo eles ficaram no parque?"
+          }
+        }
+      ]
+    }
   },
   {
     "id": 24,
     "title": "我的爱好 - My Hobbies",
+    "titleTranslations": {
+      "pt": "我的爱好 - Meus Hobbies"
+    },
     "level": "hsk2",
     "framework": null,
     "text": "每个人都有自己的爱好。我的爱好是画画和弹吉他。我从小就喜欢画画。我喜欢画风景和动物。我的房间里挂着很多我自己画的画。去年我开始学吉他。虽然刚开始很难，但是我没有放弃。现在我已经会弹几首简单的歌了。我觉得有爱好很重要，因为爱好可以让我们放松，也可以认识新朋友。我希望以后能画得更好，弹得更好。",
@@ -229,6 +364,9 @@
     "questions": [
       {
         "question": "What are the speaker's hobbies?",
+        "questionTranslations": {
+          "pt": "Quais são os hobbies do narrador?"
+        },
         "options": [
           "Reading and writing",
           "Painting and playing guitar",
@@ -239,6 +377,9 @@
       },
       {
         "question": "What does the speaker like to paint?",
+        "questionTranslations": {
+          "pt": "O que o narrador gosta de pintar?"
+        },
         "options": [
           "People and buildings",
           "Landscapes and animals",
@@ -249,6 +390,9 @@
       },
       {
         "question": "When did the speaker start learning guitar?",
+        "questionTranslations": {
+          "pt": "Quando o narrador começou a aprender violão?"
+        },
         "options": [
           "This year",
           "Last year",
@@ -272,11 +416,35 @@
     "grammar_ids": null,
     "audioUrl": "",
     "language_id": 4,
-    "content_translations": null
+    "content_translations": {
+      "title": {
+        "pt": "我的爱好 - Meus Hobbies"
+      },
+      "questions": [
+        {
+          "question": {
+            "pt": "Quais são os hobbies do narrador?"
+          }
+        },
+        {
+          "question": {
+            "pt": "O que o narrador gosta de pintar?"
+          }
+        },
+        {
+          "question": {
+            "pt": "Quando o narrador começou a aprender violão?"
+          }
+        }
+      ]
+    }
   },
   {
     "id": 25,
     "title": "环保意识 - Environmental Awareness",
+    "titleTranslations": {
+      "pt": "Consciência Ambiental"
+    },
     "level": "hsk3",
     "framework": null,
     "text": "随着经济的发展，环境问题变得越来越严重。空气污染、水污染和垃圾问题影响着我们的生活。为了保护环境，我们应该从小事做起。比如，出门时可以骑自行车或者坐公交车，少开私家车。购物时可以自带购物袋，减少使用塑料袋。在家里要注意节约用水用电，把垃圾分类处理。保护环境不是一个人的事，需要大家共同努力。只有这样，我们才能给下一代留下一个美好的地球。",
@@ -284,6 +452,9 @@
     "questions": [
       {
         "question": "According to the passage, what problems affect our lives?",
+        "questionTranslations": {
+          "pt": "Segundo o texto, que problemas afetam nossas vidas?"
+        },
         "options": [
           "Economic problems",
           "Air and water pollution",
@@ -294,6 +465,9 @@
       },
       {
         "question": "What transportation does the passage suggest using?",
+        "questionTranslations": {
+          "pt": "Que meio de transporte o texto sugere usar?"
+        },
         "options": [
           "Private cars",
           "Airplanes",
@@ -304,6 +478,9 @@
       },
       {
         "question": "What should we do when shopping?",
+        "questionTranslations": {
+          "pt": "O que devemos fazer ao fazer compras?"
+        },
         "options": [
           "Buy more things",
           "Bring our own bags",
@@ -327,11 +504,35 @@
     "grammar_ids": null,
     "audioUrl": "",
     "language_id": 4,
-    "content_translations": null
+    "content_translations": {
+      "title": {
+        "pt": "Consciência Ambiental"
+      },
+      "questions": [
+        {
+          "question": {
+            "pt": "Segundo o texto, que problemas afetam nossas vidas?"
+          }
+        },
+        {
+          "question": {
+            "pt": "Que meio de transporte o texto sugere usar?"
+          }
+        },
+        {
+          "question": {
+            "pt": "O que devemos fazer ao fazer compras?"
+          }
+        }
+      ]
+    }
   },
   {
     "id": 26,
     "title": "科技改变生活 - Technology Changes Life",
+    "titleTranslations": {
+      "pt": "A Tecnologia Muda a Vida"
+    },
     "level": "hsk3",
     "framework": null,
     "text": "在过去的二十年里，科技发展迅速，深刻地改变了我们的生活方式。智能手机的普及让人们随时随地都能上网、交流、工作。网上购物变得非常方便，足不出户就能买到世界各地的商品。移动支付也改变了人们的消费习惯，出门不用带现金，只需要一部手机。然而，科技的发展也带来了一些问题。很多人过度依赖手机，影响了面对面的交流。网络信息的真假难辨也让人担忧。我们应该合理利用科技，让它更好地为我们的生活服务。",
@@ -339,6 +540,9 @@
     "questions": [
       {
         "question": "How has online shopping changed people's lives?",
+        "questionTranslations": {
+          "pt": "Como as compras online mudaram a vida das pessoas?"
+        },
         "options": [
           "It's more expensive",
           "You can buy things without leaving home",
@@ -349,6 +553,9 @@
       },
       {
         "question": "What has mobile payment changed?",
+        "questionTranslations": {
+          "pt": "O que o pagamento móvel mudou?"
+        },
         "options": [
           "Working habits",
           "Eating habits",
@@ -359,6 +566,9 @@
       },
       {
         "question": "What problem does phone addiction cause?",
+        "questionTranslations": {
+          "pt": "Que problema o vício em celular causa?"
+        },
         "options": [
           "It costs too much money",
           "It affects face-to-face communication",
@@ -382,11 +592,35 @@
     "grammar_ids": null,
     "audioUrl": "",
     "language_id": 4,
-    "content_translations": null
+    "content_translations": {
+      "title": {
+        "pt": "A Tecnologia Muda a Vida"
+      },
+      "questions": [
+        {
+          "question": {
+            "pt": "Como as compras online mudaram a vida das pessoas?"
+          }
+        },
+        {
+          "question": {
+            "pt": "O que o pagamento móvel mudou?"
+          }
+        },
+        {
+          "question": {
+            "pt": "Que problema o vício em celular causa?"
+          }
+        }
+      ]
+    }
   },
   {
     "id": 27,
     "title": "传统节日的意义 - The Significance of Traditional Festivals",
+    "titleTranslations": {
+      "pt": "O Significado dos Festivais Tradicionais"
+    },
     "level": "hsk4",
     "framework": null,
     "text": "中国有许多传统节日，每个节日都有其独特的文化内涵和庆祝方式。春节是最重要的节日，代表着辞旧迎新。人们会贴春联、放鞭炮、吃团圆饭。中秋节则象征着团圆，人们会赏月、吃月饼，思念远方的亲人。端午节为了纪念伟大的诗人屈原，人们会赛龙舟、包粽子。这些传统节日不仅是家人团聚的机会，更是传承文化的重要时刻。然而，随着现代生活节奏的加快，一些年轻人对传统节日的兴趣逐渐减少。我们应该重视这些节日，因为它们承载着民族的历史记忆和精神财富。",
@@ -394,6 +628,9 @@
     "questions": [
       {
         "question": "What does the Spring Festival represent?",
+        "questionTranslations": {
+          "pt": "O que o Festival da Primavera representa?"
+        },
         "options": [
           "Family reunion",
           "Bidding farewell to the old and welcoming the new",
@@ -404,6 +641,9 @@
       },
       {
         "question": "What do people do during the Mid-Autumn Festival?",
+        "questionTranslations": {
+          "pt": "O que as pessoas fazem durante o Festival do Meio do Outono?"
+        },
         "options": [
           "Set off firecrackers",
           "Race dragon boats",
@@ -414,6 +654,9 @@
       },
       {
         "question": "Who does the Dragon Boat Festival commemorate?",
+        "questionTranslations": {
+          "pt": "Quem o Festival do Barco Dragão comemora?"
+        },
         "options": [
           "Confucius",
           "Qu Yuan",
@@ -437,11 +680,35 @@
     "grammar_ids": null,
     "audioUrl": "",
     "language_id": 4,
-    "content_translations": null
+    "content_translations": {
+      "title": {
+        "pt": "O Significado dos Festivais Tradicionais"
+      },
+      "questions": [
+        {
+          "question": {
+            "pt": "O que o Festival da Primavera representa?"
+          }
+        },
+        {
+          "question": {
+            "pt": "O que as pessoas fazem durante o Festival do Meio do Outono?"
+          }
+        },
+        {
+          "question": {
+            "pt": "Quem o Festival do Barco Dragão comemora?"
+          }
+        }
+      ]
+    }
   },
   {
     "id": 28,
     "title": "职场压力与心理健康 - Workplace Stress and Mental Health",
+    "titleTranslations": {
+      "pt": "Estresse no Trabalho e Saúde Mental"
+    },
     "level": "hsk4",
     "framework": null,
     "text": "在当今竞争激烈的社会中，职场压力已成为影响人们心理健康的重要因素。长时间的工作、高强度的任务以及复杂的人际关系都可能导致焦虑和抑郁。研究表明，长期处于高压状态会影响人的睡眠质量、食欲，甚至会引发身体疾病。面对这种情况，专家建议人们要学会合理安排时间，区分工作和生活。定期进行体育锻炼、培养兴趣爱好、保持良好的社交关系都是缓解压力的有效方法。同时，企业也应该关注员工的心理健康，提供必要的支持和帮助。只有身心健康，才能在职场中获得长远的发展。",
@@ -449,6 +716,9 @@
     "questions": [
       {
         "question": "According to the passage, what can cause anxiety and depression?",
+        "questionTranslations": {
+          "pt": "Segundo o texto, o que pode causar ansiedade e depressão?"
+        },
         "options": [
           "Low salary",
           "Long working hours and complex relationships",
@@ -459,6 +729,9 @@
       },
       {
         "question": "What effects can long-term high pressure have?",
+        "questionTranslations": {
+          "pt": "Que efeitos a pressão alta de longo prazo pode ter?"
+        },
         "options": [
           "Better performance",
           "Promotion opportunities",
@@ -469,6 +742,9 @@
       },
       {
         "question": "What do experts recommend for stress relief?",
+        "questionTranslations": {
+          "pt": "O que os especialistas recomendam para alívio do estresse?"
+        },
         "options": [
           "Work harder",
           "Change jobs frequently",
@@ -492,11 +768,35 @@
     "grammar_ids": null,
     "audioUrl": "",
     "language_id": 4,
-    "content_translations": null
+    "content_translations": {
+      "title": {
+        "pt": "Estresse no Trabalho e Saúde Mental"
+      },
+      "questions": [
+        {
+          "question": {
+            "pt": "Segundo o texto, o que pode causar ansiedade e depressão?"
+          }
+        },
+        {
+          "question": {
+            "pt": "Que efeitos a pressão alta de longo prazo pode ter?"
+          }
+        },
+        {
+          "question": {
+            "pt": "O que os especialistas recomendam para alívio do estresse?"
+          }
+        }
+      ]
+    }
   },
   {
     "id": 29,
     "title": "人工智能的双刃剑 - The Double-Edged Sword of Artificial Intelligence",
+    "titleTranslations": {
+      "pt": "A Espada de Dois Gumes da Inteligência Artificial"
+    },
     "level": "hsk5",
     "framework": null,
     "text": "人工智能的飞速发展正在重塑我们的社会。从语音助手到自动驾驶，从医疗诊断到金融分析，AI技术已渗透到生活的方方面面。它大大提高了生产效率，解放了人们从事重复性工作的时间，使我们能够专注于更具创造性的任务。然而，这项技术的发展也引发了广泛的争议。首先，自动化可能导致大规模失业，尤其是对从事简单重复工作的劳动者影响最大。其次，算法的不透明性引发了关于隐私和歧视的担忧。此外，若AI被恶意使用，后果不堪设想。因此，在拥抱技术进步的同时，我们必须建立完善的伦理框架和法律法规，确保人工智能的发展能够真正造福人类，而非成为威胁。",
@@ -504,6 +804,9 @@
     "questions": [
       {
         "question": "According to the passage, which fields has AI penetrated?",
+        "questionTranslations": {
+          "pt": "Segundo o texto, em quais campos a IA penetrou?"
+        },
         "options": [
           "Only technology companies",
           "Only medical field",
@@ -514,6 +817,9 @@
       },
       {
         "question": "What is one benefit of AI mentioned in the passage?",
+        "questionTranslations": {
+          "pt": "Qual é um benefício da IA mencionado no texto?"
+        },
         "options": [
           "It makes everything free",
           "It improves production efficiency",
@@ -524,6 +830,9 @@
       },
       {
         "question": "Who might be most affected by automation?",
+        "questionTranslations": {
+          "pt": "Quem pode ser mais afetado pela automação?"
+        },
         "options": [
           "Creative workers",
           "Workers doing simple repetitive tasks",
@@ -547,11 +856,35 @@
     "grammar_ids": null,
     "audioUrl": "",
     "language_id": 4,
-    "content_translations": null
+    "content_translations": {
+      "title": {
+        "pt": "A Espada de Dois Gumes da Inteligência Artificial"
+      },
+      "questions": [
+        {
+          "question": {
+            "pt": "Segundo o texto, em quais campos a IA penetrou?"
+          }
+        },
+        {
+          "question": {
+            "pt": "Qual é um benefício da IA mencionado no texto?"
+          }
+        },
+        {
+          "question": {
+            "pt": "Quem pode ser mais afetado pela automação?"
+          }
+        }
+      ]
+    }
   },
   {
     "id": 30,
     "title": "全球化背景下的文化认同 - Cultural Identity in the Context of Globalization",
+    "titleTranslations": {
+      "pt": "Identidade Cultural no Contexto da Globalização"
+    },
     "level": "hsk5",
     "framework": null,
     "text": "全球化浪潮席卷世界的同时，也引发了关于文化认同的深刻思考。一方面，全球化促进了文化交流，使不同文明之间能够相互借鉴、取长补短。通过互联网，我们可以接触到世界各地的音乐、电影、文学作品，视野得到极大拓展。另一方面，强势文化的扩张也威胁着一些小众文化的生存空间。许多传统习俗和语言正面临消亡的危险，年轻一代对本土文化的了解日益减少。在这种背景下，如何在开放与保护之间找到平衡，成为各国面临的共同课题。专家指出，文化的自信并非排斥外来文化，而是在了解自身文化精髓的基础上，以包容的态度与其他文化对话。唯有如此，才能在全球化进程中既保持文化多样性，又实现文明的共同繁荣。",
@@ -559,6 +892,9 @@
     "questions": [
       {
         "question": "What is one positive effect of globalization on culture?",
+        "questionTranslations": {
+          "pt": "Qual é um efeito positivo da globalização na cultura?"
+        },
         "options": [
           "It eliminates all differences",
           "It promotes cultural exchange",
@@ -569,6 +905,9 @@
       },
       {
         "question": "What threat does globalization pose to minority cultures?",
+        "questionTranslations": {
+          "pt": "Que ameaça a globalização representa para as culturas minoritárias?"
+        },
         "options": [
           "It makes them more popular",
           "It threatens their survival space",
@@ -579,6 +918,9 @@
       },
       {
         "question": "According to experts, what does cultural confidence mean?",
+        "questionTranslations": {
+          "pt": "De acordo com especialistas, o que significa confiança cultural?"
+        },
         "options": [
           "Rejecting all foreign cultures",
           "Abandoning traditional culture",
@@ -602,11 +944,35 @@
     "grammar_ids": null,
     "audioUrl": "",
     "language_id": 4,
-    "content_translations": null
+    "content_translations": {
+      "title": {
+        "pt": "Identidade Cultural no Contexto da Globalização"
+      },
+      "questions": [
+        {
+          "question": {
+            "pt": "Qual é um efeito positivo da globalização na cultura?"
+          }
+        },
+        {
+          "question": {
+            "pt": "Que ameaça a globalização representa para as culturas minoritárias?"
+          }
+        },
+        {
+          "question": {
+            "pt": "De acordo com especialistas, o que significa confiança cultural?"
+          }
+        }
+      ]
+    }
   },
   {
     "id": 32,
     "title": "存在主义与现代人的困境 - Existentialism and the Predicament of Modern Man",
+    "titleTranslations": {
+      "pt": "Existencialismo e o Dilema do Homem Moderno"
+    },
     "level": "hsk6",
     "framework": null,
     "text": "存在主义作为二十世纪最具影响力的哲学思潮之一，深刻揭示了现代人的生存困境。萨特提出\"存在先于本质\"的命题，认为人首先存在，然后通过自己的选择来定义自身。这一观点赋予人自由，同时也带来沉重的责任。海德格尔则关注\"此在\"的存在方式，指出人往往沉沦于日常生活的庸碌之中，忘却了对存在本身的追问。当代社会，物质生活日益丰富，精神世界却日渐贫瘠。人们被消费主义裹挟，在名利场中迷失自我。存在主义提醒我们：人生没有预设的剧本，每个人都必须为自己的存在负责。面对虚无，我们可以选择逃避，也可以勇敢地承担起创造意义的使命。正如加缪所言，即使认清生活的荒诞，我们仍可像西西弗斯一样，在推石上山的过程中寻找属于自己的幸福。",
@@ -614,6 +980,9 @@
     "questions": [
       {
         "question": "What is Sartre's main thesis mentioned in the passage?",
+        "questionTranslations": {
+          "pt": "Qual é a principal tese de Sartre mencionada na passagem?"
+        },
         "options": [
           "Essence precedes existence",
           "Existence precedes essence",
@@ -624,6 +993,9 @@
       },
       {
         "question": "According to Heidegger, what do people often do in daily life?",
+        "questionTranslations": {
+          "pt": "Segundo Heidegger, o que as pessoas frequentemente fazem na vida diária?"
+        },
         "options": [
           "Question existence constantly",
           "Fall into mundane routines and forget to question existence",
@@ -634,6 +1006,9 @@
       },
       {
         "question": "What problem does the passage identify in contemporary society?",
+        "questionTranslations": {
+          "pt": "Que problema a passagem identifica na sociedade contemporânea?"
+        },
         "options": [
           "Material poverty",
           "Material abundance but spiritual impoverishment",
@@ -657,11 +1032,35 @@
     "grammar_ids": null,
     "audioUrl": "",
     "language_id": 4,
-    "content_translations": null
+    "content_translations": {
+      "title": {
+        "pt": "Existencialismo e o Dilema do Homem Moderno"
+      },
+      "questions": [
+        {
+          "question": {
+            "pt": "Qual é a principal tese de Sartre mencionada na passagem?"
+          }
+        },
+        {
+          "question": {
+            "pt": "Segundo Heidegger, o que as pessoas frequentemente fazem na vida diária?"
+          }
+        },
+        {
+          "question": {
+            "pt": "Que problema a passagem identifica na sociedade contemporânea?"
+          }
+        }
+      ]
+    }
   },
   {
     "id": 31,
     "title": "论读书之道 - On the Way of Reading",
+    "titleTranslations": {
+      "pt": "Sobre o Caminho da Leitura"
+    },
     "level": "hsk6",
     "framework": null,
     "text": "古人云：\"书中自有黄金屋，书中自有颜如玉。\"此言虽有功利之嫌，却道出了读书的重要性。然今人读书，多为求功名利禄，鲜有为求知而读者。读书之道，贵在得法。首当明确目的，知己所需；次则择书有道，宁缺毋滥；三者读有深浅，略读与精读当有分别；四则学以致用，理论联系实际。古之学者为己，今之学者为人。为己者，所学皆内化于心；为人者，不过装饰门面而已。读书若只为标榜风雅，则失其本义矣。真正的读书人，当如陶渊明所言\"好读书，不求甚解\"，于字里行间寻找共鸣，在先贤智慧中汲取养分。惟其如此，方能\"腹有诗书气自华\"，达至修身养性之境界。",
@@ -669,6 +1068,9 @@
     "questions": [
       {
         "question": "What criticism does the passage make about modern readers?",
+        "questionTranslations": {
+          "pt": "Que crítica a passagem faz aos leitores modernos?"
+        },
         "options": [
           "They read too slowly",
           "They read mostly for fame and fortune",
@@ -679,6 +1081,9 @@
       },
       {
         "question": "According to the passage, what is the first step in proper reading?",
+        "questionTranslations": {
+          "pt": "De acordo com a passagem, qual é o primeiro passo para uma leitura adequada?"
+        },
         "options": [
           "Buy expensive books",
           "Read as fast as possible",
@@ -689,6 +1094,9 @@
       },
       {
         "question": "What does 'ancient scholars studied for themselves' mean?",
+        "questionTranslations": {
+          "pt": "O que significa 'os estudiosos antigos estudavam para si mesmos'?"
+        },
         "options": [
           "They were selfish",
           "They internalized all learning in their hearts",
@@ -712,6 +1120,27 @@
     "grammar_ids": null,
     "audioUrl": "",
     "language_id": 4,
-    "content_translations": null
+    "content_translations": {
+      "title": {
+        "pt": "Sobre o Caminho da Leitura"
+      },
+      "questions": [
+        {
+          "question": {
+            "pt": "Que crítica a passagem faz aos leitores modernos?"
+          }
+        },
+        {
+          "question": {
+            "pt": "De acordo com a passagem, qual é o primeiro passo para uma leitura adequada?"
+          }
+        },
+        {
+          "question": {
+            "pt": "O que significa 'os estudiosos antigos estudavam para si mesmos'?"
+          }
+        }
+      ]
+    }
   }
 ]

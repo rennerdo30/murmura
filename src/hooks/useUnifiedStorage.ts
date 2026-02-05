@@ -12,7 +12,7 @@
 import { useCallback, useEffect, useRef } from 'react';
 import { useConvexUserData } from '@/lib/convexStorage';
 import * as localStorageModule from '@/lib/storage';
-import { StorageData, ModuleData, GlobalStats, ReviewData } from '@/lib/storage';
+import { StorageData, ModuleData, GlobalStats, ReviewData, createDefaultStorageData } from '@/lib/storage';
 
 type ModuleName = 'alphabet' | 'vocabulary' | 'kanji' | 'grammar' | 'reading' | 'listening';
 
@@ -212,17 +212,7 @@ export function useUnifiedStorage(): UnifiedStorageReturn {
   // Clear all data
   const clearAllData = useCallback(async () => {
     if (convexData.isAuthenticated) {
-      await convexData.saveUserData({
-        userId: null,
-        modules: {},
-        globalStats: {
-          streak: 0,
-          bestStreak: 0,
-          totalStudyTime: 0,
-          lastActive: null,
-          createdAt: Date.now(),
-        },
-      });
+      await convexData.saveUserData(createDefaultStorageData(null));
     } else {
       localStorageModule.clearAllData();
     }

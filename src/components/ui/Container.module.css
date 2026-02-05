@@ -5,6 +5,9 @@
 
 .default {
   padding: 2rem;
+  padding-left: calc(2rem + var(--safe-area-left));
+  padding-right: calc(2rem + var(--safe-area-right));
+  padding-bottom: calc(2rem + var(--safe-area-bottom));
 }
 
 .centered {
@@ -14,12 +17,20 @@
   align-items: center;
   justify-content: center;
   padding: 2rem;
+  padding-top: calc(2rem + var(--safe-area-top));
+  padding-left: calc(2rem + var(--safe-area-left));
+  padding-right: calc(2rem + var(--safe-area-right));
+  padding-bottom: calc(2rem + var(--safe-area-bottom));
   gap: 2rem;
 }
 
 .dashboard {
   min-height: 100vh; min-height: 100dvh;
   padding: 2rem;
+  padding-top: calc(2rem + var(--safe-area-top));
+  padding-left: calc(2rem + var(--safe-area-left));
+  padding-right: calc(2rem + var(--safe-area-right));
+  padding-bottom: calc(2rem + var(--safe-area-bottom));
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -28,10 +39,18 @@
   .default,
   .centered {
     padding: 1rem;
+    padding-top: calc(1rem + var(--safe-area-top));
+    padding-left: calc(1rem + var(--safe-area-left));
+    padding-right: calc(1rem + var(--safe-area-right));
+    padding-bottom: calc(1rem + var(--safe-area-bottom));
     gap: 1.5rem;
   }
 
   .dashboard {
     padding: 1rem;
+    padding-top: calc(1rem + var(--safe-area-top));
+    padding-left: calc(1rem + var(--safe-area-left));
+    padding-right: calc(1rem + var(--safe-area-right));
+    padding-bottom: calc(1rem + var(--safe-area-bottom));
   }
 }

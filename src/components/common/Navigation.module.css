@@ -1,7 +1,7 @@
 .navBack {
   position: fixed;
-  top: 2rem;
-  left: 2rem;
+  top: calc(1rem + var(--safe-area-top));
+  left: calc(1rem + var(--safe-area-left));
   padding: 0.75rem 1.75rem;
   background: var(--bg-glass);
   backdrop-filter: blur(12px);
@@ -46,8 +46,8 @@
 
 @media (max-width: 640px) {
   .navBack {
-    top: 1.25rem;
-    left: 1.25rem;
+    top: calc(0.75rem + var(--safe-area-top));
+    left: calc(0.75rem + var(--safe-area-left));
     padding: 0.6rem 1.25rem;
     font-size: 0.85rem;
     min-height: 44px;

@@ -321,7 +321,9 @@
       "goodEvening": "Boa noite",
       "goodNight": "Boa noite"
     },
-    "notifications": "Notificações"
+    "notifications": "Notificações",
+    "placementTest": "Teste de nivelamento",
+    "pronunciation": "Pronuncia"
   },
   "stats": {
     "correct": "Correto",
@@ -633,7 +635,8 @@
       "learning": "Aprendendo",
       "practice": "Praticar",
       "stop": "Parar",
-      "tapToContinueHint": "Toque ou deslize para continuar"
+      "tapToContinueHint": "Toque ou deslize para continuar",
+      "pronunciation": "Pronuncia"
     },
     "vocabulary": {
       "examples": "Exemplos"
@@ -644,7 +647,14 @@
       "hideExplanation": "Ocultar Explicação",
       "showExplanation": "Mostrar Explicação",
       "iUnderstand": "Entendi",
-      "formation": "Formação"
+      "formation": "Formação",
+      "negativeForm": "Forma negativa",
+      "questionForm": "Forma interrogativa",
+      "conjugation": "Conjugacao",
+      "whenToUse": "Quando usar",
+      "commonMistakes": "Erros comuns",
+      "whatNotToSay": "O que NAO dizer",
+      "relatedPatterns": "Padroes relacionados"
     },
     "character": {
       "strokeOrder": "Ordem dos Traços",
@@ -684,6 +694,13 @@
     "lockedDescription": "Conclua as lições anteriores para desbloquear esta.",
     "exercise": {
       "completeExercise": "Conclua o exercício"
+    },
+    "pronunciation": {
+      "noDrills": "Sem exercicios de pronuncia",
+      "noDrillsDesc": "Esta licao nao inclui exercicios de pronuncia.",
+      "continueToExercises": "Continuar para os exercicios",
+      "unknownDrillType": "Tipo de exercicio de pronuncia desconhecido.",
+      "skip": "Pular"
     }
   },
   "exercises": {
@@ -699,7 +716,8 @@
       "quitConfirmMessage": "Seu progresso nesta sessão será perdido.",
       "confirmQuit": "Sair",
       "cancel": "Cancelar",
-      "unsupported": "Tipo de exercício ainda não suportado"
+      "unsupported": "Tipo de exercício ainda não suportado",
+      "incorrectTryAgain": "Incorreto. Tente novamente."
     },
     "matching": {
       "success": "Todos os pares correspondidos corretamente!",

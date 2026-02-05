@@ -135,3 +135,29 @@
 .trendIcon {
   color: var(--tier-color, var(--gold, #FFD700));
 }
+
+@media (max-width: 480px) {
+  .card {
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .levelSection {
+    gap: 0.75rem;
+  }
+
+  .levelBadge {
+    width: 52px;
+    height: 52px;
+    border-radius: 10px;
+  }
+
+  .levelNumber {
+    font-size: 1.35rem;
+  }
+
+  .progressHeader {
+    flex-wrap: wrap;
+    gap: 0.25rem 0.75rem;
+  }
+}

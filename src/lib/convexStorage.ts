@@ -6,7 +6,7 @@
 
 import { useQuery, useMutation } from 'convex/react';
 import { api } from '../../convex/_generated/api';
-import { StorageData, ModuleData } from './storage';
+import { StorageData, ModuleData, createDefaultStorageData } from './storage';
 import { ReviewData, GlobalStats, ModuleStats } from '@/types';
 
 // Valid module names matching Convex validator
@@ -95,82 +95,7 @@ function isValidGlobalStats(stats: unknown): stats is GlobalStats {
 
 // Default data structure
 function getDefaultData(): StorageData {
-    return {
-        userId: null, // Will be set by authenticated user
-        modules: {
-            alphabet: {
-                learned: [],
-                reviews: {},
-                stats: {
-                    correct: 0,
-                    total: 0,
-                    streak: 0,
-                    bestStreak: 0
-                }
-            },
-            vocabulary: {
-                learned: [],
-                reviews: {},
-                stats: {
-                    correct: 0,
-                    total: 0,
-                    streak: 0,
-                    bestStreak: 0,
-                    wordsMastered: 0
-                }
-            },
-            kanji: {
-                learned: [],
-                reviews: {},
-                stats: {
-                    correct: 0,
-                    total: 0,
-                    streak: 0,
-                    bestStreak: 0,
-                    kanjiMastered: 0
-                }
-            },
-            grammar: {
-                learned: [],
-                reviews: {},
-                stats: {
-                    correct: 0,
-                    total: 0,
-                    streak: 0,
-                    bestStreak: 0,
-                    pointsMastered: 0
-                }
-            },
-            reading: {
-                stats: {
-                    correct: 0,
-                    total: 0,
-                    streak: 0,
-                    textsRead: 0,
-                    comprehensionScore: 0,
-                    totalAttempts: 0
-                },
-                completed: []
-            },
-            listening: {
-                stats: {
-                    correct: 0,
-                    total: 0,
-                    streak: 0,
-                    exercisesCompleted: 0,
-                    accuracy: 0
-                },
-                completed: []
-            }
-        },
-        globalStats: {
-            streak: 0,
-            bestStreak: 0,
-            totalStudyTime: 0,
-            lastActive: null,
-            createdAt: Date.now()
-        }
-    };
+    return createDefaultStorageData(null);
 }
 
 interface ConvexHooks {
@@ -211,13 +136,14 @@ export function useConvexUserData() {
     let transformedData: StorageData | null = null;
 
     if (userData && isConvexUserData(userData)) {
+        const defaultData = getDefaultData();
         const validGlobalStats = isValidGlobalStats(userData.globalStats)
             ? userData.globalStats
-            : getDefaultData().globalStats;
+            : defaultData.globalStats;
 
         transformedData = {
             userId: null,
-            modules: userData.modules || {},
+            modules: userData.modules || defaultData.modules,
             globalStats: validGlobalStats,
         };
     }

@@ -257,3 +257,32 @@
   background: #3a7fc9;
   transform: translateY(-2px);
 }
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0.5rem;
+    min-height: 300px;
+    gap: 1rem;
+  }
+
+  .phraseDisplay {
+    min-height: 170px;
+    padding: 1rem 0.75rem;
+  }
+
+  .targetText {
+    font-size: 1.2rem;
+    overflow-wrap: anywhere;
+    text-align: center;
+  }
+
+  .repeatControls {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .replayButton,
+  .doneButton {
+    width: 100%;
+  }
+}

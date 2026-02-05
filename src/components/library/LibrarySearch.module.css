@@ -78,3 +78,15 @@
   color: var(--text-muted);
   padding-left: 0.25rem;
 }
+
+@media (max-width: 480px) {
+  .searchIcon {
+    left: 0.75rem;
+    font-size: 1.1rem;
+  }
+
+  .input {
+    padding: 0.75rem 2.5rem 0.75rem 2.3rem;
+    font-size: 0.95rem;
+  }
+}

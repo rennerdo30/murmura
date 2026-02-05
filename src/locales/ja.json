@@ -321,7 +321,9 @@
       "goodEvening": "こんばんは",
       "goodNight": "おやすみなさい"
     },
-    "notifications": "通知"
+    "notifications": "通知",
+    "placementTest": "レベルチェック",
+    "pronunciation": "発音"
   },
   "stats": {
     "correct": "正解",
@@ -657,7 +659,8 @@
       "learning": "学習中",
       "practice": "練習",
       "stop": "停止",
-      "tapToContinueHint": "タップまたはスワイプで続行"
+      "tapToContinueHint": "タップまたはスワイプで続行",
+      "pronunciation": "発音"
     },
     "exercise": {
       "completeExercise": "練習問題を完了してください"
@@ -671,7 +674,14 @@
       "hideExplanation": "説明を隠す",
       "showExplanation": "説明を表示",
       "iUnderstand": "理解しました",
-      "formation": "形成"
+      "formation": "形成",
+      "negativeForm": "否定形",
+      "questionForm": "疑問形",
+      "conjugation": "活用",
+      "whenToUse": "使う場面",
+      "commonMistakes": "よくある間違い",
+      "whatNotToSay": "言ってはいけない表現",
+      "relatedPatterns": "関連パターン"
     },
     "character": {
       "strokeOrder": "筆順",
@@ -702,6 +712,13 @@
       "pathComplete": "パス完了",
       "backToPath": "パスに戻る",
       "upNext": "次は"
+    },
+    "pronunciation": {
+      "noDrills": "発音ドリルはありません",
+      "noDrillsDesc": "このレッスンには発音ドリルが含まれていません。",
+      "continueToExercises": "練習問題へ進む",
+      "unknownDrillType": "不明な発音ドリルの種類です。",
+      "skip": "スキップ"
     }
   },
   "exercises": {
@@ -717,7 +734,8 @@
       "quitConfirmMessage": "このセッションの進捗は失われます。",
       "confirmQuit": "終了",
       "cancel": "キャンセル",
-      "unsupported": "この練習問題タイプはまだサポートされていません"
+      "unsupported": "この練習問題タイプはまだサポートされていません",
+      "incorrectTryAgain": "不正解です。もう一度試してください。"
     },
     "matching": {
       "success": "すべてのペアが正しく一致しました！",

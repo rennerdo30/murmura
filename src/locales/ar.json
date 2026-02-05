@@ -321,7 +321,9 @@
       "goodEvening": "مساء الخير",
       "goodNight": "تصبح على خير"
     },
-    "notifications": "الإشعارات"
+    "notifications": "الإشعارات",
+    "placementTest": "اختبار تحديد المستوى",
+    "pronunciation": "النطق"
   },
   "stats": {
     "correct": "صحيح",
@@ -633,7 +635,8 @@
       "learning": "التعلم",
       "practice": "الممارسة",
       "stop": "إيقاف",
-      "tapToContinueHint": "انقر أو اسحب للمتابعة"
+      "tapToContinueHint": "انقر أو اسحب للمتابعة",
+      "pronunciation": "النطق"
     },
     "vocabulary": {
       "examples": "أمثلة"
@@ -644,7 +647,14 @@
       "hideExplanation": "إخفاء الشرح",
       "showExplanation": "عرض الشرح",
       "iUnderstand": "أفهم",
-      "formation": "التكوين"
+      "formation": "التكوين",
+      "negativeForm": "الصيغة المنفية",
+      "questionForm": "صيغة السؤال",
+      "conjugation": "التصريف",
+      "whenToUse": "متى يُستخدم",
+      "commonMistakes": "أخطاء شائعة",
+      "whatNotToSay": "ما الذي لا ينبغي قوله",
+      "relatedPatterns": "أنماط ذات صلة"
     },
     "character": {
       "strokeOrder": "ترتيب الخطوط",
@@ -684,6 +694,13 @@
     "lockedDescription": "أكمل الدروس السابقة لفتح هذا الدرس.",
     "exercise": {
       "completeExercise": "أكمل التمرين"
+    },
+    "pronunciation": {
+      "noDrills": "لا توجد تدريبات نطق",
+      "noDrillsDesc": "هذا الدرس لا يتضمن تدريبات نطق.",
+      "continueToExercises": "المتابعة إلى التمارين",
+      "unknownDrillType": "نوع تدريب النطق غير معروف.",
+      "skip": "تخطي"
     }
   },
   "exercises": {
@@ -699,7 +716,8 @@
       "quitConfirmMessage": "سيتم فقدان تقدمك في هذه الجلسة.",
       "confirmQuit": "إنهاء",
       "cancel": "إلغاء",
-      "unsupported": "نوع التمرين غير مدعوم بعد"
+      "unsupported": "نوع التمرين غير مدعوم بعد",
+      "incorrectTryAgain": "غير صحيح. حاول مرة أخرى."
     },
     "matching": {
       "success": "تمت مطابقة جميع الأزواج بشكل صحيح!",

@@ -2,6 +2,9 @@
   {
     "id": 47,
     "title": "나의 하루 (My Day)",
+    "titleTranslations": {
+      "de": "Mein Tag"
+    },
     "level": "topik1",
     "framework": null,
     "text": "저는 아침 7시에 일어나요. 아침을 먹고 학교에 가요. 학교에서 수업을 들어요. 점심에는 친구와 같이 밥을 먹어요. 오후에는 도서관에서 공부해요. 저녁에 집에 와서 가족과 저녁을 먹어요. 밤에는 책을 읽고 11시에 자요.",
@@ -9,6 +12,9 @@
     "questions": [
       {
         "question": "What time does the speaker wake up?",
+        "questionTranslations": {
+          "de": "Wann steht der Sprecher auf?"
+        },
         "options": [
           "7:00 AM",
           "6:00 AM",
@@ -19,6 +25,9 @@
       },
       {
         "question": "Who does the speaker eat lunch with?",
+        "questionTranslations": {
+          "de": "Mit wem isst der Sprecher zu Mittag?"
+        },
         "options": [
           "Friend",
           "Family",
@@ -29,6 +38,9 @@
       },
       {
         "question": "Where does the speaker study in the afternoon?",
+        "questionTranslations": {
+          "de": "Wo lernt der Sprecher am Nachmittag?"
+        },
         "options": [
           "Library",
           "School",
@@ -52,11 +64,35 @@
     "grammar_ids": null,
     "audioUrl": null,
     "language_id": 3,
-    "content_translations": null
+    "content_translations": {
+      "title": {
+        "de": "Mein Tag"
+      },
+      "questions": [
+        {
+          "question": {
+            "de": "Wann steht der Sprecher auf?"
+          }
+        },
+        {
+          "question": {
+            "de": "Mit wem isst der Sprecher zu Mittag?"
+          }
+        },
+        {
+          "question": {
+            "de": "Wo lernt der Sprecher am Nachmittag?"
+          }
+        }
+      ]
+    }
   },
   {
     "id": 60,
     "title": "내 방 (My Room)",
+    "titleTranslations": {
+      "de": "Mein Zimmer"
+    },
     "level": "topik1",
     "framework": null,
     "text": "제 방은 작지만 좋아요. 창문 옆에 책상이 있어요. 책상 위에 컴퓨터가 있어요. 책상 옆에 침대가 있어요. 침대 위에 인형이 있어요. 벽에 사진이 많아요. 저는 매일 방을 청소해요. 깨끗한 방이 좋아요.",
@@ -64,6 +100,9 @@
     "questions": [
       {
         "question": "How does the speaker describe their room?",
+        "questionTranslations": {
+          "de": "Wie beschreibt der Sprecher sein Zimmer?"
+        },
         "options": [
           "Small but good",
           "Big and nice",
@@ -74,6 +113,9 @@
       },
       {
         "question": "What is next to the window?",
+        "questionTranslations": {
+          "de": "Was steht neben dem Fenster?"
+        },
         "options": [
           "Desk",
           "Bed",
@@ -84,6 +126,9 @@
       },
       {
         "question": "What is on the bed?",
+        "questionTranslations": {
+          "de": "Was liegt auf dem Bett?"
+        },
         "options": [
           "Doll",
           "Computer",
@@ -107,11 +152,35 @@
     "grammar_ids": null,
     "audioUrl": null,
     "language_id": 3,
-    "content_translations": null
+    "content_translations": {
+      "title": {
+        "de": "Mein Zimmer"
+      },
+      "questions": [
+        {
+          "question": {
+            "de": "Wie beschreibt der Sprecher sein Zimmer?"
+          }
+        },
+        {
+          "question": {
+            "de": "Was steht neben dem Fenster?"
+          }
+        },
+        {
+          "question": {
+            "de": "Was liegt auf dem Bett?"
+          }
+        }
+      ]
+    }
   },
   {
     "id": 59,
     "title": "우리 가족 (My Family)",
+    "titleTranslations": {
+      "de": "Meine Familie"
+    },
     "level": "topik1",
     "framework": null,
     "text": "저는 네 명 가족이에요. 아버지, 어머니, 언니, 그리고 저예요. 아버지는 회사원이에요. 어머니는 선생님이에요. 언니는 대학생이에요. 저는 고등학생이에요. 우리 가족은 서울에 살아요. 주말에 우리는 같이 밥을 먹어요. 가족과 시간을 보내는 것이 좋아요.",
@@ -119,6 +188,9 @@
     "questions": [
       {
         "question": "How many people are in the family?",
+        "questionTranslations": {
+          "de": "Wie viele Personen sind in der Familie?"
+        },
         "options": [
           "4",
           "3",
@@ -129,6 +201,9 @@
       },
       {
         "question": "What does the father do?",
+        "questionTranslations": {
+          "de": "Was macht der Vater beruflich?"
+        },
         "options": [
           "Office worker",
           "Teacher",
@@ -139,6 +214,9 @@
       },
       {
         "question": "What does the mother do?",
+        "questionTranslations": {
+          "de": "Was macht die Mutter beruflich?"
+        },
         "options": [
           "Teacher",
           "Office worker",
@@ -162,11 +240,35 @@
     "grammar_ids": null,
     "audioUrl": null,
     "language_id": 3,
-    "content_translations": null
+    "content_translations": {
+      "title": {
+        "de": "Meine Familie"
+      },
+      "questions": [
+        {
+          "question": {
+            "de": "Wie viele Personen sind in der Familie?"
+          }
+        },
+        {
+          "question": {
+            "de": "Was macht der Vater beruflich?"
+          }
+        },
+        {
+          "question": {
+            "de": "Was macht die Mutter beruflich?"
+          }
+        }
+      ]
+    }
   },
   {
     "id": 46,
     "title": "자기소개 (Self-Introduction)",
+    "titleTranslations": {
+      "de": "Selbstvorstellung"
+    },
     "level": "topik1",
     "framework": null,
     "text": "안녕하세요. 저는 김민수입니다. 저는 한국 사람이에요. 서울에서 왔어요. 저는 스물다섯 살이에요. 대학교에서 영어를 공부해요. 취미는 음악 듣기와 요리하기예요. 만나서 반갑습니다.",
@@ -174,6 +276,9 @@
     "questions": [
       {
         "question": "What is the speaker's name?",
+        "questionTranslations": {
+          "de": "Wie heißt der Sprecher?"
+        },
         "options": [
           "김민수",
           "이영희",
@@ -184,6 +289,9 @@
       },
       {
         "question": "Where is the speaker from?",
+        "questionTranslations": {
+          "de": "Woher kommt der Sprecher?"
+        },
         "options": [
           "Seoul",
           "Busan",
@@ -194,6 +302,9 @@
       },
       {
         "question": "What does the speaker study?",
+        "questionTranslations": {
+          "de": "Was studiert der Sprecher?"
+        },
         "options": [
           "English",
           "Korean",
@@ -217,11 +328,35 @@
     "grammar_ids": null,
     "audioUrl": null,
     "language_id": 3,
-    "content_translations": null
+    "content_translations": {
+      "title": {
+        "de": "Selbstvorstellung"
+      },
+      "questions": [
+        {
+          "question": {
+            "de": "Wie heißt der Sprecher?"
+          }
+        },
+        {
+          "question": {
+            "de": "Woher kommt der Sprecher?"
+          }
+        },
+        {
+          "question": {
+            "de": "Was studiert der Sprecher?"
+          }
+        }
+      ]
+    }
   },
   {
     "id": 61,
     "title": "좋아하는 음식 (Favorite Food)",
+    "titleTranslations": {
+      "de": "Lieblingsessen"
+    },
     "level": "topik1",
     "framework": null,
     "text": "저는 한국 음식을 좋아해요. 특히 불고기와 비빔밥을 좋아해요. 불고기는 달고 맛있어요. 비빔밥은 야채가 많아서 건강해요. 저는 매운 음식도 좋아해요. 김치찌개를 자주 먹어요. 하지만 너무 매우면 물을 많이 마셔요. 한국 음식은 정말 맛있어요!",
@@ -229,6 +364,9 @@
     "questions": [
       {
         "question": "What food does the speaker especially like?",
+        "questionTranslations": {
+          "de": "Welches Essen mag der Sprecher besonders gern?"
+        },
         "options": [
           "Bulgogi and bibimbap",
           "Pizza and pasta",
@@ -239,6 +377,9 @@
       },
       {
         "question": "How does the speaker describe bulgogi?",
+        "questionTranslations": {
+          "de": "Wie beschreibt der Sprecher Bulgogi?"
+        },
         "options": [
           "Sweet and delicious",
           "Spicy and sour",
@@ -249,6 +390,9 @@
       },
       {
         "question": "Why is bibimbap healthy?",
+        "questionTranslations": {
+          "de": "Warum ist Bibimbap gesund?"
+        },
         "options": [
           "It has many vegetables",
           "It has no salt",
@@ -272,11 +416,35 @@
     "grammar_ids": null,
     "audioUrl": null,
     "language_id": 3,
-    "content_translations": null
+    "content_translations": {
+      "title": {
+        "de": "Lieblingsessen"
+      },
+      "questions": [
+        {
+          "question": {
+            "de": "Welches Essen mag der Sprecher besonders gern?"
+          }
+        },
+        {
+          "question": {
+            "de": "Wie beschreibt der Sprecher Bulgogi?"
+          }
+        },
+        {
+          "question": {
+            "de": "Warum ist Bibimbap gesund?"
+          }
+        }
+      ]
+    }
   },
   {
     "id": 48,
     "title": "주말 계획 (Weekend Plans)",
+    "titleTranslations": {
+      "de": "Wochendpläne"
+    },
     "level": "topik1",
     "framework": null,
     "text": "이번 주말에 친구들과 서울에 갈 거예요. 토요일 아침에 출발해서 명동에서 쇼핑할 거예요. 점심에는 한국 음식을 먹을 거예요. 불고기와 김치찌개를 먹고 싶어요. 오후에는 경복궁에 갈 거예요. 저녁에는 한강 공원에서 산책할 거예요. 일요일에는 집에서 쉴 거예요.",
@@ -284,6 +452,9 @@
     "questions": [
       {
         "question": "Where will the speaker go this weekend?",
+        "questionTranslations": {
+          "de": "Wohin wird der Sprecher dieses Wochenende gehen?"
+        },
         "options": [
           "Seoul",
           "Busan",
@@ -294,6 +465,9 @@
       },
       {
         "question": "What will the speaker do in Myeongdong?",
+        "questionTranslations": {
+          "de": "Was wird der Sprecher in Myeongdong machen?"
+        },
         "options": [
           "Shopping",
           "Eating",
@@ -304,6 +478,9 @@
       },
       {
         "question": "What food does the speaker want to eat?",
+        "questionTranslations": {
+          "de": "Welches Essen möchte der Sprecher essen?"
+        },
         "options": [
           "Bulgogi and kimchi stew",
           "Bibimbap and japchae",
@@ -327,11 +504,35 @@
     "grammar_ids": null,
     "audioUrl": null,
     "language_id": 3,
-    "content_translations": null
+    "content_translations": {
+      "title": {
+        "de": "Wochendpläne"
+      },
+      "questions": [
+        {
+          "question": {
+            "de": "Wohin wird der Sprecher dieses Wochenende gehen?"
+          }
+        },
+        {
+          "question": {
+            "de": "Was wird der Sprecher in Myeongdong machen?"
+          }
+        },
+        {
+          "question": {
+            "de": "Welches Essen möchte der Sprecher essen?"
+          }
+        }
+      ]
+    }
   },
   {
     "id": 63,
     "title": "병원에서 (At the Hospital)",
+    "titleTranslations": {
+      "de": "Im Krankenhaus"
+    },
     "level": "topik2",
     "framework": null,
     "text": "오늘 아침에 머리가 아팠어요. 열도 있었어요. 그래서 병원에 갔어요. 의사 선생님이 물었어요. '어디가 아프세요?' 저는 '머리가 아프고 열이 나요'라고 말했어요. 의사 선생님이 검사를 했어요. 감기였어요. 의사 선생님이 약을 처방해 주셨어요. 약국에서 약을 샀어요. 하루에 세 번 먹어야 해요. 이제 집에서 쉴 거예요.",
@@ -339,6 +540,9 @@
     "questions": [
       {
         "question": "What symptoms did the speaker have?",
+        "questionTranslations": {
+          "de": "Welche Symptome hatte der Sprecher?"
+        },
         "options": [
           "Headache and fever",
           "Stomachache",
@@ -349,6 +553,9 @@
       },
       {
         "question": "What did the doctor ask?",
+        "questionTranslations": {
+          "de": "Was fragte der Arzt?"
+        },
         "options": [
           "Where does it hurt?",
           "What did you eat?",
@@ -359,6 +566,9 @@
       },
       {
         "question": "What was the diagnosis?",
+        "questionTranslations": {
+          "de": "Wie lautete die Diagnose?"
+        },
         "options": [
           "Cold",
           "Flu",
@@ -382,11 +592,35 @@
     "grammar_ids": null,
     "audioUrl": null,
     "language_id": 3,
-    "content_translations": null
+    "content_translations": {
+      "title": {
+        "de": "Im Krankenhaus"
+      },
+      "questions": [
+        {
+          "question": {
+            "de": "Welche Symptome hatte der Sprecher?"
+          }
+        },
+        {
+          "question": {
+            "de": "Was fragte der Arzt?"
+          }
+        },
+        {
+          "question": {
+            "de": "Wie lautete die Diagnose?"
+          }
+        }
+      ]
+    }
   },
   {
     "id": 62,
     "title": "쇼핑하기 (Shopping)",
+    "titleTranslations": {
+      "de": "Einkaufen"
+    },
     "level": "topik2",
     "framework": null,
     "text": "어제 백화점에 갔어요. 새 옷을 사고 싶었어요. 먼저 2층에 가서 바지를 봤어요. 검은색 바지가 예뻤어요. 가격이 50,000원이었어요. 조금 비쌌지만 샀어요. 그 다음에 3층에 가서 셔츠를 봤어요. 하얀색 셔츠를 샀어요. 30,000원이었어요. 모두 80,000원을 썼어요.",
@@ -394,6 +628,9 @@
     "questions": [
       {
         "question": "Where did the speaker go?",
+        "questionTranslations": {
+          "de": "Wohin ging der Sprecher?"
+        },
         "options": [
           "Department store",
           "Supermarket",
@@ -404,6 +641,9 @@
       },
       {
         "question": "What floor were the pants on?",
+        "questionTranslations": {
+          "de": "In welchem Stock befanden sich die Hosen?"
+        },
         "options": [
           "2nd floor",
           "1st floor",
@@ -414,6 +654,9 @@
       },
       {
         "question": "How much were the pants?",
+        "questionTranslations": {
+          "de": "Wie viel kosteten die Hosen?"
+        },
         "options": [
           "50,000 won",
           "30,000 won",
@@ -437,11 +680,35 @@
     "grammar_ids": null,
     "audioUrl": null,
     "language_id": 3,
-    "content_translations": null
+    "content_translations": {
+      "title": {
+        "de": "Einkaufen"
+      },
+      "questions": [
+        {
+          "question": {
+            "de": "Wohin ging der Sprecher?"
+          }
+        },
+        {
+          "question": {
+            "de": "In welchem Stock befanden sich die Hosen?"
+          }
+        },
+        {
+          "question": {
+            "de": "Wie viel kosteten die Hosen?"
+          }
+        }
+      ]
+    }
   },
   {
     "id": 50,
     "title": "직업과 꿈 (Career and Dreams)",
+    "titleTranslations": {
+      "de": "Beruf und Träume"
+    },
     "level": "topik2",
     "framework": null,
     "text": "저는 대학교 3학년이에요. 경영학을 전공하고 있어요. 졸업 후에 무역 회사에서 일하고 싶어요. 외국어를 잘하면 좋은 직장을 구할 수 있기 때문에 영어와 중국어를 공부하고 있어요. 나중에 자신의 회사를 만드는 것이 저의 꿈이에요. 성공하기 위해서 열심히 노력하고 있어요.",
@@ -449,6 +716,9 @@
     "questions": [
       {
         "question": "What year is the speaker in university?",
+        "questionTranslations": {
+          "de": "In welchem Studienjahr ist der Sprecher?"
+        },
         "options": [
           "3rd year",
           "1st year",
@@ -459,6 +729,9 @@
       },
       {
         "question": "What is the speaker's major?",
+        "questionTranslations": {
+          "de": "Was ist das Hauptfach des Sprechers?"
+        },
         "options": [
           "Business administration",
           "Economics",
@@ -469,6 +742,9 @@
       },
       {
         "question": "What languages is the speaker studying?",
+        "questionTranslations": {
+          "de": "Welche Sprachen lernt der Sprecher?"
+        },
         "options": [
           "English and Chinese",
           "Japanese and Chinese",
@@ -492,11 +768,35 @@
     "grammar_ids": null,
     "audioUrl": null,
     "language_id": 3,
-    "content_translations": null
+    "content_translations": {
+      "title": {
+        "de": "Beruf und Träume"
+      },
+      "questions": [
+        {
+          "question": {
+            "de": "In welchem Studienjahr ist der Sprecher?"
+          }
+        },
+        {
+          "question": {
+            "de": "Was ist das Hauptfach des Sprechers?"
+          }
+        },
+        {
+          "question": {
+            "de": "Welche Sprachen lernt der Sprecher?"
+          }
+        }
+      ]
+    }
   },
   {
     "id": 64,
     "title": "취미 (Hobbies)",
+    "titleTranslations": {
+      "de": "Hobbys"
+    },
     "level": "topik2",
     "framework": null,
     "text": "사람마다 취미가 달라요. 저는 음악 듣기를 좋아해요. K-pop을 많이 들어요. 친구 민지는 그림 그리기를 좋아해요. 민지는 그림을 잘 그려요. 친구 수호는 운동을 좋아해요. 특히 축구를 잘해요. 주말마다 축구를 해요. 우리는 취미가 다르지만 좋은 친구예요. 가끔 같이 영화를 봐요.",
@@ -504,6 +804,9 @@
     "questions": [
       {
         "question": "What is the speaker's hobby?",
+        "questionTranslations": {
+          "de": "Was ist das Hobby des Sprechers?"
+        },
         "options": [
           "Listening to music",
           "Drawing",
@@ -514,6 +817,9 @@
       },
       {
         "question": "What does Minji like to do?",
+        "questionTranslations": {
+          "de": "Was macht Minji gerne?"
+        },
         "options": [
           "Draw pictures",
           "Listen to music",
@@ -524,6 +830,9 @@
       },
       {
         "question": "When does Suho play soccer?",
+        "questionTranslations": {
+          "de": "Wann spielt Suho Fußball?"
+        },
         "options": [
           "Every weekend",
           "Every day",
@@ -547,11 +856,35 @@
     "grammar_ids": null,
     "audioUrl": null,
     "language_id": 3,
-    "content_translations": null
+    "content_translations": {
+      "title": {
+        "de": "Hobbys"
+      },
+      "questions": [
+        {
+          "question": {
+            "de": "Was ist das Hobby des Sprechers?"
+          }
+        },
+        {
+          "question": {
+            "de": "Was macht Minji gerne?"
+          }
+        },
+        {
+          "question": {
+            "de": "Wann spielt Suho Fußball?"
+          }
+        }
+      ]
+    }
   },
   {
     "id": 49,
     "title": "한국어 공부 (Studying Korean)",
+    "titleTranslations": {
+      "de": "한국어 공부 (Koreanisch lernen)"
+    },
     "level": "topik2",
     "framework": null,
     "text": "저는 6개월 전부터 한국어를 공부하고 있어요. 처음에는 한글이 어려웠어요. 하지만 매일 연습해서 지금은 한글을 읽을 수 있어요. 한국 드라마를 보면서 듣기 연습을 해요. 한국 친구도 있어서 같이 이야기해요. 내년에 한국에 가고 싶어요. 한국어로 말하고 싶어요.",
@@ -559,6 +892,9 @@
     "questions": [
       {
         "question": "How long has the speaker been studying Korean?",
+        "questionTranslations": {
+          "de": "Wie lange lernt der Sprecher schon Koreanisch?"
+        },
         "options": [
           "6 months",
           "1 year",
@@ -569,6 +905,9 @@
       },
       {
         "question": "What was difficult at first?",
+        "questionTranslations": {
+          "de": "Was war am Anfang schwierig?"
+        },
         "options": [
           "Hangeul",
           "Grammar",
@@ -579,6 +918,9 @@
       },
       {
         "question": "How does the speaker practice listening?",
+        "questionTranslations": {
+          "de": "Wie übt der Sprecher das Hörverständnis?"
+        },
         "options": [
           "Watching Korean dramas",
           "Listening to music",
@@ -602,11 +944,35 @@
     "grammar_ids": null,
     "audioUrl": null,
     "language_id": 3,
-    "content_translations": null
+    "content_translations": {
+      "title": {
+        "de": "한국어 공부 (Koreanisch lernen)"
+      },
+      "questions": [
+        {
+          "question": {
+            "de": "Wie lange lernt der Sprecher schon Koreanisch?"
+          }
+        },
+        {
+          "question": {
+            "de": "Was war am Anfang schwierig?"
+          }
+        },
+        {
+          "question": {
+            "de": "Wie übt der Sprecher das Hörverständnis?"
+          }
+        }
+      ]
+    }
   },
   {
     "id": 65,
     "title": "휴대폰 사용 (Using a Mobile Phone)",
+    "titleTranslations": {
+      "de": "휴대폰 사용 (Handynutzung)"
+    },
     "level": "topik2",
     "framework": null,
     "text": "요즘 사람들은 휴대폰을 많이 사용해요. 저도 매일 휴대폰을 써요. 아침에 일어나서 휴대폰으로 시간을 확인해요. 버스에서 음악을 들어요. 친구들과 메시지를 보내요. 사진도 찍어요. 인터넷으로 뉴스를 읽어요. 게임도 해요. 휴대폰 없이 살기 어려워요. 하지만 너무 많이 쓰면 눈이 아파요.",
@@ -614,6 +980,9 @@
     "questions": [
       {
         "question": "What does the speaker check in the morning?",
+        "questionTranslations": {
+          "de": "Was schaut sich der Sprecher morgens an?"
+        },
         "options": [
           "Time",
           "Messages",
@@ -624,6 +993,9 @@
       },
       {
         "question": "What does the speaker do on the bus?",
+        "questionTranslations": {
+          "de": "Was macht der Sprecher im Bus?"
+        },
         "options": [
           "Listen to music",
           "Play games",
@@ -634,6 +1006,9 @@
       },
       {
         "question": "What happens if you use the phone too much?",
+        "questionTranslations": {
+          "de": "Was passiert, wenn man das Handy zu viel benutzt?"
+        },
         "options": [
           "Eyes hurt",
           "Head hurts",
@@ -657,11 +1032,35 @@
     "grammar_ids": null,
     "audioUrl": null,
     "language_id": 3,
-    "content_translations": null
+    "content_translations": {
+      "title": {
+        "de": "휴대폰 사용 (Handynutzung)"
+      },
+      "questions": [
+        {
+          "question": {
+            "de": "Was schaut sich der Sprecher morgens an?"
+          }
+        },
+        {
+          "question": {
+            "de": "Was macht der Sprecher im Bus?"
+          }
+        },
+        {
+          "question": {
+            "de": "Was passiert, wenn man das Handy zu viel benutzt?"
+          }
+        }
+      ]
+    }
   },
   {
     "id": 51,
     "title": "건강한 생활 습관 (Healthy Lifestyle Habits)",
+    "titleTranslations": {
+      "de": "건강한 생활 습관 (Gesunde Lebensgewohnheiten)"
+    },
     "level": "topik3",
     "framework": null,
     "text": "현대인들은 바쁜 일상 속에서 건강을 소홀히 하기 쉽습니다. 하지만 작은 습관의 변화로도 건강을 크게 개선할 수 있습니다. 첫째, 충분한 수면을 취하는 것이 중요합니다. 성인의 경우 하루 7-8시간의 수면이 권장됩니다. 둘째, 규칙적인 운동이 필요합니다. 매일 30분씩 걷기만 해도 심장 건강에 도움이 됩니다. 셋째, 균형 잡힌 식단을 유지해야 합니다. 채소와 과일을 충분히 섭취하고, 가공식품 섭취를 줄이는 것이 좋습니다. 마지막으로, 스트레스 관리도 빼놓을 수 없습니다. 명상이나 취미 활동을 통해 정신 건강을 관리하세요.",
@@ -669,6 +1068,9 @@
     "questions": [
       {
         "question": "How many hours of sleep is recommended for adults?",
+        "questionTranslations": {
+          "de": "Wie viele Stunden Schlaf werden für Erwachsene empfohlen?"
+        },
         "options": [
           "7-8 hours",
           "5-6 hours",
@@ -679,6 +1081,9 @@
       },
       {
         "question": "How much daily walking is mentioned as beneficial?",
+        "questionTranslations": {
+          "de": "Wie viel tägliches Gehen wird als vorteilhaft erwähnt?"
+        },
         "options": [
           "30 minutes",
           "1 hour",
@@ -689,6 +1094,9 @@
       },
       {
         "question": "What should be reduced according to the text?",
+        "questionTranslations": {
+          "de": "Was sollte laut Text reduziert werden?"
+        },
         "options": [
           "Processed foods",
           "Vegetables",
@@ -712,11 +1120,35 @@
     "grammar_ids": null,
     "audioUrl": null,
     "language_id": 3,
-    "content_translations": null
+    "content_translations": {
+      "title": {
+        "de": "건강한 생활 습관 (Gesunde Lebensgewohnheiten)"
+      },
+      "questions": [
+        {
+          "question": {
+            "de": "Wie viele Stunden Schlaf werden für Erwachsene empfohlen?"
+          }
+        },
+        {
+          "question": {
+            "de": "Wie viel tägliches Gehen wird als vorteilhaft erwähnt?"
+          }
+        },
+        {
+          "question": {
+            "de": "Was sollte laut Text reduziert werden?"
+          }
+        }
+      ]
+    }
   },
   {
     "id": 52,
     "title": "한국의 계절 (Korean Seasons)",
+    "titleTranslations": {
+      "de": "한국의 계절 (Koreas Jahreszeiten)"
+    },
     "level": "topik3",
     "framework": null,
     "text": "한국은 사계절이 뚜렷한 나라입니다. 봄에는 벚꽃이 피어 전국이 분홍빛으로 물듭니다. 특히 진해와 여의도의 벚꽃 축제가 유명합니다. 여름은 덥고 습하며, 7월과 8월에는 장마철이 있습니다. 이 시기에는 비가 자주 내리므로 우산을 항상 준비해야 합니다. 가을은 단풍으로 유명합니다. 설악산, 내장산 등의 산들이 붉은색과 노란색으로 물들어 장관을 이룹니다. 겨울에는 눈이 많이 오고 영하의 날씨가 계속됩니다. 스키와 스노보드를 즐기는 사람들이 많습니다.",
@@ -724,6 +1156,9 @@
     "questions": [
       {
         "question": "When is the rainy season in Korea?",
+        "questionTranslations": {
+          "de": "Wann ist die Regenzeit in Korea?"
+        },
         "options": [
           "July and August",
           "May and June",
@@ -734,6 +1169,9 @@
       },
       {
         "question": "What color does Korea turn in spring?",
+        "questionTranslations": {
+          "de": "Welche Farbe nimmt Korea im Frühling an?"
+        },
         "options": [
           "Pink (from cherry blossoms)",
           "Red",
@@ -744,6 +1182,9 @@
       },
       {
         "question": "Which mountains are mentioned for autumn foliage?",
+        "questionTranslations": {
+          "de": "Welche Berge werden für die Herbstlaubfärbung erwähnt?"
+        },
         "options": [
           "Seoraksan and Naejangsan",
           "Hallasan and Bukhansan",
@@ -767,11 +1208,35 @@
     "grammar_ids": null,
     "audioUrl": null,
     "language_id": 3,
-    "content_translations": null
+    "content_translations": {
+      "title": {
+        "de": "한국의 계절 (Koreas Jahreszeiten)"
+      },
+      "questions": [
+        {
+          "question": {
+            "de": "Wann ist die Regenzeit in Korea?"
+          }
+        },
+        {
+          "question": {
+            "de": "Welche Farbe nimmt Korea im Frühling an?"
+          }
+        },
+        {
+          "question": {
+            "de": "Welche Berge werden für die Herbstlaubfärbung erwähnt?"
+          }
+        }
+      ]
+    }
   },
   {
     "id": 53,
     "title": "세대 간 소통의 중요성 (Importance of Intergenerational Communication)",
+    "titleTranslations": {
+      "de": "세대 간 소통의 중요성 (Wichtigkeit der intergenerationellen Kommunikation)"
+    },
     "level": "topik4",
     "framework": null,
     "text": "오늘날 세대 간 갈등은 심각한 사회 문제로 대두되고 있습니다. 기성세대는 젊은 세대의 가치관을 이해하기 어려워하고, 젊은 세대 역시 기성세대의 사고방식에 답답함을 느끼기도 합니다. 이러한 갈등의 근본적인 원인은 소통 부재에 있습니다. 서로 다른 시대를 살아온 만큼 가치관의 차이가 있는 것은 당연합니다. 중요한 것은 서로의 입장을 경청하고 존중하는 자세입니다. 가정에서부터 열린 대화의 문화를 형성하고, 사회적으로도 세대 간 교류 프로그램을 확대해 나가야 합니다. 이를 통해 서로를 이해하고 배려하는 사회를 만들어 나갈 수 있을 것입니다.",
@@ -779,6 +1244,9 @@
     "questions": [
       {
         "question": "What is the main cause of generational conflict according to the text?",
+        "questionTranslations": {
+          "de": "Was ist laut Text die Hauptursache für Generationskonflikte?"
+        },
         "options": [
           "Lack of communication",
           "Economic differences",
@@ -789,6 +1257,9 @@
       },
       {
         "question": "What attitude is important for resolving conflicts?",
+        "questionTranslations": {
+          "de": "Welche Haltung ist wichtig für die Konfliktlösung?"
+        },
         "options": [
           "Listening and respecting each other",
           "Avoiding discussions",
@@ -799,6 +1270,9 @@
       },
       {
         "question": "Where should open dialogue culture begin?",
+        "questionTranslations": {
+          "de": "Wo sollte eine offene Dialogkultur beginnen?"
+        },
         "options": [
           "At home",
           "At school",
@@ -822,11 +1296,35 @@
     "grammar_ids": null,
     "audioUrl": null,
     "language_id": 3,
-    "content_translations": null
+    "content_translations": {
+      "title": {
+        "de": "세대 간 소통의 중요성 (Wichtigkeit der intergenerationellen Kommunikation)"
+      },
+      "questions": [
+        {
+          "question": {
+            "de": "Was ist laut Text die Hauptursache für Generationskonflikte?"
+          }
+        },
+        {
+          "question": {
+            "de": "Welche Haltung ist wichtig für die Konfliktlösung?"
+          }
+        },
+        {
+          "question": {
+            "de": "Wo sollte eine offene Dialogkultur beginnen?"
+          }
+        }
+      ]
+    }
   },
   {
     "id": 54,
     "title": "한국 문학의 발자취 (The Footsteps of Korean Literature)",
+    "titleTranslations": {
+      "de": "한국 문학의 발자취 (Die Spuren der koreanischen Literatur)"
+    },
     "level": "topik4",
     "framework": null,
     "text": "한국 문학은 고대부터 현대까지 다양한 형태로 발전해 왔습니다. 삼국시대에는 향가가 발달했으며, 고려시대에는 시조가 등장했습니다. 조선시대에는 판소리와 한글 소설이 꽃피었습니다. 특히 허균의 '홍길동전'은 최초의 한글 소설로 평가받습니다. 근대에 들어서는 이광수, 김소월 등의 작가들이 한국 문학의 새로운 장을 열었습니다. 김소월의 '진달래꽃'은 한국인이라면 누구나 아는 시입니다. 현대에 이르러 한강 작가가 2024년 노벨 문학상을 수상하면서 한국 문학이 세계적으로 주목받게 되었습니다.",
@@ -834,6 +1332,9 @@
     "questions": [
       {
         "question": "What form of literature developed during the Three Kingdoms period?",
+        "questionTranslations": {
+          "de": "Welche Literaturform entwickelte sich während der Zeit der Drei Königreiche?"
+        },
         "options": [
           "Hyangga",
           "Sijo",
@@ -844,6 +1345,9 @@
       },
       {
         "question": "Which work is considered the first Korean novel?",
+        "questionTranslations": {
+          "de": "Welches Werk gilt als der erste koreanische Roman?"
+        },
         "options": [
           "Honggildongjeon",
           "Chunhyangjeon",
@@ -854,6 +1358,9 @@
       },
       {
         "question": "Which poet wrote 'Azaleas'?",
+        "questionTranslations": {
+          "de": "Welcher Dichter schrieb 'Azaleen'?"
+        },
         "options": [
           "Kim Sowol",
           "Lee Gwangsu",
@@ -877,11 +1384,35 @@
     "grammar_ids": null,
     "audioUrl": null,
     "language_id": 3,
-    "content_translations": null
+    "content_translations": {
+      "title": {
+        "de": "한국 문학의 발자취 (Die Spuren der koreanischen Literatur)"
+      },
+      "questions": [
+        {
+          "question": {
+            "de": "Welche Literaturform entwickelte sich während der Zeit der Drei Königreiche?"
+          }
+        },
+        {
+          "question": {
+            "de": "Welches Werk gilt als der erste koreanische Roman?"
+          }
+        },
+        {
+          "question": {
+            "de": "Welcher Dichter schrieb 'Azaleen'?"
+          }
+        }
+      ]
+    }
   },
   {
     "id": 55,
     "title": "인공지능과 미래 사회 (Artificial Intelligence and Future Society)",
+    "titleTranslations": {
+      "de": "인공지능과 미래 사회 (Künstliche Intelligenz und zukünftige Gesellschaft)"
+    },
     "level": "topik5",
     "framework": null,
     "text": "인공지능 기술의 급속한 발전은 우리 사회에 전례 없는 변화를 가져오고 있습니다. 자율주행 자동차, 의료 진단 시스템, 창작 활동에 이르기까지 AI의 영향력은 날로 확대되고 있습니다. 그러나 이러한 기술 발전에는 명암이 존재합니다. 긍정적인 측면에서 AI는 인간의 노동력을 대체하여 생산성을 높이고, 의료 분야에서는 더욱 정확한 진단을 가능하게 합니다. 반면, 일자리 감소와 개인정보 침해, 알고리즘 편향성 등의 우려도 제기되고 있습니다. 따라서 기술 발전의 혜택을 극대화하면서 부작용을 최소화하기 위한 사회적 논의와 제도 정비가 시급합니다. 인간과 AI가 공존하는 미래를 위해서는 기술 발전과 함께 윤리적 기준 마련이 필수적입니다.",
@@ -889,6 +1420,9 @@
     "questions": [
       {
         "question": "Which areas are mentioned as influenced by AI?",
+        "questionTranslations": {
+          "de": "Welche Bereiche werden als von KI beeinflusst erwähnt?"
+        },
         "options": [
           "Autonomous vehicles, medical diagnosis, creative activities",
           "Only transportation",
@@ -899,6 +1433,9 @@
       },
       {
         "question": "What positive aspect of AI is mentioned in healthcare?",
+        "questionTranslations": {
+          "de": "Welcher positive Aspekt der KI wird im Gesundheitswesen erwähnt?"
+        },
         "options": [
           "More accurate diagnosis",
           "Lower costs",
@@ -909,6 +1446,9 @@
       },
       {
         "question": "What concerns are raised about AI?",
+        "questionTranslations": {
+          "de": "Welche Bedenken werden bezüglich KI geäußert?"
+        },
         "options": [
           "Job loss, privacy invasion, algorithm bias",
           "High costs only",
@@ -932,11 +1472,35 @@
     "grammar_ids": null,
     "audioUrl": null,
     "language_id": 3,
-    "content_translations": null
+    "content_translations": {
+      "title": {
+        "de": "인공지능과 미래 사회 (Künstliche Intelligenz und zukünftige Gesellschaft)"
+      },
+      "questions": [
+        {
+          "question": {
+            "de": "Welche Bereiche werden als von KI beeinflusst erwähnt?"
+          }
+        },
+        {
+          "question": {
+            "de": "Welcher positive Aspekt der KI wird im Gesundheitswesen erwähnt?"
+          }
+        },
+        {
+          "question": {
+            "de": "Welche Bedenken werden bezüglich KI geäußert?"
+          }
+        }
+      ]
+    }
   },
   {
     "id": 56,
     "title": "환경 위기와 지속 가능한 발전 (Environmental Crisis and Sustainable Development)",
+    "titleTranslations": {
+      "de": "환경 위기와 지속 가능한 발전 (Umweltkrise und nachhaltige Entwicklung)"
+    },
     "level": "topik5",
     "framework": null,
     "text": "지구 온난화로 인한 기후 변화는 더 이상 미래의 문제가 아닌 현재 진행형의 위기입니다. 해수면 상승, 극단적 기상 현상의 증가, 생태계 파괴 등이 전 세계적으로 관찰되고 있습니다. 이에 대응하기 위해 국제 사회는 탄소 중립 목표를 설정하고 재생에너지 전환을 가속화하고 있습니다. 한국 역시 2050년 탄소 중립을 선언하고 다양한 정책을 추진 중입니다. 그러나 정부의 노력만으로는 한계가 있습니다. 기업의 ESG 경영 실천, 개인의 일상에서의 친환경 실천이 병행되어야 합니다. 일회용품 사용 줄이기, 대중교통 이용, 에너지 절약 등 작은 실천이 모여 큰 변화를 만들 수 있습니다. 지속 가능한 발전은 현 세대뿐 아니라 미래 세대를 위한 우리의 책임입니다.",
@@ -944,6 +1508,9 @@
     "questions": [
       {
         "question": "What environmental phenomena are mentioned as being observed globally?",
+        "questionTranslations": {
+          "de": "Welche Umweltphänomene werden als global beobachtet erwähnt?"
+        },
         "options": [
           "Rising sea levels, extreme weather, ecosystem destruction",
           "Only drought",
@@ -954,6 +1521,9 @@
       },
       {
         "question": "What target year has Korea set for carbon neutrality?",
+        "questionTranslations": {
+          "de": "Welches Zieljahr hat Korea für die Kohlenstoffneutralität festgelegt?"
+        },
         "options": [
           "2050",
           "2030",
@@ -964,6 +1534,9 @@
       },
       {
         "question": "What individual actions are suggested?",
+        "questionTranslations": {
+          "de": "Welche individuellen Handlungen werden vorgeschlagen?"
+        },
         "options": [
           "Reducing disposable items, using public transport, saving energy",
           "Only recycling",
@@ -987,11 +1560,35 @@
     "grammar_ids": null,
     "audioUrl": null,
     "language_id": 3,
-    "content_translations": null
+    "content_translations": {
+      "title": {
+        "de": "환경 위기와 지속 가능한 발전 (Umweltkrise und nachhaltige Entwicklung)"
+      },
+      "questions": [
+        {
+          "question": {
+            "de": "Welche Umweltphänomene werden als global beobachtet erwähnt?"
+          }
+        },
+        {
+          "question": {
+            "de": "Welches Zieljahr hat Korea für die Kohlenstoffneutralität festgelegt?"
+          }
+        },
+        {
+          "question": {
+            "de": "Welche individuellen Handlungen werden vorgeschlagen?"
+          }
+        }
+      ]
+    }
   },
   {
     "id": 58,
     "title": "언어와 사고의 관계에 대한 고찰 (A Contemplation on the Relationship Between Language and Thought)",
+    "titleTranslations": {
+      "de": "언어와 사고의 관계에 대한 고찰 (Eine Betrachtung über die Beziehung zwischen Sprache und Denken)"
+    },
     "level": "topik6",
     "framework": null,
     "text": "언어가 사고를 결정하는가, 아니면 사고가 언어를 결정하는가? 이 철학적 질문은 수세기에 걸쳐 언어학자, 심리학자, 철학자들의 논쟁 대상이 되어 왔습니다. 사피어-워프 가설로 알려진 언어 상대성 이론은 언어가 인지 과정에 영향을 미친다고 주장합니다. 예를 들어, 색채 어휘가 풍부한 언어의 화자들이 색을 더 세밀하게 구분할 수 있다는 연구 결과가 있습니다. 반면, 촘스키의 보편 문법 이론은 모든 언어에 공통되는 심층 구조가 존재하며, 이는 인간의 선천적 인지 능력을 반영한다고 봅니다. 현대 인지과학은 이 두 관점을 절충하여, 언어와 사고가 상호작용하며 서로를 형성한다는 입장을 취하는 경향이 있습니다. 이 논의는 인공지능이 자연어를 처리하고 '사고'할 수 있는지에 대한 질문으로까지 확장되고 있습니다.",
@@ -999,6 +1596,9 @@
     "questions": [
       {
         "question": "What does the Sapir-Whorf hypothesis suggest?",
+        "questionTranslations": {
+          "de": "Was besagt die Sapir-Whorf-Hypothese?"
+        },
         "options": [
           "Language influences cognitive processes",
           "Thought determines language",
@@ -1009,6 +1609,9 @@
       },
       {
         "question": "What example is given to support linguistic relativity?",
+        "questionTranslations": {
+          "de": "Welches Beispiel wird zur Unterstützung der sprachlichen Relativität gegeben?"
+        },
         "options": [
           "Speakers with rich color vocabulary distinguish colors better",
           "Mathematical ability varies by language",
@@ -1019,6 +1622,9 @@
       },
       {
         "question": "What does Chomsky's Universal Grammar theory propose?",
+        "questionTranslations": {
+          "de": "Was schlägt Chomskys Theorie der Universalgrammatik vor?"
+        },
         "options": [
           "A deep structure common to all languages exists",
           "Each language is completely unique",
@@ -1042,11 +1648,35 @@
     "grammar_ids": null,
     "audioUrl": null,
     "language_id": 3,
-    "content_translations": null
+    "content_translations": {
+      "title": {
+        "de": "언어와 사고의 관계에 대한 고찰 (Eine Betrachtung über die Beziehung zwischen Sprache und Denken)"
+      },
+      "questions": [
+        {
+          "question": {
+            "de": "Was besagt die Sapir-Whorf-Hypothese?"
+          }
+        },
+        {
+          "question": {
+            "de": "Welches Beispiel wird zur Unterstützung der sprachlichen Relativität gegeben?"
+          }
+        },
+        {
+          "question": {
+            "de": "Was schlägt Chomskys Theorie der Universalgrammatik vor?"
+          }
+        }
+      ]
+    }
   },
   {
     "id": 57,
     "title": "이효석의 메밀꽃 필 무렵 (When the Buckwheat Flowers Bloom by Lee Hyo-seok)",
+    "titleTranslations": {
+      "de": "이효석의 메밀꽃 필 무렵 (Wenn die Buchweizen blühen von Lee Hyo-seok)"
+    },
     "level": "topik6",
     "framework": null,
     "text": "달은 아직 산마루에 걸려 있었다. 충주댁이 따라나선 것은 아이 낳고 보름째 되는 날이었다. 보름달이 봉평에서 대화까지의 산길을 휘영청 밝게 비추어 주었다. 길은 지금 긴 산허리에 걸려 있다. 밤중을 지난 무렵인지 죽은 듯이 고요한 속에서 짐승 같은 달의 숨소리가 손에 잡힐 듯이 들리며, 콩포기와 옥수수 잎새가 한층 달에 푸르게 젖었다. 산허리는 온통 메밀밭이어서 피기 시작한 꽃이 소금을 뿌린 듯이 흐붓한 달빛에 숨이 막힐 지경이다. 붉은 대궁이 향기같이 애잔하고 나귀들의 걸음도 시원하다.",
@@ -1054,6 +1684,9 @@
     "questions": [
       {
         "question": "What natural phenomenon is illuminating the mountain path?",
+        "questionTranslations": {
+          "de": "Welches Naturphänomen erhellt den Bergpfad?"
+        },
         "options": [
           "Full moon",
           "Sunrise",
@@ -1064,6 +1697,9 @@
       },
       {
         "question": "How are the buckwheat flowers described?",
+        "questionTranslations": {
+          "de": "Wie werden die Buchweizenblüten beschrieben?"
+        },
         "options": [
           "Like scattered salt in the moonlight",
           "Like fire",
@@ -1074,6 +1710,9 @@
       },
       {
         "question": "What animals are mentioned in the passage?",
+        "questionTranslations": {
+          "de": "Welche Tiere werden in der Passage erwähnt?"
+        },
         "options": [
           "Donkeys",
           "Horses",
@@ -1097,6 +1736,27 @@
     "grammar_ids": null,
     "audioUrl": null,
     "language_id": 3,
-    "content_translations": null
+    "content_translations": {
+      "title": {
+        "de": "이효석의 메밀꽃 필 무렵 (Wenn die Buchweizen blühen von Lee Hyo-seok)"
+      },
+      "questions": [
+        {
+          "question": {
+            "de": "Welches Naturphänomen erhellt den Bergpfad?"
+          }
+        },
+        {
+          "question": {
+            "de": "Wie werden die Buchweizenblüten beschrieben?"
+          }
+        },
+        {
+          "question": {
+            "de": "Welche Tiere werden in der Passage erwähnt?"
+          }
+        }
+      ]
+    }
   }
 ]

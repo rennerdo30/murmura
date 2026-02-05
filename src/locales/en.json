@@ -214,7 +214,8 @@
       "learning": "Learning",
       "practice": "Practice",
       "stop": "Stop",
-      "tapToContinueHint": "Tap or swipe to continue"
+      "tapToContinueHint": "Tap or swipe to continue",
+      "pronunciation": "Pronunciation"
     },
     "exercise": {
       "completeExercise": "Complete the exercise"
@@ -228,7 +229,14 @@
       "hideExplanation": "Hide Explanation",
       "showExplanation": "Show Explanation",
       "iUnderstand": "I Understand",
-      "formation": "Formation"
+      "formation": "Formation",
+      "negativeForm": "Negative",
+      "questionForm": "Question",
+      "conjugation": "Conjugation",
+      "whenToUse": "When to Use",
+      "commonMistakes": "Common Mistakes",
+      "whatNotToSay": "What NOT to Say",
+      "relatedPatterns": "Related Patterns"
     },
     "character": {
       "strokeOrder": "Stroke Order",
@@ -259,6 +267,13 @@
       "pathComplete": "Path Complete",
       "backToPath": "Back to Path",
       "upNext": "Up Next"
+    },
+    "pronunciation": {
+      "noDrills": "No pronunciation drills",
+      "noDrillsDesc": "This lesson doesn't include pronunciation drills.",
+      "continueToExercises": "Continue to exercises",
+      "unknownDrillType": "Unknown pronunciation drill type.",
+      "skip": "Skip"
     }
   },
   "exercises": {
@@ -274,7 +289,8 @@
       "quitConfirmMessage": "Your progress in this session will be lost.",
       "confirmQuit": "Quit",
       "cancel": "Cancel",
-      "unsupported": "Exercise type not supported yet"
+      "unsupported": "Exercise type not supported yet",
+      "incorrectTryAgain": "Incorrect. Try again."
     },
     "matching": {
       "success": "All pairs matched correctly!",
@@ -663,7 +679,9 @@
       "title": "Learning Target",
       "selectLabel": "Select target language",
       "levelsAvailable": "{count} levels available"
-    }
+    },
+    "placementTest": "Placement Test",
+    "pronunciation": "Pronunciation"
   },
   "library": {
     "browseDescription": "Browse and review all learning materials",

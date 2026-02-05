@@ -117,3 +117,29 @@
   background: var(--card-bg-subtle, rgba(0, 0, 0, 0.2));
   border-radius: 999px;
 }
+
+@media (max-width: 480px) {
+  .card {
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .compactCard {
+    padding: 0.625rem 0.75rem;
+  }
+
+  .compactContent {
+    gap: 0.625rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .progressRing {
+    width: 94px;
+    height: 94px;
+  }
+
+  .progressValue {
+    font-size: 1.2rem;
+  }
+}

@@ -85,6 +85,13 @@ const moduleDataValidator = v.object({
     stats: v.object({
       textsRead: v.number(),
       comprehensionScore: v.number(),
+      correct: v.optional(v.number()),
+      total: v.optional(v.number()),
+      streak: v.optional(v.number()),
+      bestStreak: v.optional(v.number()),
+      totalAttempts: v.optional(v.number()),
+      comprehensionTotal: v.optional(v.number()),
+      comprehensionCorrect: v.optional(v.number()),
     }),
   }),
   listening: v.object({
@@ -92,6 +99,10 @@ const moduleDataValidator = v.object({
     stats: v.object({
       exercisesCompleted: v.number(),
       accuracy: v.number(),
+      correct: v.optional(v.number()),
+      total: v.optional(v.number()),
+      streak: v.optional(v.number()),
+      bestStreak: v.optional(v.number()),
     }),
   }),
 });
@@ -151,6 +162,9 @@ const singleModuleStatsValidator = v.object({
   pointsMastered: v.optional(v.number()),
   textsRead: v.optional(v.number()),
   comprehensionScore: v.optional(v.number()),
+  comprehensionTotal: v.optional(v.number()),
+  comprehensionCorrect: v.optional(v.number()),
+  totalAttempts: v.optional(v.number()),
   exercisesCompleted: v.optional(v.number()),
   accuracy: v.optional(v.number()),
 });
@@ -191,9 +205,20 @@ export const updateModule = mutation({
       throw new Error("User data not found");
     }
 
+    const existingModule = userData.modules?.[args.moduleName] || {};
+    const updatedModule = {
+      ...existingModule,
+      ...args.moduleData,
+      stats: args.moduleData.stats
+        ? { ...(existingModule.stats || {}), ...args.moduleData.stats }
+        : existingModule.stats,
+      learned: args.moduleData.learned ?? existingModule.learned,
+      completed: args.moduleData.completed ?? existingModule.completed,
+      reviews: args.moduleData.reviews ?? existingModule.reviews,
+    };
     const updatedModules = {
       ...userData.modules,
-      [args.moduleName]: args.moduleData,
+      [args.moduleName]: updatedModule,
     };
 
     await ctx.db.patch(userData._id, {
