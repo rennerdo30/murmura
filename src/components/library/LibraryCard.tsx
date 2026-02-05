@@ -4,6 +4,7 @@ import { useCallback } from 'react';
 import { Text, Button, Card } from '@/components/ui';
 import { IoVolumeHigh, IoStop, IoCheckmarkCircle, IoTime } from 'react-icons/io5';
 import { useTTS } from '@/hooks/useTTS';
+import { useLanguage } from '@/context/LanguageProvider';
 import styles from './LibraryCard.module.css';
 
 interface LibraryCardProps {
@@ -37,6 +38,7 @@ export default function LibraryCard({
   onQuickReview,
 }: LibraryCardProps) {
   const { speak, stop, isPlaying } = useTTS();
+  const { t } = useLanguage();
 
   const handleSpeak = useCallback(() => {
     if (isPlaying) {
@@ -86,7 +88,7 @@ export default function LibraryCard({
             size="sm"
             onClick={handleSpeak}
             className={styles.audioButton}
-            aria-label={isPlaying ? 'Stop audio' : 'Play audio'}
+            aria-label={isPlaying ? t('common.stop') : t('common.listen')}
           >
             {isPlaying ? <IoStop /> : <IoVolumeHigh />}
           </Button>

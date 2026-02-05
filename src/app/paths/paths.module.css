@@ -8,6 +8,38 @@
   margin-bottom: 2rem;
 }
 
+/* Difficulty Chips (always visible) */
+.difficultyChips {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.filterChip {
+  padding: 0.5rem 1.25rem;
+  background: transparent;
+  border: 1px solid var(--border, #333);
+  border-radius: 9999px;
+  color: var(--text-secondary, #888);
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+  min-height: 40px;
+}
+
+.filterChip:hover {
+  border-color: var(--accent-gold, #d4a574);
+  color: var(--accent-gold, #d4a574);
+}
+
+.chipActive {
+  background: var(--accent-gold, #d4a574);
+  color: var(--bg-primary, #0f0f1a);
+  border-color: var(--accent-gold, #d4a574);
+  font-weight: 600;
+}
+
 /* Filter Bar */
 .filterBar {
   margin-bottom: 2rem;

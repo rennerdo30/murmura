@@ -44,6 +44,7 @@ export default function LearningCompanion({
 
   const [isExpanded, setIsExpanded] = useState(defaultExpanded);
   const [isMinimized, setIsMinimized] = useState(false);
+  const [showMore, setShowMore] = useState(false);
 
   // Auto-expand on desktop, collapse on mobile
   useEffect(() => {
@@ -202,7 +203,7 @@ export default function LearningCompanion({
       {/* Expanded Content */}
       {isExpanded && (
         <Animated animation="fadeInUp">
-          {/* Top Recommendation */}
+          {/* Top Recommendation (always visible) */}
           {topRecommendation && (
             <div className={styles.section}>
               <Text variant="label" color="muted" className={styles.sectionTitle}>
@@ -224,30 +225,7 @@ export default function LearningCompanion({
             </div>
           )}
 
-          {/* More Recommendations */}
-          {recommendations.length > 1 && (
-            <div className={styles.section}>
-              <Text variant="label" color="muted" className={styles.sectionTitle}>
-                {t('learningCompanion.suggestions')}
-              </Text>
-              <div className={styles.suggestionsList}>
-                {recommendations.slice(1, 4).map((rec) => (
-                  <Link
-                    key={rec.id}
-                    href={rec.action.target}
-                    className={styles.suggestionItem}
-                  >
-                    <span className={styles.suggestionIcon}>
-                      {getRecommendationIcon(rec.type)}
-                    </span>
-                    <span className={styles.suggestionText}>{rec.title}</span>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* JLPT Progress */}
+          {/* JLPT Progress (always visible) */}
           {jlptProgress && jlptProgress.currentMilestone && (
             <div className={styles.section}>
               <Text variant="label" color="muted" className={styles.sectionTitle}>
@@ -268,16 +246,55 @@ export default function LearningCompanion({
             </div>
           )}
 
-          {/* Adaptive Insight */}
-          {adaptiveRecommendations && (
-            <div className={styles.section}>
-              <Text variant="label" color="muted" className={styles.sectionTitle}>
-                <IoCompass /> {t('learningCompanion.insight')}
-              </Text>
-              <Card variant="default" className={styles.insightCard}>
-                <Text variant="caption">{adaptiveRecommendations.rationale}</Text>
-              </Card>
-            </div>
+          {/* Show More toggle (only if there's extra content) */}
+          {(recommendations.length > 1 || adaptiveRecommendations) && (
+            <button
+              className={styles.showMoreButton}
+              onClick={() => setShowMore(!showMore)}
+            >
+              {showMore ? t('learningCompanion.showLess') : t('learningCompanion.showMore')}
+              {showMore ? <IoChevronUp /> : <IoChevronDown />}
+            </button>
+          )}
+
+          {/* Collapsed content (additional recommendations + adaptive insight) */}
+          {showMore && (
+            <>
+              {/* More Recommendations */}
+              {recommendations.length > 1 && (
+                <div className={styles.section}>
+                  <Text variant="label" color="muted" className={styles.sectionTitle}>
+                    {t('learningCompanion.suggestions')}
+                  </Text>
+                  <div className={styles.suggestionsList}>
+                    {recommendations.slice(1, 4).map((rec) => (
+                      <Link
+                        key={rec.id}
+                        href={rec.action.target}
+                        className={styles.suggestionItem}
+                      >
+                        <span className={styles.suggestionIcon}>
+                          {getRecommendationIcon(rec.type)}
+                        </span>
+                        <span className={styles.suggestionText}>{rec.title}</span>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Adaptive Insight */}
+              {adaptiveRecommendations && (
+                <div className={styles.section}>
+                  <Text variant="label" color="muted" className={styles.sectionTitle}>
+                    <IoCompass /> {t('learningCompanion.insight')}
+                  </Text>
+                  <Card variant="default" className={styles.insightCard}>
+                    <Text variant="caption">{adaptiveRecommendations.rationale}</Text>
+                  </Card>
+                </div>
+              )}
+            </>
           )}
         </Animated>
       )}

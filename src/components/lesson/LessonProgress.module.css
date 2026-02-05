@@ -4,6 +4,67 @@
   gap: 0.5rem;
 }
 
+.phaseIndicator {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.phaseStepWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.phaseDot {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.phaseDot.completed {
+  background: var(--accent-green, #4ADE80);
+  color: #000;
+}
+
+.phaseDot.current {
+  background: var(--gold, #FFD700);
+  color: #000;
+  box-shadow: 0 0 12px rgba(255, 215, 0, 0.4);
+}
+
+.phaseDot.upcoming {
+  background: var(--border-color, rgba(255, 255, 255, 0.1));
+  color: var(--text-muted, rgba(255, 255, 255, 0.4));
+}
+
+.phaseStepLabel {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  transition: color 0.3s ease;
+}
+
+.phaseStepLabel.completed {
+  color: var(--accent-green, #4ADE80);
+}
+
+.phaseStepLabel.current {
+  color: var(--gold, #FFD700);
+}
+
+.phaseStepLabel.upcoming {
+  color: var(--text-muted, rgba(255, 255, 255, 0.4));
+}
+
 .header {
   display: flex;
   justify-content: space-between;
@@ -37,6 +98,14 @@
   );
 }
 
+.progressFill.pronunciation {
+  background: linear-gradient(
+    90deg,
+    var(--accent-blue, #4A90D9),
+    var(--accent-blue-light, #6BB5FF)
+  );
+}
+
 .progressFill.exercises {
   background: linear-gradient(
     90deg,
@@ -50,5 +119,15 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 0.35rem;
+  }
+
+  .phaseIndicator {
+    gap: 1rem;
+  }
+
+  .phaseDot {
+    width: 24px;
+    height: 24px;
+    font-size: 0.65rem;
   }
 }

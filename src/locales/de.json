@@ -47,7 +47,8 @@
     "minimize": "Minimieren",
     "cancel": "Abbrechen",
     "confirm": "Bestätigen",
-    "unknown": "Unbekannt"
+    "unknown": "Unbekannt",
+    "skipToContent": "Zum Inhalt springen"
   },
   "modules": {
     "alphabet": {
@@ -527,7 +528,8 @@
       "priority3": "Browser-Sprachsynthese (Fallback)",
       "loading": "Lade Kokoro TTS...",
       "edgeTitle": "Edge TTS Stimme ({language})",
-      "edgeDesc": "Microsoft neurale Stimme für {language} - hochwertige Cloud-TTS-Alternative"
+      "edgeDesc": "Microsoft neurale Stimme für {language} - hochwertige Cloud-TTS-Alternative",
+      "advancedSettings": "Erweiterte Audioeinstellungen"
     },
     "appearance": {
       "title": "Erscheinungsbild",
@@ -547,7 +549,10 @@
         "accentPrimary": "Akzentfarbe",
         "accentGold": "Akzent Gold"
       },
-      "auto": "Sprache folgen (Standard)"
+      "auto": "Sprache folgen (Standard)",
+      "contrastWarningText": "Niedriger Kontrast: Text könnte schwer lesbar sein",
+      "contrastWarningAccent": "Niedriger Kontrast: Akzentfarbe könnte schwer sichtbar sein",
+      "contrastOk": "Farbkontrast sieht gut aus"
     },
     "backToDashboard": "Zurück zum Dashboard"
   },
@@ -710,6 +715,9 @@
       "continueToExercises": "Weiter zu den Uebungen",
       "unknownDrillType": "Unbekannter Typ einer Ausspracheuebung.",
       "skip": "Ueberspringen"
+    },
+    "progress": {
+      "phases": "Lektionsphasen"
     }
   },
   "exercises": {
@@ -867,7 +875,9 @@
     "percentComplete": "{percent}% abgeschlossen",
     "insight": "Einblick",
     "browsePaths": "Pfade durchsuchen",
-    "reviewNow": "Jetzt wiederholen"
+    "reviewNow": "Jetzt wiederholen",
+    "showMore": "Mehr anzeigen",
+    "showLess": "Weniger anzeigen"
   },
   "leaderboard": {
     "title": "Bestenliste",
@@ -937,7 +947,8 @@
     "noPathsDescription": "Lernpfade für diese Sprache kommen bald. Generiere den Lehrplan im Admin-Panel, um strukturierte Lernpfade zu erstellen.",
     "noMatchingPaths": "Keine Pfade entsprechen deinen Filtern",
     "clearFilters": "Filter zurücksetzen",
-    "hours": "geschätzt {count}h"
+    "hours": "geschätzt {count}h",
+    "moreFilters": "Weitere Filter"
   },
   "contentGuard": {
     "comingSoon": "Demnächst",
@@ -975,5 +986,9 @@
     "takingSlow": "Gehe es langsam an, um stärkere Grundlagen zu schaffen.",
     "manyReviewsDue": "Viele Wiederholungen fällig - überlege, deine Warteschlange abzuarbeiten, bevor du Neues hinzufügst.",
     "focusOn": "Konzentriere dich diese Woche auf {module} - {reason}."
+  },
+  "breadcrumb": {
+    "paths": "Pfade",
+    "ariaLabel": "Brotkrümelnavigation"
   }
 }

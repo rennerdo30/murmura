@@ -4,6 +4,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { useMemo, useState, useEffect } from 'react';
 import Link from 'next/link';
 import Navigation from '@/components/common/Navigation';
+import Breadcrumb from '@/components/common/Breadcrumb';
 import { Container, Card, Text, Button, Animated } from '@/components/ui';
 import { useRecommendations } from '@/hooks/useRecommendations';
 import { usePathProgress } from '@/hooks/usePathProgress';
@@ -191,6 +192,10 @@ export default function PathDetailContent() {
   return (
     <Container variant="centered">
       <Navigation />
+      <Breadcrumb items={[
+        { label: t('breadcrumb.paths'), href: '/paths' },
+        { label: getText(pathData.nameTranslations, pathData.name) },
+      ]} />
 
       {/* Header */}
       <Animated animation="fadeInDown">

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useLanguage } from '@/context/LanguageProvider';
 import styles from './CombinedPatternCard.module.css';
 
 export interface CombinedPatternExample {
@@ -23,6 +24,7 @@ export function CombinedPatternCard({
   title = 'Combined Patterns',
   onPlayAudio,
 }: CombinedPatternCardProps) {
+  const { t } = useLanguage();
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
 
   if (examples.length === 0) {
@@ -72,7 +74,7 @@ export function CombinedPatternCard({
                   e.stopPropagation();
                   onPlayAudio(ex.example);
                 }}
-                aria-label="Play audio"
+                aria-label={t('common.listen')}
               >
                 <span className={styles.audioIcon}>&#9658;</span>
               </button>

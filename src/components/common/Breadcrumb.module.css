@@ -1,0 +1,46 @@
+.breadcrumb {
+  margin-bottom: 1rem;
+}
+
+.list {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex-wrap: wrap;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.85rem;
+}
+
+.link {
+  color: var(--gold, #FFD700);
+  text-decoration: none;
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+}
+
+.link:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+.current {
+  color: var(--text-muted, rgba(255, 255, 255, 0.5));
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 200px;
+}
+
+.separator {
+  color: var(--text-muted, rgba(255, 255, 255, 0.3));
+  font-size: 0.7rem;
+  flex-shrink: 0;
+}

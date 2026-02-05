@@ -121,14 +121,27 @@ export default function PathsPage() {
         </Text>
       </Animated>
 
-      {/* Filters */}
+      {/* Difficulty Filter Chips (always visible) */}
+      <div className={styles.difficultyChips}>
+        {(['all', 'beginner', 'intermediate', 'advanced'] as DifficultyFilter[]).map((diff) => (
+          <button
+            key={diff}
+            className={`${styles.filterChip} ${difficultyFilter === diff ? styles.chipActive : ''}`}
+            onClick={() => setDifficultyFilter(diff)}
+          >
+            {t(`paths.difficulty.${diff}`)}
+          </button>
+        ))}
+      </div>
+
+      {/* More Filters (type filter) */}
       <div className={styles.filterBar}>
         <Button
           variant="ghost"
           onClick={() => setShowFilters(!showFilters)}
           className={styles.filterToggle}
         >
-          <IoFilter /> {t('paths.filters')}
+          <IoFilter /> {t('paths.moreFilters')}
         </Button>
 
         {showFilters && (
@@ -143,20 +156,6 @@ export default function PathsPage() {
                     onClick={() => setTypeFilter(type)}
                   >
                     {t(`paths.types.${type}`)}
-                  </button>
-                ))}
-              </div>
-            </div>
-            <div className={styles.filterGroup}>
-              <Text variant="label" color="muted">{t('paths.filterDifficulty')}</Text>
-              <div className={styles.filterButtons}>
-                {(['all', 'beginner', 'intermediate', 'advanced'] as DifficultyFilter[]).map((diff) => (
-                  <button
-                    key={diff}
-                    className={`${styles.filterButton} ${difficultyFilter === diff ? styles.active : ''}`}
-                    onClick={() => setDifficultyFilter(diff)}
-                  >
-                    {t(`paths.difficulty.${diff}`)}
                   </button>
                 ))}
               </div>

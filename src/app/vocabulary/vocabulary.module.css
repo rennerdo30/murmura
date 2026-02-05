@@ -162,6 +162,46 @@
   margin-bottom: 1rem;
 }
 
+.emptyIllustration {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.emptyIconLarge {
+  font-size: 3.5rem;
+  color: var(--gold, #FFD700);
+  position: relative;
+  z-index: 1;
+}
+
+.emptyDecoCircle1 {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px dashed var(--gold, #FFD700);
+  opacity: 0.25;
+}
+
+.emptyDecoCircle2 {
+  position: absolute;
+  inset: 12px;
+  border-radius: 50%;
+  border: 1px solid var(--gold, #FFD700);
+  opacity: 0.15;
+}
+
+.emptyCta {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 /* Filter section for browse */
 .filterSection {
   display: flex;

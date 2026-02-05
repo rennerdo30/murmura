@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import Link from 'next/link';
 import { FiBook, FiList, FiCheck, FiVolume2, FiClock } from 'react-icons/fi';
+import { IoPlay } from 'react-icons/io5';
 import Navigation from '@/components/common/Navigation';
 import StatsPanel from '@/components/common/StatsPanel';
 import MultipleChoice from '@/components/common/MultipleChoice';
@@ -401,6 +402,7 @@ export default function VocabularyPage() {
                                     variant="ghost"
                                     size="sm"
                                     onClick={() => speak(vocab.word, { audioUrl: vocab.audioUrl })}
+                                    aria-label={t('common.listen')}
                                 >
                                     <FiVolume2 size={14} />
                                 </Button>
@@ -437,12 +439,16 @@ export default function VocabularyPage() {
         if (myVocabularyItems.length === 0 && learnedReady) {
             return (
                 <div className={styles.emptyState}>
-                    <FiBook className={styles.emptyIcon} />
-                    <Text variant="h3">{t('vocabulary.empty.title')}</Text>
+                    <div className={styles.emptyIllustration}>
+                        <div className={styles.emptyDecoCircle1} />
+                        <div className={styles.emptyDecoCircle2} />
+                        <FiBook className={styles.emptyIconLarge} />
+                    </div>
+                    <Text variant="h2" color="gold">{t('vocabulary.empty.title')}</Text>
                     <Text color="muted">{t('vocabulary.empty.desc')}</Text>
                     <Link href="/paths">
-                        <Button variant="primary" className="mt-4">
-                            {t('vocabulary.empty.goToLessons')}
+                        <Button variant="primary" className={styles.emptyCta}>
+                            <IoPlay /> {t('vocabulary.empty.goToLessons')}
                         </Button>
                     </Link>
                 </div>

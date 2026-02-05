@@ -47,7 +47,8 @@
     "minimize": "最小化",
     "cancel": "取消",
     "confirm": "确定",
-    "unknown": "未知"
+    "unknown": "未知",
+    "skipToContent": "跳转到内容"
   },
   "modules": {
     "alphabet": {
@@ -527,7 +528,8 @@
       "priority3": "浏览器语音合成（备用）",
       "loading": "正在加载 Kokoro TTS...",
       "edgeTitle": "Edge TTS 语音 ({language})",
-      "edgeDesc": "适用于 {language} 的微软神经语音 - 高质量云端 TTS 备用"
+      "edgeDesc": "适用于 {language} 的微软神经语音 - 高质量云端 TTS 备用",
+      "advancedSettings": "高级音频设置"
     },
     "appearance": {
       "title": "外观",
@@ -547,7 +549,10 @@
         "accentPrimary": "强调色",
         "accentGold": "强调金"
       },
-      "auto": "跟随语言（默认）"
+      "auto": "跟随语言（默认）",
+      "contrastWarningText": "对比度低：文本可能难以阅读",
+      "contrastWarningAccent": "对比度低：强调色可能难以看清",
+      "contrastOk": "颜色对比度良好"
     },
     "backToDashboard": "返回仪表板"
   },
@@ -710,6 +715,9 @@
       "continueToExercises": "继续做练习",
       "unknownDrillType": "未知的发音练习类型。",
       "skip": "跳过"
+    },
+    "progress": {
+      "phases": "课程阶段"
     }
   },
   "exercises": {
@@ -867,7 +875,9 @@
     "percentComplete": "完成 {percent}%",
     "insight": "洞察",
     "browsePaths": "浏览路径",
-    "reviewNow": "立即复习"
+    "reviewNow": "立即复习",
+    "showMore": "显示更多",
+    "showLess": "收起"
   },
   "leaderboard": {
     "title": "排行榜",
@@ -937,7 +947,8 @@
     "noPathsDescription": "该语言的学习路径即将推出。在管理面板中生成课程以创建结构化学习路径。",
     "noMatchingPaths": "没有匹配的路径",
     "clearFilters": "清除筛选",
-    "hours": "预计{count}小时"
+    "hours": "预计{count}小时",
+    "moreFilters": "更多筛选"
   },
   "contentGuard": {
     "comingSoon": "即将推出",
@@ -975,5 +986,9 @@
     "takingSlow": "放慢速度，打好基础。",
     "manyReviewsDue": "你有许多待复习内容 - 建议在添加新项目前先清空复习队列。",
     "focusOn": "本周重点学习 {module} —— {reason}。"
+  },
+  "breadcrumb": {
+    "paths": "路径",
+    "ariaLabel": "面包屑导航"
   }
 }

@@ -47,7 +47,8 @@
     "minimize": "Riduci",
     "cancel": "Annulla",
     "confirm": "Conferma",
-    "unknown": "Sconosciuto"
+    "unknown": "Sconosciuto",
+    "skipToContent": "Vai al contenuto"
   },
   "modules": {
     "alphabet": {
@@ -527,7 +528,8 @@
       "priority3": "Sintesi vocale del browser (fallback)",
       "loading": "Caricamento Kokoro TTS...",
       "edgeTitle": "Voce Edge TTS ({language})",
-      "edgeDesc": "Voce neurale Microsoft per {language} - fallback TTS cloud di alta qualità"
+      "edgeDesc": "Voce neurale Microsoft per {language} - fallback TTS cloud di alta qualità",
+      "advancedSettings": "Impostazioni audio avanzate"
     },
     "appearance": {
       "title": "Aspetto",
@@ -547,7 +549,10 @@
         "accentPrimary": "Colore di accento",
         "accentGold": "Accento oro"
       },
-      "auto": "Segui lingua (Predefinito)"
+      "auto": "Segui lingua (Predefinito)",
+      "contrastWarningText": "Basso contrasto: il testo potrebbe essere difficile da leggere",
+      "contrastWarningAccent": "Basso contrasto: il colore d'accento potrebbe essere difficile da vedere",
+      "contrastOk": "Il contrasto dei colori è buono"
     },
     "backToDashboard": "Torna alla Dashboard"
   },
@@ -710,6 +715,9 @@
       "continueToExercises": "Continua agli esercizi",
       "unknownDrillType": "Tipo di esercizio di pronuncia sconosciuto.",
       "skip": "Salta"
+    },
+    "progress": {
+      "phases": "Fasi della lezione"
     }
   },
   "exercises": {
@@ -867,7 +875,9 @@
     "percentComplete": "{percent}% completato",
     "insight": "Approfondimenti",
     "browsePaths": "Sfoglia percorsi",
-    "reviewNow": "Ripassa ora"
+    "reviewNow": "Ripassa ora",
+    "showMore": "Mostra di più",
+    "showLess": "Mostra meno"
   },
   "leaderboard": {
     "title": "Classifica",
@@ -937,7 +947,8 @@
     "noPathsDescription": "I percorsi di apprendimento per questa lingua arriveranno presto. Genera il curriculum nel pannello di amministrazione per creare percorsi strutturati.",
     "noMatchingPaths": "Nessun percorso corrisponde ai tuoi filtri",
     "clearFilters": "Cancella filtri",
-    "hours": "{count}h stimato"
+    "hours": "{count}h stimato",
+    "moreFilters": "Altri filtri"
   },
   "contentGuard": {
     "comingSoon": "Prossimamente",
@@ -975,5 +986,9 @@
     "takingSlow": "Vai piano per costruire basi più solide.",
     "manyReviewsDue": "Hai molti ripassi in scadenza - considera di svuotare la coda dei ripassi prima di aggiungere nuovi elementi.",
     "focusOn": "Concentrati su {module} questa settimana - {reason}."
+  },
+  "breadcrumb": {
+    "paths": "Percorsi",
+    "ariaLabel": "Navigazione breadcrumb"
   }
 }

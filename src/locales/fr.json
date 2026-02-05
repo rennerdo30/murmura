@@ -47,7 +47,8 @@
     "minimize": "Minimiser",
     "cancel": "Annuler",
     "confirm": "Confirmer",
-    "unknown": "Inconnu"
+    "unknown": "Inconnu",
+    "skipToContent": "Aller au contenu"
   },
   "modules": {
     "alphabet": {
@@ -527,7 +528,8 @@
       "priority3": "Synthèse vocale du navigateur (solution de secours)",
       "loading": "Chargement de Kokoro TTS...",
       "edgeTitle": "Voix Edge TTS ({language})",
-      "edgeDesc": "Voix neuronale Microsoft pour le {language} - solution de secours cloud de haute qualité"
+      "edgeDesc": "Voix neuronale Microsoft pour le {language} - solution de secours cloud de haute qualité",
+      "advancedSettings": "Paramètres audio avancés"
     },
     "appearance": {
       "title": "Apparence",
@@ -547,7 +549,10 @@
         "accentPrimary": "Couleur d'accentuation",
         "accentGold": "Accent Or"
       },
-      "auto": "Suivre la langue (Par défaut)"
+      "auto": "Suivre la langue (Par défaut)",
+      "contrastWarningText": "Faible contraste : le texte peut être difficile à lire",
+      "contrastWarningAccent": "Faible contraste : la couleur d'accent peut être difficile à voir",
+      "contrastOk": "Le contraste des couleurs est bon"
     },
     "backToDashboard": "Retour au tableau de bord"
   },
@@ -710,6 +715,9 @@
       "continueToExercises": "Continuer vers les exercices",
       "unknownDrillType": "Type d'exercice de prononciation inconnu.",
       "skip": "Passer"
+    },
+    "progress": {
+      "phases": "Phases de la leçon"
     }
   },
   "exercises": {
@@ -867,7 +875,9 @@
     "percentComplete": "{percent} % terminé",
     "insight": "Aperçu",
     "browsePaths": "Explorer les parcours",
-    "reviewNow": "Réviser maintenant"
+    "reviewNow": "Réviser maintenant",
+    "showMore": "Afficher plus",
+    "showLess": "Afficher moins"
   },
   "leaderboard": {
     "title": "Classement",
@@ -937,7 +947,8 @@
     "noPathsDescription": "Les parcours d'apprentissage pour cette langue arrivent bientôt. Générez le programme dans le panneau d'administration pour créer des parcours structurés.",
     "noMatchingPaths": "Aucun parcours ne correspond à vos filtres",
     "clearFilters": "Effacer les filtres",
-    "hours": "{count}h estimé"
+    "hours": "{count}h estimé",
+    "moreFilters": "Plus de filtres"
   },
   "contentGuard": {
     "comingSoon": "Bientôt disponible",
@@ -975,5 +986,9 @@
     "takingSlow": "Allez-y doucement pour bâtir des bases solides.",
     "manyReviewsDue": "Vous avez beaucoup de révisions à faire - pensez à vider votre file d'attente avant d'ajouter de nouveaux éléments.",
     "focusOn": "Concentrez-vous sur {module} cette semaine - {reason}."
+  },
+  "breadcrumb": {
+    "paths": "Parcours",
+    "ariaLabel": "Fil d'Ariane"
   }
 }

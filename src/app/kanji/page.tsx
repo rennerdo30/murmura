@@ -349,6 +349,7 @@ export default function KanjiPage() {
                     size="sm"
                     onClick={() => speak(currentKanji.kanji, { audioUrl: currentKanji.audioUrl })}
                     className={styles.audioButton}
+                    aria-label={t('common.listen')}
                 >
                     <IoVolumeHigh />
                 </Button>

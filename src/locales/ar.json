@@ -47,7 +47,8 @@
     "minimize": "تصغير",
     "cancel": "إلغاء",
     "confirm": "تأكيد",
-    "unknown": "غير معروف"
+    "unknown": "غير معروف",
+    "skipToContent": "تخطي إلى المحتوى"
   },
   "modules": {
     "alphabet": {
@@ -527,7 +528,8 @@
       "priority3": "توليف الكلام في المتصفح (احتياطي)",
       "loading": "جاري تحميل Kokoro TTS...",
       "edgeTitle": "صوت Edge TTS ({language})",
-      "edgeDesc": "صوت Microsoft العصبي للغة {language} - خيار احتياطي سحابي عالي الجودة لتحويل النص إلى كلام"
+      "edgeDesc": "صوت Microsoft العصبي للغة {language} - خيار احتياطي سحابي عالي الجودة لتحويل النص إلى كلام",
+      "advancedSettings": "إعدادات الصوت المتقدمة"
     },
     "appearance": {
       "title": "المظهر",
@@ -547,7 +549,10 @@
         "accentPrimary": "لون التمييز",
         "accentGold": "اللون الذهبي للتمييز"
       },
-      "auto": "حسب اللغة (افتراضي)"
+      "auto": "حسب اللغة (افتراضي)",
+      "contrastWarningText": "تباين منخفض: قد يصعب قراءة النص",
+      "contrastWarningAccent": "تباين منخفض: قد يصعب رؤية لون التمييز",
+      "contrastOk": "تباين الألوان يبدو جيداً"
     },
     "backToDashboard": "العودة إلى لوحة التحكم"
   },
@@ -710,6 +715,9 @@
       "continueToExercises": "المتابعة إلى التمارين",
       "unknownDrillType": "نوع تدريب النطق غير معروف.",
       "skip": "تخطي"
+    },
+    "progress": {
+      "phases": "مراحل الدرس"
     }
   },
   "exercises": {
@@ -867,7 +875,9 @@
     "percentComplete": "{percent}% مكتمل",
     "insight": "رؤية",
     "browsePaths": "تصفح المسارات",
-    "reviewNow": "راجع الآن"
+    "reviewNow": "راجع الآن",
+    "showMore": "عرض المزيد",
+    "showLess": "عرض أقل"
   },
   "leaderboard": {
     "title": "لوحة المتصدرين",
@@ -937,7 +947,8 @@
     "noPathsDescription": "مسارات التعلم لهذه اللغة ستأتي قريباً. قم بإنشاء المنهج في لوحة الإدارة لإنشاء مسارات تعلم منظمة.",
     "noMatchingPaths": "لا توجد مسارات تطابق خيارات التصفية",
     "clearFilters": "مسح التصفية",
-    "hours": "{count} ساعة تقريباً"
+    "hours": "{count} ساعة تقريباً",
+    "moreFilters": "المزيد من التصفية"
   },
   "contentGuard": {
     "comingSoon": "قريباً",
@@ -975,5 +986,9 @@
     "takingSlow": "التمهل لبناء أسس أقوى.",
     "manyReviewsDue": "لديك الكثير من المراجعات المستحقة - فكر في إنهاء قائمة المراجعة قبل إضافة عناصر جديدة.",
     "focusOn": "ركز على {module} هذا الأسبوع - {reason}."
+  },
+  "breadcrumb": {
+    "paths": "المسارات",
+    "ariaLabel": "التنقل عبر مسار التصفح"
   }
 }

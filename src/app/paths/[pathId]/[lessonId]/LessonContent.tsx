@@ -3,6 +3,7 @@
 import { useParams, useRouter } from 'next/navigation';
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import Navigation from '@/components/common/Navigation';
+import Breadcrumb from '@/components/common/Breadcrumb';
 import { Container, Card, Text, Button, Animated } from '@/components/ui';
 import { useCurriculum } from '@/hooks/useCurriculum';
 import { useGamification } from '@/hooks/useGamification';
@@ -213,10 +214,18 @@ export default function LessonContent() {
     );
   }
 
+  // Build breadcrumb items
+  const breadcrumbItems = [
+    { label: t('breadcrumb.paths'), href: '/paths' },
+    { label: pathId.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()), href: `/paths/${pathId}` },
+    { label: lesson.title || lessonId },
+  ];
+
   // Render lesson view (intro, learning, exercises)
   return (
     <Container variant="centered" className={styles.lessonFlowContainer}>
       <Navigation />
+      <Breadcrumb items={breadcrumbItems} />
       <Animated animation="fadeInUp" className={styles.lessonFlowContent}>
         <LessonView
           lesson={lesson}

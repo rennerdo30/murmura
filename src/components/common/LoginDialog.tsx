@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useAuthActions } from '@convex-dev/auth/react';
 import { useLanguage } from '@/context/LanguageProvider';
-import { IoMail, IoPerson } from 'react-icons/io5';
+import { IoMail, IoPerson, IoAlertCircle } from 'react-icons/io5';
 import styles from './LoginDialog.module.css';
 
 interface LoginDialogProps {
@@ -202,6 +202,7 @@ export default function LoginDialog({ isOpen, onClose }: LoginDialogProps) {
 
                 {error && (
                     <div className={styles.error} role="alert">
+                        <IoAlertCircle style={{ flexShrink: 0, fontSize: '1.2rem' }} />
                         {error}
                     </div>
                 )}

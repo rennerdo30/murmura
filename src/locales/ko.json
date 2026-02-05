@@ -47,7 +47,8 @@
     "minimize": "최소화",
     "cancel": "취소",
     "confirm": "확인",
-    "unknown": "알 수 없음"
+    "unknown": "알 수 없음",
+    "skipToContent": "콘텐츠로 건너뛰기"
   },
   "modules": {
     "alphabet": {
@@ -527,7 +528,8 @@
       "priority3": "브라우저 음성 합성 (대체)",
       "loading": "Kokoro TTS 로딩 중...",
       "edgeTitle": "Edge TTS 음성 ({language})",
-      "edgeDesc": "{language}용 Microsoft Neural Voice - 고품질 클라우드 TTS 대체"
+      "edgeDesc": "{language}용 Microsoft Neural Voice - 고품질 클라우드 TTS 대체",
+      "advancedSettings": "고급 오디오 설정"
     },
     "appearance": {
       "title": "외관",
@@ -547,7 +549,10 @@
         "accentPrimary": "강조 색상",
         "accentGold": "강조 골드"
       },
-      "auto": "언어 설정 따름 (기본값)"
+      "auto": "언어 설정 따름 (기본값)",
+      "contrastWarningText": "낮은 대비: 텍스트를 읽기 어려울 수 있습니다",
+      "contrastWarningAccent": "낮은 대비: 강조 색상이 보기 어려울 수 있습니다",
+      "contrastOk": "색상 대비가 좋습니다"
     },
     "backToDashboard": "대시보드로 돌아가기"
   },
@@ -710,6 +715,9 @@
       "continueToExercises": "연습 문제로 계속",
       "unknownDrillType": "알 수 없는 발음 연습 유형입니다.",
       "skip": "건너뛰기"
+    },
+    "progress": {
+      "phases": "레슨 단계"
     }
   },
   "exercises": {
@@ -867,7 +875,9 @@
     "percentComplete": "{percent}% 완료",
     "insight": "인사이트",
     "browsePaths": "학습 경로 탐색",
-    "reviewNow": "지금 복습하기"
+    "reviewNow": "지금 복습하기",
+    "showMore": "더 보기",
+    "showLess": "접기"
   },
   "leaderboard": {
     "title": "순위표",
@@ -937,7 +947,8 @@
     "noPathsDescription": "이 언어에 대한 학습 경로가 곧 제공될 예정입니다. 관리자 패널에서 커리큘럼을 생성하여 체계적인 학습 경로를 만드세요.",
     "noMatchingPaths": "필터와 일치하는 경로가 없습니다",
     "clearFilters": "필터 초기화",
-    "hours": "예상 {count}시간"
+    "hours": "예상 {count}시간",
+    "moreFilters": "더 많은 필터"
   },
   "contentGuard": {
     "comingSoon": "곧 출시",
@@ -975,5 +986,9 @@
     "takingSlow": "기초를 다지기 위해 천천히 진행 중입니다.",
     "manyReviewsDue": "복습할 내용이 많습니다 - 새로운 항목을 추가하기 전에 복습을 먼저 완료하는 것을 권장합니다.",
     "focusOn": "이번 주는 {module}에 집중하세요 - {reason}."
+  },
+  "breadcrumb": {
+    "paths": "경로",
+    "ariaLabel": "브레드크럼 탐색"
   }
 }

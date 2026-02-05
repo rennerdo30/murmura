@@ -47,7 +47,8 @@
       "title": "エラーが発生しました",
       "message": "予期しないエラーが発生しました。ページを更新してください。",
       "tryAgain": "再試行"
-    }
+    },
+    "skipToContent": "コンテンツへスキップ"
   },
   "modules": {
     "alphabet": {
@@ -367,7 +368,9 @@
     "percentComplete": "{percent}%完了",
     "insight": "インサイト",
     "browsePaths": "パスを閲覧",
-    "reviewNow": "今すぐレビュー"
+    "reviewNow": "今すぐレビュー",
+    "showMore": "もっと見る",
+    "showLess": "閉じる"
   },
   "auth": {
     "signIn": "サインイン",
@@ -545,7 +548,8 @@
       "priority3": "ブラウザ音声合成（フォールバック）",
       "loading": "Kokoro TTSを読み込み中...",
       "edgeTitle": "Edge TTS音声 ({language})",
-      "edgeDesc": "{language}用Microsoftニューラル音声 - 高品質クラウドTTSフォールバック"
+      "edgeDesc": "{language}用Microsoftニューラル音声 - 高品質クラウドTTSフォールバック",
+      "advancedSettings": "詳細オーディオ設定"
     },
     "appearance": {
       "title": "外観",
@@ -565,7 +569,10 @@
         "accentPrimary": "アクセントカラー",
         "accentGold": "アクセントゴールド"
       },
-      "auto": "言語設定に従う（デフォルト）"
+      "auto": "言語設定に従う（デフォルト）",
+      "contrastWarningText": "コントラストが低い: テキストが読みにくい可能性があります",
+      "contrastWarningAccent": "コントラストが低い: アクセントカラーが見えにくい可能性があります",
+      "contrastOk": "色のコントラストは良好です"
     },
     "backToDashboard": "ダッシュボードに戻る"
   },
@@ -728,6 +735,9 @@
       "continueToExercises": "練習問題へ進む",
       "unknownDrillType": "不明な発音ドリルの種類です。",
       "skip": "スキップ"
+    },
+    "progress": {
+      "phases": "レッスンフェーズ"
     }
   },
   "exercises": {
@@ -937,7 +947,8 @@
     "noPathsDescription": "この言語の学習パスは近日公開予定です。管理パネルでカリキュラムを生成して構造化された学習パスを作成してください。",
     "noMatchingPaths": "フィルターに一致するパスがありません",
     "clearFilters": "フィルターをクリア",
-    "hours": "推定{count}時間"
+    "hours": "推定{count}時間",
+    "moreFilters": "その他のフィルター"
   },
   "contentGuard": {
     "comingSoon": "近日公開",
@@ -975,5 +986,9 @@
     "takingSlow": "基礎をしっかり固めるためにゆっくり進めています。",
     "manyReviewsDue": "復習が溜まっています。新しい項目を追加する前に復習を終わらせることをお勧めします。",
     "focusOn": "今週は{module}に集中しましょう - {reason}。"
+  },
+  "breadcrumb": {
+    "paths": "パス",
+    "ariaLabel": "パンくずナビゲーション"
   }
 }

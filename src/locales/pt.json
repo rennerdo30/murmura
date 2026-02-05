@@ -47,7 +47,8 @@
     "minimize": "Minimizar",
     "cancel": "Cancelar",
     "confirm": "Confirmar",
-    "unknown": "Desconhecido"
+    "unknown": "Desconhecido",
+    "skipToContent": "Pular para o conteúdo"
   },
   "modules": {
     "alphabet": {
@@ -527,7 +528,8 @@
       "priority3": "Síntese de voz do navegador (alternativa)",
       "loading": "Carregando Kokoro TTS...",
       "edgeTitle": "Voz Edge TTS ({language})",
-      "edgeDesc": "Voz neural da Microsoft para {language} - alternativa de TTS na nuvem de alta qualidade"
+      "edgeDesc": "Voz neural da Microsoft para {language} - alternativa de TTS na nuvem de alta qualidade",
+      "advancedSettings": "Configurações avançadas de áudio"
     },
     "appearance": {
       "title": "Aparência",
@@ -547,7 +549,10 @@
         "accentPrimary": "Cor de Destaque",
         "accentGold": "Destaque Dourado"
       },
-      "auto": "Seguir Idioma (Padrão)"
+      "auto": "Seguir Idioma (Padrão)",
+      "contrastWarningText": "Baixo contraste: o texto pode ser difícil de ler",
+      "contrastWarningAccent": "Baixo contraste: a cor de destaque pode ser difícil de ver",
+      "contrastOk": "O contraste de cores está bom"
     },
     "backToDashboard": "Voltar ao Painel"
   },
@@ -710,6 +715,9 @@
       "continueToExercises": "Continuar para os exercicios",
       "unknownDrillType": "Tipo de exercicio de pronuncia desconhecido.",
       "skip": "Pular"
+    },
+    "progress": {
+      "phases": "Fases da lição"
     }
   },
   "exercises": {
@@ -867,7 +875,9 @@
     "percentComplete": "{percent}% concluído",
     "insight": "Insight",
     "browsePaths": "Explorar Trilhas",
-    "reviewNow": "Revisar Agora"
+    "reviewNow": "Revisar Agora",
+    "showMore": "Mostrar mais",
+    "showLess": "Mostrar menos"
   },
   "leaderboard": {
     "title": "Classificação",
@@ -937,7 +947,8 @@
     "noPathsDescription": "Trilhas de aprendizagem para este idioma estarão disponíveis em breve. Gere o currículo no painel de administração para criar trilhas estruturadas.",
     "noMatchingPaths": "Nenhuma trilha corresponde aos seus filtros",
     "clearFilters": "Limpar Filtros",
-    "hours": "{count}h estimado"
+    "hours": "{count}h estimado",
+    "moreFilters": "Mais filtros"
   },
   "contentGuard": {
     "comingSoon": "Em Breve",
@@ -975,5 +986,9 @@
     "takingSlow": "Indo devagar para construir bases mais fortes.",
     "manyReviewsDue": "Você tem muitas revisões pendentes - considere limpar sua fila de revisão antes de adicionar novos itens.",
     "focusOn": "Foque em {module} esta semana - {reason}."
+  },
+  "breadcrumb": {
+    "paths": "Trilhas",
+    "ariaLabel": "Navegação de migalhas"
   }
 }

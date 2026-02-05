@@ -181,7 +181,8 @@
     "demo": "Demo",
     "guide": "Guide",
     "clear": "Clear",
-    "gotIt": "Got it"
+    "gotIt": "Got it",
+    "skipToContent": "Skip to content"
   },
   "nav": {
     "home": "Home",
@@ -282,6 +283,9 @@
       "continueToExercises": "Continue to exercises",
       "unknownDrillType": "Unknown pronunciation drill type.",
       "skip": "Skip"
+    },
+    "progress": {
+      "phases": "Lesson phases"
     }
   },
   "exercises": {
@@ -733,7 +737,9 @@
     "percentComplete": "{percent}% complete",
     "insight": "Insight",
     "browsePaths": "Browse Paths",
-    "reviewNow": "Review Now"
+    "reviewNow": "Review Now",
+    "showMore": "Show More",
+    "showLess": "Show Less"
   },
   "stats": {
     "correct": "Correct",
@@ -782,7 +788,8 @@
       "priority3": "Browser speech synthesis (fallback)",
       "loading": "Loading Kokoro TTS...",
       "edgeTitle": "Edge TTS Voice ({language})",
-      "edgeDesc": "Microsoft neural voice for {language} - high-quality cloud TTS fallback"
+      "edgeDesc": "Microsoft neural voice for {language} - high-quality cloud TTS fallback",
+      "advancedSettings": "Advanced Audio Settings"
     },
     "appearance": {
       "title": "Appearance",
@@ -801,7 +808,10 @@
         "accentPrimary": "Accent Color",
         "accentGold": "Accent Gold"
       },
-      "auto": "Follow Language (Default)"
+      "auto": "Follow Language (Default)",
+      "contrastWarningText": "Low contrast: text may be hard to read",
+      "contrastWarningAccent": "Low contrast: accent color may be hard to see",
+      "contrastOk": "Color contrast looks good"
     },
     "backToDashboard": "Back to Dashboard"
   },
@@ -933,7 +943,8 @@
     "noPathsDescription": "Learning paths for this language are coming soon. Generate curriculum in the admin panel to create structured learning paths.",
     "noMatchingPaths": "No paths match your filters",
     "clearFilters": "Clear Filters",
-    "hours": "{count}h estimated"
+    "hours": "{count}h estimated",
+    "moreFilters": "More Filters"
   },
   "contentGuard": {
     "comingSoon": "Coming Soon",
@@ -971,5 +982,9 @@
     "takingSlow": "Taking it slow to build stronger foundations.",
     "manyReviewsDue": "You have many reviews due - consider clearing your review queue before adding new items.",
     "focusOn": "Focus on {module} this week - {reason}."
+  },
+  "breadcrumb": {
+    "paths": "Paths",
+    "ariaLabel": "Breadcrumb navigation"
   }
 }

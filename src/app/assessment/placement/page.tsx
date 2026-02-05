@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
+import { IoWarning } from 'react-icons/io5';
 import styles from './placement.module.css';
 import PlacementTest from './PlacementTest';
 import PlacementResults from './PlacementResults';
@@ -77,6 +78,7 @@ export default function PlacementPage() {
     return (
       <div className={styles.container}>
         <div className={styles.error}>
+          <IoWarning style={{ fontSize: '2rem', color: 'var(--accent-red-light, #ff6b6b)' }} />
           <h2>Error</h2>
           <p>{error}</p>
           <button onClick={() => router.back()}>Go Back</button>

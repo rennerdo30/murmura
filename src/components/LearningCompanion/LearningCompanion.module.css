@@ -365,6 +365,28 @@
   font-style: italic;
 }
 
+/* Show More Button */
+.showMoreButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  width: 100%;
+  padding: 0.5rem;
+  margin: 0.25rem 0;
+  border: none;
+  background: transparent;
+  color: var(--accent-gold, #d4a574);
+  font-size: 0.8rem;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+}
+
+.showMoreButton:hover {
+  opacity: 1;
+}
+
 /* Footer */
 .footer {
   display: flex;

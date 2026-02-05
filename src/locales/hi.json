@@ -47,7 +47,8 @@
     "minimize": "न्यूनतम करें",
     "cancel": "रद्द करें",
     "confirm": "पुष्टि करें",
-    "unknown": "अज्ञात"
+    "unknown": "अज्ञात",
+    "skipToContent": "सामग्री पर जाएं"
   },
   "modules": {
     "alphabet": {
@@ -527,7 +528,8 @@
       "priority3": "ब्राउज़र स्पीच सिंथेसिस (फ़ॉलबैक)",
       "loading": "Kokoro TTS लोड हो रहा है...",
       "edgeTitle": "Edge TTS आवाज़ ({language})",
-      "edgeDesc": "{language} के लिए Microsoft न्यूरल आवाज़ - उच्च गुणवत्ता वाला क्लाउड TTS बैकअप"
+      "edgeDesc": "{language} के लिए Microsoft न्यूरल आवाज़ - उच्च गुणवत्ता वाला क्लाउड TTS बैकअप",
+      "advancedSettings": "उन्नत ऑडियो सेटिंग्स"
     },
     "appearance": {
       "title": "दिखावट",
@@ -547,7 +549,10 @@
         "accentPrimary": "एक्सेंट रंग",
         "accentGold": "एक्सेंट गोल्ड"
       },
-      "auto": "भाषा के अनुसार (डिफ़ॉल्ट)"
+      "auto": "भाषा के अनुसार (डिफ़ॉल्ट)",
+      "contrastWarningText": "कम कंट्रास्ट: टेक्स्ट पढ़ना मुश्किल हो सकता है",
+      "contrastWarningAccent": "कम कंट्रास्ट: एक्सेंट रंग देखना मुश्किल हो सकता है",
+      "contrastOk": "रंग कंट्रास्ट अच्छा दिखता है"
     },
     "backToDashboard": "डैशबोर्ड पर वापस"
   },
@@ -710,6 +715,9 @@
       "continueToExercises": "अभ्यासों पर जाएँ",
       "unknownDrillType": "अज्ञात उच्चारण अभ्यास प्रकार।",
       "skip": "छोड़ें"
+    },
+    "progress": {
+      "phases": "पाठ चरण"
     }
   },
   "exercises": {
@@ -867,7 +875,9 @@
     "percentComplete": "{percent}% पूर्ण",
     "insight": "इन्साइट",
     "browsePaths": "पाथ ब्राउज़ करें",
-    "reviewNow": "अभी रिव्यू करें"
+    "reviewNow": "अभी रिव्यू करें",
+    "showMore": "और दिखाएं",
+    "showLess": "कम दिखाएं"
   },
   "leaderboard": {
     "title": "लीडरबोर्ड",
@@ -937,7 +947,8 @@
     "noPathsDescription": "इस भाषा के लिए लर्निंग पाथ जल्द ही आ रहे हैं। संरचित लर्निंग पाथ बनाने के लिए एडमिन पैनल में पाठ्यक्रम जेनरेट करें।",
     "noMatchingPaths": "आपकी फ़िल्टर से कोई पाथ मेल नहीं खाता",
     "clearFilters": "फ़िल्टर साफ़ करें",
-    "hours": "अनुमानित {count} घंटे"
+    "hours": "अनुमानित {count} घंटे",
+    "moreFilters": "अधिक फ़िल्टर"
   },
   "contentGuard": {
     "comingSoon": "जल्द आ रहा है",
@@ -975,5 +986,9 @@
     "takingSlow": "मजबूत नींव बनाने के लिए धीरे-धीरे आगे बढ़ रहे हैं।",
     "manyReviewsDue": "आपके पास कई रिव्यू बाकी हैं - नई सामग्री जोड़ने से पहले अपनी रिव्यू कतार खाली करने पर विचार करें।",
     "focusOn": "इस सप्ताह {module} पर ध्यान दें - {reason}।"
+  },
+  "breadcrumb": {
+    "paths": "पथ",
+    "ariaLabel": "ब्रेडक्रम्ब नेविगेशन"
   }
 }

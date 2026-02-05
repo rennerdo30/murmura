@@ -40,6 +40,7 @@ import {
   speakWithEdgeTTS,
   type EdgeVoiceInfo,
 } from '@/lib/edgeTTS';
+import { contrastRatio, meetsWCAGAA } from '@/lib/colorContrast';
 import {
   IoSettings,
   IoTrophy,
@@ -93,6 +94,9 @@ export default function SettingsPage() {
   const leaderboardVisible = useQuery(api.leaderboard.getLeaderboardVisibility);
   const setLeaderboardVisibility = useMutation(api.leaderboard.setLeaderboardVisibility);
   const myXPData = useQuery(api.leaderboard.getMyXPBreakdown);
+
+  // Advanced audio toggle
+  const [showAdvancedAudio, setShowAdvancedAudio] = useState(false);
 
   // Offline TTS state
   const [kokoroStatus, setKokoroStatus] = useState<'idle' | 'loading' | 'ready' | 'error'>('idle');
@@ -276,6 +280,21 @@ export default function SettingsPage() {
   const selectedVoiceInfo = KOKORO_VOICES.find((v) => v.id === selectedVoice);
   const languageName = t(`languages.${targetLanguage}`);
 
+  // Contrast validation for custom colors
+  const contrastWarnings = useMemo(() => {
+    const bg = settings.customColors?.bgPrimary || '#0a0a0a';
+    const text = settings.customColors?.textPrimary || '#ffffff';
+    const gold = settings.customColors?.accentGold || '#d4a574';
+    const textRatio = contrastRatio(text, bg);
+    const goldRatio = contrastRatio(gold, bg);
+    return {
+      textFails: !meetsWCAGAA(text, bg),
+      textRatio: textRatio.toFixed(1),
+      goldFails: !meetsWCAGAA(gold, bg),
+      goldRatio: goldRatio.toFixed(1),
+    };
+  }, [settings.customColors?.bgPrimary, settings.customColors?.textPrimary, settings.customColors?.accentGold]);
+
   return (
     <Container variant="centered">
       <Navigation />
@@ -363,90 +382,7 @@ export default function SettingsPage() {
           <Text variant="h3">{t('settings.audio.title')}</Text>
         </div>
 
-        {/* Kokoro TTS Enable/Disable (mobile only shows toggle) */}
-        {isMobile && (
-          <div className={styles.settingRow}>
-            <div className={styles.settingInfo}>
-              <div className={styles.settingLabelRow}>
-                <IoCloudOffline className={styles.settingLabelIcon} />
-                <Text className={styles.settingLabel}>{t('settings.audio.offlineTTS')}</Text>
-              </div>
-              <Text variant="label" color="muted">
-                {t('settings.audio.offlineTTSDescription', { size: modelSize })}
-              </Text>
-              {!kokoroSupported && kokoroSupported !== null && (
-                <Text variant="label" color="error" className={styles.warningText}>
-                  {t('settings.audio.notSupported', { reason: kokoroSupportReason })}
-                </Text>
-              )}
-            </div>
-            <div className={styles.settingControl}>
-              {kokoroSupported && (
-                <Toggle
-                  options={[
-                    { id: 'disabled', label: t('settings.audio.off') },
-                    { id: 'enabled', label: t('settings.audio.on') },
-                  ]}
-                  value={kokoroStatus === 'ready' ? 'enabled' : 'disabled'}
-                  onChange={handleKokoroToggle}
-                  name="offlineTTS"
-                  disabled={kokoroStatus === 'loading'}
-                />
-              )}
-            </div>
-          </div>
-        )}
-
-        {/* Desktop auto-load notice */}
-        {!isMobile && kokoroSupported && (
-          <div className={styles.statusSection}>
-            <IoCheckmarkCircle className={styles.successIcon} />
-            <Text variant="label" color="success">
-              {t('settings.audio.desktopNotice')}
-            </Text>
-          </div>
-        )}
-
-        {/* Kokoro Loading Progress */}
-        {kokoroStatus === 'loading' && (
-          <div className={styles.progressSection}>
-            <div className={styles.progressHeader}>
-              <IoDownload className={styles.progressIcon} />
-              <Text variant="label">{kokoroMessage}</Text>
-            </div>
-            <div className={styles.progressBar}>
-              <div
-                className={styles.progressFill}
-                style={{ width: `${kokoroProgress}%` }}
-              />
-            </div>
-            <Text variant="label" color="muted" className={styles.progressPercent}>
-              {kokoroProgress}%
-            </Text>
-          </div>
-        )}
-
-        {/* Kokoro Ready Status */}
-        {kokoroStatus === 'ready' && isMobile && (
-          <div className={styles.statusSection}>
-            <IoCheckmarkCircle className={styles.successIcon} />
-            <Text variant="label" color="success">
-              {t('settings.audio.readyNotice')}
-            </Text>
-          </div>
-        )}
-
-        {/* Kokoro Error Status */}
-        {kokoroStatus === 'error' && (
-          <div className={styles.statusSection}>
-            <IoCloseCircle className={styles.errorIcon} />
-            <Text variant="label" color="error">
-              {kokoroMessage || t('settings.audio.loadError')}
-            </Text>
-          </div>
-        )}
-
-        {/* Voice Selection (only when Kokoro is ready) */}
+        {/* Voice Selection (always visible when Kokoro is ready) */}
         {(kokoroStatus === 'ready' || (!isMobile && isKokoroLoaded())) && (
           <>
             <div className={styles.voiceSelectionHeader}>
@@ -454,7 +390,6 @@ export default function SettingsPage() {
               <Text className={styles.settingLabel}>{t('settings.audio.voiceSelection', { language: languageName })}</Text>
             </div>
 
-            {/* Show warning if language not supported by Kokoro */}
             {!languageSupported ? (
               <div className={styles.statusSection}>
                 <IoWarning className={styles.warningIcon} />
@@ -475,7 +410,6 @@ export default function SettingsPage() {
                   {t('settings.audio.voiceSelectionNote', { language: languageName })}
                 </Text>
 
-                {/* Voice Selector */}
                 <div className={styles.voiceSelector}>
                   <select
                     className={styles.voiceSelect}
@@ -513,7 +447,6 @@ export default function SettingsPage() {
                   </Button>
                 </div>
 
-                {/* Selected Voice Info */}
                 {selectedVoiceInfo && (
                   <div className={styles.voiceInfo}>
                     <Text variant="label" color="muted">
@@ -530,7 +463,7 @@ export default function SettingsPage() {
           </>
         )}
 
-        {/* Edge TTS Voice Selection (Microsoft Neural Voices) */}
+        {/* Edge TTS Voice Selection (always visible) */}
         {edgeTTSAvailable && edgeVoices.length > 0 && (
           <>
             <div className={styles.voiceSelectionHeader} style={{ marginTop: '1.5rem' }}>
@@ -578,23 +511,119 @@ export default function SettingsPage() {
           </>
         )}
 
-        {/* TTS Tiers Explanation */}
-        <div className={styles.ttsInfo}>
-          <Text variant="label" color="muted" className={styles.ttsInfoTitle}>
-            {t('settings.audio.priorityTitle')}
-          </Text>
-          <ol className={styles.ttsTierList}>
-            <li>{t('settings.audio.priority1')}</li>
-            <li>Edge TTS (Microsoft neural voices for {languageName})</li>
-            <li>
-              {t('settings.audio.priority2', {
-                status: isMobile ? t('settings.audio.ifEnabled') : t('settings.audio.autoLoaded'),
-                support: languageSupported ? languageName : t('settings.audio.englishOnly')
-              })}
-            </li>
-            <li>{t('settings.audio.priority3')}</li>
-          </ol>
-        </div>
+        {/* Advanced Audio Settings (collapsible) */}
+        <button
+          className={styles.advancedToggle}
+          onClick={() => setShowAdvancedAudio(!showAdvancedAudio)}
+        >
+          <Text variant="label">{t('settings.audio.advancedSettings')}</Text>
+          <IoChevronForward className={`${styles.chevron} ${showAdvancedAudio ? styles.chevronOpen : ''}`} />
+        </button>
+
+        {showAdvancedAudio && (
+          <div className={styles.advancedContent}>
+            {/* Kokoro TTS Enable/Disable (mobile only shows toggle) */}
+            {isMobile && (
+              <div className={styles.settingRow}>
+                <div className={styles.settingInfo}>
+                  <div className={styles.settingLabelRow}>
+                    <IoCloudOffline className={styles.settingLabelIcon} />
+                    <Text className={styles.settingLabel}>{t('settings.audio.offlineTTS')}</Text>
+                  </div>
+                  <Text variant="label" color="muted">
+                    {t('settings.audio.offlineTTSDescription', { size: modelSize })}
+                  </Text>
+                  {!kokoroSupported && kokoroSupported !== null && (
+                    <Text variant="label" color="error" className={styles.warningText}>
+                      {t('settings.audio.notSupported', { reason: kokoroSupportReason })}
+                    </Text>
+                  )}
+                </div>
+                <div className={styles.settingControl}>
+                  {kokoroSupported && (
+                    <Toggle
+                      options={[
+                        { id: 'disabled', label: t('settings.audio.off') },
+                        { id: 'enabled', label: t('settings.audio.on') },
+                      ]}
+                      value={kokoroStatus === 'ready' ? 'enabled' : 'disabled'}
+                      onChange={handleKokoroToggle}
+                      name="offlineTTS"
+                      disabled={kokoroStatus === 'loading'}
+                    />
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* Desktop auto-load notice */}
+            {!isMobile && kokoroSupported && (
+              <div className={styles.statusSection}>
+                <IoCheckmarkCircle className={styles.successIcon} />
+                <Text variant="label" color="success">
+                  {t('settings.audio.desktopNotice')}
+                </Text>
+              </div>
+            )}
+
+            {/* Kokoro Loading Progress */}
+            {kokoroStatus === 'loading' && (
+              <div className={styles.progressSection}>
+                <div className={styles.progressHeader}>
+                  <IoDownload className={styles.progressIcon} />
+                  <Text variant="label">{kokoroMessage}</Text>
+                </div>
+                <div className={styles.progressBar}>
+                  <div
+                    className={styles.progressFill}
+                    style={{ width: `${kokoroProgress}%` }}
+                  />
+                </div>
+                <Text variant="label" color="muted" className={styles.progressPercent}>
+                  {kokoroProgress}%
+                </Text>
+              </div>
+            )}
+
+            {/* Kokoro Ready Status */}
+            {kokoroStatus === 'ready' && isMobile && (
+              <div className={styles.statusSection}>
+                <IoCheckmarkCircle className={styles.successIcon} />
+                <Text variant="label" color="success">
+                  {t('settings.audio.readyNotice')}
+                </Text>
+              </div>
+            )}
+
+            {/* Kokoro Error Status */}
+            {kokoroStatus === 'error' && (
+              <div className={styles.statusSection}>
+                <IoCloseCircle className={styles.errorIcon} />
+                <Text variant="label" color="error">
+                  {kokoroMessage || t('settings.audio.loadError')}
+                </Text>
+              </div>
+            )}
+
+            {/* TTS Tiers Explanation */}
+            <div className={styles.ttsInfo}>
+              <Text variant="label" color="muted" className={styles.ttsInfoTitle}>
+                {t('settings.audio.priorityTitle')}
+              </Text>
+              <ol className={styles.ttsTierList}>
+                <li>{t('settings.audio.priority1')}</li>
+                <li>Edge TTS (Microsoft neural voices for {languageName})</li>
+                <li>
+                  {t('settings.audio.priority2', {
+                    status: isMobile ? t('settings.audio.ifEnabled') : t('settings.audio.autoLoaded'),
+                    support: languageSupported ? languageName : t('settings.audio.englishOnly')
+                  })}
+                </li>
+                <li>{t('settings.audio.priority3')}</li>
+              </ol>
+            </div>
+          </div>
+        )}
       </Card>
 
       <Card variant="glass" className={styles.settingsSection}>
@@ -733,6 +762,26 @@ export default function SettingsPage() {
               />
             </div>
           </div>
+
+          {/* Contrast Warnings */}
+          {(contrastWarnings.textFails || contrastWarnings.goldFails) ? (
+            <div className={styles.contrastWarning}>
+              <IoWarning style={{ flexShrink: 0, fontSize: '1.2rem' }} />
+              <div>
+                {contrastWarnings.textFails && (
+                  <Text variant="label">{t('settings.appearance.contrastWarningText')} ({contrastWarnings.textRatio}:1)</Text>
+                )}
+                {contrastWarnings.goldFails && (
+                  <Text variant="label">{t('settings.appearance.contrastWarningAccent')} ({contrastWarnings.goldRatio}:1)</Text>
+                )}
+              </div>
+            </div>
+          ) : (
+            <div className={styles.contrastOk}>
+              <IoCheckmarkCircle style={{ flexShrink: 0, fontSize: '1.2rem' }} />
+              <Text variant="label">{t('settings.appearance.contrastOk')}</Text>
+            </div>
+          )}
         </div>
       </Card>
 

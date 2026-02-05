@@ -47,7 +47,8 @@
     "minimize": "Minimizar",
     "cancel": "Cancelar",
     "confirm": "Confirmar",
-    "unknown": "Desconocido"
+    "unknown": "Desconocido",
+    "skipToContent": "Saltar al contenido"
   },
   "modules": {
     "alphabet": {
@@ -527,7 +528,8 @@
       "priority3": "Síntesis de voz del navegador (alternativa)",
       "loading": "Cargando Kokoro TTS...",
       "edgeTitle": "Voz Edge TTS ({language})",
-      "edgeDesc": "Voz neuronal de Microsoft para {language} - alternativa en la nube de alta calidad"
+      "edgeDesc": "Voz neuronal de Microsoft para {language} - alternativa en la nube de alta calidad",
+      "advancedSettings": "Configuración de audio avanzada"
     },
     "appearance": {
       "title": "Apariencia",
@@ -547,7 +549,10 @@
         "accentPrimary": "Color de acento",
         "accentGold": "Oro de acento"
       },
-      "auto": "Seguir idioma (Predeterminado)"
+      "auto": "Seguir idioma (Predeterminado)",
+      "contrastWarningText": "Bajo contraste: el texto puede ser difícil de leer",
+      "contrastWarningAccent": "Bajo contraste: el color de acento puede ser difícil de ver",
+      "contrastOk": "El contraste de color se ve bien"
     },
     "backToDashboard": "Volver al panel"
   },
@@ -710,6 +715,9 @@
       "continueToExercises": "Continuar a los ejercicios",
       "unknownDrillType": "Tipo de ejercicio de pronunciacion desconocido.",
       "skip": "Omitir"
+    },
+    "progress": {
+      "phases": "Fases de la lección"
     }
   },
   "exercises": {
@@ -867,7 +875,9 @@
     "percentComplete": "{percent}% completado",
     "insight": "Análisis",
     "browsePaths": "Explorar rutas",
-    "reviewNow": "Repasar ahora"
+    "reviewNow": "Repasar ahora",
+    "showMore": "Mostrar más",
+    "showLess": "Mostrar menos"
   },
   "leaderboard": {
     "title": "Clasificación",
@@ -937,7 +947,8 @@
     "noPathsDescription": "Las rutas de aprendizaje para este idioma estarán disponibles pronto. Genera el plan de estudios en el panel de administración para crear rutas estructuradas.",
     "noMatchingPaths": "Ninguna ruta coincide con tus filtros",
     "clearFilters": "Borrar filtros",
-    "hours": "{count}h estimado"
+    "hours": "{count}h estimado",
+    "moreFilters": "Más filtros"
   },
   "contentGuard": {
     "comingSoon": "Próximamente",
@@ -975,5 +986,9 @@
     "takingSlow": "Yendo despacio para construir bases más sólidas.",
     "manyReviewsDue": "Tienes muchos repasos pendientes; considera limpiar tu cola de repasos antes de añadir nuevos elementos.",
     "focusOn": "Céntrate en {module} esta semana: {reason}."
+  },
+  "breadcrumb": {
+    "paths": "Rutas",
+    "ariaLabel": "Navegación de migas de pan"
   }
 }

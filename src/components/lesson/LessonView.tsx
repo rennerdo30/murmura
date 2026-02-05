@@ -1,10 +1,10 @@
 'use client';
 
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useMemo } from 'react';
 import { Card, Text, Button } from '@/components/ui';
 import LessonIntro from './LessonIntro';
 import LessonCard from './LessonCard';
-import LessonProgressBar from './LessonProgress';
+import LessonProgressBar, { PhaseStep } from './LessonProgress';
 import { FillBlank, Shadowing, MinimalPair, ListenRepeat } from '@/components/exercises';
 import { useTTS } from '@/hooks/useTTS';
 import { useContentTranslation } from '@/hooks/useContentTranslation';
@@ -170,6 +170,28 @@ export default function LessonView({
   ];
 
 
+  // Compute phase steps for progress indicator
+  const hasPronunciation = !!((lesson as unknown as { pronunciationDrills?: unknown[] }).pronunciationDrills?.length);
+  const phaseSteps: PhaseStep[] = useMemo(() => {
+    const getStatus = (stepPhase: string): 'completed' | 'current' | 'upcoming' => {
+      const order = ['learning', 'pronunciation', 'exercises'];
+      const currentIdx = order.indexOf(phase);
+      const stepIdx = order.indexOf(stepPhase);
+      if (stepIdx < currentIdx) return 'completed';
+      if (stepIdx === currentIdx) return 'current';
+      return 'upcoming';
+    };
+
+    const steps: PhaseStep[] = [
+      { id: 'learning', label: t('lessons.view.learning'), status: getStatus('learning') },
+    ];
+    if (hasPronunciation) {
+      steps.push({ id: 'pronunciation', label: t('lessons.view.pronunciation'), status: getStatus('pronunciation') });
+    }
+    steps.push({ id: 'exercises', label: t('lessons.view.practice'), status: getStatus('exercises') });
+    return steps;
+  }, [phase, hasPronunciation, t]);
+
   // Preload audio for vocabulary items in this lesson (non-blocking)
   // Runs after initial render to avoid blocking
   useEffect(() => {
@@ -278,6 +300,7 @@ export default function LessonView({
           current={currentCardIndex + 1}
           total={totalLearningCards}
           phase="learning"
+          phases={phaseSteps}
         />
 
         <Card variant="glass" className={styles.cardContainer}>
@@ -409,6 +432,7 @@ export default function LessonView({
           current={currentPronunciationIndex + 1}
           total={pronunciationDrills.length}
           phase="pronunciation"
+          phases={phaseSteps}
         />
 
         <Card variant="glass" className={styles.cardContainer}>
@@ -507,6 +531,7 @@ export default function LessonView({
           current={currentCardIndex + 1}
           total={totalExerciseCards}
           phase="exercises"
+          phases={phaseSteps}
         />
 
         <Card variant="glass" className={styles.cardContainer}>

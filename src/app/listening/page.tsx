@@ -11,7 +11,7 @@ import { useLanguage } from '@/context/LanguageProvider';
 import { useTargetLanguage } from '@/hooks/useTargetLanguage';
 import { useTTS } from '@/hooks/useTTS';
 import { ListeningExercise, Filter } from '@/types';
-import { IoVolumeHigh, IoCheckmark, IoStop } from 'react-icons/io5';
+import { IoVolumeHigh, IoCheckmark, IoClose, IoStop } from 'react-icons/io5';
 import styles from './listening.module.css';
 
 export default function ListeningPage() {
@@ -201,7 +201,7 @@ export default function ListeningPage() {
                             <Text variant="h3" color={inputValue.trim().replace(/\s+/g, '') === currentExercise.text.trim().replace(/\s+/g, '') ? 'success' : 'error'}>
                                 {inputValue.trim().replace(/\s+/g, '') === currentExercise.text.trim().replace(/\s+/g, '')
                                     ? <>{t('common.correct')}! <IoCheckmark style={{ display: 'inline-block', verticalAlign: 'middle' }} /></>
-                                    : `${t('common.incorrect')}. ${t('common.correct')}: ${currentExercise.text}`}
+                                    : <><IoClose style={{ display: 'inline-block', verticalAlign: 'middle' }} /> {t('common.incorrect')}. {t('common.correct')}: {currentExercise.text}</>}
                             </Text>
                         </div>
                     </Animated>
