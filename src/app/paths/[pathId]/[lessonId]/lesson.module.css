@@ -45,7 +45,20 @@
   color: var(--muted, rgba(255, 255, 255, 0.5));
 }
 
+.lessonFlowContainer {
+  justify-content: flex-start !important;
+  padding-top: calc(3.5rem + var(--safe-area-top)) !important;
+}
+
+.lessonFlowContent {
+  width: 100%;
+}
+
 @media (max-width: 480px) {
+  .lessonFlowContainer {
+    padding-top: calc(2.75rem + var(--safe-area-top)) !important;
+  }
+
   .loadingCard,
   .errorCard,
   .lockedCard {

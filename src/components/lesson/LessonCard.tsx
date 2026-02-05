@@ -171,7 +171,7 @@ export default function LessonCard({
         {/* Usage Note (for vocab and grammar) */}
         {usageNote && (
           <div className={styles.usageNote}>
-            <Text variant="caption" color="muted">
+            <Text variant="caption" color="muted" className={styles.usageNoteText}>
               {usageNote}
             </Text>
           </div>

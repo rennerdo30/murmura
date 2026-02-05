@@ -200,7 +200,7 @@ export default function LessonContent() {
   // Render summary phase
   if (phase === 'summary' && lessonResult) {
     return (
-      <Container variant="centered">
+      <Container variant="centered" className={styles.lessonFlowContainer}>
         <Navigation />
         <LessonSummary
           lesson={lesson}
@@ -215,9 +215,9 @@ export default function LessonContent() {
 
   // Render lesson view (intro, learning, exercises)
   return (
-    <Container variant="centered">
+    <Container variant="centered" className={styles.lessonFlowContainer}>
       <Navigation />
-      <Animated animation="fadeInUp">
+      <Animated animation="fadeInUp" className={styles.lessonFlowContent}>
         <LessonView
           lesson={lesson}
           lessonInfo={lessonInfo}
