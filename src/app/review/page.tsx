@@ -394,6 +394,7 @@ export default function ReviewPage() {
           total={session.items.length}
           correct={session.results.correct}
           incorrect={session.results.incorrect}
+          onEndSession={() => setMode('complete')}
         />
 
         <ReviewCard
@@ -402,17 +403,6 @@ export default function ReviewPage() {
           onShowAnswer={handleShowAnswer}
           onRate={handleQualityRating}
         />
-
-        <div className={styles.sessionControls}>
-          <Button
-            variant="ghost"
-            onClick={() => {
-              setMode('complete');
-            }}
-          >
-            {t('review.endSessionEarly')}
-          </Button>
-        </div>
       </Container>
     );
   }

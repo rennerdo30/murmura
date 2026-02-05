@@ -247,6 +247,7 @@
     "reviewDashboardStat": "समीक्षा डैशबोर्ड",
     "leaderboardStat": "लीडरबोर्ड",
     "settingsStat": "सेटिंग्स",
+    "moreStats": "गतिविधि और प्रगति",
     "hanziMastered": "हान्ज़ी में महारत",
     "hangulMastered": "हंगुल में महारत",
     "charactersLearned": "वर्ण सीखे गए",
@@ -609,6 +610,14 @@
     "it": "इतालवी",
     "pt": "पुर्तगाली",
     "en": "अंग्रेज़ी"
+  },
+  "nav": {
+    "home": "होम",
+    "vocabulary": "अध्ययन",
+    "paths": "पथ",
+    "review": "समीक्षा",
+    "settings": "सेटिंग्स",
+    "mainNavigation": "मुख्य नेविगेशन"
   },
   "lessons": {
     "card": {

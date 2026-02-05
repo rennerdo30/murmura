@@ -359,9 +359,18 @@
   color: var(--text-muted, #666);
 }
 
+.topicEnrolledStatus {
+  margin-top: 0.25rem;
+}
+
 .prereqText {
   margin-top: 0.5rem;
   font-size: 0.75rem;
+}
+
+.lockedWrapper {
+  pointer-events: none;
+  cursor: default;
 }
 
 /* Empty State */

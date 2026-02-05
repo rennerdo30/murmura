@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, Fragment } from 'react';
 import Link from 'next/link';
 import Navigation from '@/components/common/Navigation';
 import { Container, Card, Text, Button, Animated } from '@/components/ui';
@@ -291,8 +291,7 @@ export default function PathsPage() {
               const prereqs = checkPrerequisites(path.pathId);
               const isLocked = !prereqs.met;
 
-              return (
-                <Link key={path.pathId} href={`/paths/${path.pathId}`}>
+              const cardContent = (
                   <Card
                     variant="glass"
                     hover={!isLocked}
@@ -339,7 +338,7 @@ export default function PathsPage() {
                       )}
                     </div>
                     {enrolled && !isLocked && (
-                      <div className={styles.topicProgress}>
+                      <div className={styles.topicEnrolledStatus}>
                         <Text variant="caption" color="gold">
                           {t('paths.percentComplete', { percent: path.percentComplete })}
                         </Text>
@@ -351,7 +350,20 @@ export default function PathsPage() {
                       </Text>
                     )}
                   </Card>
-                </Link>
+              );
+
+              return (
+                <Fragment key={path.pathId}>
+                  {isLocked ? (
+                    <div className={styles.lockedWrapper} aria-disabled="true" tabIndex={-1}>
+                      {cardContent}
+                    </div>
+                  ) : (
+                    <Link href={`/paths/${path.pathId}`}>
+                      {cardContent}
+                    </Link>
+                  )}
+                </Fragment>
               );
             })}
           </div>

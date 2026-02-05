@@ -50,6 +50,16 @@
   color: var(--color-text-muted);
 }
 
+.resultCount {
+  margin-top: 0.5rem;
+}
+
+.loadMoreContainer {
+  display: flex;
+  justify-content: center;
+  padding: 1.5rem 0;
+}
+
 /* Browse view */
 .browseGrid {
   display: grid;

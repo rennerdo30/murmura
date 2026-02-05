@@ -247,6 +247,7 @@
     "reviewDashboardStat": "レビューダッシュボード",
     "leaderboardStat": "リーダーボード",
     "settingsStat": "設定",
+    "moreStats": "アクティビティと進捗",
     "hanziMastered": "漢字マスター",
     "hangulMastered": "ハングルマスター",
     "charactersLearned": "学習済み文字",
@@ -627,6 +628,14 @@
     "it": "イタリア語",
     "pt": "ポルトガル語",
     "en": "英語"
+  },
+  "nav": {
+    "home": "ホーム",
+    "vocabulary": "学習",
+    "paths": "コース",
+    "review": "復習",
+    "settings": "設定",
+    "mainNavigation": "メインナビゲーション"
   },
   "lessons": {
     "loading": "レッスンを読み込み中...",

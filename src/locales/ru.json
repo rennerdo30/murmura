@@ -247,6 +247,7 @@
     "reviewDashboardStat": "Панель обзора",
     "leaderboardStat": "Таблица лидеров",
     "settingsStat": "Настройки",
+    "moreStats": "Активность и прогресс",
     "hanziMastered": "Освоено ханьцзы",
     "hangulMastered": "Освоено хангыль",
     "charactersLearned": "Изучено символов",
@@ -609,6 +610,14 @@
     "it": "Итальянский",
     "pt": "Португальский",
     "en": "Английский"
+  },
+  "nav": {
+    "home": "Главная",
+    "vocabulary": "Учить",
+    "paths": "Курсы",
+    "review": "Повторение",
+    "settings": "Настройки",
+    "mainNavigation": "Основная навигация"
   },
   "lessons": {
     "card": {

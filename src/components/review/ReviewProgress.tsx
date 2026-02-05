@@ -1,8 +1,8 @@
 'use client';
 
-import { Text } from '@/components/ui';
+import { Text, Button } from '@/components/ui';
 import { useLanguage } from '@/context/LanguageProvider';
-import { IoCheckmarkCircle, IoCloseCircle } from 'react-icons/io5';
+import { IoCheckmarkCircle, IoCloseCircle, IoClose } from 'react-icons/io5';
 import styles from './ReviewProgress.module.css';
 
 interface ReviewProgressProps {
@@ -10,6 +10,7 @@ interface ReviewProgressProps {
   total: number;
   correct: number;
   incorrect: number;
+  onEndSession?: () => void;
 }
 
 export default function ReviewProgress({
@@ -17,6 +18,7 @@ export default function ReviewProgress({
   total,
   correct,
   incorrect,
+  onEndSession,
 }: ReviewProgressProps) {
   const { t } = useLanguage();
   const progressPercent = ((current - 1) / total) * 100;
@@ -51,6 +53,17 @@ export default function ReviewProgress({
             <span className={styles.accuracyLabel}>{t('review.progress.accuracy')}</span>
             <span className={styles.accuracyValue}>{Math.round(accuracy)}%</span>
           </div>
+          {onEndSession && (
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={onEndSession}
+              className={styles.endSessionButton}
+              aria-label={t('review.endSessionEarly')}
+            >
+              <IoClose />
+            </Button>
+          )}
         </div>
       </div>
     </div>

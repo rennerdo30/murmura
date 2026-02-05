@@ -3,6 +3,7 @@
 import { ReactNode } from 'react';
 import LearningCompanion from '@/components/LearningCompanion/LearningCompanion';
 import ErrorBoundary from '@/components/common/ErrorBoundary';
+import BottomNavBar from '@/components/common/BottomNavBar';
 
 interface ClientLayoutProps {
   children: ReactNode;
@@ -15,6 +16,7 @@ export default function ClientLayout({ children }: ClientLayoutProps) {
   return (
     <ErrorBoundary>
       {children}
+      <BottomNavBar />
       <LearningCompanion position="sidebar" />
     </ErrorBoundary>
   );

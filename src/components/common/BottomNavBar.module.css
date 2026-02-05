@@ -1,0 +1,85 @@
+.bottomNav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-around;
+  align-items: stretch;
+  background: var(--bg-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid var(--glass-border);
+  padding-bottom: var(--safe-area-bottom);
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.navItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+  flex: 1;
+  padding: 0.5rem 0.25rem;
+  min-height: 56px;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.65rem;
+  font-weight: 500;
+  font-family: var(--font-primary);
+  transition: color 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+}
+
+.navItem:hover {
+  color: var(--text-secondary);
+}
+
+.navItem.active {
+  color: var(--accent-gold);
+}
+
+.navItem.active::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 25%;
+  right: 25%;
+  height: 2px;
+  background: var(--accent-gold);
+  border-radius: 0 0 2px 2px;
+}
+
+.navIcon {
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
+.navLabel {
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* Spacer to prevent content from being hidden behind the nav */
+.bottomNavSpacer {
+  height: calc(72px + var(--safe-area-bottom));
+}
+
+/* Hide on desktop */
+@media (min-width: 769px) {
+  .bottomNav {
+    display: none;
+  }
+  .bottomNavSpacer {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .navItem {
+    transition: none;
+  }
+}

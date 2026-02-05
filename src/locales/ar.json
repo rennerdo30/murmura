@@ -247,6 +247,7 @@
     "reviewDashboardStat": "لوحة المراجعة",
     "leaderboardStat": "لوحة المتصدرين",
     "settingsStat": "الإعدادات",
+    "moreStats": "النشاط والتقدم",
     "hanziMastered": "الهانزي المتقن",
     "hangulMastered": "الهانغول المتقن",
     "charactersLearned": "الحروف المتعلمة",
@@ -609,6 +610,14 @@
     "it": "الإيطالية",
     "pt": "البرتغالية",
     "en": "الإنجليزية"
+  },
+  "nav": {
+    "home": "الرئيسية",
+    "vocabulary": "دراسة",
+    "paths": "المسارات",
+    "review": "مراجعة",
+    "settings": "الإعدادات",
+    "mainNavigation": "التنقل الرئيسي"
   },
   "lessons": {
     "card": {

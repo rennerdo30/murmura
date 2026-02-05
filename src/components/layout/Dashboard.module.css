@@ -389,3 +389,52 @@
     flex-wrap: wrap;
   }
 }
+
+/* Widgets Accordion (mobile) */
+.widgetsAccordion {
+  margin-bottom: 2rem;
+}
+
+.widgetsToggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: var(--bg-glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+  font-family: inherit;
+}
+
+.widgetsToggle:hover {
+  border-color: var(--accent-gold);
+}
+
+.widgetsToggleIcon {
+  font-size: 1.1rem;
+  transition: transform 0.3s ease;
+}
+
+.widgetsToggleOpen .widgetsToggleIcon {
+  transform: rotate(180deg);
+}
+
+.widgetsCollapsible {
+  margin-top: 1rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .widgetsToggleIcon {
+    transition: none;
+  }
+  .backgroundKanji,
+  .backgroundKanji * {
+    animation: none !important;
+  }
+}

@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, useMemo, memo } from 'react';
+import { useEffect, useState, useMemo, memo, useCallback } from 'react';
 import Link from 'next/link';
 import { useProgressContext } from '@/context/ProgressProvider';
 import { useLanguage } from '@/context/LanguageProvider';
@@ -17,8 +17,9 @@ import XPDisplay from '@/components/gamification/XPDisplay';
 import StreakBadge from '@/components/gamification/StreakBadge';
 import DailyGoalCard from '@/components/gamification/DailyGoalCard';
 import { Container, Card, Text, Animated, Button } from '@/components/ui';
-import { IoFlame, IoBook, IoSchool, IoTime, IoDocumentText, IoHeadset, IoMap, IoRefresh, IoTrophy, IoSettings, IoPlay } from 'react-icons/io5';
+import { IoFlame, IoBook, IoSchool, IoTime, IoDocumentText, IoHeadset, IoMap, IoRefresh, IoTrophy, IoSettings, IoPlay, IoChevronDown } from 'react-icons/io5';
 import { PiExam } from 'react-icons/pi';
+import { useMobile } from '@/hooks/useMobile';
 import LearningCompass from '@/components/dashboard/LearningCompass';
 import MasteryHeatmap from '@/components/dashboard/MasteryHeatmap';
 import StreakCalendar from '@/components/dashboard/StreakCalendar';
@@ -115,7 +116,10 @@ function Dashboard() {
     const { targetLanguage, isModuleEnabled } = useTargetLanguage();
     const { level, streak, dailyGoal, todayXP, isLoading: gamificationLoading } = useGamification();
     const { lessons, lessonProgress, getLessonStatus } = useCurriculum();
+    const isMobile = useMobile();
     const [moduleProgress, setModuleProgress] = useState<Record<string, number>>({});
+    const [showWidgets, setShowWidgets] = useState(false);
+    const toggleWidgets = useCallback(() => setShowWidgets(prev => !prev), []);
 
     // Find the current in-progress lesson or the next available one
     const currentLesson = useMemo(() => {
@@ -178,7 +182,7 @@ function Dashboard() {
             <div className={styles.languageSwitcher}>
                 <LanguageSwitcher />
             </div>
-            <Animated animation="float" infinite className={styles.backgroundKanji}>
+            <Animated animation="float" infinite className={styles.backgroundKanji} aria-hidden="true">
                 {getBackgroundDecoration(targetLanguage)}
             </Animated>
             <header className={styles.header}>
@@ -346,15 +350,40 @@ function Dashboard() {
                 </Link>
             </div>
 
-            {/* New Dashboard Widgets */}
-            <div className={styles.widgetsSection}>
-                <LearningCompass className={styles.compassWidget} />
-                <MasteryHeatmap className={styles.heatmapWidget} />
-            </div>
-
-            <div className={styles.calendarSection}>
-                <StreakCalendar className={styles.calendarWidget} weeks={16} />
-            </div>
+            {/* Dashboard Widgets - collapsible on mobile */}
+            {isMobile ? (
+                <div className={styles.widgetsAccordion}>
+                    <button
+                        className={`${styles.widgetsToggle} ${showWidgets ? styles.widgetsToggleOpen : ''}`}
+                        onClick={toggleWidgets}
+                        aria-expanded={showWidgets}
+                    >
+                        <Text variant="label" color="muted">{t('dashboard.moreStats') || 'Activity & Progress'}</Text>
+                        <IoChevronDown className={styles.widgetsToggleIcon} />
+                    </button>
+                    {showWidgets && (
+                        <div className={styles.widgetsCollapsible}>
+                            <div className={styles.widgetsSection}>
+                                <LearningCompass className={styles.compassWidget} />
+                                <MasteryHeatmap className={styles.heatmapWidget} />
+                            </div>
+                            <div className={styles.calendarSection}>
+                                <StreakCalendar className={styles.calendarWidget} weeks={16} />
+                            </div>
+                        </div>
+                    )}
+                </div>
+            ) : (
+                <>
+                    <div className={styles.widgetsSection}>
+                        <LearningCompass className={styles.compassWidget} />
+                        <MasteryHeatmap className={styles.heatmapWidget} />
+                    </div>
+                    <div className={styles.calendarSection}>
+                        <StreakCalendar className={styles.calendarWidget} weeks={16} />
+                    </div>
+                </>
+            )}
 
             <div className={styles.modulesGrid}>
                 {filteredModules.map((module, index) => {

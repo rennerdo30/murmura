@@ -247,6 +247,7 @@
     "reviewDashboardStat": "Übersicht Dashboard",
     "leaderboardStat": "Bestenliste",
     "settingsStat": "Einstellungen",
+    "moreStats": "Aktivität & Fortschritt",
     "hanziMastered": "Hanzi gemeistert",
     "hangulMastered": "Hangul gemeistert",
     "charactersLearned": "Zeichen gelernt",
@@ -609,6 +610,14 @@
     "it": "Italienisch",
     "pt": "Portugiesisch",
     "en": "Englisch"
+  },
+  "nav": {
+    "home": "Start",
+    "vocabulary": "Lernen",
+    "paths": "Pfade",
+    "review": "Wiederholen",
+    "settings": "Einstellungen",
+    "mainNavigation": "Hauptnavigation"
   },
   "lessons": {
     "card": {

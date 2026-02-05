@@ -689,6 +689,7 @@ export default function SettingsPage() {
                 className={styles.colorPicker}
                 value={settings.customColors?.bgPrimary || '#0a0a0a'}
                 onChange={(e) => handleColorChange('bgPrimary', e.target.value)}
+                aria-label={t('settings.appearance.colors.bgPrimary')}
               />
             </div>
             <div className={styles.colorRow}>
@@ -698,6 +699,7 @@ export default function SettingsPage() {
                 className={styles.colorPicker}
                 value={settings.customColors?.bgSecondary || '#1a1a1a'}
                 onChange={(e) => handleColorChange('bgSecondary', e.target.value)}
+                aria-label={t('settings.appearance.colors.bgSecondary')}
               />
             </div>
             <div className={styles.colorRow}>
@@ -707,6 +709,7 @@ export default function SettingsPage() {
                 className={styles.colorPicker}
                 value={settings.customColors?.textPrimary || '#ffffff'}
                 onChange={(e) => handleColorChange('textPrimary', e.target.value)}
+                aria-label={t('settings.appearance.colors.textPrimary')}
               />
             </div>
             <div className={styles.colorRow}>
@@ -716,6 +719,7 @@ export default function SettingsPage() {
                 className={styles.colorPicker}
                 value={settings.customColors?.accentPrimary || '#d4a574'}
                 onChange={(e) => handleColorChange('accentPrimary', e.target.value)}
+                aria-label={t('settings.appearance.colors.accentPrimary')}
               />
             </div>
             <div className={styles.colorRow}>
@@ -725,6 +729,7 @@ export default function SettingsPage() {
                 className={styles.colorPicker}
                 value={settings.customColors?.accentGold || '#d4a574'}
                 onChange={(e) => handleColorChange('accentGold', e.target.value)}
+                aria-label={t('settings.appearance.colors.accentGold')}
               />
             </div>
           </div>

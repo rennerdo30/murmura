@@ -183,6 +183,14 @@
     "clear": "Clear",
     "gotIt": "Got it"
   },
+  "nav": {
+    "home": "Home",
+    "vocabulary": "Study",
+    "paths": "Paths",
+    "review": "Review",
+    "settings": "Settings",
+    "mainNavigation": "Main navigation"
+  },
   "lessons": {
     "loading": "Loading lesson...",
     "notFound": "Lesson Not Found",
@@ -507,7 +515,12 @@
       "learnInLessons": "Learn in Lessons",
       "learned": "Learned"
     },
-    "searchPlaceholder": "Search vocabulary..."
+    "searchPlaceholder": "Search vocabulary...",
+    "resultCount": "{count} results",
+    "loadMore": "Load More",
+    "typeAnswer": "Type Answer",
+    "multipleChoice": "Multiple Choice",
+    "answerMode": "Answer Mode"
   },
   "kanji": {
     "practiceMeaning": "Meaning",
@@ -613,6 +626,7 @@
     "reviewDashboardStat": "Review Dashboard",
     "leaderboardStat": "Leaderboard",
     "settingsStat": "Settings",
+    "moreStats": "Activity & Progress",
     "hanziMastered": "Hanzi Mastered",
     "hangulMastered": "Hangul Mastered",
     "charactersLearned": "Characters Learned",

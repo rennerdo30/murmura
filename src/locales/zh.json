@@ -247,6 +247,7 @@
     "reviewDashboardStat": "复习仪表板",
     "leaderboardStat": "排行榜",
     "settingsStat": "设置",
+    "moreStats": "活动与进度",
     "hanziMastered": "已掌握汉字",
     "hangulMastered": "已掌握韩文",
     "charactersLearned": "已学习字符",
@@ -609,6 +610,14 @@
     "it": "意大利语",
     "pt": "葡萄牙语",
     "en": "英语"
+  },
+  "nav": {
+    "home": "首页",
+    "vocabulary": "学习",
+    "paths": "路径",
+    "review": "复习",
+    "settings": "设置",
+    "mainNavigation": "主导航"
   },
   "lessons": {
     "card": {

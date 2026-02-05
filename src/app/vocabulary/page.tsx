@@ -72,6 +72,7 @@ export default function VocabularyPage() {
     // Browse mode state
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedLevel, setSelectedLevel] = useState<string | null>(null);
+    const [displayLimit, setDisplayLimit] = useState(50);
 
     // Get vocabulary data
     const vocabulary = useMemo(() => getVocabularyData(targetLanguage), [targetLanguage]);
@@ -116,7 +117,7 @@ export default function VocabularyPage() {
     }, [vocabulary, learnedVocabulary, targetLanguage, isContentLearned]);
 
     // Filtered vocabulary for browse view
-    const filteredVocabulary = useMemo(() => {
+    const allFilteredVocabulary = useMemo(() => {
         let items = vocabulary;
 
         if (searchQuery) {
@@ -132,8 +133,17 @@ export default function VocabularyPage() {
             items = items.filter(v => getItemLevel(v) === selectedLevel);
         }
 
-        return items.slice(0, 50); // Limit for performance
+        return items;
     }, [vocabulary, searchQuery, selectedLevel, getDisplayMeaning]);
+
+    const filteredVocabulary = useMemo(() => {
+        return allFilteredVocabulary.slice(0, displayLimit);
+    }, [allFilteredVocabulary, displayLimit]);
+
+    // Reset display limit when filters change
+    useEffect(() => {
+        setDisplayLimit(50);
+    }, [searchQuery, selectedLevel]);
 
     // Preload audio for visible vocabulary items (first 10)
     useEffect(() => {
@@ -345,6 +355,13 @@ export default function VocabularyPage() {
                 ))}
             </div>
 
+            {/* Result count */}
+            <div className={styles.resultCount}>
+                <Text variant="label" color="muted">
+                    {t('vocabulary.resultCount', { count: allFilteredVocabulary.length })}
+                </Text>
+            </div>
+
             {/* Vocabulary Grid */}
             <div className={styles.browseGrid}>
                 {filteredVocabulary.map((vocab) => {
@@ -393,6 +410,17 @@ export default function VocabularyPage() {
                 })}
             </div>
 
+            {filteredVocabulary.length < allFilteredVocabulary.length && (
+                <div className={styles.loadMoreContainer}>
+                    <Button
+                        variant="ghost"
+                        onClick={() => setDisplayLimit(prev => prev + 50)}
+                    >
+                        {t('vocabulary.loadMore') || 'Load More'} ({allFilteredVocabulary.length - filteredVocabulary.length})
+                    </Button>
+                </div>
+            )}
+
             {filteredVocabulary.length === 0 && (
                 <div className={styles.emptyState}>
                     <FiList className={styles.emptyIcon} />
@@ -435,11 +463,11 @@ export default function VocabularyPage() {
             <>
                 <OptionsPanel>
                     <div className={optionsStyles.toggleContainer}>
-                        <Text variant="label" color="muted">{t('vocabulary.practiceMode')}</Text>
+                        <Text variant="label" color="muted">{t('vocabulary.answerMode') || 'Answer Mode'}</Text>
                         <Toggle
                             options={[
-                                { id: 'meaning', label: t('vocabulary.typeMeaning') },
-                                { id: 'practice', label: t('vocabulary.practiceMode') }
+                                { id: 'meaning', label: t('vocabulary.typeAnswer') || 'Type Answer' },
+                                { id: 'practice', label: t('vocabulary.multipleChoice') || 'Multiple Choice' }
                             ]}
                             value={practiceMode ? 'practice' : 'meaning'}
                             onChange={(val) => {
