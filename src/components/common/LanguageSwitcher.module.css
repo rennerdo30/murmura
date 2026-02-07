@@ -55,6 +55,7 @@
     max-width: min(280px, calc(100vw - var(--safe-area-left) - var(--safe-area-right) - 1rem));
     max-height: 400px;
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
     padding: 0.5rem;
     animation: fadeInDown 0.2s ease-out;
 }
@@ -133,6 +134,7 @@
     .button {
         padding: 0.5rem 0.75rem;
         font-size: 0.8rem;
+        min-height: 44px;
     }
 
     .dropdown {

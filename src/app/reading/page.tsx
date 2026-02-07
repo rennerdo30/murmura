@@ -15,6 +15,7 @@ import { useContentTranslation } from '@/hooks/useContentTranslation';
 import { useLearnedContent } from '@/hooks/useLearnedContent';
 import { useTTS } from '@/hooks/useTTS';
 import { ReadingItem, Filter } from '@/types';
+import { markLearned } from '@/lib/storage';
 import { IoVolumeHigh, IoCheckmark, IoClose, IoStop } from 'react-icons/io5';
 import { FiBookOpen, FiCheck, FiSearch } from 'react-icons/fi';
 import styles from './reading.module.css';
@@ -268,6 +269,9 @@ export default function ReadingPage() {
         setStats(updatedStats);
         setShowCorrectness(true);
         updateStats('reading', updatedStats);
+
+        // Add reading to SRS review queue
+        markLearned('reading', String(currentReading.id));
     }, [currentReading, questionAnswers, stats, updateStats]);
 
     const nextReading = useCallback(() => {

@@ -21,7 +21,7 @@ export default function ReviewProgress({
   onEndSession,
 }: ReviewProgressProps) {
   const { t } = useLanguage();
-  const progressPercent = ((current - 1) / total) * 100;
+  const progressPercent = (current / total) * 100;
   const accuracy = correct + incorrect > 0 ? (correct / (correct + incorrect)) * 100 : 0;
 
   return (

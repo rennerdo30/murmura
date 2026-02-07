@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { useLanguage } from '@/context/LanguageProvider';
 import styles from './PlacementResults.module.css';
 import type { AssessmentResult, SectionScore } from '@/types/assessment';
 
@@ -10,39 +11,12 @@ interface PlacementResultsProps {
   onRetake: () => void;
 }
 
-const LEVEL_INFO: Record<string, { name: string; description: string; color: string }> = {
-  N5: {
-    name: 'Beginner (N5)',
-    description: 'Start with the basics - hiragana, katakana, and fundamental grammar',
-    color: '#4ADE80',
-  },
-  N4: {
-    name: 'Elementary (N4)',
-    description: 'Build on basics with more vocabulary and intermediate grammar patterns',
-    color: '#60A5FA',
-  },
-  N3: {
-    name: 'Intermediate (N3)',
-    description: 'Expand to complex grammar, kanji, and natural conversation',
-    color: '#A855F7',
-  },
-  N2: {
-    name: 'Advanced (N2)',
-    description: 'Master nuanced expressions and prepare for fluency',
-    color: '#F59E0B',
-  },
-  N1: {
-    name: 'Expert (N1)',
-    description: 'Refine your skills with native-level content',
-    color: '#EF4444',
-  },
-};
-
-const SKILL_NAMES: Record<string, string> = {
-  vocabulary: 'Vocabulary',
-  grammar: 'Grammar',
-  reading: 'Reading',
-  listening: 'Listening',
+const LEVEL_COLORS: Record<string, string> = {
+  N5: '#4ADE80',
+  N4: '#60A5FA',
+  N3: '#A855F7',
+  N2: '#F59E0B',
+  N1: '#EF4444',
 };
 
 export default function PlacementResults({
@@ -50,7 +24,12 @@ export default function PlacementResults({
   onStartLearning,
   onRetake,
 }: PlacementResultsProps) {
-  const levelInfo = LEVEL_INFO[result.recommendedLevel] ?? LEVEL_INFO.N5;
+  const { t } = useLanguage();
+
+  const levelKey = result.recommendedLevel.toLowerCase();
+  const levelColor = LEVEL_COLORS[result.recommendedLevel] ?? '#4ADE80';
+  const levelName = t(`assessment.placement.levels.${levelKey}.name`);
+  const levelDescription = t(`assessment.placement.levels.${levelKey}.description`);
 
   const getScoreColor = (score: number) => {
     if (score >= 80) return '#4ADE80';
@@ -64,8 +43,8 @@ export default function PlacementResults({
       {/* Celebration */}
       <div className={styles.celebration}>
         <div className={styles.celebrationIcon}>&#127881;</div>
-        <h1>Test Complete!</h1>
-        <p>Here are your results</p>
+        <h1>{t('assessment.placement.results.title')}</h1>
+        <p>{t('assessment.placement.results.subtitle')}</p>
       </div>
 
       {/* Overall Score */}
@@ -81,51 +60,54 @@ export default function PlacementResults({
             <span className={styles.scorePercent}>%</span>
           </div>
         </div>
-        <div className={styles.scoreLabel}>Overall Score</div>
+        <div className={styles.scoreLabel}>{t('assessment.placement.results.overallScore')}</div>
       </div>
 
       {/* Section Scores */}
       <div className={styles.sectionScores}>
-        <h3>Skills Breakdown</h3>
+        <h3>{t('assessment.placement.results.skillsBreakdown')}</h3>
         <div className={styles.skillBars}>
-          {Object.entries(result.sectionScores).map(([skill, scoreData]: [string, SectionScore]) => (
-            <div key={skill} className={styles.skillBar}>
-              <div className={styles.skillInfo}>
-                <span className={styles.skillName}>
-                  {SKILL_NAMES[skill] ?? skill}
-                </span>
-                <span className={styles.skillScore}>{scoreData.percent}%</span>
+          {Object.entries(result.sectionScores).map(([skill, scoreData]: [string, SectionScore]) => {
+            const skillName = t(`assessment.placement.skills.${skill}`);
+            return (
+              <div key={skill} className={styles.skillBar}>
+                <div className={styles.skillInfo}>
+                  <span className={styles.skillName}>
+                    {skillName.startsWith('assessment.') ? skill : skillName}
+                  </span>
+                  <span className={styles.skillScore}>{scoreData.percent}%</span>
+                </div>
+                <div className={styles.barContainer}>
+                  <div
+                    className={styles.barFill}
+                    style={{
+                      width: `${scoreData.percent}%`,
+                      backgroundColor: getScoreColor(scoreData.percent),
+                    }}
+                  />
+                </div>
               </div>
-              <div className={styles.barContainer}>
-                <div
-                  className={styles.barFill}
-                  style={{
-                    width: `${scoreData.percent}%`,
-                    backgroundColor: getScoreColor(scoreData.percent),
-                  }}
-                />
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
 
       {/* Recommended Level */}
       <div
         className={styles.recommendationCard}
-        style={{ borderColor: levelInfo.color }}
+        style={{ borderColor: levelColor }}
       >
         <div className={styles.recommendationHeader}>
           <span className={styles.recommendationIcon}>&#127919;</span>
-          <h3>Your Recommended Level</h3>
+          <h3>{t('assessment.placement.results.recommendedLevel')}</h3>
         </div>
         <div
           className={styles.levelBadge}
-          style={{ backgroundColor: `${levelInfo.color}20`, color: levelInfo.color }}
+          style={{ backgroundColor: `${levelColor}20`, color: levelColor }}
         >
-          {levelInfo.name}
+          {levelName}
         </div>
-        <p className={styles.levelDescription}>{levelInfo.description}</p>
+        <p className={styles.levelDescription}>{levelDescription}</p>
       </div>
 
       {/* Actions */}
@@ -134,21 +116,21 @@ export default function PlacementResults({
           className={styles.startButton}
           onClick={() => onStartLearning(result.recommendedPath)}
         >
-          Start Learning at {result.recommendedLevel}
+          {t('assessment.placement.results.startLearning', { level: result.recommendedLevel })}
         </button>
         <button className={styles.retakeButton} onClick={onRetake}>
-          Retake Test
+          {t('assessment.placement.results.retakeTest')}
         </button>
       </div>
 
       {/* Tips */}
       <div className={styles.tips}>
-        <h4>Tips for Success</h4>
+        <h4>{t('assessment.placement.results.tipsTitle')}</h4>
         <ul>
-          <li>Practice daily, even if just for 10-15 minutes</li>
-          <li>Review vocabulary using spaced repetition</li>
-          <li>Listen to native content at your level</li>
-          <li>Don&apos;t skip the writing practice!</li>
+          <li>{t('assessment.placement.results.tip1')}</li>
+          <li>{t('assessment.placement.results.tip2')}</li>
+          <li>{t('assessment.placement.results.tip3')}</li>
+          <li>{t('assessment.placement.results.tip4')}</li>
         </ul>
       </div>
     </div>

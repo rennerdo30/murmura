@@ -12,6 +12,7 @@ import { useProgressContext } from '@/context/ProgressProvider';
 import { useLanguage } from '@/context/LanguageProvider';
 import { useTargetLanguage } from '@/hooks/useTargetLanguage';
 import { useTTS } from '@/hooks/useTTS';
+import { useContentTranslation } from '@/hooks/useContentTranslation';
 import { KanjiItem, Filter } from '@/types';
 import { IoVolumeHigh } from 'react-icons/io5';
 import styles from './kanji.module.css';
@@ -25,6 +26,7 @@ interface HanziItem {
     id: string;
     hanzi: string;
     meaning: string;
+    meanings?: Record<string, string> | string[];
     pinyin: string;
     strokes: number;
     hsk: string;
@@ -36,13 +38,16 @@ interface HanziItem {
         audioUrl?: string;
     }>;
     audioUrl?: string;
+    content_translations?: { meaning?: Record<string, string> } | null;
+    audio_url?: string;
 }
 
 // Normalize Hanzi to KanjiItem for unified handling
 const normalizeHanzi = (hanzi: HanziItem): KanjiItem => ({
-    id: hanzi.id,
+    id: String(hanzi.id),
     kanji: hanzi.hanzi,
     meaning: hanzi.meaning,
+    meanings: hanzi.meanings,
     onyomi: [hanzi.pinyin], // Use pinyin as the primary reading
     kunyomi: [],
     strokes: hanzi.strokes,
@@ -54,17 +59,81 @@ const normalizeHanzi = (hanzi: HanziItem): KanjiItem => ({
         meaning: ex.meaning,
         audioUrl: ex.audioUrl,
     })),
-    audioUrl: hanzi.audioUrl,
+    audioUrl: hanzi.audioUrl || hanzi.audio_url,
+    content_translations: hanzi.content_translations,
 });
 
-// Get character data based on target language
-const getCharacterData = (lang: string): KanjiItem[] => {
+interface RuntimeCharacterItem {
+    id?: string | number;
+    kanji?: string;
+    hanzi?: string;
+    char?: string;
+    character?: string;
+    meaning?: string;
+    meanings?: Record<string, string> | string[];
+    onyomi?: string[];
+    kunyomi?: string[];
+    pinyin?: string;
+    romanization?: string;
+    strokes?: number;
+    jlpt?: string;
+    hsk?: string;
+    level?: string;
+    radicals?: string[];
+    examples?: Array<{
+        word?: string;
+        reading?: string;
+        pinyin?: string;
+        meaning?: string;
+        audioUrl?: string;
+        audio_url?: string;
+    }>;
+    audioUrl?: string;
+    audio_url?: string;
+    content_translations?: { meaning?: Record<string, string> } | null;
+}
+
+const normalizeRuntimeCharacter = (item: RuntimeCharacterItem): KanjiItem => {
+    const character = item.kanji || item.hanzi || item.char || item.character || '';
+    const primaryReading = item.pinyin || item.romanization;
+
+    return {
+        id: String(item.id ?? character),
+        kanji: character,
+        meaning: item.meaning || '',
+        meanings: item.meanings,
+        onyomi: Array.isArray(item.onyomi) && item.onyomi.length > 0
+            ? item.onyomi
+            : (primaryReading ? [primaryReading] : []),
+        kunyomi: Array.isArray(item.kunyomi) ? item.kunyomi : [],
+        strokes: item.strokes,
+        jlpt: item.jlpt || item.hsk || item.level,
+        radicals: Array.isArray(item.radicals) ? item.radicals : [],
+        examples: Array.isArray(item.examples)
+            ? item.examples.map((example) => ({
+                word: example.word || '',
+                reading: example.reading || example.pinyin || '',
+                meaning: example.meaning || '',
+                audioUrl: example.audioUrl || example.audio_url,
+            }))
+            : [],
+        audioUrl: item.audioUrl || item.audio_url,
+        content_translations: item.content_translations,
+    };
+};
+
+// Fallback character data based on target language
+const getFallbackCharacterData = (lang: string): KanjiItem[] => {
     switch (lang) {
         case 'zh':
             return (zhHanziJson as HanziItem[]).map(normalizeHanzi);
         case 'ja':
         default:
-            return jaKanjiJson as KanjiItem[];
+            return (jaKanjiJson as KanjiItem[]).map((item) => ({
+                ...item,
+                id: String(item.id),
+                audioUrl: item.audioUrl || item.audio_url,
+            }));
     }
 };
 
@@ -79,8 +148,9 @@ const READING_LABELS: Record<string, { primary: string; secondary?: string }> = 
 export default function KanjiPage() {
     const { updateModuleStats: updateStats, getModuleData } = useProgressContext();
     const { t } = useLanguage();
-    const { targetLanguage, levels } = useTargetLanguage();
+    const { targetLanguage, levels, getDataUrl } = useTargetLanguage();
     const { speak } = useTTS();
+    const { getMeaning } = useContentTranslation();
     const [currentKanji, setCurrentKanji] = useState<KanjiItem | null>(null);
     const [correct, setCorrect] = useState(0);
     const [total, setTotal] = useState(0);
@@ -95,10 +165,63 @@ export default function KanjiPage() {
     const [isCorrect, setIsCorrect] = useState(false);
     const [inputState, setInputState] = useState<'default' | 'success' | 'error'>('default');
     const [showInfo, setShowInfo] = useState(false);
+    const [characterData, setCharacterData] = useState<KanjiItem[]>([]);
 
     // Get data and configurations for current language
-    const kanjiData = useMemo(() => getCharacterData(targetLanguage), [targetLanguage]);
+    const kanjiData = useMemo(() => characterData, [characterData]);
     const readingLabels = useMemo(() => READING_LABELS[targetLanguage] || READING_LABELS.ja, [targetLanguage]);
+
+    useEffect(() => {
+        const abortController = new AbortController();
+
+        async function loadCharacters() {
+            try {
+                const response = await fetch(getDataUrl('characters.json'), { signal: abortController.signal });
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+
+                const payload = await response.json();
+                const items = Array.isArray(payload)
+                    ? payload
+                    : Array.isArray(payload.characters)
+                        ? payload.characters
+                        : [];
+
+                if (!abortController.signal.aborted) {
+                    const normalized = (items as RuntimeCharacterItem[]).map(normalizeRuntimeCharacter);
+                    setCharacterData(normalized);
+                }
+            } catch (error) {
+                if (error instanceof Error && error.name === 'AbortError') {
+                    return;
+                }
+
+                if (!abortController.signal.aborted) {
+                    console.warn('Falling back to bundled character data:', error);
+                    setCharacterData(getFallbackCharacterData(targetLanguage));
+                }
+            }
+        }
+
+        loadCharacters();
+
+        return () => abortController.abort();
+    }, [targetLanguage, getDataUrl]);
+
+    // Helper to get the display meaning for a kanji/hanzi item
+    const getDisplayMeaning = useCallback((item: KanjiItem): string => {
+        // First try content_translations.meaning (localized translations)
+        if (item.content_translations?.meaning) {
+            return getMeaning(item.content_translations.meaning, item.meaning);
+        }
+        // Then try meanings field (Record<string, string> or string[])
+        if (item.meanings && !Array.isArray(item.meanings)) {
+            return getMeaning(item.meanings, item.meaning);
+        }
+        // Fallback to legacy meaning field
+        return item.meaning;
+    }, [getMeaning]);
 
     const [filters, setFilters] = useState<Record<string, Filter>>({});
 
@@ -214,7 +337,7 @@ export default function KanjiPage() {
         const normalizedInput = value.toLowerCase().trim();
 
         if (practiceType === 'meaning') {
-            if (normalizedInput === currentKanji.meaning.toLowerCase().trim()) {
+            if (normalizedInput === getDisplayMeaning(currentKanji).toLowerCase().trim()) {
                 handleCorrect();
             }
         } else {
@@ -224,7 +347,7 @@ export default function KanjiPage() {
                 handleCorrect();
             }
         }
-    }, [isProcessing, currentKanji, practiceType, handleCorrect]);
+    }, [isProcessing, currentKanji, practiceType, handleCorrect, getDisplayMeaning]);
 
     // Load initial stats from module data and sync to ref
     useEffect(() => {
@@ -359,7 +482,7 @@ export default function KanjiPage() {
                 <Animated animation="fadeInUp" key={currentKanji.id + (showInfo ? '-info' : '')}>
                     {showInfo ? (
                         <div className="text-center">
-                            <Text variant="h2" color="gold">{currentKanji.meaning}</Text>
+                            <Text variant="h2" color="gold">{getDisplayMeaning(currentKanji)}</Text>
                             {/* Show language-specific reading labels */}
                             <Text color="muted" className="mt-2">
                                 {t(readingLabels.primary)}: {currentKanji.onyomi.join(', ')}
@@ -400,4 +523,3 @@ export default function KanjiPage() {
         </ErrorBoundary>
     );
 }
-

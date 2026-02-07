@@ -30,7 +30,7 @@ export default function ClientLayout({ children }: ClientLayoutProps) {
         {children}
       </main>
       <BottomNavBar />
-      <LearningCompanion position="sidebar" />
+      <LearningCompanion position="auto" />
     </ErrorBoundary>
   );
 }

@@ -197,7 +197,7 @@ export default function PathsPage() {
                   <Text variant="label" color="muted">{t('paths.newPerWeek')}</Text>
                 </div>
                 <div className={styles.adaptiveStat}>
-                  <Text variant="h3" color="gold">{adaptiveRecommendations.suggestedPace}</Text>
+                  <Text variant="h3" color="gold">{t(`pace.${adaptiveRecommendations.suggestedPace}`)}</Text>
                   <Text variant="label" color="muted">{t('paths.pace')}</Text>
                 </div>
               </div>

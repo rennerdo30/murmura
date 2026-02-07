@@ -3,16 +3,18 @@
 import { useState, useCallback } from 'react';
 import { Card, Text, Button } from '@/components/ui';
 import { useLanguage } from '@/context/LanguageProvider';
-import { IoBook, IoSchool, IoDocumentText, IoPlay, IoSettings } from 'react-icons/io5';
+import { IoBook, IoSchool, IoDocumentText, IoPlay, IoSettings, IoReader, IoHeadset } from 'react-icons/io5';
 import styles from './ReviewConfig.module.css';
 
-export type ReviewModuleType = 'vocabulary' | 'kanji' | 'grammar';
+export type ReviewModuleType = 'vocabulary' | 'kanji' | 'grammar' | 'reading' | 'listening';
 
 interface ReviewConfigProps {
   dueItems: {
     vocabulary: number;
     kanji: number;
     grammar: number;
+    reading: number;
+    listening: number;
     total: number;
   };
   onStart: (config: {
@@ -30,6 +32,8 @@ const moduleOptions: Array<{
     { value: 'vocabulary', labelKey: 'review.modules.vocabulary', icon: IoBook },
     { value: 'kanji', labelKey: 'review.modules.kanji', icon: IoSchool },
     { value: 'grammar', labelKey: 'review.modules.grammar', icon: IoDocumentText },
+    { value: 'reading', labelKey: 'review.modules.reading', icon: IoReader },
+    { value: 'listening', labelKey: 'review.modules.listening', icon: IoHeadset },
   ];
 
 const itemCountOptions = [5, 10, 20, 50];
@@ -40,7 +44,7 @@ export default function ReviewConfig({
   maxItems = 50,
 }: ReviewConfigProps) {
   const { t } = useLanguage();
-  const [selectedModules, setSelectedModules] = useState<ReviewModuleType[]>(['vocabulary', 'kanji', 'grammar']);
+  const [selectedModules, setSelectedModules] = useState<ReviewModuleType[]>(['vocabulary', 'kanji', 'grammar', 'reading', 'listening']);
   const [itemCount, setItemCount] = useState(20);
 
   const toggleModule = useCallback((module: ReviewModuleType) => {

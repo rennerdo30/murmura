@@ -2,7 +2,7 @@
 
 import { Card, Text, Button, Animated } from '@/components/ui';
 import { useLanguage } from '@/context/LanguageProvider';
-import { IoCheckmarkCircle, IoCloseCircle, IoTime, IoBook, IoSchool, IoDocumentText, IoTrophy } from 'react-icons/io5';
+import { IoCheckmarkCircle, IoCloseCircle, IoTime, IoBook, IoSchool, IoDocumentText, IoReader, IoHeadset, IoTrophy } from 'react-icons/io5';
 import { ReviewModuleName } from '@/lib/reviewQueue';
 import styles from './ReviewStats.module.css';
 
@@ -24,6 +24,8 @@ const moduleIcons = {
   vocabulary: IoBook,
   kanji: IoSchool,
   grammar: IoDocumentText,
+  reading: IoReader,
+  listening: IoHeadset,
 };
 
 function formatDuration(ms: number): string {

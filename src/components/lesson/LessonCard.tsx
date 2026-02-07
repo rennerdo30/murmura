@@ -132,9 +132,9 @@ export default function LessonCard({
             {partOfSpeech && (
               <span
                 className={styles.partOfSpeechBadge}
-                aria-label={`Part of speech: ${partOfSpeech}`}
+                aria-label={t(`partOfSpeech.${partOfSpeech.toLowerCase()}`)}
               >
-                {partOfSpeech}
+                {t(`partOfSpeech.${partOfSpeech.toLowerCase()}`)}
               </span>
             )}
             {level && (

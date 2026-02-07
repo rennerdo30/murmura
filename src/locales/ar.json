@@ -142,7 +142,12 @@
       "learnInLessons": "تعلم في الدروس",
       "learned": "تم تعلمها"
     },
-    "searchPlaceholder": "البحث عن المفردات..."
+    "searchPlaceholder": "البحث عن المفردات...",
+    "resultCount": "{count} نتيجة",
+    "loadMore": "عرض المزيد",
+    "typeAnswer": "اكتب الإجابة",
+    "multipleChoice": "اختيار متعدد",
+    "answerMode": "وضع الإجابة"
   },
   "kanji": {
     "practiceMeaning": "المعنى",
@@ -798,7 +803,9 @@
     "modules": {
       "vocabulary": "المفردات",
       "kanji": "الحروف",
-      "grammar": "القواعد"
+      "grammar": "القواعد",
+      "reading": "القراءة",
+      "listening": "الاستماع"
     },
     "progress": {
       "accuracy": "الدقة:"
@@ -990,5 +997,98 @@
   "breadcrumb": {
     "paths": "المسارات",
     "ariaLabel": "التنقل عبر مسار التصفح"
+  },
+  "assessment": {
+    "placement": {
+      "loading": "جاري تحميل اختبار تحديد المستوى...",
+      "title": "اختبار تحديد المستوى",
+      "description": "اكتشف مستواك الحالي واحصل على توصيات تعليمية مخصصة.",
+      "minutes": "{count} دقائق",
+      "estimatedTime": "الوقت المقدر",
+      "sections": "{count} أقسام",
+      "sectionTypes": "المفردات، القواعد، القراءة، الاستماع",
+      "adaptive": "تكيفي",
+      "adaptiveDesc": "الأسئلة تتكيف مع مستواك",
+      "howItWorks": "كيف يعمل",
+      "step1": "أجب عن أسئلة في مجالات مهارات مختلفة",
+      "step2": "خذ وقتك - الدقة أهم من السرعة",
+      "step3": "احصل على مستوى البداية الموصى به",
+      "step4": "ابدأ رحلة التعلم المخصصة لك",
+      "startButton": "بدء اختبار تحديد المستوى",
+      "skipButton": "تخطي والبدء من البداية",
+      "noQuestions": "لا توجد أسئلة متاحة",
+      "questionProgress": "السؤال {current} من {total}",
+      "correct": "صحيح!",
+      "incorrect": "ليس تماماً",
+      "checkAnswer": "تحقق من الإجابة",
+      "seeResults": "عرض النتائج",
+      "nextQuestion": "السؤال التالي",
+      "error": "خطأ",
+      "goBack": "رجوع",
+      "results": {
+        "title": "تم إكمال الاختبار!",
+        "subtitle": "إليك نتائجك",
+        "overallScore": "النتيجة الإجمالية",
+        "skillsBreakdown": "تحليل المهارات",
+        "recommendedLevel": "المستوى الموصى به",
+        "startLearning": "ابدأ التعلم في المستوى {level}",
+        "retakeTest": "إعادة الاختبار",
+        "tipsTitle": "نصائح للنجاح",
+        "tip1": "تدرب يومياً، حتى لو 10-15 دقيقة فقط",
+        "tip2": "راجع المفردات باستخدام التكرار المتباعد",
+        "tip3": "استمع إلى محتوى أصلي بمستواك",
+        "tip4": "لا تتخطَ ممارسة الكتابة!"
+      },
+      "levels": {
+        "n5": {
+          "name": "مبتدئ (N5)",
+          "description": "ابدأ بالأساسيات - الهيراغانا والكاتاكانا والقواعد الأساسية"
+        },
+        "n4": {
+          "name": "ابتدائي (N4)",
+          "description": "تقدم مع المزيد من المفردات وأنماط القواعد المتوسطة"
+        },
+        "n3": {
+          "name": "متوسط (N3)",
+          "description": "توسع إلى القواعد المعقدة والكانجي والمحادثة الطبيعية"
+        },
+        "n2": {
+          "name": "متقدم (N2)",
+          "description": "أتقن التعبيرات الدقيقة واستعد للطلاقة"
+        },
+        "n1": {
+          "name": "خبير (N1)",
+          "description": "صقل مهاراتك بمحتوى على مستوى المتحدث الأصلي"
+        }
+      },
+      "skills": {
+        "vocabulary": "المفردات",
+        "grammar": "القواعد",
+        "reading": "القراءة",
+        "listening": "الاستماع"
+      }
+    }
+  },
+  "partOfSpeech": {
+    "noun": "اسم",
+    "verb": "فعل",
+    "adjective": "صفة",
+    "adverb": "ظرف",
+    "expression": "تعبير",
+    "phrase": "عبارة",
+    "particle": "حرف",
+    "conjunction": "حرف عطف",
+    "pronoun": "ضمير",
+    "interjection": "تعجب",
+    "preposition": "حرف جر",
+    "counter": "عداد",
+    "prefix": "سابقة",
+    "suffix": "لاحقة",
+    "auxiliary": "فعل مساعد"
+  },
+  "pace": {
+    "relaxed": "مريح",
+    "moderate": "معتدل",
+    "intensive": "مكثف"
   }
 }

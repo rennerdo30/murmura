@@ -8,6 +8,9 @@ import { Container, Card, Text, Button, Animated } from '@/components/ui';
 import { useCurriculum } from '@/hooks/useCurriculum';
 import { useGamification } from '@/hooks/useGamification';
 import { useLanguage } from '@/context/LanguageProvider';
+import { useTargetLanguage } from '@/hooks/useTargetLanguage';
+import { useContentTranslation } from '@/hooks/useContentTranslation';
+import { loadLearningPathsData, LearningPathsData } from '@/lib/dataLoader';
 import { calculateLessonXP } from '@/lib/xp';
 import LessonView from '@/components/lesson/LessonView';
 import LessonSummary from '@/components/lesson/LessonSummary';
@@ -50,9 +53,29 @@ export default function LessonContent() {
 
   const { streak, awardXP } = useGamification();
   const { t } = useLanguage();
+  const { targetLanguage } = useTargetLanguage();
+  const { getText } = useContentTranslation();
 
   const [phase, setPhase] = useState<LessonPhase>('loading');
+  const [pathsData, setPathsData] = useState<LearningPathsData | null>(null);
   const [lessonResult, setLessonResult] = useState<LessonResult | null>(null);
+
+  // Load path data for breadcrumb
+  useEffect(() => {
+    if (targetLanguage) {
+      loadLearningPathsData(targetLanguage).then(data => setPathsData(data));
+    }
+  }, [targetLanguage]);
+
+  // Get translated path name for breadcrumb
+  const pathName = useMemo(() => {
+    const pathData = pathsData?.paths[pathId];
+    if (pathData) {
+      return getText(pathData.nameTranslations, pathData.name);
+    }
+    // Fallback: format the raw pathId
+    return pathId.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+  }, [pathsData, pathId, getText]);
 
   // Get lesson data
   const lesson = useMemo(() => getLesson(lessonId), [getLesson, lessonId]);
@@ -217,8 +240,8 @@ export default function LessonContent() {
   // Build breadcrumb items
   const breadcrumbItems = [
     { label: t('breadcrumb.paths'), href: '/paths' },
-    { label: pathId.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()), href: `/paths/${pathId}` },
-    { label: lesson.title || lessonId },
+    { label: pathName, href: `/paths/${pathId}` },
+    { label: getText(lesson.titleTranslations, lesson.title) || lessonId },
   ];
 
   // Render lesson view (intro, learning, exercises)

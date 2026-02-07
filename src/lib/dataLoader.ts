@@ -10,7 +10,7 @@
  */
 
 import { VocabularyItem, GrammarItem } from '@/types';
-import { Assessment } from '@/types/assessment';
+import { Assessment, AssessmentQuestion, AssessmentSection, ExerciseData } from '@/types/assessment';
 import { PronunciationDrill } from '@/types/pronunciation';
 import { getAvailableLanguages, isLanguageAvailable, getDefaultLanguage } from './language';
 
@@ -705,6 +705,49 @@ export function preloadLearningPathsData(lang: string): void {
 const assessmentsCache = new Map<string, Assessment[]>();
 const assessmentsLoadingPromises = new Map<string, Promise<Assessment[]>>();
 
+function normalizeAssessmentQuestion(question: Record<string, unknown>): AssessmentQuestion {
+  const rawQuestionData = (question.questionData as Record<string, unknown> | undefined) || {};
+
+  const normalizedQuestionData: ExerciseData = {
+    ...(rawQuestionData as unknown as ExerciseData),
+    id: String(rawQuestionData.id ?? ''),
+    type: String(rawQuestionData.type ?? 'multiple_choice'),
+    question: String(rawQuestionData.question ?? ''),
+    audioUrl: (rawQuestionData.audioUrl as string | undefined) || (rawQuestionData.audio_url as string | undefined),
+  };
+
+  return {
+    ...(question as unknown as AssessmentQuestion),
+    id: String(question.id ?? ''),
+    sectionIndex: Number(question.sectionIndex ?? 0),
+    questionIndex: Number(question.questionIndex ?? 0),
+    skill: (question.skill as AssessmentQuestion['skill']) || 'vocabulary',
+    difficulty: (question.difficulty as AssessmentQuestion['difficulty']) || 'easy',
+    questionData: normalizedQuestionData,
+    points: Number(question.points ?? 1),
+  };
+}
+
+function normalizeAssessment(assessment: Record<string, unknown>): Assessment {
+  const rawSections = Array.isArray(assessment.sections) ? (assessment.sections as Array<Record<string, unknown>>) : [];
+  const sections: AssessmentSection[] = rawSections.map((section) => {
+    const rawQuestions = Array.isArray(section.questions) ? (section.questions as Array<Record<string, unknown>>) : [];
+    return {
+      ...(section as unknown as AssessmentSection),
+      name: String(section.name ?? ''),
+      skill: (section.skill as AssessmentSection['skill']) || 'vocabulary',
+      weight: Number(section.weight ?? 0),
+      questions: rawQuestions.map(normalizeAssessmentQuestion),
+    };
+  });
+
+  return {
+    ...(assessment as unknown as Assessment),
+    id: String(assessment.id ?? ''),
+    sections,
+  };
+}
+
 /**
  * Load assessments data for a specific language.
  * Fetches from public/data/{lang}/assessments.json via HTTP.
@@ -732,7 +775,14 @@ export async function loadAssessmentsData(lang: string): Promise<Assessment[]> {
         return [];
       }
       const data = await response.json();
-      const assessments = Array.isArray(data) ? data : (data.assessments || []);
+      const rawAssessments: unknown[] = Array.isArray(data)
+        ? data
+        : Array.isArray(data.assessments)
+          ? data.assessments
+          : [];
+      const assessments = rawAssessments
+        .filter((item): item is Record<string, unknown> => !!item && typeof item === 'object')
+        .map(normalizeAssessment);
       assessmentsCache.set(lang, assessments);
       return assessments;
     } catch (error) {
@@ -760,7 +810,11 @@ export async function getAssessmentById(lang: string, assessmentId: string): Pro
  */
 export async function getPlacementTest(lang: string): Promise<Assessment | null> {
   const assessments = await loadAssessmentsData(lang);
-  return assessments.find(a => a.type === 'placement') || null;
+  const placementTests = assessments.filter((assessment) => assessment.type === 'placement');
+  const publishedPlacementTest = placementTests.find(
+    (assessment) => (assessment as Assessment & { isPublished?: boolean }).isPublished === true
+  );
+  return publishedPlacementTest || placementTests[0] || null;
 }
 
 /**

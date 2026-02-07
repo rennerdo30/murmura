@@ -74,8 +74,11 @@
 .endSessionButton {
   margin-left: auto;
   color: var(--text-muted, #666);
-  padding: 0.25rem;
-  min-height: unset;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0.5rem;
+  border-radius: 9999px;
+  flex-shrink: 0;
 }
 
 .endSessionButton:hover {

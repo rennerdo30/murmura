@@ -93,9 +93,9 @@ export default function VocabularyLesson({
             variant="caption"
             color="muted"
             className={styles.partOfSpeech}
-            aria-label={`Part of speech: ${partOfSpeech}`}
+            aria-label={t(`partOfSpeech.${partOfSpeech.toLowerCase()}`)}
           >
-            {partOfSpeech}
+            {t(`partOfSpeech.${partOfSpeech.toLowerCase()}`)}
           </Text>
         )}
         <Text variant="h3" className={styles.meaning}>

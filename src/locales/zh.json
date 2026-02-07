@@ -142,7 +142,12 @@
       "learnInLessons": "在课程中学习",
       "learned": "已学习"
     },
-    "searchPlaceholder": "搜索词汇..."
+    "searchPlaceholder": "搜索词汇...",
+    "resultCount": "{count} 条结果",
+    "loadMore": "加载更多",
+    "typeAnswer": "输入答案",
+    "multipleChoice": "多项选择",
+    "answerMode": "回答模式"
   },
   "kanji": {
     "practiceMeaning": "意思",
@@ -798,7 +803,9 @@
     "modules": {
       "vocabulary": "词汇",
       "kanji": "汉字",
-      "grammar": "语法"
+      "grammar": "语法",
+      "reading": "阅读",
+      "listening": "听力"
     },
     "progress": {
       "accuracy": "准确率："
@@ -990,5 +997,98 @@
   "breadcrumb": {
     "paths": "路径",
     "ariaLabel": "面包屑导航"
+  },
+  "assessment": {
+    "placement": {
+      "loading": "正在加载分级测试...",
+      "title": "分级测试",
+      "description": "了解你的当前水平，获取个性化的学习建议。",
+      "minutes": "{count}分钟",
+      "estimatedTime": "预计时间",
+      "sections": "{count}个部分",
+      "sectionTypes": "词汇、语法、阅读、听力",
+      "adaptive": "自适应",
+      "adaptiveDesc": "题目会根据你的水平调整",
+      "howItWorks": "如何进行",
+      "step1": "回答不同技能领域的问题",
+      "step2": "不要着急 - 准确性比速度更重要",
+      "step3": "获取推荐的起始级别",
+      "step4": "开始你的个性化学习之旅",
+      "startButton": "开始分级测试",
+      "skipButton": "跳过，从头开始",
+      "noQuestions": "没有可用的问题",
+      "questionProgress": "第 {current} 题，共 {total} 题",
+      "correct": "正确！",
+      "incorrect": "不太对",
+      "checkAnswer": "检查答案",
+      "seeResults": "查看结果",
+      "nextQuestion": "下一题",
+      "error": "错误",
+      "goBack": "返回",
+      "results": {
+        "title": "测试完成！",
+        "subtitle": "以下是你的成绩",
+        "overallScore": "总分",
+        "skillsBreakdown": "技能分析",
+        "recommendedLevel": "推荐级别",
+        "startLearning": "从{level}级别开始学习",
+        "retakeTest": "重新测试",
+        "tipsTitle": "成功秘诀",
+        "tip1": "每天练习，哪怕只有10-15分钟",
+        "tip2": "使用间隔重复法复习词汇",
+        "tip3": "听适合你水平的母语内容",
+        "tip4": "不要跳过写作练习！"
+      },
+      "levels": {
+        "n5": {
+          "name": "入门 (N5)",
+          "description": "从基础开始 - 平假名、片假名和基础语法"
+        },
+        "n4": {
+          "name": "初级 (N4)",
+          "description": "用更多词汇和中级语法模式打好基础"
+        },
+        "n3": {
+          "name": "中级 (N3)",
+          "description": "扩展到复杂语法、汉字和自然对话"
+        },
+        "n2": {
+          "name": "高级 (N2)",
+          "description": "掌握细腻的表达方式，为流利做准备"
+        },
+        "n1": {
+          "name": "专家 (N1)",
+          "description": "用母语级别的内容提升技能"
+        }
+      },
+      "skills": {
+        "vocabulary": "词汇",
+        "grammar": "语法",
+        "reading": "阅读",
+        "listening": "听力"
+      }
+    }
+  },
+  "partOfSpeech": {
+    "noun": "名词",
+    "verb": "动词",
+    "adjective": "形容词",
+    "adverb": "副词",
+    "expression": "表达",
+    "phrase": "短语",
+    "particle": "助词",
+    "conjunction": "连词",
+    "pronoun": "代词",
+    "interjection": "感叹词",
+    "preposition": "介词",
+    "counter": "量词",
+    "prefix": "前缀",
+    "suffix": "后缀",
+    "auxiliary": "助动词"
+  },
+  "pace": {
+    "relaxed": "轻松",
+    "moderate": "适中",
+    "intensive": "密集"
   }
 }

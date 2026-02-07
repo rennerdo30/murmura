@@ -20,6 +20,12 @@ export default function Timer({ timeLeft, totalTime, onTimeout, className = '' }
         setProgress(newProgress);
     }, [timeLeft, totalTime]);
 
+    useEffect(() => {
+        if (timeLeft === 0 && onTimeout) {
+            onTimeout();
+        }
+    }, [timeLeft, onTimeout]);
+
     const offset = circumference * (1 - (progress / 100));
 
     return (

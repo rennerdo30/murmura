@@ -676,14 +676,14 @@ export default function SettingsPage() {
                     onChange={(e) => handleLanguageThemeChange(langCode, e.target.value)}
                   >
                     <option value="auto">{t('settings.appearance.auto')}</option>
-                    <option value="ja">Japanese</option>
-                    <option value="zh">Chinese</option>
-                    <option value="ko">Korean</option>
-                    <option value="es">Spanish</option>
-                    <option value="fr">French</option>
-                    <option value="it">Italian</option>
-                    <option value="en">English</option>
-                    <option value="de">German</option>
+                    <option value="ja">{t('languages.ja')}</option>
+                    <option value="zh">{t('languages.zh')}</option>
+                    <option value="ko">{t('languages.ko')}</option>
+                    <option value="es">{t('languages.es')}</option>
+                    <option value="fr">{t('languages.fr')}</option>
+                    <option value="it">{t('languages.it')}</option>
+                    <option value="en">{t('languages.en')}</option>
+                    <option value="de">{t('languages.de')}</option>
                   </select>
                 </div>
               );

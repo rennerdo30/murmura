@@ -40,6 +40,7 @@
   align-items: center;
   gap: 0.5rem;
   padding: 1rem;
+  min-height: 44px;
   background: rgba(255, 255, 255, 0.05);
   border: 2px solid transparent;
   border-radius: 12px;
@@ -86,6 +87,7 @@
 .countButton {
   flex: 1;
   padding: 0.75rem;
+  min-height: 44px;
   background: rgba(255, 255, 255, 0.05);
   border: 2px solid transparent;
   border-radius: 8px;

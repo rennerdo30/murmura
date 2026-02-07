@@ -142,7 +142,12 @@
       "learnInLessons": "レッスンで学習",
       "learned": "学習済み"
     },
-    "searchPlaceholder": "単語を検索..."
+    "searchPlaceholder": "単語を検索...",
+    "resultCount": "{count} 件",
+    "loadMore": "さらに読み込む",
+    "typeAnswer": "入力式",
+    "multipleChoice": "選択式",
+    "answerMode": "回答モード"
   },
   "kanji": {
     "practiceMeaning": "意味",
@@ -833,7 +838,9 @@
     "modules": {
       "vocabulary": "語彙",
       "kanji": "文字",
-      "grammar": "文法"
+      "grammar": "文法",
+      "reading": "読解",
+      "listening": "リスニング"
     },
     "progress": {
       "accuracy": "正答率:"
@@ -990,5 +997,98 @@
   "breadcrumb": {
     "paths": "パス",
     "ariaLabel": "パンくずナビゲーション"
+  },
+  "assessment": {
+    "placement": {
+      "loading": "レベルテストを読み込み中...",
+      "title": "レベルテスト",
+      "description": "現在のレベルを確認し、パーソナライズされた学習のおすすめを受け取りましょう。",
+      "minutes": "{count}分",
+      "estimatedTime": "推定時間",
+      "sections": "{count}セクション",
+      "sectionTypes": "語彙、文法、読解、リスニング",
+      "adaptive": "アダプティブ",
+      "adaptiveDesc": "問題があなたのレベルに合わせて調整されます",
+      "howItWorks": "仕組み",
+      "step1": "さまざまなスキル分野の問題に答えます",
+      "step2": "時間をかけてください - 速さより正確さが大切です",
+      "step3": "おすすめの開始レベルを受け取ります",
+      "step4": "パーソナライズされた学習の旅を始めましょう",
+      "startButton": "レベルテストを開始",
+      "skipButton": "スキップして最初から始める",
+      "noQuestions": "利用可能な問題がありません",
+      "questionProgress": "問題 {current} / {total}",
+      "correct": "正解！",
+      "incorrect": "惜しい！",
+      "checkAnswer": "回答を確認",
+      "seeResults": "結果を見る",
+      "nextQuestion": "次の問題",
+      "error": "エラー",
+      "goBack": "戻る",
+      "results": {
+        "title": "テスト完了！",
+        "subtitle": "結果はこちらです",
+        "overallScore": "総合スコア",
+        "skillsBreakdown": "スキル別の内訳",
+        "recommendedLevel": "おすすめのレベル",
+        "startLearning": "{level}レベルから学習を開始",
+        "retakeTest": "テストをやり直す",
+        "tipsTitle": "成功のためのヒント",
+        "tip1": "毎日練習しましょう、たとえ10-15分でも",
+        "tip2": "間隔反復を使って語彙を復習しましょう",
+        "tip3": "自分のレベルに合ったネイティブコンテンツを聴きましょう",
+        "tip4": "書く練習を飛ばさないでください！"
+      },
+      "levels": {
+        "n5": {
+          "name": "初級 (N5)",
+          "description": "基礎から始めましょう - ひらがな、カタカナ、基本文法"
+        },
+        "n4": {
+          "name": "初中級 (N4)",
+          "description": "より多くの語彙と中級文法パターンで基礎を固めましょう"
+        },
+        "n3": {
+          "name": "中級 (N3)",
+          "description": "複雑な文法、漢字、自然な会話に広げましょう"
+        },
+        "n2": {
+          "name": "上級 (N2)",
+          "description": "微妙な表現を習得し、流暢さに備えましょう"
+        },
+        "n1": {
+          "name": "上級者 (N1)",
+          "description": "ネイティブレベルのコンテンツでスキルを磨きましょう"
+        }
+      },
+      "skills": {
+        "vocabulary": "語彙",
+        "grammar": "文法",
+        "reading": "読解",
+        "listening": "リスニング"
+      }
+    }
+  },
+  "partOfSpeech": {
+    "noun": "名詞",
+    "verb": "動詞",
+    "adjective": "形容詞",
+    "adverb": "副詞",
+    "expression": "表現",
+    "phrase": "フレーズ",
+    "particle": "助詞",
+    "conjunction": "接続詞",
+    "pronoun": "代名詞",
+    "interjection": "感嘆詞",
+    "preposition": "前置詞",
+    "counter": "助数詞",
+    "prefix": "接頭辞",
+    "suffix": "接尾辞",
+    "auxiliary": "助動詞"
+  },
+  "pace": {
+    "relaxed": "ゆったり",
+    "moderate": "標準",
+    "intensive": "集中"
   }
 }

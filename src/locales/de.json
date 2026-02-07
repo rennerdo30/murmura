@@ -142,7 +142,12 @@
       "learnInLessons": "In Lektionen lernen",
       "learned": "Gelernt"
     },
-    "searchPlaceholder": "Vokabeln suchen..."
+    "searchPlaceholder": "Vokabeln suchen...",
+    "resultCount": "{count} Ergebnisse",
+    "loadMore": "Mehr laden",
+    "typeAnswer": "Antwort eingeben",
+    "multipleChoice": "Multiple-Choice",
+    "answerMode": "Antwortmodus"
   },
   "kanji": {
     "practiceMeaning": "Bedeutung",
@@ -798,7 +803,9 @@
     "modules": {
       "vocabulary": "Vokabeln",
       "kanji": "Zeichen",
-      "grammar": "Grammatik"
+      "grammar": "Grammatik",
+      "reading": "Lesen",
+      "listening": "Hören"
     },
     "progress": {
       "accuracy": "Genauigkeit:"
@@ -990,5 +997,98 @@
   "breadcrumb": {
     "paths": "Pfade",
     "ariaLabel": "Brotkrümelnavigation"
+  },
+  "assessment": {
+    "placement": {
+      "loading": "Einstufungstest wird geladen...",
+      "title": "Einstufungstest",
+      "description": "Finde dein aktuelles Niveau heraus und erhalte personalisierte Lernempfehlungen.",
+      "minutes": "{count} Minuten",
+      "estimatedTime": "Geschätzte Zeit",
+      "sections": "{count} Bereiche",
+      "sectionTypes": "Vokabeln, Grammatik, Lesen, Hören",
+      "adaptive": "Adaptiv",
+      "adaptiveDesc": "Fragen passen sich deinem Niveau an",
+      "howItWorks": "So funktioniert es",
+      "step1": "Beantworte Fragen aus verschiedenen Kompetenzbereichen",
+      "step2": "Nimm dir Zeit - Genauigkeit ist wichtiger als Geschwindigkeit",
+      "step3": "Erhalte dein empfohlenes Startniveau",
+      "step4": "Beginne deine personalisierte Lernreise",
+      "startButton": "Einstufungstest starten",
+      "skipButton": "Überspringen und von vorne beginnen",
+      "noQuestions": "Keine Fragen verfügbar",
+      "questionProgress": "Frage {current} von {total}",
+      "correct": "Richtig!",
+      "incorrect": "Nicht ganz richtig",
+      "checkAnswer": "Antwort prüfen",
+      "seeResults": "Ergebnisse ansehen",
+      "nextQuestion": "Nächste Frage",
+      "error": "Fehler",
+      "goBack": "Zurück",
+      "results": {
+        "title": "Test abgeschlossen!",
+        "subtitle": "Hier sind deine Ergebnisse",
+        "overallScore": "Gesamtpunktzahl",
+        "skillsBreakdown": "Aufschlüsselung nach Fähigkeiten",
+        "recommendedLevel": "Dein empfohlenes Niveau",
+        "startLearning": "Lernen auf Niveau {level} beginnen",
+        "retakeTest": "Test wiederholen",
+        "tipsTitle": "Tipps für den Erfolg",
+        "tip1": "Übe täglich, auch wenn nur 10-15 Minuten",
+        "tip2": "Wiederhole Vokabeln mit verteilter Wiederholung",
+        "tip3": "Höre muttersprachliche Inhalte auf deinem Niveau",
+        "tip4": "Überspringe nicht die Schreibübungen!"
+      },
+      "levels": {
+        "n5": {
+          "name": "Anfänger (N5)",
+          "description": "Beginne mit den Grundlagen - Hiragana, Katakana und grundlegende Grammatik"
+        },
+        "n4": {
+          "name": "Grundstufe (N4)",
+          "description": "Baue auf den Grundlagen auf mit mehr Vokabeln und mittleren Grammatikmustern"
+        },
+        "n3": {
+          "name": "Mittelstufe (N3)",
+          "description": "Erweitere auf komplexe Grammatik, Kanji und natürliche Konversation"
+        },
+        "n2": {
+          "name": "Fortgeschritten (N2)",
+          "description": "Beherrsche nuancierte Ausdrücke und bereite dich auf Sprachgewandtheit vor"
+        },
+        "n1": {
+          "name": "Experte (N1)",
+          "description": "Verfeinere deine Fähigkeiten mit Inhalten auf Muttersprachniveau"
+        }
+      },
+      "skills": {
+        "vocabulary": "Vokabeln",
+        "grammar": "Grammatik",
+        "reading": "Lesen",
+        "listening": "Hören"
+      }
+    }
+  },
+  "partOfSpeech": {
+    "noun": "Substantiv",
+    "verb": "Verb",
+    "adjective": "Adjektiv",
+    "adverb": "Adverb",
+    "expression": "Ausdruck",
+    "phrase": "Phrase",
+    "particle": "Partikel",
+    "conjunction": "Konjunktion",
+    "pronoun": "Pronomen",
+    "interjection": "Interjektion",
+    "preposition": "Präposition",
+    "counter": "Zählwort",
+    "prefix": "Präfix",
+    "suffix": "Suffix",
+    "auxiliary": "Hilfsverb"
+  },
+  "pace": {
+    "relaxed": "Entspannt",
+    "moderate": "Moderat",
+    "intensive": "Intensiv"
   }
 }

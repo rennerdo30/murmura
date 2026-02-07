@@ -151,6 +151,7 @@ export interface KanjiItem {
   }>;
   language_id?: number;
   script_id?: number;
+  content_translations?: { meaning?: Record<string, string> } | null;
 }
 
 // Common mistake interface for enhanced grammar

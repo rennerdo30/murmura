@@ -5,7 +5,7 @@ import { Card, Text, Button, Animated } from '@/components/ui';
 import { useLanguage } from '@/context/LanguageProvider';
 import { ReviewItem } from '@/lib/reviewQueue';
 import { useTTS } from '@/hooks/useTTS';
-import { IoVolumeHigh, IoBook, IoSchool, IoDocumentText } from 'react-icons/io5';
+import { IoVolumeHigh, IoBook, IoSchool, IoDocumentText, IoReader, IoHeadset } from 'react-icons/io5';
 import styles from './ReviewCard.module.css';
 
 interface ReviewCardProps {
@@ -19,6 +19,8 @@ const moduleIcons = {
   vocabulary: IoBook,
   kanji: IoSchool,
   grammar: IoDocumentText,
+  reading: IoReader,
+  listening: IoHeadset,
 };
 
 export default function ReviewCard({

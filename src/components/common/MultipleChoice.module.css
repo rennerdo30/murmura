@@ -31,3 +31,12 @@
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .container {
+    animation: none;
+  }
+  .choiceButton {
+    transition: none;
+  }
+}
+

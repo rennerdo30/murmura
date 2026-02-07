@@ -61,6 +61,14 @@ export default function VocabularyPage() {
     const [streak, setStreak] = useState(0);
     const statsRef = useRef({ correct: 0, total: 0, streak: 0, bestStreak: 0 });
     const inputRef = useRef<HTMLInputElement>(null);
+    const timeoutsRef = useRef<NodeJS.Timeout[]>([]);
+
+    useEffect(() => {
+        return () => {
+            timeoutsRef.current.forEach(clearTimeout);
+        };
+    }, []);
+
     const [isProcessing, setIsProcessing] = useState(false);
     const [inputValue, setInputValue] = useState('');
     const [practiceMode, setPracticeMode] = useState(false);
@@ -217,7 +225,7 @@ export default function VocabularyPage() {
                 setInputState('default');
                 setShowHint(false);
                 setIsCharacterEntering(true);
-                setTimeout(() => setIsCharacterEntering(false), 400);
+                timeoutsRef.current.push(setTimeout(() => setIsCharacterEntering(false), 400));
 
                 if (practiceMode) {
                     generateMultipleChoice(newWord, available);
@@ -246,11 +254,11 @@ export default function VocabularyPage() {
         speak(currentWord.word, { audioUrl: currentWord.audioUrl });
         updateStats('vocabulary', { correct: newCorrect, total: newTotal, streak: newStreak, bestStreak: newBestStreak });
 
-        setTimeout(() => {
+        timeoutsRef.current.push(setTimeout(() => {
             nextWord();
             setIsProcessing(false);
-            setTimeout(() => inputRef.current?.focus(), 100);
-        }, 1000);
+            timeoutsRef.current.push(setTimeout(() => inputRef.current?.focus(), 100));
+        }, 1000));
     }, [currentWord, speak, updateStats, nextWord]);
 
     const handleIncorrect = useCallback(() => {
@@ -267,11 +275,11 @@ export default function VocabularyPage() {
         speak(currentWord.word, { audioUrl: currentWord.audioUrl });
         updateStats('vocabulary', { correct: statsRef.current.correct, total: newTotal, streak: 0, bestStreak: statsRef.current.bestStreak });
 
-        setTimeout(() => {
+        timeoutsRef.current.push(setTimeout(() => {
             nextWord();
             setIsProcessing(false);
-            setTimeout(() => inputRef.current?.focus(), 100);
-        }, 2000);
+            timeoutsRef.current.push(setTimeout(() => inputRef.current?.focus(), 100));
+        }, 2000));
     }, [currentWord, speak, updateStats, nextWord]);
 
     const checkInput = useCallback((value: string) => {

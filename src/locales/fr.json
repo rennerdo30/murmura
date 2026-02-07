@@ -54,7 +54,7 @@
     "alphabet": {
       "title": "Alphabet",
       "description": "Maîtrisez Hiragana et Katakana",
-      "title_ko": "Hangul"
+      "title_ko": "Hangeul"
     },
     "vocabulary": {
       "title": "Vocabulaire",
@@ -142,7 +142,12 @@
       "learnInLessons": "Apprendre dans les leçons",
       "learned": "Appris"
     },
-    "searchPlaceholder": "Rechercher du vocabulaire..."
+    "searchPlaceholder": "Rechercher du vocabulaire...",
+    "resultCount": "{count} résultats",
+    "loadMore": "Charger Plus",
+    "typeAnswer": "Taper la Réponse",
+    "multipleChoice": "Choix Multiple",
+    "answerMode": "Mode de Réponse"
   },
   "kanji": {
     "practiceMeaning": "Signification",
@@ -798,7 +803,9 @@
     "modules": {
       "vocabulary": "Vocabulaire",
       "kanji": "Caractères",
-      "grammar": "Grammaire"
+      "grammar": "Grammaire",
+      "reading": "Lecture",
+      "listening": "Écoute"
     },
     "progress": {
       "accuracy": "Précision :"
@@ -990,5 +997,98 @@
   "breadcrumb": {
     "paths": "Parcours",
     "ariaLabel": "Fil d'Ariane"
+  },
+  "assessment": {
+    "placement": {
+      "loading": "Chargement du test de niveau...",
+      "title": "Test de Niveau",
+      "description": "Découvrez votre niveau actuel et recevez des recommandations d'apprentissage personnalisées.",
+      "minutes": "{count} minutes",
+      "estimatedTime": "Temps estimé",
+      "sections": "{count} sections",
+      "sectionTypes": "Vocabulaire, Grammaire, Lecture, Écoute",
+      "adaptive": "Adaptatif",
+      "adaptiveDesc": "Les questions s'adaptent à votre niveau",
+      "howItWorks": "Comment ça marche",
+      "step1": "Répondez à des questions dans différents domaines de compétence",
+      "step2": "Prenez votre temps - la précision compte plus que la vitesse",
+      "step3": "Obtenez votre niveau de départ recommandé",
+      "step4": "Commencez votre parcours d'apprentissage personnalisé",
+      "startButton": "Commencer le Test de Niveau",
+      "skipButton": "Passer et commencer depuis le début",
+      "noQuestions": "Aucune question disponible",
+      "questionProgress": "Question {current} sur {total}",
+      "correct": "Correct !",
+      "incorrect": "Pas tout à fait",
+      "checkAnswer": "Vérifier la Réponse",
+      "seeResults": "Voir les Résultats",
+      "nextQuestion": "Question Suivante",
+      "error": "Erreur",
+      "goBack": "Retour",
+      "results": {
+        "title": "Test Terminé !",
+        "subtitle": "Voici vos résultats",
+        "overallScore": "Score Global",
+        "skillsBreakdown": "Détail par Compétence",
+        "recommendedLevel": "Votre Niveau Recommandé",
+        "startLearning": "Commencer à Apprendre au niveau {level}",
+        "retakeTest": "Repasser le Test",
+        "tipsTitle": "Conseils pour Réussir",
+        "tip1": "Pratiquez quotidiennement, même seulement 10-15 minutes",
+        "tip2": "Révisez le vocabulaire avec la répétition espacée",
+        "tip3": "Écoutez du contenu natif à votre niveau",
+        "tip4": "Ne sautez pas la pratique de l'écriture !"
+      },
+      "levels": {
+        "n5": {
+          "name": "Débutant (N5)",
+          "description": "Commencez par les bases - hiragana, katakana et grammaire fondamentale"
+        },
+        "n4": {
+          "name": "Élémentaire (N4)",
+          "description": "Progressez avec plus de vocabulaire et des structures grammaticales intermédiaires"
+        },
+        "n3": {
+          "name": "Intermédiaire (N3)",
+          "description": "Étendez à la grammaire complexe, les kanji et la conversation naturelle"
+        },
+        "n2": {
+          "name": "Avancé (N2)",
+          "description": "Maîtrisez les expressions nuancées et préparez-vous à la fluidité"
+        },
+        "n1": {
+          "name": "Expert (N1)",
+          "description": "Affinez vos compétences avec du contenu de niveau natif"
+        }
+      },
+      "skills": {
+        "vocabulary": "Vocabulaire",
+        "grammar": "Grammaire",
+        "reading": "Lecture",
+        "listening": "Écoute"
+      }
+    }
+  },
+  "partOfSpeech": {
+    "noun": "Nom",
+    "verb": "Verbe",
+    "adjective": "Adjectif",
+    "adverb": "Adverbe",
+    "expression": "Expression",
+    "phrase": "Phrase",
+    "particle": "Particule",
+    "conjunction": "Conjonction",
+    "pronoun": "Pronom",
+    "interjection": "Interjection",
+    "preposition": "Préposition",
+    "counter": "Compteur",
+    "prefix": "Préfixe",
+    "suffix": "Suffixe",
+    "auxiliary": "Auxiliaire"
+  },
+  "pace": {
+    "relaxed": "Détendu",
+    "moderate": "Modéré",
+    "intensive": "Intensif"
   }
 }

@@ -4,7 +4,7 @@
     "next": "Successivo",
     "previous": "Precedente",
     "back": "Indietro",
-    "dashboard": "Dashboard",
+    "dashboard": "Pannello",
     "check": "Verifica",
     "submit": "Invia",
     "play": "Riproduci",
@@ -142,7 +142,12 @@
       "learnInLessons": "Impara nelle lezioni",
       "learned": "Imparato"
     },
-    "searchPlaceholder": "Cerca vocaboli..."
+    "searchPlaceholder": "Cerca vocaboli...",
+    "resultCount": "{count} risultati",
+    "loadMore": "Carica Altri",
+    "typeAnswer": "Scrivi Risposta",
+    "multipleChoice": "Scelta Multipla",
+    "answerMode": "Modalità Risposta"
   },
   "kanji": {
     "practiceMeaning": "Significato",
@@ -798,7 +803,9 @@
     "modules": {
       "vocabulary": "Vocabolario",
       "kanji": "Caratteri",
-      "grammar": "Grammatica"
+      "grammar": "Grammatica",
+      "reading": "Lettura",
+      "listening": "Ascolto"
     },
     "progress": {
       "accuracy": "Precisione:"
@@ -990,5 +997,98 @@
   "breadcrumb": {
     "paths": "Percorsi",
     "ariaLabel": "Navigazione breadcrumb"
+  },
+  "assessment": {
+    "placement": {
+      "loading": "Caricamento test di livello...",
+      "title": "Test di Livello",
+      "description": "Scopri il tuo livello attuale e ricevi raccomandazioni di apprendimento personalizzate.",
+      "minutes": "{count} minuti",
+      "estimatedTime": "Tempo stimato",
+      "sections": "{count} sezioni",
+      "sectionTypes": "Vocabolario, Grammatica, Lettura, Ascolto",
+      "adaptive": "Adattivo",
+      "adaptiveDesc": "Le domande si adattano al tuo livello",
+      "howItWorks": "Come funziona",
+      "step1": "Rispondi a domande in diverse aree di competenza",
+      "step2": "Prenditi il tuo tempo - la precisione conta più della velocità",
+      "step3": "Ottieni il tuo livello iniziale consigliato",
+      "step4": "Inizia il tuo percorso di apprendimento personalizzato",
+      "startButton": "Inizia il Test di Livello",
+      "skipButton": "Salta e inizia dall'inizio",
+      "noQuestions": "Nessuna domanda disponibile",
+      "questionProgress": "Domanda {current} di {total}",
+      "correct": "Corretto!",
+      "incorrect": "Non del tutto giusto",
+      "checkAnswer": "Verifica Risposta",
+      "seeResults": "Vedi Risultati",
+      "nextQuestion": "Prossima Domanda",
+      "error": "Errore",
+      "goBack": "Indietro",
+      "results": {
+        "title": "Test Completato!",
+        "subtitle": "Ecco i tuoi risultati",
+        "overallScore": "Punteggio Complessivo",
+        "skillsBreakdown": "Analisi per Competenza",
+        "recommendedLevel": "Il Tuo Livello Consigliato",
+        "startLearning": "Inizia a Imparare al livello {level}",
+        "retakeTest": "Ripeti il Test",
+        "tipsTitle": "Consigli per il Successo",
+        "tip1": "Esercitati ogni giorno, anche solo 10-15 minuti",
+        "tip2": "Ripassa il vocabolario usando la ripetizione spaziata",
+        "tip3": "Ascolta contenuti nativi al tuo livello",
+        "tip4": "Non saltare la pratica di scrittura!"
+      },
+      "levels": {
+        "n5": {
+          "name": "Principiante (N5)",
+          "description": "Inizia con le basi - hiragana, katakana e grammatica fondamentale"
+        },
+        "n4": {
+          "name": "Elementare (N4)",
+          "description": "Progredisci con più vocabolario e strutture grammaticali intermedie"
+        },
+        "n3": {
+          "name": "Intermedio (N3)",
+          "description": "Espandi alla grammatica complessa, kanji e conversazione naturale"
+        },
+        "n2": {
+          "name": "Avanzato (N2)",
+          "description": "Padroneggia espressioni sfumate e preparati alla fluidità"
+        },
+        "n1": {
+          "name": "Esperto (N1)",
+          "description": "Affina le tue competenze con contenuti di livello madrelingua"
+        }
+      },
+      "skills": {
+        "vocabulary": "Vocabolario",
+        "grammar": "Grammatica",
+        "reading": "Lettura",
+        "listening": "Ascolto"
+      }
+    }
+  },
+  "partOfSpeech": {
+    "noun": "Sostantivo",
+    "verb": "Verbo",
+    "adjective": "Aggettivo",
+    "adverb": "Avverbio",
+    "expression": "Espressione",
+    "phrase": "Frase",
+    "particle": "Particella",
+    "conjunction": "Congiunzione",
+    "pronoun": "Pronome",
+    "interjection": "Interiezione",
+    "preposition": "Preposizione",
+    "counter": "Contatore",
+    "prefix": "Prefisso",
+    "suffix": "Suffisso",
+    "auxiliary": "Ausiliare"
+  },
+  "pace": {
+    "relaxed": "Rilassato",
+    "moderate": "Moderato",
+    "intensive": "Intensivo"
   }
 }

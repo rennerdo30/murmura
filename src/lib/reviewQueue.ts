@@ -11,7 +11,7 @@ import {
   getMasteryStatus,
 } from './srs';
 
-export type ReviewModuleName = 'vocabulary' | 'kanji' | 'grammar';
+export type ReviewModuleName = 'vocabulary' | 'kanji' | 'grammar' | 'reading' | 'listening';
 
 export interface ReviewItem {
   id: string;
@@ -35,6 +35,8 @@ export interface ReviewQueue {
     vocabulary: number;
     kanji: number;
     grammar: number;
+    reading: number;
+    listening: number;
   };
   urgency: 'overdue' | 'due' | 'upcoming' | 'none';
   estimatedMinutes: number;
@@ -152,6 +154,8 @@ export function getReviewQueue(
     vocabulary?: UserModuleData;
     kanji?: UserModuleData;
     grammar?: UserModuleData;
+    reading?: UserModuleData;
+    listening?: UserModuleData;
   },
   settings: SRSSettings = DEFAULT_SRS_SETTINGS
 ): ReviewQueue {
@@ -160,10 +164,12 @@ export function getReviewQueue(
     vocabulary: 0,
     kanji: 0,
     grammar: 0,
+    reading: 0,
+    listening: 0,
   };
 
   // Process each module
-  const modules: ReviewModuleName[] = ['vocabulary', 'kanji', 'grammar'];
+  const modules: ReviewModuleName[] = ['vocabulary', 'kanji', 'grammar', 'reading', 'listening'];
 
   for (const module of modules) {
     const data = moduleData[module];
@@ -210,7 +216,7 @@ export function getModuleReviewQueue(
   if (!moduleData) {
     return {
       total: 0,
-      byModule: { vocabulary: 0, kanji: 0, grammar: 0 },
+      byModule: { vocabulary: 0, kanji: 0, grammar: 0, reading: 0, listening: 0 },
       urgency: 'none',
       estimatedMinutes: 0,
       items: [],
@@ -234,7 +240,7 @@ export function getModuleReviewQueue(
   const limit = settings.dailyReviewLimit || 0;
   const limitedItems = limit > 0 ? items.slice(0, limit) : items;
 
-  const byModule = { vocabulary: 0, kanji: 0, grammar: 0 };
+  const byModule = { vocabulary: 0, kanji: 0, grammar: 0, reading: 0, listening: 0 };
   byModule[module] = limitedItems.length;
 
   return {
@@ -336,6 +342,8 @@ export function calculateSessionStats(session: ReviewSessionState): {
     vocabulary: { reviewed: 0, correct: 0 },
     kanji: { reviewed: 0, correct: 0 },
     grammar: { reviewed: 0, correct: 0 },
+    reading: { reviewed: 0, correct: 0 },
+    listening: { reviewed: 0, correct: 0 },
   };
 
   session.completed.forEach((item, index) => {

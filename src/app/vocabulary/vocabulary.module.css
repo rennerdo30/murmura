@@ -272,4 +272,8 @@
   .browseGrid {
     grid-template-columns: 1fr;
   }
+
+  .searchInput {
+    min-width: 0;
+  }
 }

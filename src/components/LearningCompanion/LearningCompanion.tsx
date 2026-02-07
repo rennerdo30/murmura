@@ -23,12 +23,12 @@ import styles from './LearningCompanion.module.css';
 
 interface LearningCompanionProps {
   defaultExpanded?: boolean;
-  position?: 'sidebar' | 'bottom';
+  position?: 'sidebar' | 'bottom' | 'auto';
 }
 
 export default function LearningCompanion({
   defaultExpanded = false,
-  position = 'sidebar',
+  position = 'auto',
 }: LearningCompanionProps) {
   const { t } = useLanguage();
   const {
@@ -45,11 +45,15 @@ export default function LearningCompanion({
   const [isExpanded, setIsExpanded] = useState(defaultExpanded);
   const [isMinimized, setIsMinimized] = useState(false);
   const [showMore, setShowMore] = useState(false);
+  const [isMobileViewport, setIsMobileViewport] = useState(false);
 
-  // Auto-expand on desktop, collapse on mobile
+  // Keep companion placement aligned with viewport width.
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth >= 1024) {
+      const isMobile = window.innerWidth < 1024;
+      setIsMobileViewport(isMobile);
+
+      if (!isMobile) {
         setIsMinimized(false);
       }
     };
@@ -58,6 +62,10 @@ export default function LearningCompanion({
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  const resolvedPosition = position === 'auto'
+    ? (isMobileViewport ? 'bottom' : 'sidebar')
+    : position;
 
   // Don't render if completely minimized on mobile
   if (isMinimized) {
@@ -110,7 +118,7 @@ export default function LearningCompanion({
   };
 
   return (
-    <aside className={`${styles.companion} ${styles[position]}`}>
+    <aside className={`${styles.companion} ${styles[resolvedPosition]}`}>
       {/* Header */}
       <div className={styles.header}>
         <div className={styles.headerTitle}>

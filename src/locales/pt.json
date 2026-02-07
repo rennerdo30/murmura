@@ -142,7 +142,12 @@
       "learnInLessons": "Aprender nas lições",
       "learned": "Aprendido"
     },
-    "searchPlaceholder": "Buscar vocabulário..."
+    "searchPlaceholder": "Buscar vocabulário...",
+    "resultCount": "{count} resultados",
+    "loadMore": "Carregar mais",
+    "typeAnswer": "Digitar Resposta",
+    "multipleChoice": "Múltipla Escolha",
+    "answerMode": "Modo de Resposta"
   },
   "kanji": {
     "practiceMeaning": "Significado",
@@ -798,7 +803,9 @@
     "modules": {
       "vocabulary": "Vocabulário",
       "kanji": "Caracteres",
-      "grammar": "Gramática"
+      "grammar": "Gramática",
+      "reading": "Leitura",
+      "listening": "Escuta"
     },
     "progress": {
       "accuracy": "Precisão:"
@@ -990,5 +997,98 @@
   "breadcrumb": {
     "paths": "Trilhas",
     "ariaLabel": "Navegação de migalhas"
+  },
+  "assessment": {
+    "placement": {
+      "loading": "Carregando teste de nivelamento...",
+      "title": "Teste de Nivelamento",
+      "description": "Descubra seu nível atual e receba recomendações personalizadas de aprendizado.",
+      "minutes": "{count} minutos",
+      "estimatedTime": "Tempo estimado",
+      "sections": "{count} seções",
+      "sectionTypes": "Vocabulário, Gramática, Leitura, Audição",
+      "adaptive": "Adaptativo",
+      "adaptiveDesc": "As questões se ajustam ao seu nível",
+      "howItWorks": "Como funciona",
+      "step1": "Responda questões em diferentes áreas de habilidade",
+      "step2": "Não tenha pressa - a precisão importa mais que a velocidade",
+      "step3": "Receba seu nível inicial recomendado",
+      "step4": "Comece sua jornada de aprendizado personalizada",
+      "startButton": "Iniciar Teste de Nivelamento",
+      "skipButton": "Pular e começar do início",
+      "noQuestions": "Nenhuma questão disponível",
+      "questionProgress": "Questão {current} de {total}",
+      "correct": "Correto!",
+      "incorrect": "Não exatamente",
+      "checkAnswer": "Verificar Resposta",
+      "seeResults": "Ver Resultados",
+      "nextQuestion": "Próxima Questão",
+      "error": "Erro",
+      "goBack": "Voltar",
+      "results": {
+        "title": "Teste Concluído!",
+        "subtitle": "Aqui estão seus resultados",
+        "overallScore": "Pontuação Geral",
+        "skillsBreakdown": "Detalhamento por Habilidade",
+        "recommendedLevel": "Seu Nível Recomendado",
+        "startLearning": "Começar a Aprender no nível {level}",
+        "retakeTest": "Refazer Teste",
+        "tipsTitle": "Dicas para o Sucesso",
+        "tip1": "Pratique diariamente, mesmo que apenas 10-15 minutos",
+        "tip2": "Revise vocabulário usando repetição espaçada",
+        "tip3": "Ouça conteúdo nativo no seu nível",
+        "tip4": "Não pule a prática de escrita!"
+      },
+      "levels": {
+        "n5": {
+          "name": "Iniciante (N5)",
+          "description": "Comece com o básico - hiragana, katakana e gramática fundamental"
+        },
+        "n4": {
+          "name": "Elementar (N4)",
+          "description": "Avance com mais vocabulário e padrões gramaticais intermediários"
+        },
+        "n3": {
+          "name": "Intermediário (N3)",
+          "description": "Expanda para gramática complexa, kanji e conversação natural"
+        },
+        "n2": {
+          "name": "Avançado (N2)",
+          "description": "Domine expressões nuançadas e prepare-se para a fluência"
+        },
+        "n1": {
+          "name": "Especialista (N1)",
+          "description": "Refine suas habilidades com conteúdo de nível nativo"
+        }
+      },
+      "skills": {
+        "vocabulary": "Vocabulário",
+        "grammar": "Gramática",
+        "reading": "Leitura",
+        "listening": "Audição"
+      }
+    }
+  },
+  "partOfSpeech": {
+    "noun": "Substantivo",
+    "verb": "Verbo",
+    "adjective": "Adjetivo",
+    "adverb": "Advérbio",
+    "expression": "Expressão",
+    "phrase": "Frase",
+    "particle": "Partícula",
+    "conjunction": "Conjunção",
+    "pronoun": "Pronome",
+    "interjection": "Interjeição",
+    "preposition": "Preposição",
+    "counter": "Contador",
+    "prefix": "Prefixo",
+    "suffix": "Sufixo",
+    "auxiliary": "Auxiliar"
+  },
+  "pace": {
+    "relaxed": "Relaxado",
+    "moderate": "Moderado",
+    "intensive": "Intensivo"
   }
 }

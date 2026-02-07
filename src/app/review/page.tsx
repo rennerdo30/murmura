@@ -11,6 +11,7 @@ import { useProgressContext } from '@/context/ProgressProvider';
 import { useLanguage } from '@/context/LanguageProvider';
 import { useTargetLanguage } from '@/hooks/useTargetLanguage';
 import { useTTS } from '@/hooks/useTTS';
+import { useContentTranslation } from '@/hooks/useContentTranslation';
 import { getVocabularyData } from '@/lib/dataLoader';
 import {
   ReviewQueue,
@@ -23,7 +24,7 @@ import {
   DEFAULT_SRS_SETTINGS,
   ReviewModuleName,
 } from '@/lib/reviewQueue';
-import { IoBook, IoSchool, IoDocumentText, IoCheckmarkCircle, IoTime, IoFlame } from 'react-icons/io5';
+import { IoBook, IoSchool, IoDocumentText, IoReader, IoHeadset, IoCheckmarkCircle, IoTime, IoFlame } from 'react-icons/io5';
 import styles from './review.module.css';
 
 type ReviewMode = 'overview' | 'session' | 'complete';
@@ -32,18 +33,25 @@ interface ItemDataMap {
   vocabulary: Record<string, { front: string; back: string; reading?: string; audioUrl?: string }>;
   kanji: Record<string, { front: string; back: string; reading?: string; audioUrl?: string }>;
   grammar: Record<string, { front: string; back: string; reading?: string; audioUrl?: string }>;
+  reading: Record<string, { front: string; back: string; reading?: string; audioUrl?: string }>;
+  listening: Record<string, { front: string; back: string; reading?: string; audioUrl?: string }>;
 }
 
 // Interface for kanji/hanzi data from JSON
 interface KanjiData {
-  id: string;
+  id: string | number;
   kanji?: string;
   hanzi?: string;
+  char?: string;
+  character?: string;
   meaning: string;
   onyomi?: string[];
   kunyomi?: string[];
   pinyin?: string;
+  romanization?: string;
   audioUrl?: string;
+  audio_url?: string;
+  content_translations?: { meaning?: Record<string, string> } | null;
 }
 
 // Interface for grammar data from JSON
@@ -51,7 +59,8 @@ interface GrammarData {
   id: string;
   title: string;
   explanation?: string;
-  explanations?: { en?: string };
+  explanations?: Record<string, string>;
+  content_translations?: { explanation?: Record<string, string> } | null;
 }
 
 export default function ReviewPage() {
@@ -59,17 +68,20 @@ export default function ReviewPage() {
   const { t } = useLanguage();
   const { targetLanguage, getDataUrl } = useTargetLanguage();
   const { speak } = useTTS();
+  const { getMeaning, getText } = useContentTranslation();
   const { getModuleData, updateModuleReview } = useProgressContext();
 
   const [mode, setMode] = useState<ReviewMode>('overview');
   const [queue, setQueue] = useState<ReviewQueue | null>(null);
   const [session, setSession] = useState<ReviewSessionState | null>(null);
-  const [selectedModules, setSelectedModules] = useState<ReviewModuleName[]>(['vocabulary', 'kanji', 'grammar']);
+  const [selectedModules, setSelectedModules] = useState<ReviewModuleName[]>(['vocabulary', 'kanji', 'grammar', 'reading', 'listening']);
   const [isLoading, setIsLoading] = useState(true);
   const [showAnswer, setShowAnswer] = useState(false);
   const [responseStartTime, setResponseStartTime] = useState<number>(0);
   const [kanjiData, setKanjiData] = useState<KanjiData[]>([]);
   const [grammarData, setGrammarData] = useState<GrammarData[]>([]);
+  const [readingData, setReadingData] = useState<Array<{ id: string | number; title: string; titleTranslations?: Record<string, string>; text: string; translation?: string; audioUrl?: string; audio_url?: string }>>([]);
+  const [listeningData, setListeningData] = useState<Array<{ id: string | number; title: string; text: string; transcript?: string; translation?: string; audioUrl?: string; audio_url?: string }>>([]);
 
   // Load kanji/hanzi and grammar data when language changes
   useEffect(() => {
@@ -77,19 +89,32 @@ export default function ReviewPage() {
 
     const loadData = async () => {
       try {
-        // Load kanji or hanzi based on language
-        const kanjiFileName = targetLanguage === 'zh' ? 'hanzi.json' : 'kanji.json';
-        const [kanjiResponse, grammarResponse] = await Promise.all([
-          fetch(getDataUrl(kanjiFileName), { signal: abortController.signal }).catch(() => null),
+        const [characterResponse, grammarResponse, readingResponse, listeningResponse] = await Promise.all([
+          fetch(getDataUrl('characters.json'), { signal: abortController.signal }).catch(() => null),
           fetch(getDataUrl('grammar.json'), { signal: abortController.signal }).catch(() => null),
+          fetch(getDataUrl('readings.json'), { signal: abortController.signal }).catch(() => null),
+          fetch(getDataUrl('listening.json'), { signal: abortController.signal }).catch(() => null),
         ]);
 
         if (!abortController.signal.aborted) {
-          if (kanjiResponse?.ok) {
-            const data = await kanjiResponse.json();
-            setKanjiData(Array.isArray(data) ? data : []);
+          if (characterResponse?.ok) {
+            const data = await characterResponse.json();
+            const items = Array.isArray(data)
+              ? data
+              : Array.isArray(data.characters)
+                ? data.characters
+                : [];
+            setKanjiData(items);
           } else {
-            setKanjiData([]);
+            // Fallback to legacy file names during transition
+            const fallbackFileName = targetLanguage === 'zh' ? 'hanzi.json' : 'kanji.json';
+            const fallbackResponse = await fetch(getDataUrl(fallbackFileName), { signal: abortController.signal }).catch(() => null);
+            if (fallbackResponse?.ok) {
+              const fallbackData = await fallbackResponse.json();
+              setKanjiData(Array.isArray(fallbackData) ? fallbackData : []);
+            } else {
+              setKanjiData([]);
+            }
           }
 
           if (grammarResponse?.ok) {
@@ -97,6 +122,20 @@ export default function ReviewPage() {
             setGrammarData(Array.isArray(data) ? data : []);
           } else {
             setGrammarData([]);
+          }
+
+          if (readingResponse?.ok) {
+            const data = await readingResponse.json();
+            setReadingData(Array.isArray(data) ? data : []);
+          } else {
+            setReadingData([]);
+          }
+
+          if (listeningResponse?.ok) {
+            const data = await listeningResponse.json();
+            setListeningData(Array.isArray(data) ? data : []);
+          } else {
+            setListeningData([]);
           }
         }
       } catch (error) {
@@ -115,9 +154,15 @@ export default function ReviewPage() {
     const vocabMap: ItemDataMap['vocabulary'] = {};
     const vocabulary = getVocabularyData(targetLanguage);
     vocabulary.forEach((item) => {
+      // Use content_translations for localized meanings
+      const translatedMeaning = (item as { content_translations?: { meaning?: Record<string, string> } | null }).content_translations?.meaning;
+      const back = translatedMeaning
+        ? getMeaning(translatedMeaning, item.meaning)
+        : getMeaning(item.meanings, item.meaning);
+
       vocabMap[item.id] = {
         front: item.word,
-        back: item.meaning,
+        back,
         reading: item.reading,
         audioUrl: item.audioUrl,
       };
@@ -129,39 +174,83 @@ export default function ReviewPage() {
       const character = item.kanji || item.hanzi || '';
       const reading = item.pinyin
         ? item.pinyin
+        : item.romanization
+          ? item.romanization
         : [...(item.onyomi || []), ...(item.kunyomi || [])].join(', ');
+      const normalizedCharacter = character || item.char || item.character || '';
 
-      kanjiMap[item.id] = {
-        front: character,
-        back: item.meaning,
+      // Use content_translations for localized meanings
+      const back = item.content_translations?.meaning
+        ? getText(item.content_translations.meaning, item.meaning)
+        : item.meaning;
+
+      kanjiMap[String(item.id)] = {
+        front: normalizedCharacter,
+        back,
         reading,
-        audioUrl: item.audioUrl,
+        audioUrl: item.audioUrl || item.audio_url,
       };
     });
 
     // Grammar from fetched data
     const grammarMap: ItemDataMap['grammar'] = {};
     grammarData.forEach((item) => {
+      // Use content_translations for localized explanations, then explanations field
+      const back = item.content_translations?.explanation
+        ? getText(item.content_translations.explanation, item.explanation || '')
+        : getText(item.explanations, item.explanation || '');
+
       grammarMap[item.id] = {
         front: item.title,
-        back: item.explanations?.en || item.explanation || '',
+        back,
       };
     });
 
-    return { vocabulary: vocabMap, kanji: kanjiMap, grammar: grammarMap };
-  }, [targetLanguage, kanjiData, grammarData]);
+    // Reading from fetched data
+    const readingMap: ItemDataMap['reading'] = {};
+    readingData.forEach((item) => {
+      const title = item.titleTranslations
+        ? getText(item.titleTranslations, item.title)
+        : item.title;
+      const back = item.translation || item.text.substring(0, 100) + (item.text.length > 100 ? '...' : '');
+
+      readingMap[String(item.id)] = {
+        front: title,
+        back,
+        audioUrl: item.audioUrl || item.audio_url,
+      };
+    });
+
+    // Listening from fetched data
+    const listeningMap: ItemDataMap['listening'] = {};
+    listeningData.forEach((item) => {
+      const back = item.transcript || item.text;
+
+      listeningMap[String(item.id)] = {
+        front: item.title,
+        back,
+        audioUrl: item.audioUrl || item.audio_url,
+      };
+    });
+
+    return { vocabulary: vocabMap, kanji: kanjiMap, grammar: grammarMap, reading: readingMap, listening: listeningMap };
+  }, [targetLanguage, kanjiData, grammarData, readingData, listeningData, getMeaning, getText]);
 
   // Load review queue
   useEffect(() => {
     const vocabData = getModuleData('vocabulary');
     const kanjiData = getModuleData('kanji');
     const grammarData = getModuleData('grammar');
+    const readingModData = getModuleData('reading');
+    const listeningModData = getModuleData('listening');
 
     const reviewQueue = getReviewQueue(
       {
         vocabulary: vocabData ? { learned: vocabData.learned || [], reviews: vocabData.reviews || {} } : undefined,
         kanji: kanjiData ? { learned: kanjiData.learned || [], reviews: kanjiData.reviews || {} } : undefined,
         grammar: grammarData ? { learned: grammarData.learned || [], reviews: grammarData.reviews || {} } : undefined,
+        reading: readingModData ? { learned: readingModData.learned || [], reviews: readingModData.reviews || {} } : undefined,
+        listening: listeningModData ? { learned: listeningModData.learned || [], reviews: listeningModData.reviews || {} } : undefined,
       },
       DEFAULT_SRS_SETTINGS
     );
@@ -262,12 +351,16 @@ export default function ReviewPage() {
     const vocabData = getModuleData('vocabulary');
     const kanjiData = getModuleData('kanji');
     const grammarData = getModuleData('grammar');
+    const readingModData = getModuleData('reading');
+    const listeningModData = getModuleData('listening');
 
     const reviewQueue = getReviewQueue(
       {
         vocabulary: vocabData ? { learned: vocabData.learned || [], reviews: vocabData.reviews || {} } : undefined,
         kanji: kanjiData ? { learned: kanjiData.learned || [], reviews: kanjiData.reviews || {} } : undefined,
         grammar: grammarData ? { learned: grammarData.learned || [], reviews: grammarData.reviews || {} } : undefined,
+        reading: readingModData ? { learned: readingModData.learned || [], reviews: readingModData.reviews || {} } : undefined,
+        listening: listeningModData ? { learned: listeningModData.learned || [], reviews: listeningModData.reviews || {} } : undefined,
       },
       DEFAULT_SRS_SETTINGS
     );
@@ -355,6 +448,24 @@ export default function ReviewPage() {
             >
               <IoDocumentText className={styles.moduleIcon} aria-hidden="true" />
               <span>{t('review.modules.grammar')}: {queue?.byModule.grammar || 0}</span>
+            </button>
+            <button
+              className={`${styles.moduleChip} ${selectedModules.includes('reading') ? styles.active : ''}`}
+              onClick={() => toggleModule('reading')}
+              aria-pressed={selectedModules.includes('reading')}
+              aria-label={t('review.toggleModule', { module: t('review.modules.reading'), count: queue?.byModule.reading || 0 })}
+            >
+              <IoReader className={styles.moduleIcon} aria-hidden="true" />
+              <span>{t('review.modules.reading')}: {queue?.byModule.reading || 0}</span>
+            </button>
+            <button
+              className={`${styles.moduleChip} ${selectedModules.includes('listening') ? styles.active : ''}`}
+              onClick={() => toggleModule('listening')}
+              aria-pressed={selectedModules.includes('listening')}
+              aria-label={t('review.toggleModule', { module: t('review.modules.listening'), count: queue?.byModule.listening || 0 })}
+            >
+              <IoHeadset className={styles.moduleIcon} aria-hidden="true" />
+              <span>{t('review.modules.listening')}: {queue?.byModule.listening || 0}</span>
             </button>
           </div>
 

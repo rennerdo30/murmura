@@ -381,7 +381,9 @@
     "modules": {
       "vocabulary": "Vocabulary",
       "kanji": "Characters",
-      "grammar": "Grammar"
+      "grammar": "Grammar",
+      "reading": "Reading",
+      "listening": "Listening"
     },
     "progress": {
       "accuracy": "Accuracy:"
@@ -986,5 +988,83 @@
   "breadcrumb": {
     "paths": "Paths",
     "ariaLabel": "Breadcrumb navigation"
+  },
+  "assessment": {
+    "placement": {
+      "loading": "Loading placement test...",
+      "title": "Placement Test",
+      "description": "Find out your current level and get personalized learning recommendations.",
+      "minutes": "{count} minutes",
+      "estimatedTime": "Estimated time",
+      "sections": "{count} sections",
+      "sectionTypes": "Vocabulary, Grammar, Reading, Listening",
+      "adaptive": "Adaptive",
+      "adaptiveDesc": "Questions adjust to your level",
+      "howItWorks": "How it works",
+      "step1": "Answer questions across different skill areas",
+      "step2": "Take your time - accuracy matters more than speed",
+      "step3": "Get your recommended starting level",
+      "step4": "Begin your personalized learning journey",
+      "startButton": "Start Placement Test",
+      "skipButton": "Skip and start from the beginning",
+      "noQuestions": "No questions available",
+      "questionProgress": "Question {current} of {total}",
+      "correct": "Correct!",
+      "incorrect": "Not quite right",
+      "checkAnswer": "Check Answer",
+      "seeResults": "See Results",
+      "nextQuestion": "Next Question",
+      "error": "Error",
+      "goBack": "Go Back",
+      "results": {
+        "title": "Test Complete!",
+        "subtitle": "Here are your results",
+        "overallScore": "Overall Score",
+        "skillsBreakdown": "Skills Breakdown",
+        "recommendedLevel": "Your Recommended Level",
+        "startLearning": "Start Learning at {level}",
+        "retakeTest": "Retake Test",
+        "tipsTitle": "Tips for Success",
+        "tip1": "Practice daily, even if just for 10-15 minutes",
+        "tip2": "Review vocabulary using spaced repetition",
+        "tip3": "Listen to native content at your level",
+        "tip4": "Don't skip the writing practice!"
+      },
+      "levels": {
+        "n5": { "name": "Beginner (N5)", "description": "Start with the basics - hiragana, katakana, and fundamental grammar" },
+        "n4": { "name": "Elementary (N4)", "description": "Build on basics with more vocabulary and intermediate grammar patterns" },
+        "n3": { "name": "Intermediate (N3)", "description": "Expand to complex grammar, kanji, and natural conversation" },
+        "n2": { "name": "Advanced (N2)", "description": "Master nuanced expressions and prepare for fluency" },
+        "n1": { "name": "Expert (N1)", "description": "Refine your skills with native-level content" }
+      },
+      "skills": {
+        "vocabulary": "Vocabulary",
+        "grammar": "Grammar",
+        "reading": "Reading",
+        "listening": "Listening"
+      }
+    }
+  },
+  "partOfSpeech": {
+    "noun": "Noun",
+    "verb": "Verb",
+    "adjective": "Adjective",
+    "adverb": "Adverb",
+    "expression": "Expression",
+    "phrase": "Phrase",
+    "particle": "Particle",
+    "conjunction": "Conjunction",
+    "pronoun": "Pronoun",
+    "interjection": "Interjection",
+    "preposition": "Preposition",
+    "counter": "Counter",
+    "prefix": "Prefix",
+    "suffix": "Suffix",
+    "auxiliary": "Auxiliary"
+  },
+  "pace": {
+    "relaxed": "Relaxed",
+    "moderate": "Moderate",
+    "intensive": "Intensive"
   }
 }

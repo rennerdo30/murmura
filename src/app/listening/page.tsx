@@ -11,6 +11,7 @@ import { useLanguage } from '@/context/LanguageProvider';
 import { useTargetLanguage } from '@/hooks/useTargetLanguage';
 import { useTTS } from '@/hooks/useTTS';
 import { ListeningExercise, Filter } from '@/types';
+import { markLearned } from '@/lib/storage';
 import { IoVolumeHigh, IoCheckmark, IoClose, IoStop } from 'react-icons/io5';
 import styles from './listening.module.css';
 
@@ -54,10 +55,20 @@ export default function ListeningPage() {
             try {
                 const response = await fetch(getDataUrl('listening.json'));
                 const data = await response.json();
-                setExercises(data);
+                const rawExercises: Array<ListeningExercise & { audio_url?: string }> = Array.isArray(data)
+                    ? data as Array<ListeningExercise & { audio_url?: string }>
+                    : Array.isArray(data.listening)
+                        ? data.listening as Array<ListeningExercise & { audio_url?: string }>
+                        : [];
+                const normalizedExercises = rawExercises.map((exercise: ListeningExercise & { audio_url?: string }) => ({
+                    ...exercise,
+                    audioUrl: exercise.audioUrl || exercise.audio_url,
+                })) as ListeningExercise[];
+
+                setExercises(normalizedExercises);
                 setCurrentIndex(0);
-                if (data.length > 0) {
-                    setCurrentExercise(data[0]);
+                if (normalizedExercises.length > 0) {
+                    setCurrentExercise(normalizedExercises[0]);
                 } else {
                     setCurrentExercise(null);
                 }
@@ -101,6 +112,11 @@ export default function ListeningPage() {
         setStreak(newStreak);
         setShowFeedback(true);
         updateStats('listening', { correct: newCorrect, total: newTotal, streak: newStreak });
+
+        // Add listening exercise to SRS review queue when answered correctly
+        if (isCorrect) {
+            markLearned('listening', String(currentExercise.id));
+        }
     }, [currentExercise, inputValue, correct, total, streak, updateStats]);
 
     const nextExercise = useCallback(() => {

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useCallback, useMemo } from 'react';
+import { useLanguage } from '@/context/LanguageProvider';
 import styles from './PlacementTest.module.css';
 import type { Assessment, AssessmentResult, AssessmentSection } from '@/types/assessment';
 
@@ -33,7 +34,7 @@ const SAMPLE_SECTIONS: AssessmentSection[] = [
         questionData: {
           id: 'v1-q',
           type: 'multiple_choice',
-          question: 'What does "ありがとう" mean?',
+          question: 'What does "\u3042\u308a\u304c\u3068\u3046" mean?',
           options: ['Hello', 'Thank you', 'Goodbye', 'Sorry'],
           correctIndex: 1,
         },
@@ -48,7 +49,7 @@ const SAMPLE_SECTIONS: AssessmentSection[] = [
         questionData: {
           id: 'v2-q',
           type: 'multiple_choice',
-          question: 'What does "食べる" (taberu) mean?',
+          question: 'What does "\u98df\u3079\u308b" (taberu) mean?',
           options: ['To drink', 'To eat', 'To sleep', 'To walk'],
           correctIndex: 1,
         },
@@ -71,7 +72,7 @@ const SAMPLE_SECTIONS: AssessmentSection[] = [
           id: 'g1-q',
           type: 'multiple_choice',
           question: 'Which particle marks the topic of a sentence?',
-          options: ['を', 'は', 'に', 'で'],
+          options: ['\u3092', '\u306f', '\u306b', '\u3067'],
           correctIndex: 1,
         },
         points: 1,
@@ -86,7 +87,7 @@ const SAMPLE_SECTIONS: AssessmentSection[] = [
           id: 'g2-q',
           type: 'multiple_choice',
           question: 'How do you say "I want to eat" in Japanese?',
-          options: ['食べます', '食べたい', '食べて', '食べた'],
+          options: ['\u98df\u3079\u307e\u3059', '\u98df\u3079\u305f\u3044', '\u98df\u3079\u3066', '\u98df\u3079\u305f'],
           correctIndex: 1,
         },
         points: 1,
@@ -96,6 +97,8 @@ const SAMPLE_SECTIONS: AssessmentSection[] = [
 ];
 
 export default function PlacementTest({ assessment, onComplete, onCancel }: PlacementTestProps) {
+  const { t } = useLanguage();
+
   const sections = useMemo(() => {
     return assessment?.sections ?? SAMPLE_SECTIONS;
   }, [assessment]);
@@ -110,6 +113,14 @@ export default function PlacementTest({ assessment, onComplete, onCancel }: Plac
   const currentQuestion = currentSection?.questions[currentQuestionIndex];
   const totalQuestions = sections.reduce((sum, s) => sum + s.questions.length, 0);
   const answeredCount = answers.length;
+
+  // Get translated section name
+  const getSectionName = useCallback((section: AssessmentSection) => {
+    const skillKey = section.skill as string;
+    const translated = t(`assessment.placement.skills.${skillKey}`);
+    // If translation returns the key itself, fall back to the section name
+    return translated.startsWith('assessment.') ? section.name : translated;
+  }, [t]);
 
   const progress = useMemo(() => {
     let count = 0;
@@ -238,8 +249,8 @@ export default function PlacementTest({ assessment, onComplete, onCancel }: Plac
   if (!currentQuestion) {
     return (
       <div className={styles.container}>
-        <p>No questions available</p>
-        <button onClick={onCancel}>Go Back</button>
+        <p>{t('assessment.placement.noQuestions')}</p>
+        <button onClick={onCancel}>{t('assessment.placement.goBack')}</button>
       </div>
     );
   }
@@ -254,9 +265,9 @@ export default function PlacementTest({ assessment, onComplete, onCancel }: Plac
           &#10005;
         </button>
         <div className={styles.progressInfo}>
-          <span className={styles.sectionName}>{currentSection.name}</span>
+          <span className={styles.sectionName}>{getSectionName(currentSection)}</span>
           <span className={styles.questionCount}>
-            Question {answeredCount + 1} of {totalQuestions}
+            {t('assessment.placement.questionProgress', { current: answeredCount + 1, total: totalQuestions })}
           </span>
         </div>
       </div>
@@ -275,7 +286,7 @@ export default function PlacementTest({ assessment, onComplete, onCancel }: Plac
               idx < currentSectionIndex ? styles.completed : ''
             } ${idx === currentSectionIndex ? styles.active : ''}`}
           >
-            {section.name.charAt(0)}
+            {getSectionName(section).charAt(0)}
           </div>
         ))}
       </div>
@@ -318,9 +329,9 @@ export default function PlacementTest({ assessment, onComplete, onCancel }: Plac
         {showFeedback && (
           <div className={`${styles.feedback} ${isCorrect ? styles.feedbackCorrect : styles.feedbackIncorrect}`}>
             <span className={styles.feedbackIcon}>
-              {isCorrect ? '✓' : '✗'}
+              {isCorrect ? '\u2713' : '\u2717'}
             </span>
-            <span>{isCorrect ? 'Correct!' : 'Not quite right'}</span>
+            <span>{isCorrect ? t('assessment.placement.correct') : t('assessment.placement.incorrect')}</span>
           </div>
         )}
       </div>
@@ -333,14 +344,14 @@ export default function PlacementTest({ assessment, onComplete, onCancel }: Plac
             onClick={handleSubmitAnswer}
             disabled={selectedAnswer === null}
           >
-            Check Answer
+            {t('assessment.placement.checkAnswer')}
           </button>
         ) : (
           <button className={styles.nextButton} onClick={handleNext}>
             {currentSectionIndex === sections.length - 1 &&
             currentQuestionIndex === currentSection.questions.length - 1
-              ? 'See Results'
-              : 'Next Question'}
+              ? t('assessment.placement.seeResults')
+              : t('assessment.placement.nextQuestion')}
           </button>
         )}
       </div>

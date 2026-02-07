@@ -142,7 +142,12 @@
       "learnInLessons": "레슨에서 학습하기",
       "learned": "학습 완료"
     },
-    "searchPlaceholder": "단어 검색..."
+    "searchPlaceholder": "단어 검색...",
+    "resultCount": "{count}개의 결과",
+    "loadMore": "더 보기",
+    "typeAnswer": "정답 입력",
+    "multipleChoice": "객관식",
+    "answerMode": "정답 모드"
   },
   "kanji": {
     "practiceMeaning": "의미",
@@ -798,7 +803,9 @@
     "modules": {
       "vocabulary": "어휘",
       "kanji": "문자",
-      "grammar": "문법"
+      "grammar": "문법",
+      "reading": "독해",
+      "listening": "듣기"
     },
     "progress": {
       "accuracy": "정확도:"
@@ -990,5 +997,98 @@
   "breadcrumb": {
     "paths": "경로",
     "ariaLabel": "브레드크럼 탐색"
+  },
+  "assessment": {
+    "placement": {
+      "loading": "배치 테스트 로딩 중...",
+      "title": "배치 테스트",
+      "description": "현재 레벨을 확인하고 맞춤형 학습 추천을 받으세요.",
+      "minutes": "{count}분",
+      "estimatedTime": "예상 시간",
+      "sections": "{count}개 섹션",
+      "sectionTypes": "어휘, 문법, 읽기, 듣기",
+      "adaptive": "적응형",
+      "adaptiveDesc": "질문이 당신의 레벨에 맞게 조정됩니다",
+      "howItWorks": "진행 방법",
+      "step1": "다양한 기술 영역의 질문에 답하세요",
+      "step2": "서두르지 마세요 - 속도보다 정확성이 중요합니다",
+      "step3": "추천 시작 레벨을 받으세요",
+      "step4": "맞춤형 학습 여정을 시작하세요",
+      "startButton": "배치 테스트 시작",
+      "skipButton": "건너뛰고 처음부터 시작",
+      "noQuestions": "사용 가능한 질문이 없습니다",
+      "questionProgress": "질문 {current} / {total}",
+      "correct": "정답!",
+      "incorrect": "아쉽습니다",
+      "checkAnswer": "답 확인",
+      "seeResults": "결과 보기",
+      "nextQuestion": "다음 질문",
+      "error": "오류",
+      "goBack": "뒤로 가기",
+      "results": {
+        "title": "테스트 완료!",
+        "subtitle": "결과는 다음과 같습니다",
+        "overallScore": "전체 점수",
+        "skillsBreakdown": "기술별 분석",
+        "recommendedLevel": "추천 레벨",
+        "startLearning": "{level} 레벨에서 학습 시작",
+        "retakeTest": "테스트 다시 하기",
+        "tipsTitle": "성공을 위한 팁",
+        "tip1": "매일 연습하세요, 10-15분이라도",
+        "tip2": "간격 반복을 사용하여 어휘를 복습하세요",
+        "tip3": "자신의 레벨에 맞는 원어민 콘텐츠를 들으세요",
+        "tip4": "쓰기 연습을 건너뛰지 마세요!"
+      },
+      "levels": {
+        "n5": {
+          "name": "초급 (N5)",
+          "description": "기초부터 시작 - 히라가나, 가타카나, 기본 문법"
+        },
+        "n4": {
+          "name": "초중급 (N4)",
+          "description": "더 많은 어휘와 중급 문법 패턴으로 기초를 다지세요"
+        },
+        "n3": {
+          "name": "중급 (N3)",
+          "description": "복잡한 문법, 한자, 자연스러운 대화로 확장하세요"
+        },
+        "n2": {
+          "name": "고급 (N2)",
+          "description": "미묘한 표현을 마스터하고 유창함을 준비하세요"
+        },
+        "n1": {
+          "name": "전문가 (N1)",
+          "description": "원어민 수준의 콘텐츠로 실력을 다듬으세요"
+        }
+      },
+      "skills": {
+        "vocabulary": "어휘",
+        "grammar": "문법",
+        "reading": "읽기",
+        "listening": "듣기"
+      }
+    }
+  },
+  "partOfSpeech": {
+    "noun": "명사",
+    "verb": "동사",
+    "adjective": "형용사",
+    "adverb": "부사",
+    "expression": "표현",
+    "phrase": "구문",
+    "particle": "조사",
+    "conjunction": "접속사",
+    "pronoun": "대명사",
+    "interjection": "감탄사",
+    "preposition": "전치사",
+    "counter": "수사",
+    "prefix": "접두사",
+    "suffix": "접미사",
+    "auxiliary": "보조동사"
+  },
+  "pace": {
+    "relaxed": "여유롭게",
+    "moderate": "보통",
+    "intensive": "집중"
   }
 }

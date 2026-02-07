@@ -46,6 +46,10 @@
     gap: 1.5rem;
   }
 
+  .centered {
+    justify-content: flex-start;
+  }
+
   .dashboard {
     padding: 1rem;
     padding-top: calc(1rem + var(--safe-area-top));
