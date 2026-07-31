@@ -4,10 +4,13 @@
 }
 
 .default {
-  padding: 2rem;
-  padding-left: calc(2rem + var(--safe-area-left));
-  padding-right: calc(2rem + var(--safe-area-right));
-  padding-bottom: calc(2rem + var(--safe-area-bottom));
+  padding: var(--space-8);
+  padding-left: calc(var(--space-8) + var(--safe-area-left));
+  padding-right: calc(var(--space-8) + var(--safe-area-right));
+  padding-bottom: calc(var(--space-8) + var(--safe-area-bottom));
+  /* Keeps line lengths readable on wide displays */
+  max-width: var(--content-max-width);
+  margin-inline: auto;
 }
 
 .centered {
@@ -16,22 +19,22 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
-  padding-top: calc(2rem + var(--safe-area-top));
-  padding-left: calc(2rem + var(--safe-area-left));
-  padding-right: calc(2rem + var(--safe-area-right));
-  padding-bottom: calc(2rem + var(--safe-area-bottom));
-  gap: 2rem;
+  padding: var(--space-8);
+  padding-top: calc(var(--space-8) + var(--safe-area-top));
+  padding-left: calc(var(--space-8) + var(--safe-area-left));
+  padding-right: calc(var(--space-8) + var(--safe-area-right));
+  padding-bottom: calc(var(--space-8) + var(--safe-area-bottom));
+  gap: var(--space-8);
 }
 
 .dashboard {
   min-height: 100vh; min-height: 100dvh;
-  padding: 2rem;
-  padding-top: calc(2rem + var(--safe-area-top));
-  padding-left: calc(2rem + var(--safe-area-left));
-  padding-right: calc(2rem + var(--safe-area-right));
-  padding-bottom: calc(2rem + var(--safe-area-bottom));
-  max-width: 1200px;
+  padding: var(--space-8);
+  padding-top: calc(var(--space-8) + var(--safe-area-top));
+  padding-left: calc(var(--space-8) + var(--safe-area-left));
+  padding-right: calc(var(--space-8) + var(--safe-area-right));
+  padding-bottom: calc(var(--space-8) + var(--safe-area-bottom));
+  max-width: var(--content-max-width);
   margin: 0 auto;
 }
 

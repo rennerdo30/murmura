@@ -51,15 +51,14 @@ export default function ActionCard({
         </div>
       </div>
 
-      <Link href={href} className={styles.link}>
-        <Button
-          variant={variant === 'highlight' ? 'primary' : 'secondary'}
-          size="sm"
-          className={styles.actionButton}
-        >
-          {buttonText} <IoChevronForward />
-        </Button>
-      </Link>
+      <Button
+        href={href}
+        variant={variant === 'highlight' ? 'primary' : 'secondary'}
+        size="sm"
+        className={styles.actionButton}
+      >
+        {buttonText} <IoChevronForward aria-hidden="true" />
+      </Button>
     </Card>
   );
 }

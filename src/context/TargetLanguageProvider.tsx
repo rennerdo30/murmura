@@ -27,8 +27,9 @@ import {
 } from '@/lib/language';
 import { useLanguageConfigs } from './LanguageConfigProvider';
 import { useSettings } from './SettingsProvider';
+import { TARGET_LANGUAGE_STORAGE_KEY } from '@/constants';
 
-const TARGET_LANGUAGE_KEY = 'murmura_target_language';
+const TARGET_LANGUAGE_KEY = TARGET_LANGUAGE_STORAGE_KEY;
 
 export interface TargetLanguageContextType {
   // Current state

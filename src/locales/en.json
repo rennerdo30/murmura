@@ -813,7 +813,10 @@
       "auto": "Follow Language (Default)",
       "contrastWarningText": "Low contrast: text may be hard to read",
       "contrastWarningAccent": "Low contrast: accent color may be hard to see",
-      "contrastOk": "Color contrast looks good"
+      "contrastOk": "Color contrast looks good",
+      "themes": {
+        "light": "Daylight (Light)"
+      }
     },
     "backToDashboard": "Back to Dashboard"
   },
@@ -867,6 +870,7 @@
     }
   },
   "languages": {
+    "de": "German",
     "ja": "Japanese",
     "zh": "Chinese",
     "ko": "Korean",

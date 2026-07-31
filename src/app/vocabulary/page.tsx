@@ -177,7 +177,7 @@ export default function VocabularyPage() {
             label: t('vocabulary.tabs.allVocabulary'),
             badge: vocabulary.length
         },
-    ], [myVocabularyItems.length, vocabulary.length]);
+    ], [t, myVocabularyItems.length, vocabulary.length]);
 
     // Practice mode functions
     const generateMultipleChoice = useCallback((correctWord: VocabularyItem, available: VocabularyItem[]) => {
@@ -400,11 +400,9 @@ export default function VocabularyPage() {
                                         <FiCheck size={12} /> {t('vocabulary.actions.learned')}
                                     </span>
                                 ) : (
-                                    <Link href="/paths">
-                                        <Button variant="ghost" size="sm">
-                                            <FiBook size={14} /> {t('vocabulary.actions.learnInLessons')}
-                                        </Button>
-                                    </Link>
+                                    <Button href="/paths" variant="ghost" size="sm">
+                                        <FiBook size={14} /> {t('vocabulary.actions.learnInLessons')}
+                                    </Button>
                                 )}
                                 <Button
                                     variant="ghost"
@@ -454,11 +452,9 @@ export default function VocabularyPage() {
                     </div>
                     <Text variant="h2" color="gold">{t('vocabulary.empty.title')}</Text>
                     <Text color="muted">{t('vocabulary.empty.desc')}</Text>
-                    <Link href="/paths">
-                        <Button variant="primary" className={styles.emptyCta}>
-                            <IoPlay /> {t('vocabulary.empty.goToLessons')}
-                        </Button>
-                    </Link>
+                    <Button href="/paths" variant="primary" className={styles.emptyCta}>
+                        <IoPlay /> {t('vocabulary.empty.goToLessons')}
+                    </Button>
                 </div>
             );
         }

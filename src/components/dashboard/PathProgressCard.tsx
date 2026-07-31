@@ -62,11 +62,9 @@ export default function PathProgressCard({
         </Text>
       </div>
 
-      <Link href={`/paths/${pathId}`} className={styles.link}>
-        <Button variant="primary" className={styles.continueButton}>
-          {t('dashboard.continueLearning')} <IoChevronForward />
-        </Button>
-      </Link>
+      <Button href={`/paths/${pathId}`} variant="primary" className={styles.continueButton}>
+        {t('dashboard.continueLearning')} <IoChevronForward aria-hidden="true" />
+      </Button>
     </Card>
   );
 }

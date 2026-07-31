@@ -557,7 +557,10 @@
       "auto": "Suivre la langue (Par défaut)",
       "contrastWarningText": "Faible contraste : le texte peut être difficile à lire",
       "contrastWarningAccent": "Faible contraste : la couleur d'accent peut être difficile à voir",
-      "contrastOk": "Le contraste des couleurs est bon"
+      "contrastOk": "Le contraste des couleurs est bon",
+      "themes": {
+        "light": "Lumière du jour (Clair)"
+      }
     },
     "backToDashboard": "Retour au tableau de bord"
   },
@@ -611,6 +614,7 @@
     }
   },
   "languages": {
+    "de": "Allemand",
     "ja": "Japonais",
     "zh": "Chinois",
     "ko": "Coréen",

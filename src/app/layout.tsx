@@ -7,6 +7,35 @@ import { TargetLanguageProvider } from '@/context/TargetLanguageProvider'
 import { Providers } from '@/components/providers'
 import ClientLayout from '@/components/layout/ClientLayout'
 import { ReactNode } from 'react'
+import {
+  DEFAULT_THEME,
+  SETTINGS_STORAGE_KEY,
+  TARGET_LANGUAGE_STORAGE_KEY,
+} from '@/constants'
+
+/**
+ * Applies the stored theme before first paint. Without this, everyone starts on
+ * the dark default and users on the light theme see a dark flash on every cold
+ * load. Mirrors the resolution order in TargetLanguageProvider.
+ */
+const themeBootstrapScript = `
+try {
+  var settings = JSON.parse(localStorage.getItem('${SETTINGS_STORAGE_KEY}') || '{}');
+  var target = localStorage.getItem('${TARGET_LANGUAGE_STORAGE_KEY}');
+  var perLanguage = settings.languageThemes || {};
+  var theme = '${DEFAULT_THEME}';
+  if (settings.globalTheme && settings.globalTheme !== 'auto') {
+    theme = settings.globalTheme;
+  } else if (target && perLanguage[target] && perLanguage[target] !== 'auto') {
+    theme = perLanguage[target];
+  } else if (target) {
+    theme = target;
+  }
+  document.documentElement.setAttribute('data-theme', theme);
+} catch (error) {
+  document.documentElement.setAttribute('data-theme', '${DEFAULT_THEME}');
+}
+`
 
 export const metadata = {
   title: 'Murmura - Learn Languages',
@@ -42,7 +71,10 @@ interface RootLayoutProps {
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="en">
+    <html lang="en" data-theme={DEFAULT_THEME}>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeBootstrapScript }} />
+      </head>
       <body>
         <Providers>
           <LanguageConfigProvider>

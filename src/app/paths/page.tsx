@@ -214,11 +214,9 @@ export default function PathsPage() {
                 </div>
               )}
             </div>
-            <Link href="/review" className={styles.adaptiveAction}>
-              <Button>
-                <IoPlay /> {t('paths.startLearning')}
-              </Button>
-            </Link>
+            <Button href="/review" className={styles.adaptiveAction}>
+              <IoPlay /> {t('paths.startLearning')}
+            </Button>
           </Card>
         </section>
       )}

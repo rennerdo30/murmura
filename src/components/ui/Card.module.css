@@ -1,33 +1,38 @@
 .card {
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
-  border-radius: 8px;
+  border-radius: var(--radius-lg);
   position: relative;
   overflow: hidden;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform var(--duration-base) var(--ease-out),
+    box-shadow var(--duration-base) var(--ease-out),
+    border-color var(--duration-base) var(--ease-out);
 }
 
 .card::before {
   content: '';
   position: absolute;
   inset: -1px;
-  border-radius: 8px;
+  border-radius: var(--radius-lg);
   padding: 1px;
-  background: linear-gradient(135deg, rgba(212, 165, 116, 0.2), transparent, rgba(196, 30, 58, 0.2));
+  background: linear-gradient(135deg,
+      color-mix(in srgb, var(--accent-gold) 22%, transparent),
+      transparent,
+      color-mix(in srgb, var(--accent-red) 22%, transparent));
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   pointer-events: none;
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity var(--duration-base) var(--ease-out);
 }
 
 .default {
-  box-shadow: var(--shadow-deep);
+  box-shadow: var(--shadow-md);
 }
 
 .elevated {
-  box-shadow: var(--shadow-deep);
+  box-shadow: var(--shadow-lg);
   border-color: var(--accent-gold);
 }
 
@@ -41,15 +46,15 @@
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--glass-border);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-md);
   background-image: linear-gradient(to bottom right,
-      rgba(255, 255, 255, 0.03),
+      var(--surface-overlay-soft),
       transparent);
 }
 
 .hover:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+  box-shadow: var(--shadow-lg);
   border-color: var(--accent-gold);
 }
 
@@ -58,21 +63,12 @@
 }
 
 /* Focus indicators for keyboard navigation */
-.hover:focus-within {
-  outline: 2px solid var(--accent-gold);
-  outline-offset: 2px;
-}
-
+.hover:focus-within,
 .card:has(> a:focus-visible),
-.card:has(> button:focus-visible) {
-  outline: 2px solid var(--accent-gold);
-  outline-offset: 2px;
-}
-
-/* When card itself is focusable */
+.card:has(> button:focus-visible),
 .card:focus-visible {
-  outline: 2px solid var(--accent-gold);
-  outline-offset: 2px;
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
 }
 
 /* Respect reduced motion preference */

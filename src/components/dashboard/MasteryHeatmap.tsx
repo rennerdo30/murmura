@@ -2,7 +2,7 @@
 
 import { useMemo, Fragment } from 'react';
 import Link from 'next/link';
-import { Card, Text } from '@/components/ui';
+import { Card, Text, Spinner } from '@/components/ui';
 import { useRecommendations } from '@/hooks/useRecommendations';
 import { useProgressContext } from '@/context/ProgressProvider';
 import { useTargetLanguage } from '@/hooks/useTargetLanguage';
@@ -58,7 +58,8 @@ export default function MasteryHeatmap({ className }: MasteryHeatmapProps) {
   if (isLoading) {
     return (
       <Card variant="glass" className={`${styles.heatmap} ${className || ''}`}>
-        <div className={styles.loading}>
+        <div className={styles.loading} role="status" aria-live="polite">
+          <Spinner />
           <Text color="muted">{t('common.loading')}</Text>
         </div>
       </Card>

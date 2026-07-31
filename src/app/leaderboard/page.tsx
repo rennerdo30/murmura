@@ -114,7 +114,7 @@ export default function LeaderboardPage() {
   const selectedLanguageName = useMemo(() => {
     if (!languageFilter) return t('leaderboard.global') || (t('leaderboard.global') || 'Global');
     return languages.find(l => l.code === languageFilter)?.name || 'Global';
-  }, [languageFilter]);
+  }, [t, languageFilter, languages]);
 
   const isLoading = leaderboardData === undefined;
 

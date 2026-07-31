@@ -645,6 +645,7 @@ export default function SettingsPage() {
               onChange={(e) => handleThemeChange(e.target.value)}
             >
               <option value="auto">{t('settings.appearance.auto')}</option>
+              <option value="light">{t('settings.appearance.themes.light')}</option>
               <option value="ja">Japanese (Zen Garden)</option>
               <option value="zh">Chinese (Silk Road)</option>
               <option value="ko">Korean (Hanok)</option>
@@ -676,6 +677,7 @@ export default function SettingsPage() {
                     onChange={(e) => handleLanguageThemeChange(langCode, e.target.value)}
                   >
                     <option value="auto">{t('settings.appearance.auto')}</option>
+                    <option value="light">{t('settings.appearance.themes.light')}</option>
                     <option value="ja">{t('languages.ja')}</option>
                     <option value="zh">{t('languages.zh')}</option>
                     <option value="ko">{t('languages.ko')}</option>

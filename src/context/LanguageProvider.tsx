@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { LanguageContextValue, ContextProviderProps } from '@/types/context';
+import englishTranslations from '@/locales/en.json';
 
 export const LanguageContext = createContext<LanguageContextValue | null>(null);
 
@@ -31,7 +32,11 @@ interface TranslationObject {
 
 export function LanguageProvider({ children }: ContextProviderProps) {
     const [language, setLanguage] = useState(DEFAULT_LANGUAGE);
-    const [translations, setTranslations] = useState<TranslationObject | null>(null);
+    // Seeded with English so the first paint shows real copy instead of raw
+    // translation keys while the detected locale is still being fetched.
+    const [translations, setTranslations] = useState<TranslationObject | null>(
+        englishTranslations as TranslationObject
+    );
     const [isLoading, setIsLoading] = useState(true);
 
     // Detect browser language on mount
@@ -64,6 +69,11 @@ export function LanguageProvider({ children }: ContextProviderProps) {
 
         const detectedLang = detectLanguage();
         setLanguage(detectedLang);
+        if (detectedLang === DEFAULT_LANGUAGE) {
+            // Already bundled - no need for a second fetch
+            setIsLoading(false);
+            return;
+        }
         loadTranslations(detectedLang);
     }, []);
 

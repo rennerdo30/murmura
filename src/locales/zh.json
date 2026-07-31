@@ -557,7 +557,10 @@
       "auto": "跟随语言（默认）",
       "contrastWarningText": "对比度低：文本可能难以阅读",
       "contrastWarningAccent": "对比度低：强调色可能难以看清",
-      "contrastOk": "颜色对比度良好"
+      "contrastOk": "颜色对比度良好",
+      "themes": {
+        "light": "日光（浅色）"
+      }
     },
     "backToDashboard": "返回仪表板"
   },
@@ -611,6 +614,7 @@
     }
   },
   "languages": {
+    "de": "德语",
     "ja": "日语",
     "zh": "中文",
     "ko": "韩语",

@@ -560,3 +560,15 @@
     width: 100%;
   }
 }
+
+/* Keyboard focus ring - the rules above drop the default outline for
+   pointer focus, so restore a visible ring for keyboard users. */
+.voiceSelect:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.overrideSelect:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+}

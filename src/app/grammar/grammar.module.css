@@ -41,7 +41,7 @@
 
 .exampleJa {
     font-size: 1.4rem;
-    font-family: 'Zen Kaku Gothic New', sans-serif;
+    font-family: var(--font-cjk);
     font-weight: 700;
     margin-bottom: 0.5rem;
 }
@@ -161,7 +161,7 @@
 
 .grammarBrowseCard.learned {
   border-color: var(--color-success);
-  background: linear-gradient(135deg, var(--color-surface), rgba(var(--color-success-rgb), 0.05));
+  background: linear-gradient(135deg, var(--color-surface), color-mix(in srgb, var(--color-success) 5%, transparent));
 }
 
 .grammarHeader {
@@ -211,7 +211,7 @@
   align-items: center;
   gap: 0.25rem;
   padding: 0.25rem 0.5rem;
-  background: rgba(var(--color-success-rgb), 0.15);
+  background: color-mix(in srgb, var(--color-success) 15%, transparent);
   color: var(--color-success);
   border-radius: 9999px;
   font-size: 0.75rem;

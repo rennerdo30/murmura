@@ -52,7 +52,7 @@ export default function LearningCompass({ className }: LearningCompassProps) {
         labelY: 50 + 48 * Math.sin(radian),
       };
     });
-  }, [stats, isModuleEnabled, targetLanguage]);
+  }, [t, stats, isModuleEnabled, targetLanguage]);
 
   // Generate polygon points string
   const polygonPoints = radarData.map((d) => `${d.x},${d.y}`).join(' ');
@@ -60,8 +60,8 @@ export default function LearningCompass({ className }: LearningCompassProps) {
   if (isLoading) {
     return (
       <Card variant="glass" className={`${styles.compass} ${className || ''}`}>
-        <div className={styles.loading}>
-          <IoCompass className={styles.loadingIcon} />
+        <div className={styles.loading} role="status" aria-live="polite">
+          <IoCompass className={styles.loadingIcon} aria-hidden="true" />
           <Text color="muted">{t('common.loading')}</Text>
         </div>
       </Card>
@@ -162,11 +162,9 @@ export default function LearningCompass({ className }: LearningCompassProps) {
               <IoTime /> {t('dashboard.compass.min', { count: topRecommendation.estimatedMinutes })}
             </Text>
           )}
-          <Link href={topRecommendation.action.target}>
-            <Button size="sm" className={styles.nextActionButton}>
-              <IoPlay /> {t('common.start')}
-            </Button>
-          </Link>
+          <Button href={topRecommendation.action.target} size="sm" className={styles.nextActionButton}>
+            <IoPlay aria-hidden="true" /> {t('common.start')}
+          </Button>
         </div>
       )}
 

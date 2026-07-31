@@ -10,3 +10,4 @@ export { default as InputSection } from './InputSection';
 export { default as Toggle } from './Toggle';
 export { default as Chip } from './Chip';
 export { default as Animated } from './Animated';
+export { default as Spinner } from './Spinner';

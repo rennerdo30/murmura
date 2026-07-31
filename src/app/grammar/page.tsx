@@ -188,7 +188,7 @@ export default function GrammarPage() {
             label: t('grammar.tabs.allGrammar'),
             badge: grammarPoints.length
         },
-    ], [myGrammarItems.length, grammarPoints.length]);
+    ], [t, myGrammarItems.length, grammarPoints.length]);
 
     const handleFilterChange = useCallback((id: string, checked: boolean) => {
         setFilters(prev => ({ ...prev, [id]: { ...prev[id], checked } }));
@@ -297,11 +297,9 @@ export default function GrammarPage() {
                                         <FiCheck size={12} /> {t('grammar.actions.learned')}
                                     </span>
                                 ) : (
-                                    <Link href="/paths">
-                                        <Button variant="ghost" size="sm">
-                                            <FiBook size={14} /> {t('grammar.actions.learnInLessons')}
-                                        </Button>
-                                    </Link>
+                                    <Button href="/paths" variant="ghost" size="sm">
+                                        <FiBook size={14} /> {t('grammar.actions.learnInLessons')}
+                                    </Button>
                                 )}
                             </div>
                         </div>
@@ -328,11 +326,9 @@ export default function GrammarPage() {
                     <FiBook className={styles.emptyIcon} />
                     <Text variant="h3">{t('grammar.empty.title')}</Text>
                     <Text color="muted">{t('grammar.empty.desc')}</Text>
-                    <Link href="/paths">
-                        <Button variant="primary" className="mt-4">
-                            {t('grammar.empty.goToLessons')}
-                        </Button>
-                    </Link>
+                    <Button href="/paths" variant="primary">
+                        {t('grammar.empty.goToLessons')}
+                    </Button>
                 </div>
             );
         }

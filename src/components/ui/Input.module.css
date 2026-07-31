@@ -1,17 +1,23 @@
 .input {
-  font-family: 'Zen Kaku Gothic New', sans-serif;
+  font-family: var(--font-primary);
   color: var(--text-primary);
   background: var(--bg-card);
-  border: 2px solid var(--border-subtle);
-  border-radius: 8px;
+  border: 2px solid var(--glass-border);
+  border-radius: var(--radius-md);
   outline: none;
-  transition: all 0.3s ease;
+  transition: border-color var(--duration-base) var(--ease-out),
+    box-shadow var(--duration-base) var(--ease-out),
+    background-color var(--duration-base) var(--ease-out);
   caret-color: var(--accent-gold);
   width: 100%;
 }
 
 .input::placeholder {
   color: var(--text-muted);
+}
+
+.input:hover:not(:disabled):not(:focus) {
+  border-color: var(--accent-gold-border);
 }
 
 .input:focus {
@@ -26,13 +32,13 @@
 
 /* Variants */
 .default {
-  border-color: var(--border-subtle);
+  border-color: var(--glass-border);
 }
 
 .error {
   color: var(--accent-red);
   border-color: var(--accent-red);
-  background: rgba(196, 30, 58, 0.1);
+  background: color-mix(in srgb, var(--accent-red) 10%, var(--bg-card));
   animation: shake 0.5s ease-out;
 }
 
@@ -43,24 +49,31 @@
 
 /* Sizes */
 .sm {
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--text-base);
+  min-height: var(--tap-target-min);
 }
 
 .md {
-  padding: 0.75rem 1.25rem;
-  font-size: 1.25rem;
+  padding: var(--space-3) var(--space-5);
+  font-size: var(--text-xl);
 }
 
 .lg {
-  padding: 1rem 1.5rem;
-  font-size: 2.5rem;
+  padding: var(--space-4) var(--space-6);
+  font-size: clamp(1.75rem, 6vw, 2.5rem);
   text-align: center;
   font-weight: 500;
 }
 
 .fullWidth {
   width: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .error {
+    animation: none;
+  }
 }
 
 @keyframes shake {
@@ -85,4 +98,11 @@
     font-size: 1.75rem;
     padding: 0.85rem 1rem;
   }
+}
+
+/* Keyboard focus ring - the rules above drop the default outline for
+   pointer focus, so restore a visible ring for keyboard users. */
+.input:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
 }

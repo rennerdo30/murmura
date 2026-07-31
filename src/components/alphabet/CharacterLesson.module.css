@@ -31,7 +31,7 @@
 
 .characterDisplay {
     font-size: clamp(6rem, 25vw, 10rem);
-    font-family: 'Zen Kaku Gothic New', sans-serif;
+    font-family: var(--font-cjk);
     font-weight: 700;
     color: var(--text-primary);
     line-height: 1;
