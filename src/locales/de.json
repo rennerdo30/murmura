@@ -557,7 +557,10 @@
       "auto": "Sprache folgen (Standard)",
       "contrastWarningText": "Niedriger Kontrast: Text könnte schwer lesbar sein",
       "contrastWarningAccent": "Niedriger Kontrast: Akzentfarbe könnte schwer sichtbar sein",
-      "contrastOk": "Farbkontrast sieht gut aus"
+      "contrastOk": "Farbkontrast sieht gut aus",
+      "themes": {
+        "light": "Tageslicht (Hell)"
+      }
     },
     "backToDashboard": "Zurück zum Dashboard"
   },
@@ -611,6 +614,7 @@
     }
   },
   "languages": {
+    "de": "Deutsch",
     "ja": "Japanisch",
     "zh": "Chinesisch",
     "ko": "Koreanisch",

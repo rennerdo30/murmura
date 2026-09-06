@@ -135,7 +135,7 @@ export default function ReadingPage() {
             label: t('reading.tabs.allReadings'),
             badge: readings.length
         },
-    ], [myReadingItems.length, readings.length]);
+    ], [t, myReadingItems.length, readings.length]);
 
     // Update current reading when filters change
     useEffect(() => {

@@ -348,16 +348,12 @@ export default function PathDetailContent() {
                           />
                         </div>
                         <div className={styles.milestoneActions}>
-                          <Link href={`/paths/${pathId}/${milestone.lessons?.[0] || milestone.id}`}>
-                            <Button size="sm">
-                              <IoPlay /> {t('pathDetail.startLesson')}
-                            </Button>
-                          </Link>
-                          <Link href="/review">
-                            <Button size="sm" variant="ghost">
-                              {t('pathDetail.reviewProgress')}
-                            </Button>
-                          </Link>
+                          <Button href={`/paths/${pathId}/${milestone.lessons?.[0] || milestone.id}`} size="sm">
+                            <IoPlay aria-hidden="true" /> {t('pathDetail.startLesson')}
+                          </Button>
+                          <Button href="/review" size="sm" variant="ghost">
+                            {t('pathDetail.reviewProgress')}
+                          </Button>
                         </div>
                       </>
                     )}

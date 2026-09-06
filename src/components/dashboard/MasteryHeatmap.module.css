@@ -22,8 +22,11 @@
 
 .loading {
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  padding: 2rem;
+  gap: var(--space-3);
+  padding: var(--space-8);
 }
 
 /* Grid */

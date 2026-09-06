@@ -1,0 +1,36 @@
+.spinner {
+  display: inline-block;
+  flex: none;
+  border-radius: var(--radius-pill);
+  border-style: solid;
+  border-color: var(--border-subtle);
+  border-top-color: var(--accent-gold);
+  animation: spin 750ms linear infinite;
+}
+
+.sm {
+  width: 1rem;
+  height: 1rem;
+  border-width: 2px;
+}
+
+.md {
+  width: 1.75rem;
+  height: 1.75rem;
+  border-width: 3px;
+}
+
+.lg {
+  width: 2.75rem;
+  height: 2.75rem;
+  border-width: 4px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* prefers-reduced-motion is handled globally in styles/globals.css, which
+   stops the rotation and leaves a static ring. */

@@ -319,7 +319,7 @@
 
 /* Japanese Icon */
 .japaneseIcon {
-  font-family: 'Zen Kaku Gothic New', sans-serif;
+  font-family: var(--font-cjk);
   font-weight: 700;
 }
 

@@ -16,7 +16,7 @@ import AuthButton from '@/components/common/AuthButton';
 import XPDisplay from '@/components/gamification/XPDisplay';
 import StreakBadge from '@/components/gamification/StreakBadge';
 import DailyGoalCard from '@/components/gamification/DailyGoalCard';
-import { Container, Card, Text, Animated, Button } from '@/components/ui';
+import { Container, Card, Text, Animated, Button, Spinner } from '@/components/ui';
 import { IoFlame, IoBook, IoSchool, IoTime, IoDocumentText, IoHeadset, IoMap, IoRefresh, IoTrophy, IoSettings, IoPlay, IoChevronDown } from 'react-icons/io5';
 import { PiExam } from 'react-icons/pi';
 import { useMobile } from '@/hooks/useMobile';
@@ -174,14 +174,18 @@ function Dashboard() {
     }, [initialized, summary, getModuleProgress, refresh, filteredModules]);
 
     if (!summary) {
-        return <Container variant="dashboard">{t('common.loading')}</Container>;
+        return (
+            <Container variant="dashboard">
+                <div className={styles.loadingState} role="status" aria-live="polite">
+                    <Spinner size="lg" />
+                    <Text color="secondary">{t('common.loading')}</Text>
+                </div>
+            </Container>
+        );
     }
 
     return (
-        <Container variant="dashboard">
-            <div className={styles.languageSwitcher}>
-                <LanguageSwitcher />
-            </div>
+        <Container variant="dashboard" className={styles.dashboardShell}>
             <Animated animation="float" infinite className={styles.backgroundKanji} aria-hidden="true">
                 {getBackgroundDecoration(targetLanguage)}
             </Animated>
@@ -190,49 +194,50 @@ function Dashboard() {
                     <div>
 
 
+                        {/* Wordmark colours come from the active theme so the logo
+                            follows the language theme and the light theme. */}
                         <svg className={styles.wordmark} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 220" role="img" aria-label={t('dashboard.title')}>
                             <defs>
-                                <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" stopColor="#1a1a2e" />
-                                    <stop offset="100%" stopColor="#0f0f1a" />
+                                <linearGradient id="murmuraSealGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stopColor="var(--bg-secondary)" />
+                                    <stop offset="100%" stopColor="var(--bg-primary)" />
                                 </linearGradient>
-                                <linearGradient id="ringGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" stopColor="#c41e3a" />
-                                    <stop offset="50%" stopColor="#d4a574" />
-                                    <stop offset="100%" stopColor="#c41e3a" />
+                                <linearGradient id="murmuraRingGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stopColor="var(--accent-red)" />
+                                    <stop offset="50%" stopColor="var(--accent-gold)" />
+                                    <stop offset="100%" stopColor="var(--accent-red)" />
                                 </linearGradient>
                             </defs>
 
                             <g transform="translate(80,110)">
-                                <circle r="70" fill="url(#bgGradient)" stroke="url(#ringGradient)" strokeWidth="4" />
+                                <circle r="70" fill="url(#murmuraSealGradient)" stroke="url(#murmuraRingGradient)" strokeWidth="4" />
                                 <text x="0" y="0"
                                     textAnchor="middle"
                                     dominantBaseline="central"
                                     fontSize="68"
                                     fontWeight="700"
-                                    fill="#f5f0e8"
-                                    fontFamily="'Noto Sans JP','Hiragino Sans','Yu Gothic',system-ui,sans-serif">学</text>
+                                    fill="var(--accent-gold)"
+                                    fontFamily="var(--font-cjk)">学</text>
                             </g>
 
                             <g transform="translate(190,0)">
                                 <text x="0" y="118"
                                     fontSize="120"
                                     fontWeight="700"
-                                    fill="#f5f0e8"
+                                    fill="var(--text-primary)"
                                     letterSpacing="1.2"
-                                    fontFamily="'Playfair Display','Libre Baskerville','Georgia',serif">{t('dashboard.title')}</text>
+                                    fontFamily="var(--font-secondary)">{t('dashboard.title')}</text>
 
-                                <g transform="translate(12,145)" fill="none" stroke="#d4a574" strokeLinecap="round" opacity="0.40">
+                                <g transform="translate(12,145)" fill="none" stroke="var(--accent-gold)" strokeLinecap="round" opacity="0.4">
                                     <path d="M0 0 C45 -24, 95 -24, 140 0 S235 24, 280 0" strokeWidth="4" />
                                     <path d="M0 18 C45 -6, 95 -6, 140 18 S235 42, 280 18" strokeWidth="3" opacity="0.6" />
                                 </g>
 
                                 <text x="12" y="196"
                                     fontSize="30"
-                                    fill="#d4a574"
-                                    opacity="0.85"
+                                    fill="var(--accent-gold)"
                                     letterSpacing="2.2"
-                                    fontFamily="system-ui,-apple-system,'Segoe UI',Roboto,'Fira Sans',sans-serif">{t('dashboard.subtitle')}</text>
+                                    fontFamily="var(--font-primary)">{t('dashboard.subtitle')}</text>
                             </g>
                         </svg>
 
@@ -242,6 +247,7 @@ function Dashboard() {
                     </div>
                     <div className={styles.headerActions}>
                         <TargetLanguageSelector />
+                        <LanguageSwitcher />
                         <AuthButton />
                     </div>
                 </div>
@@ -256,11 +262,12 @@ function Dashboard() {
                             <Text variant="h2">{getText(currentLesson.titleTranslations, currentLesson.title)}</Text>
                             <Text variant="body" color="secondary">{getText(currentLesson.descriptionTranslations, currentLesson.description)}</Text>
                         </div>
-                        <Link href={`/paths/${getPathIdForLanguage(targetLanguage)}/${currentLesson.id}`}>
-                            <Button className={styles.continueLessonButton}>
-                                <IoPlay /> {t('common.continue')}
-                            </Button>
-                        </Link>
+                        <Button
+                            href={`/paths/${getPathIdForLanguage(targetLanguage)}/${currentLesson.id}`}
+                            className={styles.continueLessonButton}
+                        >
+                            <IoPlay aria-hidden="true" /> {t('common.continue')}
+                        </Button>
                     </div>
                 </Card>
             )}
@@ -280,7 +287,7 @@ function Dashboard() {
             <div className={styles.statsOverview}>
                 <Card variant="glass" hover className={`${styles.statCard} fadeInUp stagger-1`}>
                     <div className={styles.statIcon}><IoFlame /></div>
-                    <Text variant="h2" color="gold" className={styles.statValue}>
+                    <Text variant="h2" as="span" color="gold" className={styles.statValue}>
                         {summary.streak || 0}
                     </Text>
                     <Text variant="label" color="muted" className={styles.statLabel}>
@@ -289,7 +296,7 @@ function Dashboard() {
                 </Card>
                 <Card variant="glass" hover className={`${styles.statCard} fadeInUp stagger-2`}>
                     <div className={styles.statIcon}><IoBook /></div>
-                    <Text variant="h2" color="gold" className={styles.statValue}>
+                    <Text variant="h2" as="span" color="gold" className={styles.statValue}>
                         {summary.totalWords || 0}
                     </Text>
                     <Text variant="label" color="muted" className={styles.statLabel}>
@@ -298,7 +305,7 @@ function Dashboard() {
                 </Card>
                 <Card variant="glass" hover className={`${styles.statCard} fadeInUp stagger-3`}>
                     <div className={styles.statIcon}><IoSchool /></div>
-                    <Text variant="h2" color="gold" className={styles.statValue}>
+                    <Text variant="h2" as="span" color="gold" className={styles.statValue}>
                         {summary.totalKanji || 0}
                     </Text>
                     <Text variant="label" color="muted" className={styles.statLabel}>
@@ -307,7 +314,7 @@ function Dashboard() {
                 </Card>
                 <Card variant="glass" hover className={`${styles.statCard} fadeInUp stagger-4`}>
                     <div className={styles.statIcon}><IoTime /></div>
-                    <Text variant="h2" color="gold" className={styles.statValue}>
+                    <Text variant="h2" as="span" color="gold" className={styles.statValue}>
                         {Math.round((summary.totalStudyTime || 0) / 60)}
                     </Text>
                     <Text variant="label" color="muted" className={styles.statLabel}>
@@ -318,36 +325,24 @@ function Dashboard() {
 
             {/* Quick Actions */}
             <div className={styles.quickActions}>
-                <Link href="/assessment/placement">
-                    <Button variant="ghost" className={styles.quickActionButton}>
-                        <PiExam /> {t('dashboard.placementTest')}
-                    </Button>
-                </Link>
-                <Link href="/paths">
-                    <Button variant="ghost" className={styles.quickActionButton}>
-                        <IoMap /> {t('dashboard.browsePaths')}
-                    </Button>
-                </Link>
-                <Link href="/review">
-                    <Button variant="ghost" className={styles.quickActionButton}>
-                        <IoRefresh /> {t('dashboard.reviewDashboardStat')}
-                    </Button>
-                </Link>
-                <Link href="/pronunciation">
-                    <Button variant="ghost" className={styles.quickActionButton}>
-                        <IoHeadset /> {t('dashboard.pronunciation')}
-                    </Button>
-                </Link>
-                <Link href="/leaderboard">
-                    <Button variant="ghost" className={styles.quickActionButton}>
-                        <IoTrophy /> {t('dashboard.leaderboardStat')}
-                    </Button>
-                </Link>
-                <Link href="/settings">
-                    <Button variant="ghost" className={styles.quickActionButton}>
-                        <IoSettings /> {t('dashboard.settingsStat')}
-                    </Button>
-                </Link>
+                <Button href="/assessment/placement" variant="ghost" className={styles.quickActionButton}>
+                    <PiExam aria-hidden="true" /> {t('dashboard.placementTest')}
+                </Button>
+                <Button href="/paths" variant="ghost" className={styles.quickActionButton}>
+                    <IoMap aria-hidden="true" /> {t('dashboard.browsePaths')}
+                </Button>
+                <Button href="/review" variant="ghost" className={styles.quickActionButton}>
+                    <IoRefresh aria-hidden="true" /> {t('dashboard.reviewDashboardStat')}
+                </Button>
+                <Button href="/pronunciation" variant="ghost" className={styles.quickActionButton}>
+                    <IoHeadset aria-hidden="true" /> {t('dashboard.pronunciation')}
+                </Button>
+                <Button href="/leaderboard" variant="ghost" className={styles.quickActionButton}>
+                    <IoTrophy aria-hidden="true" /> {t('dashboard.leaderboardStat')}
+                </Button>
+                <Button href="/settings" variant="ghost" className={styles.quickActionButton}>
+                    <IoSettings aria-hidden="true" /> {t('dashboard.settingsStat')}
+                </Button>
             </div>
 
             {/* Dashboard Widgets - collapsible on mobile */}
@@ -392,7 +387,7 @@ function Dashboard() {
                         <Link key={module.id} href={module.href}>
                             <Card variant="glass" hover className={`${styles.moduleCard} fadeInUp stagger-${(index % 6) + 1}`}>
                                 <div className={styles.moduleIcon}>{module.icon}</div>
-                                <Text variant="h2" className={styles.moduleTitle}>
+                                <Text variant="h2" as="h3" className={styles.moduleTitle}>
                                     {moduleNames.title}
                                 </Text>
                                 <Text variant="body" color="secondary" className={styles.moduleDescription}>

@@ -58,12 +58,10 @@ export default function LanguageContentGuard({
           <Text variant="caption" color="muted" align="center" style={{ marginBottom: '2rem' }}>
             {t('contentGuard.availableFor', { languages: availableLanguages.length > 0 ? availableLanguages.map(l => l.toUpperCase()).join(', ') : t('contentGuard.noLanguages') })}
           </Text>
-          <Link href="/">
-            <Button variant="primary">
-              <IoArrowBack style={{ marginRight: '0.5rem' }} />
-              {t('common.dashboard')}
-            </Button>
-          </Link>
+          <Button href="/" variant="primary">
+            <IoArrowBack aria-hidden="true" />
+            {t('common.dashboard')}
+          </Button>
         </Card>
       </Container>
     );

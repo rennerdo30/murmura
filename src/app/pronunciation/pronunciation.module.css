@@ -257,3 +257,10 @@
     display: none;
   }
 }
+
+/* Keyboard focus ring - the rules above drop the default outline for
+   pointer focus, so restore a visible ring for keyboard users. */
+.filterGroup select:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+}

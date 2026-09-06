@@ -26,15 +26,29 @@
   - **Mobile**: Touch-friendly multiple choice
 - **Spaced Repetition**: SRS-based review system for optimal retention
 - **Progress Tracking**: Persistent stats with Convex backend
-- **Text-to-Speech**: High-quality pronunciation with ElevenLabs
+- **Text-to-Speech**: Pre-generated audio first, then Edge TTS, in-browser Kokoro,
+  and the Web Speech API as fallbacks
+- **Gamification**: XP, levels, streaks, daily goals and achievements
 - **Offline Support**: Works without internet after initial load
+
+## Appearance and languages
+
+- **Themes**: every target language ships a culturally-themed dark palette
+  (Zen Garden, Schwarzwald, Sol y Sombra, ...) plus a **Daylight** light theme.
+  Pick one globally or per language under *Settings -> Appearance*, or override
+  individual colours there.
+- **Interface language**: the UI itself is translated into 12 languages and
+  follows the browser language by default (switcher in the dashboard header).
+- **Accessibility**: keyboard focus rings throughout, a skip link, touch targets
+  of at least 44px and full `prefers-reduced-motion` support.
 
 ## Tech Stack
 
-- **Next.js** (v16.1.1) - React framework with App Router
+- **Next.js 16** (App Router, static export) with **React 19**
 - **TypeScript** - Type-safe development
-- **Convex** - Backend for user data and authentication
-- **ElevenLabs/Kokoro TTS** - High-quality text-to-speech
+- **CSS Modules** + CSS custom properties for theming and design tokens
+- **Convex** - Backend for progress sync and authentication
+- **Edge TTS / Kokoro** - Text-to-speech, with pre-generated audio where available
 - **GitHub Pages** - Static hosting
 
 ## Getting Started
@@ -48,12 +62,18 @@ cd murmura
 npm install
 ```
 
-2. Start the development server:
+2. Generate the Convex client (creates `convex/_generated`, which the app
+   imports and which is not checked in):
+```bash
+npx convex dev   # keep running for a live backend, or use `npx convex codegen`
+```
+
+3. Start the development server:
 ```bash
 npm run dev
 ```
 
-3. Open [http://localhost:3000](http://localhost:3000)
+4. Open [http://localhost:3000](http://localhost:3000)
 
 ### Environment Variables
 
@@ -63,6 +83,20 @@ CONVEX_DEPLOYMENT=dev:your-deployment
 NEXT_PUBLIC_CONVEX_URL=https://your-deployment.convex.cloud
 ELEVENLABS_API_KEY=sk_...  # Optional, for audio generation
 ```
+
+See `.env.example` for the full list.
+
+### Scripts
+
+| Script | Purpose |
+|--------|---------|
+| `npm run dev` | Development server |
+| `npm run build` | Production build / static export into `out/` |
+| `npm run deploy` | Deploy Convex functions and build the frontend |
+| `npm run generate-audio` | Pre-generate TTS audio files |
+| `npm run check-i18n` | Verify every locale has all keys from `en.json` |
+| `npm run find-missing-i18n` | List translation keys used in code but missing from `en.json` |
+| `npx tsc --noEmit` | Type-check without emitting |
 
 ## Project Structure
 
@@ -79,7 +113,8 @@ murmura/
 │   │   ├── zh/             # Chinese
 │   │   └── ...
 │   ├── lib/                # Utilities
-│   ├── styles/             # CSS and themes
+│   ├── locales/            # UI translations (12 languages)
+│   ├── styles/             # Design tokens (globals.css) + per-theme palettes
 │   └── types/              # TypeScript types
 ├── convex/                 # Backend functions
 ├── public/                 # Static assets & audio
@@ -106,7 +141,8 @@ Open source for educational purposes.
 
 - [Wanakana.js](https://github.com/WaniKani/WanaKana) - Japanese character conversion
 - [Convex](https://convex.dev) - Backend platform
-- [ElevenLabs](https://elevenlabs.io) - Text-to-speech
+- [Kokoro](https://github.com/hexgrad/kokoro) - In-browser text-to-speech
+- [ElevenLabs](https://elevenlabs.io) - Optional voices for the audio generation tool
 
 ---
 

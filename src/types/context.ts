@@ -15,7 +15,7 @@ export interface LanguageContextValue {
     }>;
 }
 
-export type ThemeOverride = 'auto' | 'ja' | 'es' | 'de' | 'en' | 'it' | 'ko' | 'zh' | 'fr';
+export type ThemeOverride = 'auto' | 'light' | 'ja' | 'es' | 'de' | 'en' | 'it' | 'ko' | 'zh' | 'fr';
 
 export interface Settings {
     globalTheme: ThemeOverride;

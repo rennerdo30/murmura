@@ -1,10 +1,3 @@
-.languageSwitcher {
-  position: fixed;
-  top: calc(1rem + var(--safe-area-top));
-  right: calc(1rem + var(--safe-area-right));
-  z-index: 1000;
-}
-
 .header {
   text-align: center;
   margin-bottom: 3rem;
@@ -32,8 +25,10 @@
 
 .headerActions {
   display: flex;
-  gap: 1rem;
+  gap: var(--space-3);
   align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
   position: relative;
   z-index: 200;
 }
@@ -43,7 +38,7 @@
 }
 
 .subtitle {
-  font-family: 'Crimson Pro', serif;
+  font-family: var(--font-secondary);
 }
 
 .wordmark {
@@ -119,7 +114,7 @@
 }
 
 .japaneseIcon {
-  font-family: 'Zen Kaku Gothic New', sans-serif;
+  font-family: var(--font-cjk);
   font-weight: 700;
 }
 
@@ -436,5 +431,24 @@
   .backgroundKanji,
   .backgroundKanji * {
     animation: none !important;
+  }
+}
+
+/* Loading state */
+.loadingState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  min-height: 40vh;
+  text-align: center;
+}
+
+/* Keep dashboard content clear of the fixed Learning Companion rail, which
+   otherwise covers the header actions and the "continue" call to action. */
+@media (min-width: 1024px) {
+  .dashboardShell {
+    padding-right: calc(var(--space-8) + var(--companion-width) + var(--space-4));
   }
 }

@@ -61,7 +61,7 @@
     border-radius: 12px;
     color: var(--text-primary);
     font-size: 1.2rem;
-    font-family: 'Zen Kaku Gothic New', sans-serif;
+    font-family: var(--font-primary);
     margin-bottom: 2rem;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     resize: vertical;
@@ -99,3 +99,10 @@
     }
 }
 
+
+/* Keyboard focus ring - the rules above drop the default outline for
+   pointer focus, so restore a visible ring for keyboard users. */
+.dictationInput:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+}

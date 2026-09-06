@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { SettingsContextValue, ContextProviderProps, Settings } from '@/types/context';
+import { SETTINGS_STORAGE_KEY } from '@/constants';
 
 const SettingsContext = createContext<SettingsContextValue | null>(null);
 
@@ -17,7 +18,7 @@ const DEFAULT_SETTINGS: Settings = {
     timerDuration: 5
 };
 
-const SETTINGS_KEY = 'murmura_settings';
+const SETTINGS_KEY = SETTINGS_STORAGE_KEY;
 
 export function SettingsProvider({ children }: ContextProviderProps) {
     const [settings, setSettings] = useState<Settings>(DEFAULT_SETTINGS);

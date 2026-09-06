@@ -1,15 +1,26 @@
 .button {
-  font-family: 'Zen Kaku Gothic New', sans-serif;
-  font-weight: 500;
+  font-family: var(--font-primary);
+  font-weight: 600;
   border: none;
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   cursor: pointer;
-  transition: all 0.3s ease;
-  outline: none;
+  transition: transform var(--duration-fast) var(--ease-out),
+    box-shadow var(--duration-base) var(--ease-out),
+    background-color var(--duration-base) var(--ease-out),
+    border-color var(--duration-base) var(--ease-out),
+    color var(--duration-base) var(--ease-out);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
+  gap: var(--space-2);
+  text-align: center;
+  text-decoration: none;
+  line-height: var(--leading-snug);
+}
+
+/* Pressed state gives every button tactile feedback */
+.button:active:not(:disabled) {
+  transform: translateY(1px) scale(0.995);
 }
 
 .button:disabled {
@@ -19,20 +30,22 @@
 }
 
 .button:focus-visible {
-  outline: 2px solid var(--accent-gold);
-  outline-offset: 2px;
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
 }
 
 /* Variants */
 .primary {
-  background: linear-gradient(135deg, var(--accent-red) 0%, #a01830 100%);
-  color: var(--text-primary);
-  box-shadow: 0 4px 20px var(--accent-red-glow);
+  background: linear-gradient(135deg,
+      var(--accent-red) 0%,
+      color-mix(in srgb, var(--accent-red) 78%, #000) 100%);
+  color: var(--on-accent);
+  box-shadow: var(--shadow-sm), 0 4px 20px var(--accent-red-glow);
 }
 
 .primary:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 8px 30px var(--accent-red-glow);
+  box-shadow: var(--shadow-md), 0 10px 30px var(--accent-red-glow);
 }
 
 .secondary {
@@ -48,22 +61,22 @@
 
 .success {
   background: var(--success);
-  color: var(--text-primary);
-  box-shadow: 0 4px 20px var(--success-glow);
+  color: var(--on-accent);
+  box-shadow: var(--shadow-sm), 0 4px 20px var(--success-glow);
 }
 
 .success:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 8px 30px var(--success-glow);
+  box-shadow: var(--shadow-md), 0 10px 30px var(--success-glow);
 }
 
 .danger {
-  background: var(--accent-red);
-  color: var(--text-primary);
+  background: var(--danger);
+  color: var(--on-accent);
 }
 
 .danger:hover:not(:disabled) {
-  background: #a01830;
+  background: color-mix(in srgb, var(--danger) 82%, #000);
   transform: translateY(-2px);
 }
 
@@ -81,20 +94,20 @@
 
 /* Sizes */
 .sm {
-  padding: 0.625rem 1rem;
-  font-size: 0.85rem;
-  min-height: 44px; /* Ensure touch-friendly */
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--text-sm);
+  min-height: var(--tap-target-min);
 }
 
 .md {
-  padding: 0.75rem 1.5rem;
-  font-size: 0.9rem;
+  padding: var(--space-3) var(--space-6);
+  font-size: var(--text-base);
   min-height: 48px;
 }
 
 .lg {
-  padding: 1.25rem 3rem;
-  font-size: 1.125rem;
+  padding: var(--space-4) var(--space-10);
+  font-size: var(--text-lg);
   min-height: 56px;
 }
 
@@ -105,12 +118,21 @@
 /* Mobile responsive adjustments */
 @media (max-width: 480px) {
   .lg {
-    padding: 1rem 2rem;
-    font-size: 1rem;
+    padding: var(--space-4) var(--space-8);
+    font-size: var(--text-base);
   }
 
   .md {
-    padding: 0.625rem 1.25rem;
-    font-size: 0.875rem;
+    padding: var(--space-2) var(--space-5);
+    font-size: var(--text-sm);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .button,
+  .button:hover:not(:disabled),
+  .button:active:not(:disabled) {
+    transform: none;
   }
 }
