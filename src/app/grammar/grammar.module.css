@@ -1,253 +1,94 @@
-.grammarCard {
-    padding: 2.5rem;
-    margin-bottom: 2rem;
-    animation: fadeInUp 0.6s ease-out both;
-}
+/* Grammar practice card; shared layout lives in src/styles/study.module.css */
 
 .grammarTitle {
-    margin-bottom: 1.5rem;
-    letter-spacing: -0.02em;
-}
-
-.explanationSection {
-    margin-bottom: 2.5rem;
+  margin: 0 0 var(--space-3);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  line-height: var(--leading-snug);
+  color: var(--accent-gold);
 }
 
 .explanationText {
-    font-size: 1.15rem;
-    color: var(--text-secondary);
-    line-height: 1.7;
+  margin: 0 0 var(--space-5);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  color: var(--text-secondary);
 }
 
 .examplesList {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 .exampleItem {
-    padding: 1.5rem;
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: 12px;
-    border: 1px solid var(--border-subtle);
-    transition: all 0.3s ease;
+  padding: var(--space-4);
+  border-left: 3px solid var(--accent-gold-border);
+  border-radius: var(--radius-md);
+  background: var(--surface-overlay-soft);
 }
 
-.exampleItem:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: var(--accent-gold-dim);
-    transform: translateX(4px);
+.examplePrimary {
+  margin: 0 0 var(--space-1);
+  font-family: var(--font-cjk);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--text-primary);
 }
 
-.exampleJa {
-    font-size: 1.4rem;
-    font-family: var(--font-cjk);
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-}
-
-.exampleEn {
-    font-size: 1rem;
-    opacity: 0.8;
-}
-
-.exerciseSection {
-    padding: 2.5rem;
-    margin-bottom: 2rem;
-    animation: fadeInUp 0.6s ease-out both;
-    animation-delay: 0.2s;
-}
-
-.exerciseQuestion {
-    margin-bottom: 2rem;
-    font-size: 1.5rem;
+.exampleSecondary {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
 }
 
 .optionsGrid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-}
-
-.optionButton {
-    justify-content: flex-start;
-    padding: 1.25rem 1.5rem;
-    font-size: 1.1rem;
-    text-align: left;
-}
-
-.exerciseFeedback {
-    margin-top: 2rem;
-    text-align: center;
-    padding: 1.5rem;
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.02);
-}
-
-@media (max-width: 640px) {
-
-    .grammarCard,
-    .exerciseSection {
-        padding: 1.5rem;
-    }
-
-    .exampleJa {
-        font-size: 1.2rem;
-    }
-}
-
-/* Tab content area */
-.pageHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-/* Browse view */
-.browseGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr));
-  gap: 1rem;
-  margin-top: 1rem;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-2);
 }
 
-.grammarBrowseCard {
-  display: flex;
-  flex-direction: column;
-  padding: 1.25rem;
-  background: var(--color-surface);
-  border-radius: 12px;
-  border: 1px solid var(--color-border);
-  transition: all 0.2s ease;
-}
-
-.grammarBrowseCard:hover {
-  border-color: var(--color-primary);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.grammarBrowseCard.learned {
-  border-color: var(--color-success);
-  background: linear-gradient(135deg, var(--color-surface), color-mix(in srgb, var(--color-success) 5%, transparent));
-}
-
-.grammarHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 0.75rem;
-}
-
-.grammarPointTitle {
-  font-size: 1.125rem;
-  font-weight: 600;
-  color: var(--color-text);
-}
-
-.grammarLevel {
-  display: inline-flex;
-  padding: 0.125rem 0.5rem;
-  background: var(--color-primary);
-  color: var(--color-text-on-primary);
-  border-radius: 9999px;
-  font-size: 0.625rem;
-  font-weight: 600;
-}
-
-.grammarExplanation {
-  font-size: 0.875rem;
-  color: var(--color-text-secondary);
-  line-height: 1.5;
-  margin-bottom: 0.75rem;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.grammarActions {
-  display: flex;
-  gap: 0.5rem;
-  margin-top: auto;
-  padding-top: 0.75rem;
-  border-top: 1px solid var(--color-border);
-}
-
-.learnedBadge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.25rem;
-  padding: 0.25rem 0.5rem;
-  background: color-mix(in srgb, var(--color-success) 15%, transparent);
-  color: var(--color-success);
-  border-radius: 9999px;
-  font-size: 0.75rem;
-  font-weight: 500;
-}
-
-/* Empty state */
-.emptyState {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 3rem;
-  text-align: center;
-  background: var(--color-surface);
-  border-radius: 12px;
-  border: 2px dashed var(--color-border);
-}
-
-.emptyIcon {
-  font-size: 3rem;
-  color: var(--color-text-muted);
-  margin-bottom: 1rem;
-}
-
-/* Filter section for browse */
-.filterSection {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-  margin-bottom: 1rem;
-}
-
-.searchInput {
-  flex: 1;
-  min-width: 200px;
-}
-
-/* Review button */
-.reviewButton {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.reviewCount {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 1.5rem;
-  height: 1.5rem;
-  padding: 0 0.5rem;
-  background: var(--color-primary);
-  color: var(--color-text-on-primary);
-  border-radius: 9999px;
-  font-size: 0.75rem;
-  font-weight: 600;
-}
-
-/* Responsive */
-@media (max-width: 480px) {
-
-  .browseGrid {
-    grid-template-columns: 1fr;
+@media (min-width: 641px) {
+  .optionsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
+.optionButton {
+  justify-content: flex-start;
+  min-height: var(--tap-target-min);
+  padding: var(--space-3) var(--space-4);
+  text-align: left;
+}
+
+.feedbackRow {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+.exerciseFeedback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  text-align: center;
+}
+
+.feedbackCorrect {
+  background: var(--success-dim);
+  color: var(--success);
+}
+
+.feedbackIncorrect {
+  background: color-mix(in srgb, var(--error) 15%, transparent);
+  color: var(--text-primary);
+}

@@ -3,8 +3,8 @@
   flex-wrap: wrap;
   gap: 1rem;
   padding: 1rem;
-  background: var(--glass-bg, rgba(255, 255, 255, 0.05));
-  border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.1));
+  background: var(--glass-bg, var(--surface-overlay));
+  border: 1px solid var(--glass-border, var(--surface-overlay-strong));
   border-radius: 12px;
 }
 
@@ -22,7 +22,7 @@
 
 .toggleGroup {
   display: flex;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--surface-overlay);
   border-radius: 8px;
   padding: 0.125rem;
 }
@@ -46,13 +46,13 @@
 }
 
 .toggleButton:focus-visible {
-  outline: 2px solid var(--gold, #FFD700);
+  outline: 2px solid var(--accent-gold);
   outline-offset: 2px;
   color: var(--text-primary);
 }
 
 .toggleButton.active {
-  background: var(--gold, #FFD700);
+  background: var(--accent-gold);
   color: var(--bg-primary);
   font-weight: 500;
 }
@@ -63,8 +63,8 @@
 
 .select {
   padding: 0.5rem 2rem 0.5rem 0.75rem;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.1));
+  background: var(--surface-overlay);
+  border: 1px solid var(--glass-border, var(--surface-overlay-strong));
   border-radius: 8px;
   color: var(--text-primary);
   font-size: 0.875rem;
@@ -76,9 +76,9 @@
 }
 
 .select:focus {
-  outline: 2px solid var(--gold, #FFD700);
+  outline: 2px solid var(--accent-gold);
   outline-offset: 2px;
-  border-color: var(--gold, #FFD700);
+  border-color: var(--accent-gold);
 }
 
 .select option {

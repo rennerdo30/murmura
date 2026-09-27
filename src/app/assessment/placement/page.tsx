@@ -1,11 +1,25 @@
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
-import { IoWarning } from 'react-icons/io5';
+import {
+  IoWarning,
+  IoSchool,
+  IoTime,
+  IoLayers,
+  IoHelpCircle,
+  IoHome,
+  IoMap,
+  IoPlay,
+} from 'react-icons/io5';
+import PageHeader from '@/components/common/PageHeader';
+import EmptyState from '@/components/common/EmptyState';
+import ErrorBoundary from '@/components/common/ErrorBoundary';
+import { Container, Button, Spinner } from '@/components/ui';
 import { useLanguage } from '@/context/LanguageProvider';
 import { useTargetLanguage } from '@/hooks/useTargetLanguage';
 import { getPlacementTest } from '@/lib/dataLoader';
+import { getLanguageName, formatList } from '@/lib/languageNames';
 import styles from './placement.module.css';
 import PlacementTest from './PlacementTest';
 import PlacementResults from './PlacementResults';
@@ -13,23 +27,30 @@ import type { Assessment, AssessmentResult } from '@/types/assessment';
 
 type Phase = 'intro' | 'test' | 'results';
 
-export default function PlacementPage() {
+/** Where "start learning" and "skip" lead: the learning path overview. */
+const PATHS_HREF = '/paths';
+const DASHBOARD_HREF = '/';
+const SKILL_KEY_PREFIX = 'assessment.placement.skills.';
+
+function PlacementContent() {
   const router = useRouter();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const { targetLanguage } = useTargetLanguage();
   const [phase, setPhase] = useState<Phase>('intro');
   const [assessment, setAssessment] = useState<Assessment | null>(null);
   const [result, setResult] = useState<AssessmentResult | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [loadFailed, setLoadFailed] = useState(false);
 
-  // Load assessment data
+  // Load the placement test for the current target language
   useEffect(() => {
     let cancelled = false;
 
     async function loadAssessment() {
       setLoading(true);
-      setError(null);
+      setLoadFailed(false);
+      setPhase('intro');
+      setResult(null);
       try {
         const placementTest = await getPlacementTest(targetLanguage);
         if (!cancelled) {
@@ -37,8 +58,9 @@ export default function PlacementPage() {
         }
       } catch (err) {
         if (!cancelled) {
-          console.error('Failed to load assessment:', err);
-          setError(t('assessment.placement.error'));
+          console.error('Failed to load placement test:', err);
+          setAssessment(null);
+          setLoadFailed(true);
         }
       } finally {
         if (!cancelled) {
@@ -52,7 +74,27 @@ export default function PlacementPage() {
     return () => {
       cancelled = true;
     };
-  }, [targetLanguage, t]);
+  }, [targetLanguage]);
+
+  // Only count sections that actually contain questions
+  const sections = useMemo(
+    () => (assessment?.sections ?? []).filter(section => section.questions.length > 0),
+    [assessment]
+  );
+  const questionCount = useMemo(
+    () => sections.reduce((sum, section) => sum + section.questions.length, 0),
+    [sections]
+  );
+  const hasTest = assessment !== null && questionCount > 0;
+
+  const skillList = useMemo(() => {
+    const names = sections.map(section => {
+      const key = `${SKILL_KEY_PREFIX}${section.skill}`;
+      const translated = t(key);
+      return translated === key ? section.name : translated;
+    });
+    return formatList(Array.from(new Set(names)), language);
+  }, [sections, t, language]);
 
   const handleStartTest = useCallback(() => {
     setPhase('test');
@@ -63,9 +105,8 @@ export default function PlacementPage() {
     setPhase('results');
   }, []);
 
-  const handleStartLearning = useCallback((recommendedPath: string) => {
-    // Navigate to the recommended learning path
-    router.push(`/learn/${recommendedPath}`);
+  const handleStartLearning = useCallback(() => {
+    router.push(PATHS_HREF);
   }, [router]);
 
   const handleRetakeTest = useCallback(() => {
@@ -73,110 +114,164 @@ export default function PlacementPage() {
     setPhase('intro');
   }, []);
 
+  const header = (
+    <PageHeader
+      title={t('assessment.placement.title')}
+      subtitle={t('assessment.placement.description')}
+    />
+  );
+
   if (loading) {
     return (
-      <div className={styles.container}>
-        <div className={styles.loading}>
-          <div className={styles.spinner} />
+      <Container variant="dashboard">
+        {header}
+        <div className={styles.loading} role="status" aria-live="polite">
+          <Spinner size="lg" />
           <p>{t('assessment.placement.loading')}</p>
         </div>
-      </div>
+      </Container>
     );
   }
 
-  if (error) {
+  if (loadFailed) {
     return (
-      <div className={styles.container}>
-        <div className={styles.error}>
-          <IoWarning style={{ fontSize: '2rem', color: 'var(--accent-red-light, #ff6b6b)' }} />
-          <h2>{t('assessment.placement.error')}</h2>
-          <p>{error}</p>
-          <button onClick={() => router.back()}>{t('assessment.placement.goBack')}</button>
-        </div>
-      </div>
+      <Container variant="dashboard">
+        {header}
+        <EmptyState
+          icon={<IoWarning />}
+          title={t('placement.loadError.title')}
+          text={t('placement.loadError.text')}
+          actions={
+            <Button href={DASHBOARD_HREF} variant="secondary">
+              <IoHome aria-hidden="true" />
+              {t('common.dashboard')}
+            </Button>
+          }
+        />
+      </Container>
     );
   }
 
-  return (
-    <div className={styles.container}>
-      {phase === 'intro' && (
-        <div className={styles.intro}>
-          <div className={styles.introIcon}>&#128218;</div>
-          <h1>{t('assessment.placement.title')}</h1>
-          <p className={styles.introText}>
-            {t('assessment.placement.description')}
-          </p>
+  if (!hasTest || !assessment) {
+    return (
+      <Container variant="dashboard">
+        {header}
+        <EmptyState
+          icon={<IoSchool />}
+          title={t('placement.unavailable.title')}
+          text={t('placement.unavailable.text', { language: getLanguageName(targetLanguage, t) })}
+          actions={
+            <>
+              <Button href={DASHBOARD_HREF} variant="primary">
+                <IoHome aria-hidden="true" />
+                {t('common.dashboard')}
+              </Button>
+              <Button href={PATHS_HREF} variant="secondary">
+                <IoMap aria-hidden="true" />
+                {t('nav.paths')}
+              </Button>
+            </>
+          }
+        />
+      </Container>
+    );
+  }
 
-          <div className={styles.infoCards}>
-            <div className={styles.infoCard}>
-              <span className={styles.infoIcon}>&#9201;</span>
-              <div>
-                <strong>{t('assessment.placement.minutes', { count: assessment?.estimatedMinutes || 15 })}</strong>
-                <span>{t('assessment.placement.estimatedTime')}</span>
-              </div>
-            </div>
-            <div className={styles.infoCard}>
-              <span className={styles.infoIcon}>&#128221;</span>
-              <div>
-                <strong>{t('assessment.placement.sections', { count: assessment?.sections?.length || 4 })}</strong>
-                <span>{t('assessment.placement.sectionTypes')}</span>
-              </div>
-            </div>
-            <div className={styles.infoCard}>
-              <span className={styles.infoIcon}>&#127919;</span>
-              <div>
-                <strong>{t('assessment.placement.adaptive')}</strong>
-                <span>{t('assessment.placement.adaptiveDesc')}</span>
-              </div>
-            </div>
-          </div>
-
-          <div className={styles.instructions}>
-            <h3>{t('assessment.placement.howItWorks')}</h3>
-            <ol>
-              <li>{t('assessment.placement.step1')}</li>
-              <li>{t('assessment.placement.step2')}</li>
-              <li>{t('assessment.placement.step3')}</li>
-              <li>{t('assessment.placement.step4')}</li>
-            </ol>
-          </div>
-
-          <button className={styles.startButton} onClick={handleStartTest}>
-            {t('assessment.placement.startButton')}
-          </button>
-
-          <button
-            className={styles.skipButton}
-            onClick={() => router.push('/learn')}
-          >
-            {t('assessment.placement.skipButton')}
-          </button>
-        </div>
-      )}
-
-      {phase === 'test' && assessment && (
+  if (phase === 'test') {
+    return (
+      <Container variant="dashboard">
         <PlacementTest
           assessment={assessment}
           onComplete={handleTestComplete}
           onCancel={() => setPhase('intro')}
         />
-      )}
+      </Container>
+    );
+  }
 
-      {phase === 'test' && !assessment && (
-        <PlacementTest
-          assessment={null}
-          onComplete={handleTestComplete}
-          onCancel={() => setPhase('intro')}
-        />
-      )}
-
-      {phase === 'results' && result && (
+  if (phase === 'results' && result) {
+    return (
+      <Container variant="dashboard">
         <PlacementResults
           result={result}
           onStartLearning={handleStartLearning}
           onRetake={handleRetakeTest}
         />
-      )}
-    </div>
+      </Container>
+    );
+  }
+
+  const facts = [
+    {
+      id: 'time',
+      icon: <IoTime />,
+      value: t('assessment.placement.minutes', { count: assessment.estimatedMinutes }),
+      label: t('assessment.placement.estimatedTime'),
+      show: assessment.estimatedMinutes > 0,
+    },
+    {
+      id: 'sections',
+      icon: <IoLayers />,
+      value: t('assessment.placement.sections', { count: sections.length }),
+      label: skillList,
+      show: true,
+    },
+    {
+      id: 'questions',
+      icon: <IoHelpCircle />,
+      value: t('placement.questionCount', { count: questionCount }),
+      label: t('placement.questionCountLabel'),
+      show: true,
+    },
+  ].filter(fact => fact.show);
+
+  return (
+    <Container variant="dashboard">
+      {header}
+
+      <div className={styles.intro}>
+        <dl className={styles.facts}>
+          {facts.map(fact => (
+            <div key={fact.id} className={styles.fact}>
+              <span className={styles.factIcon} aria-hidden="true">{fact.icon}</span>
+              <dt className={styles.factLabel}>{fact.label}</dt>
+              <dd className={styles.factValue}>{fact.value}</dd>
+            </div>
+          ))}
+        </dl>
+
+        <section className={styles.panel} aria-labelledby="placement-how-title">
+          <h2 id="placement-how-title" className={styles.sectionTitle}>
+            {t('assessment.placement.howItWorks')}
+          </h2>
+          <ol className={styles.steps}>
+            {(['step1', 'step2', 'step3', 'step4'] as const).map((step, index) => (
+              <li key={step} className={styles.step}>
+                <span className={styles.stepNumber} aria-hidden="true">{index + 1}</span>
+                <span>{t(`assessment.placement.${step}`)}</span>
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        <div className={styles.actions}>
+          <Button onClick={handleStartTest} variant="primary" size="lg">
+            <IoPlay aria-hidden="true" />
+            {t('assessment.placement.startButton')}
+          </Button>
+          <Button href={PATHS_HREF} variant="ghost">
+            {t('assessment.placement.skipButton')}
+          </Button>
+        </div>
+      </div>
+    </Container>
+  );
+}
+
+export default function PlacementPage() {
+  return (
+    <ErrorBoundary>
+      <PlacementContent />
+    </ErrorBoundary>
   );
 }

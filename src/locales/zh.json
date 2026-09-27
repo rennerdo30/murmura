@@ -492,9 +492,15 @@
     }
   },
   "settings": {
+    "learningTitle": "学习",
+    "srsPage": {
+      "unlimited": "无限制",
+      "multiplier": "{value}×"
+    },
     "title": "设置",
     "subtitle": "自定义学习体验",
     "leaderboard": {
+      "signInHint": "登录后即可选择是否显示在排行榜上。",
       "title": "排行榜",
       "showOnLeaderboard": "在排行榜显示",
       "showOnLeaderboardDescription": "禁用后，您的进度不会出现在公开排名中",
@@ -508,6 +514,12 @@
       "description": "自定义复习计划和难度"
     },
     "audio": {
+      "initializing": "正在初始化...",
+      "female": "女声",
+      "male": "男声",
+      "voiceOption": "{name} ({quality})",
+      "voiceOptionWithTraits": "{name} ({quality}) – {traits}",
+      "priorityEdge": "Edge TTS（适用于{language}的 Microsoft 神经语音）",
       "title": "音频与语音合成",
       "offlineTTS": "离线语音合成（Kokoro）",
       "offlineTTSDescription": "下载约{{size}}MB模型以离线使用文本转语音",
@@ -537,6 +549,8 @@
       "advancedSettings": "高级音频设置"
     },
     "appearance": {
+      "contrastWarningTextRatio": "对比度低：文本可能难以阅读 ({ratio}:1)",
+      "contrastWarningAccentRatio": "对比度低：强调色可能难以看清 ({ratio}:1)",
       "title": "外观",
       "comingSoon": "主题设置即将推出",
       "subtitle": "自定义界面外观",
@@ -559,6 +573,14 @@
       "contrastWarningAccent": "对比度低：强调色可能难以看清",
       "contrastOk": "颜色对比度良好",
       "themes": {
+        "ja": "日语 (禅意庭园)",
+        "zh": "中文 (丝绸之路)",
+        "ko": "韩语 (韩屋)",
+        "es": "西班牙语 (Sol y Sombra)",
+        "fr": "法语 (Château)",
+        "it": "意大利语 (Rinascimento)",
+        "en": "英语 (牛津图书馆)",
+        "de": "德语 (黑森林)",
         "light": "日光（浅色）"
       }
     },
@@ -1100,5 +1122,59 @@
     "relaxed": "轻松",
     "moderate": "适中",
     "intensive": "密集"
+  },
+  "placement": {
+    "loadError": {
+      "title": "无法加载分级测试",
+      "text": "加载分级测试时出现问题，请稍后再试。"
+    },
+    "unavailable": {
+      "title": "分级测试暂不可用",
+      "text": "目前还没有{language}的分级测试。在此期间，可以先从学习路径或仪表板上的模块开始。"
+    },
+    "questionCount": "{count} 道题",
+    "questionCountLabel": "总计",
+    "leaveTest": "退出测试",
+    "sectionsLabel": "测试部分",
+    "overallScoreAria": "总分：{score}",
+    "difficulty": {
+      "easy": "简单",
+      "medium": "中等",
+      "hard": "困难"
+    }
+  },
+  "pronunciation": {
+    "title": "发音练习",
+    "subtitle": "通过针对性练习提升口语能力",
+    "loading": "正在加载练习...",
+    "backToDrills": "全部练习",
+    "drillsTitle": "练习",
+    "clearFilters": "清除筛选",
+    "noResults": "没有符合所选筛选条件的练习",
+    "drillCount": "{count} 个练习",
+    "filters": {
+      "type": "练习类型",
+      "difficulty": "难度"
+    },
+    "types": {
+      "shadowing": "跟读",
+      "minimal_pair": "最小对立词",
+      "listen_repeat": "听后跟读"
+    },
+    "typeDescriptions": {
+      "shadowing": "跟着母语者的录音同步朗读",
+      "minimal_pair": "训练耳朵分辨相似的发音",
+      "listen_repeat": "通过引导式重复练习短语"
+    },
+    "difficulty": {
+      "all": "全部难度",
+      "easy": "简单",
+      "medium": "中等",
+      "hard": "困难"
+    },
+    "empty": {
+      "title": "暂无发音练习",
+      "text": "{language}的发音练习暂不可用，我们正在努力添加。"
+    }
   }
 }

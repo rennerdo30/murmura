@@ -1,20 +1,55 @@
 'use client';
 
-import React, { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
+import type { ReactNode } from 'react';
+import {
+  IoMic,
+  IoEar,
+  IoChatbubbles,
+  IoChevronBack,
+  IoChevronForward,
+  IoHome,
+} from 'react-icons/io5';
 import styles from './pronunciation.module.css';
+import PageHeader from '@/components/common/PageHeader';
+import EmptyState from '@/components/common/EmptyState';
+import ErrorBoundary from '@/components/common/ErrorBoundary';
+import { Container, Button, Spinner } from '@/components/ui';
 import { Shadowing, MinimalPair, ListenRepeat } from '@/components/exercises';
+import { useLanguage } from '@/context/LanguageProvider';
+import { useTargetLanguage } from '@/hooks/useTargetLanguage';
+import { getLanguageName } from '@/lib/languageNames';
 import type {
   PronunciationDrill,
+  DrillType,
+  Difficulty,
   ShadowingContent,
   MinimalPairContent,
   ListenRepeatContent,
 } from '@/types/pronunciation';
 
-type DrillType = 'shadowing' | 'minimal_pair' | 'listen_repeat' | 'all';
-type DifficultyFilter = 'all' | 'easy' | 'medium' | 'hard';
+/** Drill types this page can play (pitch accent drills have no player yet). */
+type SupportedDrillType = Exclude<DrillType, 'pitch_accent'>;
+type SupportedDrill = PronunciationDrill & { type: SupportedDrillType };
+type TypeFilter = SupportedDrillType | 'all';
+type DifficultyFilter = Difficulty | 'all';
 
-// Sample drills for demonstration
-const SAMPLE_DRILLS: PronunciationDrill[] = [
+const DRILLS_FILE = 'pronunciation.json';
+/** The built-in sample drills below are Japanese and only shown for Japanese. */
+const SAMPLE_DRILLS_LANGUAGE = 'ja';
+const DASHBOARD_HREF = '/';
+
+const DRILL_TYPES: SupportedDrillType[] = ['shadowing', 'minimal_pair', 'listen_repeat'];
+const DIFFICULTIES: DifficultyFilter[] = ['all', 'easy', 'medium', 'hard'];
+
+const DRILL_ICONS: Record<SupportedDrillType, ReactNode> = {
+  shadowing: <IoMic />,
+  minimal_pair: <IoEar />,
+  listen_repeat: <IoChatbubbles />,
+};
+
+// Built-in Japanese sample drills, used when no data file exists for Japanese
+const SAMPLE_DRILLS: SupportedDrill[] = [
   {
     id: '1',
     type: 'minimal_pair',
@@ -81,32 +116,64 @@ const SAMPLE_DRILLS: PronunciationDrill[] = [
   },
 ];
 
-export default function PronunciationPage() {
-  const [drills, setDrills] = useState<PronunciationDrill[]>(SAMPLE_DRILLS);
-  const [selectedDrill, setSelectedDrill] = useState<PronunciationDrill | null>(null);
-  const [typeFilter, setTypeFilter] = useState<DrillType>('all');
+interface DrillsFile {
+  drills?: PronunciationDrill[];
+}
+
+function isSupportedDrill(drill: PronunciationDrill): drill is SupportedDrill {
+  return (DRILL_TYPES as string[]).includes(drill.type);
+}
+
+/** Accepts either `{ drills: [...] }` or a bare array; drops drill types without a player. */
+function parseDrills(data: unknown): SupportedDrill[] {
+  let drills: PronunciationDrill[] = [];
+  if (Array.isArray(data)) {
+    drills = data as PronunciationDrill[];
+  } else if (data && typeof data === 'object' && Array.isArray((data as DrillsFile).drills)) {
+    drills = (data as DrillsFile).drills ?? [];
+  }
+  return drills.filter(isSupportedDrill);
+}
+
+function PronunciationContent() {
+  const { t } = useLanguage();
+  const { targetLanguage, getDataUrl } = useTargetLanguage();
+  const [drills, setDrills] = useState<SupportedDrill[]>([]);
+  const [selectedDrill, setSelectedDrill] = useState<SupportedDrill | null>(null);
+  const [typeFilter, setTypeFilter] = useState<TypeFilter>('all');
   const [difficultyFilter, setDifficultyFilter] = useState<DifficultyFilter>('all');
   const [loading, setLoading] = useState(true);
 
-  // Load drills from data
+  // Load drills for the current target language
   useEffect(() => {
+    let cancelled = false;
+    const fallback = targetLanguage === SAMPLE_DRILLS_LANGUAGE ? SAMPLE_DRILLS : [];
+
     async function loadDrills() {
+      setLoading(true);
+      setSelectedDrill(null);
+      setTypeFilter('all');
+      setDifficultyFilter('all');
+      let loaded: SupportedDrill[] = [];
       try {
-        const response = await fetch('/data/ja/pronunciation.json');
+        const response = await fetch(getDataUrl(DRILLS_FILE));
         if (response.ok) {
-          const data = await response.json();
-          if (data.drills && data.drills.length > 0) {
-            setDrills(data.drills);
-          }
+          loaded = parseDrills(await response.json());
         }
       } catch (err) {
         console.error('Failed to load pronunciation drills:', err);
-      } finally {
+      }
+      if (!cancelled) {
+        setDrills(loaded.length > 0 ? loaded : fallback);
         setLoading(false);
       }
     }
+
     loadDrills();
-  }, []);
+    return () => {
+      cancelled = true;
+    };
+  }, [targetLanguage, getDataUrl]);
 
   const filteredDrills = useMemo(() => {
     return drills.filter(drill => {
@@ -116,20 +183,41 @@ export default function PronunciationPage() {
     });
   }, [drills, typeFilter, difficultyFilter]);
 
-  const handleDrillComplete = (score?: number, total?: number) => {
-    console.log('Drill complete:', { score, total });
+  const drillCounts = useMemo(() => {
+    const counts: Record<SupportedDrillType, number> = { shadowing: 0, minimal_pair: 0, listen_repeat: 0 };
+    drills.forEach(drill => {
+      counts[drill.type] += 1;
+    });
+    return counts;
+  }, [drills]);
+
+  const filtersActive = typeFilter !== 'all' || difficultyFilter !== 'all';
+
+  const clearFilters = useCallback(() => {
+    setTypeFilter('all');
+    setDifficultyFilter('all');
+  }, []);
+
+  const toggleType = useCallback((type: SupportedDrillType) => {
+    setTypeFilter(prev => (prev === type ? 'all' : type));
+  }, []);
+
+  const handleDrillComplete = useCallback(() => {
     setSelectedDrill(null);
-  };
+  }, []);
+
+  const header = (
+    <PageHeader title={t('pronunciation.title')} subtitle={t('pronunciation.subtitle')} />
+  );
 
   if (selectedDrill) {
     return (
-      <div className={styles.container}>
-        <div className={styles.drillHeader}>
-          <button className={styles.backButton} onClick={() => setSelectedDrill(null)}>
-            &#8592; Back
-          </button>
-          <h2>{selectedDrill.title}</h2>
-        </div>
+      <Container variant="dashboard">
+        <button type="button" className={styles.back} onClick={() => setSelectedDrill(null)}>
+          <IoChevronBack aria-hidden="true" />
+          <span>{t('pronunciation.backToDrills')}</span>
+        </button>
+        <PageHeader title={selectedDrill.title} subtitle={selectedDrill.description} />
 
         <div className={styles.drillContainer}>
           {selectedDrill.type === 'shadowing' && (
@@ -154,102 +242,145 @@ export default function PronunciationPage() {
             />
           )}
         </div>
-      </div>
+      </Container>
+    );
+  }
+
+  if (loading) {
+    return (
+      <Container variant="dashboard">
+        {header}
+        <div className={styles.loading} role="status" aria-live="polite">
+          <Spinner size="lg" />
+          <p>{t('pronunciation.loading')}</p>
+        </div>
+      </Container>
+    );
+  }
+
+  if (drills.length === 0) {
+    return (
+      <Container variant="dashboard">
+        {header}
+        <EmptyState
+          icon={<IoMic />}
+          title={t('pronunciation.empty.title')}
+          text={t('pronunciation.empty.text', { language: getLanguageName(targetLanguage, t) })}
+          actions={
+            <Button href={DASHBOARD_HREF} variant="primary">
+              <IoHome aria-hidden="true" />
+              {t('common.dashboard')}
+            </Button>
+          }
+        />
+      </Container>
     );
   }
 
   return (
-    <div className={styles.container}>
-      <div className={styles.header}>
-        <h1>Pronunciation Practice</h1>
-        <p>Improve your speaking skills with targeted exercises</p>
-      </div>
+    <Container variant="dashboard">
+      {header}
 
-      {/* Filters */}
-      <div className={styles.filters}>
-        <div className={styles.filterGroup}>
-          <label>Type:</label>
-          <select
-            value={typeFilter}
-            onChange={(e) => setTypeFilter(e.target.value as DrillType)}
-          >
-            <option value="all">All Types</option>
-            <option value="shadowing">Shadowing</option>
-            <option value="minimal_pair">Minimal Pairs</option>
-            <option value="listen_repeat">Listen & Repeat</option>
-          </select>
-        </div>
-
-        <div className={styles.filterGroup}>
-          <label>Difficulty:</label>
-          <select
-            value={difficultyFilter}
-            onChange={(e) => setDifficultyFilter(e.target.value as DifficultyFilter)}
-          >
-            <option value="all">All Levels</option>
-            <option value="easy">Easy</option>
-            <option value="medium">Medium</option>
-            <option value="hard">Hard</option>
-          </select>
-        </div>
-      </div>
-
-      {/* Drill Categories */}
-      <div className={styles.categories}>
-        <div className={styles.categoryCard} onClick={() => setTypeFilter('shadowing')}>
-          <span className={styles.categoryIcon}>&#127908;</span>
-          <h3>Shadowing</h3>
-          <p>Listen and repeat along with native speakers</p>
-        </div>
-        <div className={styles.categoryCard} onClick={() => setTypeFilter('minimal_pair')}>
-          <span className={styles.categoryIcon}>&#128066;</span>
-          <h3>Minimal Pairs</h3>
-          <p>Train your ear to distinguish similar sounds</p>
-        </div>
-        <div className={styles.categoryCard} onClick={() => setTypeFilter('listen_repeat')}>
-          <span className={styles.categoryIcon}>&#128483;</span>
-          <h3>Listen & Repeat</h3>
-          <p>Practice phrases with guided repetition</p>
-        </div>
-      </div>
-
-      {/* Drill List */}
-      {loading ? (
-        <div className={styles.loading}>Loading drills...</div>
-      ) : (
-        <div className={styles.drillList}>
-          {filteredDrills.length === 0 ? (
-            <div className={styles.emptyState}>
-              <p>No drills found for the selected filters</p>
-            </div>
-          ) : (
-            filteredDrills.map(drill => (
-              <div
-                key={drill.id}
-                className={styles.drillCard}
-                onClick={() => setSelectedDrill(drill)}
-              >
-                <div className={styles.drillIcon}>
-                  {drill.type === 'shadowing' && '🎙️'}
-                  {drill.type === 'minimal_pair' && '👂'}
-                  {drill.type === 'listen_repeat' && '🗣️'}
-                </div>
-                <div className={styles.drillInfo}>
-                  <h4>{drill.title}</h4>
-                  <p>{drill.description}</p>
-                  <div className={styles.drillMeta}>
-                    <span className={styles.levelBadge}>{drill.level}</span>
-                    <span className={`${styles.difficultyBadge} ${styles[drill.difficulty]}`}>
-                      {drill.difficulty}
+      <div className={styles.layout}>
+        {/* Drill types double as the type filter */}
+        <section aria-labelledby="pronunciation-types-title">
+          <h2 id="pronunciation-types-title" className={styles.sectionTitle}>
+            {t('pronunciation.filters.type')}
+          </h2>
+          <ul className={styles.categories}>
+            {DRILL_TYPES.map(type => {
+              const active = typeFilter === type;
+              return (
+                <li key={type}>
+                  <button
+                    type="button"
+                    className={`${styles.categoryCard} ${active ? styles.categoryActive : ''}`}
+                    aria-pressed={active}
+                    onClick={() => toggleType(type)}
+                  >
+                    <span className={styles.iconTile} aria-hidden="true">{DRILL_ICONS[type]}</span>
+                    <span className={styles.categoryBody}>
+                      <span className={styles.categoryTitle}>{t(`pronunciation.types.${type}`)}</span>
+                      <span className={styles.categoryText}>{t(`pronunciation.typeDescriptions.${type}`)}</span>
+                      <span className={styles.categoryCount}>
+                        {t('pronunciation.drillCount', { count: drillCounts[type] })}
+                      </span>
                     </span>
-                  </div>
-                </div>
-                <div className={styles.drillArrow}>&#8594;</div>
-              </div>
-            ))
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+
+        <section aria-labelledby="pronunciation-drills-title">
+          <div className={styles.listHeader}>
+            <h2 id="pronunciation-drills-title" className={styles.sectionTitle}>
+              {t('pronunciation.drillsTitle')}
+            </h2>
+            {filtersActive && (
+              <Button variant="ghost" size="sm" onClick={clearFilters}>
+                {t('pronunciation.clearFilters')}
+              </Button>
+            )}
+          </div>
+
+          <div className={styles.chipRow} role="group" aria-label={t('pronunciation.filters.difficulty')}>
+            {DIFFICULTIES.map(difficulty => (
+              <button
+                key={difficulty}
+                type="button"
+                className={`${styles.chip} ${difficultyFilter === difficulty ? styles.chipActive : ''}`}
+                aria-pressed={difficultyFilter === difficulty}
+                onClick={() => setDifficultyFilter(difficulty)}
+              >
+                {t(`pronunciation.difficulty.${difficulty}`)}
+              </button>
+            ))}
+          </div>
+
+          {filteredDrills.length === 0 ? (
+            <EmptyState
+              headingLevel="h3"
+              icon={<IoEar />}
+              title={t('pronunciation.noResults')}
+              actions={
+                <Button variant="secondary" onClick={clearFilters}>
+                  {t('pronunciation.clearFilters')}
+                </Button>
+              }
+            />
+          ) : (
+            <ul className={styles.drillList}>
+              {filteredDrills.map(drill => (
+                <li key={drill.id}>
+                  <button type="button" className={styles.drillRow} onClick={() => setSelectedDrill(drill)}>
+                    <span className={styles.iconTile} aria-hidden="true">{DRILL_ICONS[drill.type]}</span>
+                    <span className={styles.drillInfo}>
+                      <span className={styles.drillTitle}>{drill.title}</span>
+                      {drill.description && <span className={styles.drillText}>{drill.description}</span>}
+                      <span className={styles.drillMeta}>
+                        <span className={styles.tag}>{t(`pronunciation.types.${drill.type}`)}</span>
+                        {drill.level && <span className={styles.tag}>{drill.level}</span>}
+                        <span className={styles.tag}>{t(`pronunciation.difficulty.${drill.difficulty}`)}</span>
+                      </span>
+                    </span>
+                    <IoChevronForward className={styles.chevron} aria-hidden="true" />
+                  </button>
+                </li>
+              ))}
+            </ul>
           )}
-        </div>
-      )}
-    </div>
+        </section>
+      </div>
+    </Container>
+  );
+}
+
+export default function PronunciationPage() {
+  return (
+    <ErrorBoundary>
+      <PronunciationContent />
+    </ErrorBoundary>
   );
 }

@@ -3,9 +3,8 @@
 import { useParams, useRouter } from 'next/navigation';
 import { useMemo, useState, useEffect } from 'react';
 import Link from 'next/link';
-import Navigation from '@/components/common/Navigation';
-import Breadcrumb from '@/components/common/Breadcrumb';
-import { Container, Card, Text, Button, Animated } from '@/components/ui';
+import PageHeader from '@/components/common/PageHeader';
+import { Container, Button } from '@/components/ui';
 import { useRecommendations } from '@/hooks/useRecommendations';
 import { usePathProgress } from '@/hooks/usePathProgress';
 import { useLanguage } from '@/context/LanguageProvider';
@@ -28,9 +27,11 @@ import {
   IoTrendingUp,
   IoBook,
   IoDocumentText,
+  IoChevronForward,
 } from 'react-icons/io5';
 import { PiExam } from 'react-icons/pi';
 import styles from './pathDetail.module.css';
+import { getModuleIcon, isLearningModule } from '@/lib/learningModules';
 
 const PATH_ICONS: Record<string, React.ReactNode> = {
   'jlpt-mastery': <IoSchool />,
@@ -39,14 +40,6 @@ const PATH_ICONS: Record<string, React.ReactNode> = {
   'business-japanese': <IoBriefcase />,
   'daily-conversation': <IoChatbubbles />,
   'anime-manga': <IoTv />,
-};
-
-const MODULE_ICONS: Record<string, React.ReactNode> = {
-  alphabet: <span className={styles.japaneseIcon}>あ</span>,
-  vocabulary: <IoBook />,
-  kanji: <span className={styles.japaneseIcon}>字</span>,
-  grammar: <PiExam />,
-  reading: <IoDocumentText />,
 };
 
 interface PathMilestone {
@@ -138,26 +131,23 @@ export default function PathDetailContent() {
 
   if (loading || recsLoading) {
     return (
-      <Container variant="centered">
-        <Navigation />
-        <Card variant="glass" className={styles.notFound}>
-          <Text variant="body" color="muted">{t('pathDetail.loading')}</Text>
-        </Card>
+      <Container variant="dashboard">
+        <PageHeader title={t('paths.title')} backHref="/paths" backLabel={t('pathDetail.backToPaths')} />
+        <p className={styles.statusText} role="status" aria-live="polite">{t('pathDetail.loading')}</p>
       </Container>
     );
   }
 
   if (!pathData) {
     return (
-      <Container variant="centered">
-        <Navigation />
-        <Card variant="glass" className={styles.notFound}>
-          <Text variant="h2">{t('pathDetail.notFound')}</Text>
-          <Text color="muted">{t('pathDetail.notFoundDescription')}</Text>
+      <Container variant="dashboard">
+        <PageHeader title={t('pathDetail.notFound')} backHref="/paths" backLabel={t('pathDetail.backToPaths')} />
+        <div className={styles.notFound}>
+          <p className={styles.sectionText}>{t('pathDetail.notFoundDescription')}</p>
           <Button variant="ghost" onClick={() => router.push('/paths')}>
-            <IoArrowBack /> {t('pathDetail.backToPaths')}
+            <IoArrowBack aria-hidden="true" /> {t('pathDetail.backToPaths')}
           </Button>
-        </Card>
+        </div>
       </Container>
     );
   }
@@ -189,111 +179,103 @@ export default function PathDetailContent() {
   const itemCounts = getTopicItemCounts();
   const totalItems = Object.values(itemCounts).reduce((a, b) => a + b, 0);
 
+  const pathName = getText(pathData.nameTranslations, pathData.name);
+
+  const topicCategories: { key: keyof typeof itemCounts; href: string; icon: React.ReactNode; labelKey: string }[] = [
+    { key: 'vocabulary', href: '/vocabulary', icon: <IoBook />, labelKey: 'modules.vocabulary.title' },
+    { key: 'grammar', href: '/grammar', icon: <PiExam />, labelKey: 'modules.grammar.title' },
+    { key: 'reading', href: '/reading', icon: <IoDocumentText />, labelKey: 'modules.reading.title' },
+    { key: 'kanji', href: '/kanji', icon: getModuleIcon('kanji', targetLanguage, styles.japaneseIcon), labelKey: 'modules.kanji.title' },
+  ];
+
   return (
-    <Container variant="centered">
-      <Navigation />
-      <Breadcrumb items={[
-        { label: t('breadcrumb.paths'), href: '/paths' },
-        { label: getText(pathData.nameTranslations, pathData.name) },
-      ]} />
+    <Container variant="dashboard">
+      <PageHeader
+        title={
+          <span className={styles.titleRow}>
+            <span className={styles.pathIcon} aria-hidden="true">
+              {PATH_ICONS[pathId] || <IoSparkles />}
+            </span>
+            <span className={styles.titleText}>{pathName}</span>
+          </span>
+        }
+        subtitle={getText(pathData.descriptionTranslations, pathData.description)}
+        backHref="/paths"
+        backLabel={t('pathDetail.backToPaths')}
+      />
 
-      {/* Header */}
-      <Animated animation="fadeInDown">
-        <div className={styles.header}>
-          <div className={styles.pathIcon}>
-            {PATH_ICONS[pathId] || <IoSparkles />}
-          </div>
-          <div className={styles.headerContent}>
-            <Text variant="h1" color="gold" className={styles.pathTitle}>
-              {getText(pathData.nameTranslations, pathData.name)}
-            </Text>
-            <Text color="muted" className={styles.pathDescription}>
-              {getText(pathData.descriptionTranslations, pathData.description)}
-            </Text>
-          </div>
-        </div>
-      </Animated>
-
-      {/* Stats Bar */}
-      <Card variant="glass" className={styles.statsBar}>
-        <div className={styles.stat}>
-          <IoTime className={styles.statIcon} />
-          <div className={styles.statContent}>
-            <Text variant="h3">{t('pathDetail.hoursValue', { count: Math.round(pathData.estimatedHours || 0) })}</Text>
-            <Text variant="label" color="muted">{t('pathDetail.estimated')}</Text>
-          </div>
-        </div>
-        <div className={styles.stat}>
-          <IoTrendingUp className={styles.statIcon} />
-          <div className={styles.statContent}>
-            <Text variant="h3">{progress?.percentComplete || 0}%</Text>
-            <Text variant="label" color="muted">{t('pathDetail.complete')}</Text>
-          </div>
-        </div>
-        {isLinear && linearPath && (
+      {/* Summary: stats + enrollment */}
+      <div className={styles.summary}>
+        <dl className={styles.stats}>
           <div className={styles.stat}>
-            <IoCheckmarkCircle className={styles.statIcon} />
-            <div className={styles.statContent}>
-              <Text variant="h3">{progress?.completedMilestones || 0}/{linearPath.milestones.length}</Text>
-              <Text variant="label" color="muted">{t('pathDetail.milestones')}</Text>
-            </div>
+            <IoTime className={styles.statIcon} aria-hidden="true" />
+            <dt className={styles.statLabel}>{t('pathDetail.estimated')}</dt>
+            <dd className={styles.statValue}>{t('pathDetail.hoursValue', { count: Math.round(pathData.estimatedHours || 0) })}</dd>
           </div>
-        )}
-        {!isLinear && (
           <div className={styles.stat}>
-            <IoBook className={styles.statIcon} />
-            <div className={styles.statContent}>
-              <Text variant="h3">{totalItems}</Text>
-              <Text variant="label" color="muted">{t('pathDetail.items')}</Text>
-            </div>
+            <IoTrendingUp className={styles.statIcon} aria-hidden="true" />
+            <dt className={styles.statLabel}>{t('pathDetail.complete')}</dt>
+            <dd className={styles.statValue}>{progress?.percentComplete || 0}%</dd>
           </div>
-        )}
-      </Card>
-
-      {/* Enrollment Actions */}
-      <div className={styles.actions}>
-        {!prereqs.met && (
-          <Card variant="outlined" className={styles.prereqWarning}>
-            <IoLockClosed className={styles.prereqIcon} />
-            <div>
-              <Text variant="body">{t('pathDetail.prerequisitesRequired')}</Text>
-              <Text variant="caption" color="muted">
-                {t('pathDetail.completeFirst')}: {prereqs.missing.join(', ')}
-              </Text>
+          {isLinear && linearPath && (
+            <div className={styles.stat}>
+              <IoCheckmarkCircle className={styles.statIcon} aria-hidden="true" />
+              <dt className={styles.statLabel}>{t('pathDetail.milestones')}</dt>
+              <dd className={styles.statValue}>{progress?.completedMilestones || 0}/{linearPath.milestones.length}</dd>
             </div>
-          </Card>
-        )}
+          )}
+          {!isLinear && (
+            <div className={styles.stat}>
+              <IoBook className={styles.statIcon} aria-hidden="true" />
+              <dt className={styles.statLabel}>{t('pathDetail.items')}</dt>
+              <dd className={styles.statValue}>{totalItems}</dd>
+            </div>
+          )}
+        </dl>
 
-        {enrolled ? (
-          <div className={styles.enrolledActions}>
-            <Button onClick={() => router.push('/review')}>
-              <IoPlay /> {t('pathDetail.continueLearning')}
+        <div className={styles.actions}>
+          {!prereqs.met && (
+            <div className={styles.prereqWarning}>
+              <IoLockClosed className={styles.prereqIcon} aria-hidden="true" />
+              <div>
+                <p className={styles.prereqTitle}>{t('pathDetail.prerequisitesRequired')}</p>
+                <p className={styles.prereqText}>
+                  {t('pathDetail.completeFirst')}: {prereqs.missing.join(', ')}
+                </p>
+              </div>
+            </div>
+          )}
+
+          {enrolled ? (
+            <div className={styles.enrolledActions}>
+              <Button onClick={() => router.push('/review')} className={styles.actionButton}>
+                <IoPlay aria-hidden="true" /> {t('pathDetail.continueLearning')}
+              </Button>
+              <Button variant="ghost" onClick={() => unenrollFromPath(pathId)} className={styles.actionButton}>
+                {t('pathDetail.unenroll')}
+              </Button>
+            </div>
+          ) : (
+            <Button
+              onClick={() => enrollInPath(pathId)}
+              disabled={!prereqs.met}
+              className={styles.actionButton}
+            >
+              <IoPlay aria-hidden="true" /> {prereqs.met ? t('pathDetail.startPath') : t('pathDetail.locked')}
             </Button>
-            <Button variant="ghost" onClick={() => unenrollFromPath(pathId)}>
-              {t('pathDetail.unenroll')}
-            </Button>
-          </div>
-        ) : (
-          <Button
-            onClick={() => enrollInPath(pathId)}
-            disabled={!prereqs.met}
-          >
-            <IoPlay /> {prereqs.met ? t('pathDetail.startPath') : t('pathDetail.locked')}
-          </Button>
-        )}
+          )}
+        </div>
       </div>
 
       {/* Linear Path Content - Milestones */}
       {isLinear && linearPath && (
-        <section className={styles.section}>
+        <section className={styles.section} aria-labelledby="path-milestones-title">
           <div className={styles.sectionHeader}>
-            <Text variant="h2">{t('pathDetail.milestones')}</Text>
-            <Text color="muted">
-              {t('pathDetail.milestonesDescription')}
-            </Text>
+            <h2 id="path-milestones-title" className={styles.sectionTitle}>{t('pathDetail.milestones')}</h2>
+            <p className={styles.sectionText}>{t('pathDetail.milestonesDescription')}</p>
           </div>
 
-          <div className={styles.milestoneList}>
+          <ol className={styles.milestoneList}>
             {linearPath.milestones.map((milestone, index) => {
               const status = getMilestoneStatus(index);
               const milestoneProgress = progress?.currentMilestone?.id === milestone.id
@@ -301,11 +283,12 @@ export default function PathDetailContent() {
                 : status === 'completed' ? 100 : 0;
 
               return (
-                <div
+                <li
                   key={`${milestone.id}-${index}`}
                   className={`${styles.milestone} ${styles[status]}`}
+                  aria-current={status === 'current' ? 'step' : undefined}
                 >
-                  <div className={styles.milestoneConnector}>
+                  <div className={styles.milestoneConnector} aria-hidden="true">
                     <div className={styles.milestoneDot}>
                       {status === 'completed' ? (
                         <IoCheckmarkCircle />
@@ -320,28 +303,35 @@ export default function PathDetailContent() {
                     )}
                   </div>
 
-                  <Card variant={status === 'current' ? 'glass' : 'default'} className={styles.milestoneCard}>
+                  <div className={styles.milestoneCard}>
                     <div className={styles.milestoneHeader}>
-                      <div className={styles.milestoneIcon}>
-                        {MODULE_ICONS[milestone.module] || <IoBook />}
+                      <span className={styles.milestoneIcon} aria-hidden="true">
+                        {isLearningModule(milestone.module) ? getModuleIcon(milestone.module, targetLanguage, styles.japaneseIcon) : <IoBook />}
+                      </span>
+                      <div className={styles.milestoneHeading}>
+                        <h3 className={styles.milestoneName}>
+                          {getText(milestone.nameTranslations, milestone.name)}
+                        </h3>
+                        <div className={styles.milestoneMeta}>
+                          <span className={styles.milestoneLevel}>{milestone.level}</span>
+                          <span className={styles.milestoneTime}>
+                            <IoTime aria-hidden="true" /> {Math.round(milestone.estimatedHours)}h
+                          </span>
+                        </div>
                       </div>
-                      <div className={styles.milestoneMeta}>
-                        <span className={styles.milestoneLevel}>{milestone.level}</span>
-                        <span className={styles.milestoneTime}>
-                          <IoTime /> {Math.round(milestone.estimatedHours)}h
+                      {status === 'completed' && (
+                        <span className={styles.completedBadge}>
+                          <IoCheckmarkCircle aria-hidden="true" /> {t('pathDetail.completed')}
                         </span>
-                      </div>
+                      )}
                     </div>
-                    <Text variant="h3" className={styles.milestoneName}>
-                      {getText(milestone.nameTranslations, milestone.name)}
-                    </Text>
-                    <Text variant="body" color="muted" className={styles.milestoneDescription}>
+                    <p className={styles.milestoneDescription}>
                       {getText(milestone.descriptionTranslations, milestone.description)}
-                    </Text>
+                    </p>
 
                     {status === 'current' && (
                       <>
-                        <div className={styles.milestoneProgress}>
+                        <div className={styles.milestoneProgress} aria-hidden="true">
                           <div
                             className={styles.milestoneProgressBar}
                             style={{ width: `${milestoneProgress}%` }}
@@ -359,96 +349,45 @@ export default function PathDetailContent() {
                     )}
 
                     {status === 'locked' && (
-                      <div className={styles.lockedMessage}>
-                        <IoLockClosed /> {t('pathDetail.unlockMessage')}
-                      </div>
+                      <p className={styles.lockedMessage}>
+                        <IoLockClosed aria-hidden="true" /> {t('pathDetail.unlockMessage')}
+                      </p>
                     )}
-
-                    {status === 'completed' && (
-                      <div className={styles.completedBadge}>
-                        <IoCheckmarkCircle /> {t('pathDetail.completed')}
-                      </div>
-                    )}
-                  </Card>
-                </div>
+                  </div>
+                </li>
               );
             })}
-          </div>
+          </ol>
         </section>
       )}
 
       {/* Topic Track Content - Item Breakdown */}
       {!isLinear && topicTrack && (
-        <section className={styles.section}>
+        <section className={styles.section} aria-labelledby="path-topic-title">
           <div className={styles.sectionHeader}>
-            <Text variant="h2">{t('pathDetail.whatYoullLearn')}</Text>
-            <Text color="muted">
+            <h2 id="path-topic-title" className={styles.sectionTitle}>{t('pathDetail.whatYoullLearn')}</h2>
+            <p className={styles.sectionText}>
               {t('pathDetail.practicalItemsFor', { name: getText(topicTrack.nameTranslations, topicTrack.name).toLowerCase() })}
-            </Text>
+            </p>
           </div>
 
-          <div className={styles.itemBreakdown}>
-            {itemCounts.vocabulary > 0 && (
-              <Link href="/vocabulary" className={styles.itemCategory}>
-                <Card variant="glass" hover className={styles.categoryCard}>
-                  <div className={styles.categoryIcon}>
-                    <IoBook />
-                  </div>
-                  <div className={styles.categoryContent}>
-                    <Text variant="h3">{itemCounts.vocabulary}</Text>
-                    <Text variant="label" color="muted">{t('modules.vocabulary.title')}</Text>
-                  </div>
-                </Card>
-              </Link>
-            )}
-
-            {itemCounts.grammar > 0 && (
-              <Link href="/grammar" className={styles.itemCategory}>
-                <Card variant="glass" hover className={styles.categoryCard}>
-                  <div className={styles.categoryIcon}>
-                    <PiExam />
-                  </div>
-                  <div className={styles.categoryContent}>
-                    <Text variant="h3">{itemCounts.grammar}</Text>
-                    <Text variant="label" color="muted">{t('modules.grammar.title')}</Text>
-                  </div>
-                </Card>
-              </Link>
-            )}
-
-            {itemCounts.reading > 0 && (
-              <Link href="/reading" className={styles.itemCategory}>
-                <Card variant="glass" hover className={styles.categoryCard}>
-                  <div className={styles.categoryIcon}>
-                    <IoDocumentText />
-                  </div>
-                  <div className={styles.categoryContent}>
-                    <Text variant="h3">{itemCounts.reading}</Text>
-                    <Text variant="label" color="muted">{t('modules.reading.title')}</Text>
-                  </div>
-                </Card>
-              </Link>
-            )}
-
-            {itemCounts.kanji > 0 && (
-              <Link href="/kanji" className={styles.itemCategory}>
-                <Card variant="glass" hover className={styles.categoryCard}>
-                  <div className={styles.categoryIcon}>
-                    <span className={styles.japaneseIcon}>字</span>
-                  </div>
-                  <div className={styles.categoryContent}>
-                    <Text variant="h3">{itemCounts.kanji}</Text>
-                    <Text variant="label" color="muted">{t('modules.kanji.title')}</Text>
-                  </div>
-                </Card>
-              </Link>
-            )}
-          </div>
+          <ul className={styles.categoryList}>
+            {topicCategories.filter((category) => itemCounts[category.key] > 0).map((category) => (
+              <li key={category.key}>
+                <Link href={category.href} className={styles.categoryLink}>
+                  <span className={styles.categoryIcon} aria-hidden="true">{category.icon}</span>
+                  <span className={styles.categoryLabel}>{t(category.labelKey)}</span>
+                  <span className={styles.categoryCount}>{itemCounts[category.key]}</span>
+                  <IoChevronForward className={styles.categoryChevron} aria-hidden="true" />
+                </Link>
+              </li>
+            ))}
+          </ul>
 
           {/* Tags */}
           {topicTrack.tags && topicTrack.tags.length > 0 && (
             <div className={styles.tags}>
-              <Text variant="label" color="muted">{t('pathDetail.topics')}:</Text>
+              <span className={styles.tagsLabel}>{t('pathDetail.topics')}</span>
               <div className={styles.tagList}>
                 {topicTrack.tags.map((tag) => (
                   <span key={tag} className={styles.tag}>{tag}</span>
@@ -458,13 +397,6 @@ export default function PathDetailContent() {
           )}
         </section>
       )}
-
-      {/* Back Link */}
-      <div className={styles.backLink}>
-        <Button variant="ghost" onClick={() => router.push('/paths')}>
-          <IoArrowBack /> {t('pathDetail.backToPaths')}
-        </Button>
-      </div>
     </Container>
   );
 }

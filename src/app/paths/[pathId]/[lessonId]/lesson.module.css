@@ -1,73 +1,59 @@
-.loadingCard {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  padding: 3rem;
-  min-height: 300px;
-}
+/* Lesson flow — one focused column that shares its left edge with the page header */
 
-.loader {
-  width: 48px;
-  height: 48px;
-  border: 4px solid var(--border-color, rgba(255, 255, 255, 0.1));
-  border-top-color: var(--gold, #FFD700);
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.errorCard,
-.lockedCard {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  padding: 3rem;
-  text-align: center;
-  min-height: 300px;
-}
-
-.errorIcon,
-.lockedIcon {
-  font-size: 3rem;
-  color: var(--error, #ff6b6b);
-}
-
-.lockedIcon {
-  color: var(--muted, rgba(255, 255, 255, 0.5));
-}
-
-.lessonFlowContainer {
-  justify-content: flex-start !important;
-  padding-top: calc(3.5rem + var(--safe-area-top)) !important;
+.column {
+  width: min(880px, 100%);
+  margin-inline: auto;
 }
 
 .lessonFlowContent {
   width: 100%;
 }
 
+.stateCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  min-height: 260px;
+  padding: var(--space-8) var(--space-5);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  background: color-mix(in srgb, var(--bg-card) 85%, transparent);
+  text-align: center;
+}
+
+.stateIcon {
+  font-size: 2.5rem;
+  color: var(--text-muted);
+}
+
+.errorIcon {
+  color: var(--accent-red-light);
+}
+
+.stateTitle {
+  margin: 0;
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.stateText {
+  margin: 0;
+  max-width: min(460px, 100%);
+  font-size: var(--text-sm);
+  line-height: var(--leading-normal);
+  color: var(--text-secondary);
+}
+
 @media (max-width: 480px) {
-  .lessonFlowContainer {
-    padding-top: calc(2.75rem + var(--safe-area-top)) !important;
+  .stateCard {
+    min-height: 200px;
+    padding: var(--space-6) var(--space-4);
   }
 
-  .loadingCard,
-  .errorCard,
-  .lockedCard {
-    min-height: 220px;
-    padding: 1.5rem 1rem;
-  }
-
-  .errorIcon,
-  .lockedIcon {
-    font-size: 2.25rem;
+  .stateIcon {
+    font-size: 2rem;
   }
 }

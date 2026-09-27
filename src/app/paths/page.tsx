@@ -1,9 +1,9 @@
 'use client';
 
-import { useState, useMemo, Fragment } from 'react';
+import { useState, useMemo } from 'react';
 import Link from 'next/link';
-import Navigation from '@/components/common/Navigation';
-import { Container, Card, Text, Button, Animated } from '@/components/ui';
+import PageHeader from '@/components/common/PageHeader';
+import { Container, Button } from '@/components/ui';
 import { useRecommendations } from '@/hooks/useRecommendations';
 import { usePathProgress } from '@/hooks/usePathProgress';
 import { useLanguage } from '@/context/LanguageProvider';
@@ -91,311 +91,290 @@ export default function PathsPage() {
   const linearPaths = filteredPaths.filter(p => p.pathType === 'linear');
   const topicPaths = filteredPaths.filter(p => p.pathType === 'topic');
 
-  // Get difficulty badge color
-  const getDifficultyColor = (difficulty: string) => {
-    if (difficulty.includes('beginner')) return 'var(--success)';
-    if (difficulty.includes('intermediate')) return 'var(--accent-gold)';
-    if (difficulty.includes('advanced')) return 'var(--accent-red)';
-    return 'var(--text-muted)';
+  // Difficulty badge tone
+  const getDifficultyClass = (difficulty: string) => {
+    const value = difficulty.toLowerCase();
+    if (value.includes('beginner')) return styles.difficultyBeginner;
+    if (value.includes('intermediate')) return styles.difficultyIntermediate;
+    if (value.includes('advanced')) return styles.difficultyAdvanced;
+    return '';
   };
+
+
+  const header = <PageHeader title={t('paths.title')} subtitle={t('paths.subtitle')} />;
 
   if (isLoading) {
     return (
-      <Container variant="centered">
-        <Navigation />
-        <Text variant="body" color="muted">{t('paths.loading')}</Text>
+      <Container variant="dashboard">
+        {header}
+        <p className={styles.loadingText} role="status" aria-live="polite">{t('paths.loading')}</p>
       </Container>
     );
   }
 
   return (
-    <Container variant="centered">
-      <Navigation />
+    <Container variant="dashboard">
+      {header}
 
-      <Animated animation="fadeInDown">
-        <Text variant="h1" color="gold" align="center" className={styles.pageTitle}>
-          {t('paths.title')}
-        </Text>
-        <Text color="muted" align="center" className={styles.pageSubtitle}>
-          {t('paths.subtitle')}
-        </Text>
-      </Animated>
-
-      {/* Difficulty Filter Chips (always visible) */}
-      <div className={styles.difficultyChips}>
-        {(['all', 'beginner', 'intermediate', 'advanced'] as DifficultyFilter[]).map((diff) => (
-          <button
-            key={diff}
-            className={`${styles.filterChip} ${difficultyFilter === diff ? styles.chipActive : ''}`}
-            onClick={() => setDifficultyFilter(diff)}
-          >
-            {t(`paths.difficulty.${diff}`)}
-          </button>
-        ))}
-      </div>
-
-      {/* More Filters (type filter) */}
-      <div className={styles.filterBar}>
-        <Button
-          variant="ghost"
+      {/* Filters toolbar */}
+      <div className={styles.toolbar}>
+        <div className={styles.chipRow} role="group" aria-label={t('paths.filterDifficulty')}>
+          {(['all', 'beginner', 'intermediate', 'advanced'] as DifficultyFilter[]).map((diff) => (
+            <button
+              key={diff}
+              type="button"
+              className={`${styles.chip} ${difficultyFilter === diff ? styles.chipActive : ''}`}
+              aria-pressed={difficultyFilter === diff}
+              onClick={() => setDifficultyFilter(diff)}
+            >
+              {t(`paths.difficulty.${diff}`)}
+            </button>
+          ))}
+        </div>
+        <button
+          type="button"
+          className={`${styles.chip} ${styles.filterToggle} ${showFilters ? styles.chipActive : ''}`}
+          aria-expanded={showFilters}
+          aria-controls="paths-type-filter"
           onClick={() => setShowFilters(!showFilters)}
-          className={styles.filterToggle}
         >
-          <IoFilter /> {t('paths.moreFilters')}
-        </Button>
-
-        {showFilters && (
-          <Animated animation="fadeInDown" className={styles.filterOptions}>
-            <div className={styles.filterGroup}>
-              <Text variant="label" color="muted">{t('paths.filterType')}</Text>
-              <div className={styles.filterButtons}>
-                {(['all', 'linear', 'topic'] as PathType[]).map((type) => (
-                  <button
-                    key={type}
-                    className={`${styles.filterButton} ${typeFilter === type ? styles.active : ''}`}
-                    onClick={() => setTypeFilter(type)}
-                  >
-                    {t(`paths.types.${type}`)}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </Animated>
-        )}
+          <IoFilter aria-hidden="true" /> {t('paths.moreFilters')}
+        </button>
       </div>
 
-      {/* Adaptive Path Section */}
-      {adaptiveRecommendations && (
-        <section className={styles.section}>
-          <div className={styles.sectionHeader}>
-            <IoSparkles className={styles.sectionIcon} />
-            <Text variant="h2">{t('paths.personalizedPath')}</Text>
+      {showFilters && (
+        <div id="paths-type-filter" className={styles.filterPanel}>
+          <span className={styles.filterLabel}>{t('paths.filterType')}</span>
+          <div className={styles.chipRow} role="group" aria-label={t('paths.filterType')}>
+            {(['all', 'linear', 'topic'] as PathType[]).map((type) => (
+              <button
+                key={type}
+                type="button"
+                className={`${styles.chip} ${typeFilter === type ? styles.chipActive : ''}`}
+                aria-pressed={typeFilter === type}
+                onClick={() => setTypeFilter(type)}
+              >
+                {t(`paths.types.${type}`)}
+              </button>
+            ))}
           </div>
-          <Card variant="glass" className={styles.adaptiveCard}>
-            <div className={styles.adaptiveHeader}>
-              <div className={styles.adaptiveIcon}>
-                <IoRocket />
-              </div>
-              <div className={styles.adaptiveInfo}>
-                <Text variant="h3">{t('paths.aiRecommendations')}</Text>
-                <Text variant="body" color="muted">
-                  {t('paths.tailoredToYou')}
-                </Text>
-              </div>
-            </div>
-            <div className={styles.adaptiveContent}>
-              <Text variant="body" className={styles.adaptiveRationale}>
-                {translateRationale(adaptiveRecommendations.rationale, t)}
-              </Text>
-              <div className={styles.adaptiveStats}>
-                <div className={styles.adaptiveStat}>
-                  <Text variant="h3" color="gold">{adaptiveRecommendations.dailyGoalMinutes}</Text>
-                  <Text variant="label" color="muted">{t('paths.minPerDay')}</Text>
-                </div>
-                <div className={styles.adaptiveStat}>
-                  <Text variant="h3" color="gold">{adaptiveRecommendations.weeklyGoal.newItems}</Text>
-                  <Text variant="label" color="muted">{t('paths.newPerWeek')}</Text>
-                </div>
-                <div className={styles.adaptiveStat}>
-                  <Text variant="h3" color="gold">{t(`pace.${adaptiveRecommendations.suggestedPace}`)}</Text>
-                  <Text variant="label" color="muted">{t('paths.pace')}</Text>
-                </div>
-              </div>
-              {adaptiveRecommendations.focusAreas.length > 0 && (
-                <div className={styles.focusAreas}>
-                  <Text variant="label" color="muted">{t('paths.focusAreas')}</Text>
-                  <div className={styles.focusTags}>
-                    {adaptiveRecommendations.focusAreas.slice(0, 3).map((area, idx) => (
-                      <span key={idx} className={styles.focusTag}>
-                        {area.module}
-                      </span>
-                    ))}
+        </div>
+      )}
+
+      <div className={styles.sections}>
+        {/* Adaptive Path Section */}
+        {adaptiveRecommendations && (
+          <section className={styles.section} aria-labelledby="paths-adaptive-title">
+            <h2 id="paths-adaptive-title" className={styles.sectionTitle}>
+              <IoSparkles className={styles.sectionIcon} aria-hidden="true" />
+              {t('paths.personalizedPath')}
+            </h2>
+            <div className={styles.adaptiveCard}>
+              <div className={styles.adaptiveMain}>
+                <div className={styles.adaptiveHeader}>
+                  <span className={styles.iconTile} aria-hidden="true">
+                    <IoRocket />
+                  </span>
+                  <div className={styles.adaptiveInfo}>
+                    <h3 className={styles.cardTitle}>{t('paths.aiRecommendations')}</h3>
+                    <p className={styles.cardText}>{t('paths.tailoredToYou')}</p>
                   </div>
                 </div>
-              )}
+                <p className={styles.adaptiveRationale}>
+                  {translateRationale(adaptiveRecommendations.rationale, t)}
+                </p>
+                {adaptiveRecommendations.focusAreas.length > 0 && (
+                  <div className={styles.focusAreas}>
+                    <span className={styles.filterLabel}>{t('paths.focusAreas')}</span>
+                    <div className={styles.focusTags}>
+                      {adaptiveRecommendations.focusAreas.slice(0, 3).map((area, idx) => (
+                        <span key={idx} className={styles.tag}>
+                          {area.module}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+              <div className={styles.adaptiveSide}>
+                <dl className={styles.adaptiveStats}>
+                  <div className={styles.adaptiveStat}>
+                    <dt className={styles.statLabel}>{t('paths.minPerDay')}</dt>
+                    <dd className={styles.statValue}>{adaptiveRecommendations.dailyGoalMinutes}</dd>
+                  </div>
+                  <div className={styles.adaptiveStat}>
+                    <dt className={styles.statLabel}>{t('paths.newPerWeek')}</dt>
+                    <dd className={styles.statValue}>{adaptiveRecommendations.weeklyGoal.newItems}</dd>
+                  </div>
+                  <div className={styles.adaptiveStat}>
+                    <dt className={styles.statLabel}>{t('paths.pace')}</dt>
+                    <dd className={styles.statValue}>{t(`pace.${adaptiveRecommendations.suggestedPace}`)}</dd>
+                  </div>
+                </dl>
+                <Button href="/review" className={styles.adaptiveAction}>
+                  <IoPlay aria-hidden="true" /> {t('paths.startLearning')}
+                </Button>
+              </div>
             </div>
-            <Button href="/review" className={styles.adaptiveAction}>
-              <IoPlay /> {t('paths.startLearning')}
-            </Button>
-          </Card>
-        </section>
-      )}
+          </section>
+        )}
 
-      {/* Linear Paths (JLPT) */}
-      {linearPaths.length > 0 && (
-        <section className={styles.section}>
-          <div className={styles.sectionHeader}>
-            <IoSchool className={styles.sectionIcon} />
-            <Text variant="h2">{t('paths.structuredPaths')}</Text>
-          </div>
-          <div className={styles.pathsGrid}>
-            {linearPaths.map((path) => {
-              const enrolled = isEnrolled(path.pathId);
-              return (
-                <Link key={path.pathId} href={`/paths/${path.pathId}`}>
-                  <Card variant="glass" hover className={styles.pathCard}>
-                    <div className={styles.pathIcon}>
-                      {PATH_ICONS[path.pathId] || <IoSchool />}
-                    </div>
-                    <div className={styles.pathContent}>
-                      <Text variant="h3">{getText((path as { nameTranslations?: Record<string, string> }).nameTranslations, path.name)}</Text>
-                      <Text variant="body" color="muted" className={styles.pathDescription}>
+        {/* Linear Paths (JLPT) */}
+        {linearPaths.length > 0 && (
+          <section className={styles.section} aria-labelledby="paths-structured-title">
+            <h2 id="paths-structured-title" className={styles.sectionTitle}>
+              <IoSchool className={styles.sectionIcon} aria-hidden="true" />
+              {t('paths.structuredPaths')}
+            </h2>
+            <ul className={styles.pathsGrid}>
+              {linearPaths.map((path) => {
+                const enrolled = isEnrolled(path.pathId);
+                return (
+                  <li key={path.pathId}>
+                    <Link href={`/paths/${path.pathId}`} className={styles.pathCard}>
+                      <div className={styles.cardHead}>
+                        <span className={styles.iconTile} aria-hidden="true">
+                          {PATH_ICONS[path.pathId] || <IoSchool />}
+                        </span>
+                        <div className={styles.cardHeadText}>
+                          <h3 className={styles.cardTitle}>{getText((path as { nameTranslations?: Record<string, string> }).nameTranslations, path.name)}</h3>
+                          {enrolled && (
+                            <span className={styles.enrolledBadge}>
+                              <IoCheckmarkCircle aria-hidden="true" /> {t('paths.enrolled')}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                      <p className={styles.cardText}>
                         {getText((path as { descriptionTranslations?: Record<string, string> }).descriptionTranslations, path.description)}
-                      </Text>
-                      <div className={styles.pathProgress}>
-                        <div
-                          className={styles.pathProgressBar}
-                          style={{ width: `${path.percentComplete}%` }}
-                        />
-                      </div>
-                      <div className={styles.pathMeta}>
-                        <span className={styles.pathStat}>
-                          <IoTrendingUp /> {path.percentComplete}%
-                        </span>
-                        <span className={styles.pathStat}>
-                          <IoCheckmarkCircle /> {path.completedMilestones}/{path.totalMilestones}
-                        </span>
-                        {path.estimatedHours && (
-                          <span className={styles.estimatedHours} aria-label={t('paths.hours', { count: Math.round(path.estimatedHours) })}>
-                            <IoTime /> {Math.round(path.estimatedHours)}h
+                      </p>
+                      <div className={styles.cardFooter}>
+                        <div className={styles.progressTrack} aria-hidden="true">
+                          <div className={styles.progressFill} style={{ width: `${path.percentComplete}%` }} />
+                        </div>
+                        <div className={styles.meta}>
+                          <span className={styles.metaItem}>
+                            <IoTrendingUp aria-hidden="true" /> {path.percentComplete}%
                           </span>
-                        )}
+                          <span className={styles.metaItem}>
+                            <IoCheckmarkCircle aria-hidden="true" /> {path.completedMilestones}/{path.totalMilestones}
+                          </span>
+                          {path.estimatedHours && (
+                            <span className={styles.metaItem} aria-label={t('paths.hours', { count: Math.round(path.estimatedHours) })}>
+                              <IoTime aria-hidden="true" /> {Math.round(path.estimatedHours)}h
+                            </span>
+                          )}
+                        </div>
                       </div>
-                    </div>
-                    {enrolled && (
-                      <div className={styles.enrolledBadge}>
-                        <IoCheckmarkCircle /> {t('paths.enrolled')}
-                      </div>
-                    )}
-                  </Card>
-                </Link>
-              );
-            })}
-          </div>
-        </section>
-      )}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </section>
+        )}
 
-      {/* Topic Tracks */}
-      {topicPaths.length > 0 && (
-        <section className={styles.section}>
-          <div className={styles.sectionHeader}>
-            <IoRocket className={styles.sectionIcon} />
-            <Text variant="h2">{t('paths.topicTracks')}</Text>
-          </div>
-          <div className={styles.topicGrid}>
-            {topicPaths.map((path) => {
-              const enrolled = isEnrolled(path.pathId);
-              const prereqs = checkPrerequisites(path.pathId);
-              const isLocked = !prereqs.met;
+        {/* Topic Tracks */}
+        {topicPaths.length > 0 && (
+          <section className={styles.section} aria-labelledby="paths-topic-title">
+            <h2 id="paths-topic-title" className={styles.sectionTitle}>
+              <IoRocket className={styles.sectionIcon} aria-hidden="true" />
+              {t('paths.topicTracks')}
+            </h2>
+            <ul className={styles.pathsGrid}>
+              {topicPaths.map((path) => {
+                const enrolled = isEnrolled(path.pathId);
+                const prereqs = checkPrerequisites(path.pathId);
+                const isLocked = !prereqs.met;
 
-              const cardContent = (
-                  <Card
-                    variant="glass"
-                    hover={!isLocked}
-                    className={`${styles.topicCard} ${isLocked ? styles.locked : ''}`}
-                  >
-                    <div className={styles.topicHeader}>
-                      <div className={styles.topicIcon}>
+                const cardContent = (
+                  <>
+                    <div className={styles.cardHead}>
+                      <span className={styles.iconTile} aria-hidden="true">
                         {PATH_ICONS[path.pathId] || <IoSparkles />}
+                      </span>
+                      <div className={styles.cardHeadText}>
+                        <h3 className={styles.cardTitle}>{getText((path as { nameTranslations?: Record<string, string> }).nameTranslations, path.name)}</h3>
+                        <span className={`${styles.difficultyBadge} ${getDifficultyClass(path.difficulty)}`}>
+                          {path.difficulty}
+                        </span>
                       </div>
                       {isLocked && (
-                        <div className={styles.lockIcon}>
-                          <IoLockClosed />
-                        </div>
+                        <IoLockClosed className={styles.lockIcon} aria-hidden="true" />
                       )}
                     </div>
-                    <Text variant="h3" className={styles.topicTitle}>{getText((path as { nameTranslations?: Record<string, string> }).nameTranslations, path.name)}</Text>
-                    <Text variant="caption" color="muted" className={styles.topicDescription}>
+                    <p className={styles.cardText}>
                       {getText((path as { descriptionTranslations?: Record<string, string> }).descriptionTranslations, path.description)}
-                    </Text>
-                    <div className={styles.topicProgress}>
-                      <div
-                        className={styles.topicProgressBar}
-                        style={{ width: `${path.percentComplete}%` }}
-                      />
-                    </div>
-                    <div className={styles.topicMeta}>
-                      <span
-                        className={styles.difficultyBadge}
-                        style={{ color: getDifficultyColor(path.difficulty) }}
-                      >
-                        {path.difficulty}
-                      </span>
-                      {path.estimatedHours && (
-                        <span className={styles.estimatedHours} aria-label={t('paths.hours', { count: Math.round(path.estimatedHours) })}>
-                          <IoTime /> {Math.round(path.estimatedHours)}h
-                        </span>
-                      )}
-                      {path.tags && path.tags.length > 0 && (
-                        <div className={styles.topicTags}>
-                          {path.tags.slice(0, 2).map((tag) => (
-                            <span key={tag} className={styles.tag}>{tag}</span>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                    {enrolled && !isLocked && (
-                      <div className={styles.topicEnrolledStatus}>
-                        <Text variant="caption" color="gold">
-                          {t('paths.percentComplete', { percent: path.percentComplete })}
-                        </Text>
+                    </p>
+                    <div className={styles.cardFooter}>
+                      <div className={styles.progressTrack} aria-hidden="true">
+                        <div className={styles.progressFill} style={{ width: `${path.percentComplete}%` }} />
                       </div>
-                    )}
-                    {isLocked && prereqs.missing.length > 0 && (
-                      <Text variant="caption" color="muted" className={styles.prereqText}>
-                        {t('paths.requires', { item: prereqs.missing[0] })}
-                      </Text>
-                    )}
-                  </Card>
-              );
-
-              return (
-                <Fragment key={path.pathId}>
-                  {isLocked ? (
-                    <div className={styles.lockedWrapper} aria-disabled="true" tabIndex={-1}>
-                      {cardContent}
+                      <div className={styles.meta}>
+                        {enrolled && !isLocked && (
+                          <span className={`${styles.metaItem} ${styles.metaAccent}`}>
+                            {t('paths.percentComplete', { percent: path.percentComplete })}
+                          </span>
+                        )}
+                        {path.estimatedHours && (
+                          <span className={styles.metaItem} aria-label={t('paths.hours', { count: Math.round(path.estimatedHours) })}>
+                            <IoTime aria-hidden="true" /> {Math.round(path.estimatedHours)}h
+                          </span>
+                        )}
+                        {path.tags && path.tags.length > 0 && path.tags.slice(0, 2).map((tag) => (
+                          <span key={tag} className={styles.tag}>{tag}</span>
+                        ))}
+                      </div>
+                      {isLocked && prereqs.missing.length > 0 && (
+                        <p className={styles.prereqText}>
+                          {t('paths.requires', { item: prereqs.missing[0] })}
+                        </p>
+                      )}
                     </div>
-                  ) : (
-                    <Link href={`/paths/${path.pathId}`}>
-                      {cardContent}
-                    </Link>
-                  )}
-                </Fragment>
-              );
-            })}
+                  </>
+                );
+
+                return (
+                  <li key={path.pathId}>
+                    {isLocked ? (
+                      <div className={`${styles.pathCard} ${styles.locked}`} aria-disabled="true">
+                        {cardContent}
+                      </div>
+                    ) : (
+                      <Link href={`/paths/${path.pathId}`} className={styles.pathCard}>
+                        {cardContent}
+                      </Link>
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
+          </section>
+        )}
+
+        {/* Empty State - No paths available for this language */}
+        {!hasPathsData && !isLoading && (
+          <div className={styles.emptyState}>
+            <span className={styles.iconTile} aria-hidden="true">
+              <IoSparkles />
+            </span>
+            <h2 className={styles.sectionTitle}>{t('paths.noPathsYet')}</h2>
+            <p className={styles.cardText}>{t('paths.noPathsDescription')}</p>
           </div>
-        </section>
-      )}
+        )}
 
-      {/* Empty State - No paths available for this language */}
-      {!hasPathsData && !isLoading && (
-        <Card variant="glass" className={styles.emptyState}>
-          <IoSparkles style={{ fontSize: '3rem', color: 'var(--accent-gold)', marginBottom: '1rem' }} />
-          <Text variant="h3" color="muted">{t('paths.noPathsYet')}</Text>
-          <Text variant="body" color="muted" style={{ marginTop: '0.5rem', maxWidth: '400px', textAlign: 'center' }}>
-            {t('paths.noPathsDescription')}
-          </Text>
-        </Card>
-      )}
-
-      {/* Empty State - No matches */}
-      {hasPathsData && filteredPaths.length === 0 && (
-        <Card variant="glass" className={styles.emptyState}>
-          <Text variant="h3" color="muted">{t('paths.noMatchingPaths')}</Text>
-          <Button variant="ghost" onClick={() => {
-            setTypeFilter('all');
-            setDifficultyFilter('all');
-          }}>
-            {t('paths.clearFilters')}
-          </Button>
-        </Card>
-      )}
-
-      {/* Back to Dashboard */}
-      <div className={styles.backLink}>
-        <Button variant="ghost" onClick={() => window.history.back()}>
-          {t('common.back')}
-        </Button>
+        {/* Empty State - No matches */}
+        {hasPathsData && filteredPaths.length === 0 && (
+          <div className={styles.emptyState}>
+            <h2 className={styles.sectionTitle}>{t('paths.noMatchingPaths')}</h2>
+            <Button variant="ghost" onClick={() => {
+              setTypeFilter('all');
+              setDifficultyFilter('all');
+            }}>
+              {t('paths.clearFilters')}
+            </Button>
+          </div>
+        )}
       </div>
     </Container>
   );

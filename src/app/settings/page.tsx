@@ -1,12 +1,12 @@
 'use client';
 
-import { useState, useEffect, useCallback, useMemo } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState, useEffect, useCallback, useMemo, useId } from 'react';
 import Link from 'next/link';
 import { useQuery, useMutation } from 'convex/react';
 import { api } from '../../../convex/_generated/api';
-import Navigation from '@/components/common/Navigation';
-import { Container, Card, Text, Button, Toggle, Animated } from '@/components/ui';
+import PageHeader from '@/components/common/PageHeader';
+import { Container, Button, Toggle } from '@/components/ui';
+import Select from '@/components/ui/Select';
 import { useLanguage } from '@/context/LanguageProvider';
 import { useTargetLanguage } from '@/context/TargetLanguageProvider';
 import { useSettings } from '@/context/SettingsProvider';
@@ -23,31 +23,27 @@ import {
   KOKORO_VOICES,
   speakWithKokoro,
   getVoicesForTargetLanguage,
-  isKokoroSupportedLanguage,
   type KokoroLoadProgress,
   type KokoroVoice,
+  type KokoroVoiceInfo,
 } from '@/lib/kokoroTTS';
-import {
-  getAvailableLanguages,
-  getLanguageDisplayInfo,
-  LanguageCode
-} from '@/lib/language';
+import { getAvailableLanguages } from '@/lib/language';
+import { getLanguageName } from '@/lib/languageNames';
 import {
   isEdgeTTSSupported,
   getEdgeVoicesForLanguage,
   getSelectedEdgeVoice,
   saveEdgeVoice,
   speakWithEdgeTTS,
-  type EdgeVoiceInfo,
 } from '@/lib/edgeTTS';
 import { contrastRatio, meetsWCAGAA } from '@/lib/colorContrast';
 import {
-  IoSettings,
   IoTrophy,
   IoTime,
   IoVolumeHigh,
   IoColorPalette,
   IoChevronForward,
+  IoChevronDown,
   IoCloudOffline,
   IoDownload,
   IoCheckmarkCircle,
@@ -55,21 +51,31 @@ import {
   IoPlay,
   IoMic,
   IoWarning,
+  IoInformationCircle,
+  IoSchool,
 } from 'react-icons/io5';
 import styles from './settings.module.css';
 
-// Language display names
-const LANGUAGE_NAMES: Record<string, string> = {
-  ja: 'Japanese',
-  zh: 'Chinese',
-  ko: 'Korean',
-  es: 'Spanish',
-  fr: 'French',
-  hi: 'Hindi',
-  it: 'Italian',
-  pt: 'Portuguese',
-  en: 'English',
+/** Theme ids selectable as global or per-language theme (besides auto and light). */
+const LANGUAGE_THEME_IDS = ['ja', 'zh', 'ko', 'es', 'fr', 'it', 'en', 'de'] as const;
+
+/** Colour picker defaults, used when no custom colour is set. */
+const DEFAULT_COLORS: Required<Settings['customColors']> = {
+  bgPrimary: '#0a0a0a',
+  bgSecondary: '#1a1a1a',
+  textPrimary: '#ffffff',
+  accentPrimary: '#d4a574',
+  accentGold: '#d4a574',
 };
+
+const COLOR_KEYS = ['bgPrimary', 'bgSecondary', 'textPrimary', 'accentPrimary', 'accentGold'] as const;
+
+const KOKORO_POLL_INTERVAL_MS = 500;
+const TEST_SPEECH_RATE = 0.8;
+
+/** Strips emoji from voice trait labels (the voice list uses them as decoration). */
+const EMOJI_PATTERN = /[\p{Extended_Pictographic}\uFE0F]/gu;
+const cleanTraits = (traits?: string) => (traits ?? '').replace(EMOJI_PATTERN, '').trim();
 
 // Test phrases per language
 const TEST_PHRASES: Record<string, string> = {
@@ -84,16 +90,19 @@ const TEST_PHRASES: Record<string, string> = {
 };
 
 export default function SettingsPage() {
-  const router = useRouter();
   const { t } = useLanguage();
   const { targetLanguage } = useTargetLanguage();
   const { settings, updateSetting } = useSettings();
   const isMobile = useMobile();
+  const idPrefix = useId();
 
   // Leaderboard visibility
   const leaderboardVisible = useQuery(api.leaderboard.getLeaderboardVisibility);
   const setLeaderboardVisibility = useMutation(api.leaderboard.setLeaderboardVisibility);
   const myXPData = useQuery(api.leaderboard.getMyXPBreakdown);
+  // undefined while loading, null when signed out
+  const currentUser = useQuery(api.auth.getCurrentUser);
+  const isSignedIn = Boolean(currentUser);
 
   // Advanced audio toggle
   const [showAdvancedAudio, setShowAdvancedAudio] = useState(false);
@@ -179,7 +188,7 @@ export default function SettingsPage() {
           setKokoroStatus('ready');
           clearInterval(checkInterval);
         }
-      }, 500);
+      }, KOKORO_POLL_INTERVAL_MS);
 
       // Cleanup
       return () => clearInterval(checkInterval);
@@ -195,7 +204,7 @@ export default function SettingsPage() {
       // Start loading the model
       setKokoroStatus('loading');
       setKokoroProgress(0);
-      setKokoroMessage('Initializing...');
+      setKokoroMessage(t('settings.audio.initializing'));
 
       try {
         await loadKokoroModel((progress: KokoroLoadProgress) => {
@@ -209,7 +218,7 @@ export default function SettingsPage() {
         });
       } catch (error) {
         setKokoroStatus('error');
-        setKokoroMessage(error instanceof Error ? error.message : 'Failed to load model');
+        setKokoroMessage(error instanceof Error ? error.message : t('settings.audio.loadError'));
       }
     } else {
       // Unload the model
@@ -218,7 +227,7 @@ export default function SettingsPage() {
       setKokoroProgress(0);
       setKokoroMessage('');
     }
-  }, []);
+  }, [t]);
 
   const handleThemeChange = useCallback((theme: string) => {
     updateSetting('globalTheme', theme as ThemeOverride);
@@ -248,7 +257,7 @@ export default function SettingsPage() {
     setIsTestingVoice(true);
     try {
       const testText = TEST_PHRASES[targetLanguage] || TEST_PHRASES.en;
-      await speakWithKokoro(testText, selectedVoice, 0.8);
+      await speakWithKokoro(testText, selectedVoice, TEST_SPEECH_RATE);
     } catch (error) {
       console.error('Voice test failed:', error);
     } finally {
@@ -268,7 +277,7 @@ export default function SettingsPage() {
     setIsTestingEdgeVoice(true);
     try {
       const testText = TEST_PHRASES[targetLanguage] || TEST_PHRASES.en;
-      await speakWithEdgeTTS(testText, targetLanguage, 0.8);
+      await speakWithEdgeTTS(testText, targetLanguage, TEST_SPEECH_RATE);
     } catch (error) {
       console.error('Edge TTS test failed:', error);
     } finally {
@@ -278,13 +287,13 @@ export default function SettingsPage() {
 
   const modelSize = getKokoroModelSize();
   const selectedVoiceInfo = KOKORO_VOICES.find((v) => v.id === selectedVoice);
-  const languageName = t(`languages.${targetLanguage}`);
+  const languageName = getLanguageName(targetLanguage, t);
 
   // Contrast validation for custom colors
   const contrastWarnings = useMemo(() => {
-    const bg = settings.customColors?.bgPrimary || '#0a0a0a';
-    const text = settings.customColors?.textPrimary || '#ffffff';
-    const gold = settings.customColors?.accentGold || '#d4a574';
+    const bg = settings.customColors?.bgPrimary || DEFAULT_COLORS.bgPrimary;
+    const text = settings.customColors?.textPrimary || DEFAULT_COLORS.textPrimary;
+    const gold = settings.customColors?.accentGold || DEFAULT_COLORS.accentGold;
     const textRatio = contrastRatio(text, bg);
     const goldRatio = contrastRatio(gold, bg);
     return {
@@ -295,502 +304,444 @@ export default function SettingsPage() {
     };
   }, [settings.customColors?.bgPrimary, settings.customColors?.textPrimary, settings.customColors?.accentGold]);
 
+  const genderLabel = (gender: KokoroVoiceInfo['gender']) =>
+    gender === 'Female' ? t('settings.audio.female') : t('settings.audio.male');
+
+  const renderKokoroOption = (voice: KokoroVoiceInfo) => {
+    const traits = cleanTraits(voice.traits);
+    return (
+      <option key={voice.id} value={voice.id}>
+        {traits
+          ? t('settings.audio.voiceOptionWithTraits', { name: voice.name, quality: voice.quality, traits })
+          : t('settings.audio.voiceOption', { name: voice.name, quality: voice.quality })}
+      </option>
+    );
+  };
+
+  const kokoroVoiceReady = kokoroStatus === 'ready' || (!isMobile && isKokoroLoaded());
+
   return (
-    <Container variant="centered">
-      <Navigation />
+    <Container variant="dashboard">
+      <PageHeader title={t('settings.title')} subtitle={t('settings.subtitle')} />
 
-      <Animated animation="fadeInDown">
-        <div className={styles.pageHeader}>
-          <IoSettings className={styles.headerIcon} />
-          <Text variant="h1" color="gold" className={styles.pageTitle}>
-            {t('settings.title')}
-          </Text>
-        </div>
-        <Text color="muted" align="center" className={styles.pageSubtitle}>
-          {t('settings.subtitle')}
-        </Text>
-      </Animated>
+      <div className={styles.sections}>
+        {/* Leaderboard */}
+        <section className={styles.section} aria-labelledby={`${idPrefix}-leaderboard`}>
+          <h2 id={`${idPrefix}-leaderboard`} className={styles.sectionTitle}>
+            <IoTrophy className={styles.sectionIcon} aria-hidden="true" />
+            {t('settings.leaderboard.title')}
+          </h2>
+          <div className={styles.card}>
+            <div className={styles.row}>
+              <div className={styles.rowInfo}>
+                <span id={`${idPrefix}-lb-label`} className={styles.rowLabel}>
+                  {t('settings.leaderboard.showOnLeaderboard')}
+                </span>
+                <span className={styles.rowDescription}>
+                  {t('settings.leaderboard.showOnLeaderboardDescription')}
+                </span>
+                {currentUser === null && (
+                  <span className={styles.rowHint}>
+                    <IoInformationCircle aria-hidden="true" />
+                    {t('settings.leaderboard.signInHint')}
+                  </span>
+                )}
+              </div>
+              <div className={styles.rowControl} role="group" aria-labelledby={`${idPrefix}-lb-label`}>
+                <Toggle
+                  options={[
+                    { id: 'visible', label: t('settings.leaderboard.visible') },
+                    { id: 'hidden', label: t('settings.leaderboard.hidden') },
+                  ]}
+                  value={isSignedIn && leaderboardVisible ? 'visible' : 'hidden'}
+                  onChange={(value) => handleVisibilityToggle(value === 'visible')}
+                  name="leaderboardVisibility"
+                  disabled={!isSignedIn || leaderboardVisible === undefined}
+                />
+              </div>
+            </div>
 
-      {/* Leaderboard Settings */}
-      <Card variant="glass" className={styles.settingsSection}>
-        <div className={styles.sectionHeader}>
-          <IoTrophy className={styles.sectionIcon} />
-          <Text variant="h3">{t('settings.leaderboard.title')}</Text>
-        </div>
-
-        <div className={styles.settingRow}>
-          <div className={styles.settingInfo}>
-            <Text className={styles.settingLabel}>{t('settings.leaderboard.showOnLeaderboard')}</Text>
-            <Text variant="label" color="muted">
-              {t('settings.leaderboard.showOnLeaderboardDescription')}
-            </Text>
-          </div>
-          <div className={styles.settingControl}>
-            {leaderboardVisible !== undefined && (
-              <Toggle
-                options={[
-                  { id: 'visible', label: t('settings.leaderboard.visible') },
-                  { id: 'hidden', label: t('settings.leaderboard.hidden') },
-                ]}
-                value={leaderboardVisible ? 'visible' : 'hidden'}
-                onChange={(value) => handleVisibilityToggle(value === 'visible')}
-                name="leaderboardVisibility"
-              />
+            {myXPData?.anonymousName && (
+              <div className={styles.row}>
+                <div className={styles.rowInfo}>
+                  <span className={styles.rowLabel}>{t('settings.leaderboard.anonymousName')}</span>
+                  <span className={styles.rowDescription}>{t('settings.leaderboard.anonymousNameDescription')}</span>
+                </div>
+                <div className={styles.rowControl}>
+                  <span className={styles.anonymousName}>{myXPData.anonymousName}</span>
+                </div>
+              </div>
             )}
           </div>
-        </div>
+        </section>
 
-        {myXPData?.anonymousName && (
-          <div className={styles.settingRow}>
-            <div className={styles.settingInfo}>
-              <Text className={styles.settingLabel}>{t('settings.leaderboard.anonymousName')}</Text>
-              <Text variant="label" color="muted">
-                {t('settings.leaderboard.anonymousNameDescription')}
-              </Text>
-            </div>
-            <div className={styles.settingControl}>
-              <Text color="gold" className={styles.anonymousName}>
-                {myXPData.anonymousName}
-              </Text>
-            </div>
+        {/* Learning */}
+        <section className={styles.section} aria-labelledby={`${idPrefix}-learning`}>
+          <h2 id={`${idPrefix}-learning`} className={styles.sectionTitle}>
+            <IoSchool className={styles.sectionIcon} aria-hidden="true" />
+            {t('settings.learningTitle')}
+          </h2>
+          <div className={styles.card}>
+            <Link href="/settings/srs" className={styles.linkRow}>
+              <span className={styles.linkIcon} aria-hidden="true"><IoTime /></span>
+              <span className={styles.rowInfo}>
+                <span className={styles.rowLabel}>{t('settings.srs.title')}</span>
+                <span className={styles.rowDescription}>{t('settings.srs.description')}</span>
+              </span>
+              <IoChevronForward className={styles.linkChevron} aria-hidden="true" />
+            </Link>
           </div>
-        )}
-      </Card>
+        </section>
 
-      {/* SRS Settings Link */}
-      <Link href="/settings/srs" className={styles.settingsLink}>
-        <Card variant="glass" hover className={styles.settingsSection}>
-          <div className={styles.linkContent}>
-            <div className={styles.linkLeft}>
-              <IoTime className={styles.sectionIcon} />
-              <div>
-                <Text variant="h3">{t('settings.srs.title')}</Text>
-                <Text variant="label" color="muted">
-                  {t('settings.srs.description')}
-                </Text>
+        {/* Audio & TTS */}
+        <section className={styles.section} aria-labelledby={`${idPrefix}-audio`}>
+          <h2 id={`${idPrefix}-audio`} className={styles.sectionTitle}>
+            <IoVolumeHigh className={styles.sectionIcon} aria-hidden="true" />
+            {t('settings.audio.title')}
+          </h2>
+          <div className={styles.card}>
+            {/* Kokoro voice selection (when the model is ready) */}
+            {kokoroVoiceReady && (
+              <div className={`${styles.row} ${styles.rowStacked}`}>
+                <div className={styles.rowInfo}>
+                  <label htmlFor={`${idPrefix}-kokoro-voice`} className={`${styles.rowLabel} ${styles.rowLabelIcon}`}>
+                    <IoMic aria-hidden="true" />
+                    {t('settings.audio.voiceSelection', { language: languageName })}
+                  </label>
+                  {languageSupported && availableVoices.length > 0 && (
+                    <span className={styles.rowDescription}>
+                      {t('settings.audio.voiceSelectionNote', { language: languageName })}
+                    </span>
+                  )}
+                </div>
+
+                {!languageSupported ? (
+                  <p className={`${styles.status} ${styles.statusWarning}`}>
+                    <IoWarning aria-hidden="true" />
+                    <span>{t('settings.audio.notSupportedWarning', { language: languageName })}</span>
+                  </p>
+                ) : availableVoices.length === 0 ? (
+                  <p className={`${styles.status} ${styles.statusWarning}`}>
+                    <IoWarning aria-hidden="true" />
+                    <span>{t('settings.audio.noVoicesWarning', { language: languageName })}</span>
+                  </p>
+                ) : (
+                  <>
+                    <div className={styles.voiceSelector}>
+                      <Select
+                        id={`${idPrefix}-kokoro-voice`}
+                        fullWidth
+                        value={selectedVoice}
+                        onChange={(e) => handleVoiceChange(e.target.value as KokoroVoice)}
+                      >
+                        {voicesByGender.female.length > 0 && (
+                          <optgroup label={t('settings.audio.female')}>
+                            {voicesByGender.female.map(renderKokoroOption)}
+                          </optgroup>
+                        )}
+                        {voicesByGender.male.length > 0 && (
+                          <optgroup label={t('settings.audio.male')}>
+                            {voicesByGender.male.map(renderKokoroOption)}
+                          </optgroup>
+                        )}
+                      </Select>
+                      <Button
+                        variant="secondary"
+                        onClick={handleTestVoice}
+                        disabled={isTestingVoice || !isKokoroLoaded()}
+                        className={styles.testButton}
+                      >
+                        <IoPlay aria-hidden="true" />
+                        {isTestingVoice ? t('settings.audio.playing') : t('settings.audio.test')}
+                      </Button>
+                    </div>
+
+                    {selectedVoiceInfo && (
+                      <span className={styles.rowDescription}>
+                        {t('settings.audio.voiceDetail', {
+                          language: selectedVoiceInfo.languageLabel,
+                          gender: genderLabel(selectedVoiceInfo.gender),
+                          quality: selectedVoiceInfo.quality,
+                        })}
+                      </span>
+                    )}
+                  </>
+                )}
               </div>
-            </div>
-            <IoChevronForward className={styles.chevron} />
-          </div>
-        </Card>
-      </Link>
+            )}
 
-      {/* Audio & TTS Settings */}
-      <Card variant="glass" className={styles.settingsSection}>
-        <div className={styles.sectionHeader}>
-          <IoVolumeHigh className={styles.sectionIcon} />
-          <Text variant="h3">{t('settings.audio.title')}</Text>
-        </div>
-
-        {/* Voice Selection (always visible when Kokoro is ready) */}
-        {(kokoroStatus === 'ready' || (!isMobile && isKokoroLoaded())) && (
-          <>
-            <div className={styles.voiceSelectionHeader}>
-              <IoMic className={styles.settingLabelIcon} />
-              <Text className={styles.settingLabel}>{t('settings.audio.voiceSelection', { language: languageName })}</Text>
-            </div>
-
-            {!languageSupported ? (
-              <div className={styles.statusSection}>
-                <IoWarning className={styles.warningIcon} />
-                <Text variant="label" color="muted" className={styles.warningText}>
-                  {t('settings.audio.notSupportedWarning', { language: languageName })}
-                </Text>
-              </div>
-            ) : availableVoices.length === 0 ? (
-              <div className={styles.statusSection}>
-                <IoWarning className={styles.warningIcon} />
-                <Text variant="label" color="muted" className={styles.warningText}>
-                  {t('settings.audio.noVoicesWarning', { language: languageName })}
-                </Text>
-              </div>
-            ) : (
-              <>
-                <Text variant="label" color="muted" className={styles.voiceSelectionNote}>
-                  {t('settings.audio.voiceSelectionNote', { language: languageName })}
-                </Text>
-
+            {/* Edge TTS voice selection */}
+            {edgeTTSAvailable && edgeVoices.length > 0 && (
+              <div className={`${styles.row} ${styles.rowStacked}`}>
+                <div className={styles.rowInfo}>
+                  <label htmlFor={`${idPrefix}-edge-voice`} className={`${styles.rowLabel} ${styles.rowLabelIcon}`}>
+                    <IoVolumeHigh aria-hidden="true" />
+                    {t('settings.audio.edgeTitle', { language: languageName })}
+                  </label>
+                  <span className={styles.rowDescription}>{t('settings.audio.edgeDesc', { language: languageName })}</span>
+                </div>
                 <div className={styles.voiceSelector}>
-                  <select
-                    className={styles.voiceSelect}
-                    value={selectedVoice}
-                    onChange={(e) => handleVoiceChange(e.target.value as KokoroVoice)}
+                  <Select
+                    id={`${idPrefix}-edge-voice`}
+                    fullWidth
+                    value={edgeVoice}
+                    onChange={(e) => handleEdgeVoiceChange(e.target.value)}
                   >
-                    {voicesByGender.female.length > 0 && (
-                      <optgroup label="Female">
-                        {voicesByGender.female.map((voice) => (
-                          <option key={voice.id} value={voice.id}>
-                            {voice.name} ({voice.quality}) {voice.traits || ''}
-                          </option>
+                    {edgeVoicesByGender.female.length > 0 && (
+                      <optgroup label={t('settings.audio.female')}>
+                        {edgeVoicesByGender.female.map((voice) => (
+                          <option key={voice.id} value={voice.id}>{voice.name}</option>
                         ))}
                       </optgroup>
                     )}
-                    {voicesByGender.male.length > 0 && (
-                      <optgroup label="Male">
-                        {voicesByGender.male.map((voice) => (
-                          <option key={voice.id} value={voice.id}>
-                            {voice.name} ({voice.quality}) {voice.traits || ''}
-                          </option>
+                    {edgeVoicesByGender.male.length > 0 && (
+                      <optgroup label={t('settings.audio.male')}>
+                        {edgeVoicesByGender.male.map((voice) => (
+                          <option key={voice.id} value={voice.id}>{voice.name}</option>
                         ))}
                       </optgroup>
                     )}
-                  </select>
-
+                  </Select>
                   <Button
                     variant="secondary"
-                    onClick={handleTestVoice}
-                    disabled={isTestingVoice || !isKokoroLoaded()}
-                    className={styles.testVoiceButton}
+                    onClick={handleTestEdgeVoice}
+                    disabled={isTestingEdgeVoice || !edgeVoice}
+                    className={styles.testButton}
                   >
-                    <IoPlay />
-                    {isTestingVoice ? t('settings.audio.playing') : t('settings.audio.test')}
+                    <IoPlay aria-hidden="true" />
+                    {isTestingEdgeVoice ? t('settings.audio.playing') : t('settings.audio.test')}
                   </Button>
                 </div>
+              </div>
+            )}
 
-                {selectedVoiceInfo && (
-                  <div className={styles.voiceInfo}>
-                    <Text variant="label" color="muted">
-                      {t('settings.audio.voiceDetail', {
-                        language: selectedVoiceInfo.languageLabel,
-                        gender: selectedVoiceInfo.gender,
-                        quality: selectedVoiceInfo.quality
-                      })}
-                    </Text>
+            {/* Advanced audio settings (collapsible) */}
+            <button
+              type="button"
+              className={styles.disclosure}
+              onClick={() => setShowAdvancedAudio(!showAdvancedAudio)}
+              aria-expanded={showAdvancedAudio}
+              aria-controls={`${idPrefix}-advanced-audio`}
+            >
+              <span>{t('settings.audio.advancedSettings')}</span>
+              <IoChevronDown
+                className={`${styles.disclosureIcon} ${showAdvancedAudio ? styles.disclosureIconOpen : ''}`}
+                aria-hidden="true"
+              />
+            </button>
+
+            {showAdvancedAudio && (
+              <div id={`${idPrefix}-advanced-audio`} className={styles.advanced}>
+                {/* Kokoro enable/disable (mobile only; desktop loads it automatically) */}
+                {isMobile && (
+                  <div className={styles.row}>
+                    <div className={styles.rowInfo}>
+                      <span id={`${idPrefix}-offline-label`} className={`${styles.rowLabel} ${styles.rowLabelIcon}`}>
+                        <IoCloudOffline aria-hidden="true" />
+                        {t('settings.audio.offlineTTS')}
+                      </span>
+                      <span className={styles.rowDescription}>
+                        {t('settings.audio.offlineTTSDescription', { size: modelSize })}
+                      </span>
+                      {!kokoroSupported && kokoroSupported !== null && (
+                        <span className={styles.rowError}>
+                          {t('settings.audio.notSupported', { reason: kokoroSupportReason })}
+                        </span>
+                      )}
+                    </div>
+                    <div className={styles.rowControl} role="group" aria-labelledby={`${idPrefix}-offline-label`}>
+                      <Toggle
+                        options={[
+                          { id: 'disabled', label: t('settings.audio.off') },
+                          { id: 'enabled', label: t('settings.audio.on') },
+                        ]}
+                        value={kokoroStatus === 'ready' ? 'enabled' : 'disabled'}
+                        onChange={handleKokoroToggle}
+                        name="offlineTTS"
+                        disabled={!kokoroSupported || kokoroStatus === 'loading'}
+                      />
+                    </div>
                   </div>
                 )}
-              </>
+
+                {!isMobile && kokoroSupported && (
+                  <p className={`${styles.status} ${styles.statusSuccess}`}>
+                    <IoCheckmarkCircle aria-hidden="true" />
+                    <span>{t('settings.audio.desktopNotice')}</span>
+                  </p>
+                )}
+
+                {kokoroStatus === 'loading' && (
+                  <div className={styles.progress}>
+                    <div className={styles.progressHeader}>
+                      <IoDownload className={styles.progressIcon} aria-hidden="true" />
+                      <span>{kokoroMessage}</span>
+                    </div>
+                    <div
+                      className={styles.progressTrack}
+                      role="progressbar"
+                      aria-valuenow={kokoroProgress}
+                      aria-valuemin={0}
+                      aria-valuemax={100}
+                      aria-label={t('settings.audio.offlineTTS')}
+                    >
+                      <div className={styles.progressFill} style={{ width: `${kokoroProgress}%` }} />
+                    </div>
+                  </div>
+                )}
+
+                {kokoroStatus === 'ready' && isMobile && (
+                  <p className={`${styles.status} ${styles.statusSuccess}`}>
+                    <IoCheckmarkCircle aria-hidden="true" />
+                    <span>{t('settings.audio.readyNotice')}</span>
+                  </p>
+                )}
+
+                {kokoroStatus === 'error' && (
+                  <p className={`${styles.status} ${styles.statusError}`} role="alert">
+                    <IoCloseCircle aria-hidden="true" />
+                    <span>{kokoroMessage || t('settings.audio.loadError')}</span>
+                  </p>
+                )}
+
+                <div className={styles.infoBox}>
+                  <p className={styles.infoTitle}>{t('settings.audio.priorityTitle')}</p>
+                  <ol className={styles.infoList}>
+                    <li>{t('settings.audio.priority1')}</li>
+                    <li>{t('settings.audio.priorityEdge', { language: languageName })}</li>
+                    <li>
+                      {t('settings.audio.priority2', {
+                        status: isMobile ? t('settings.audio.ifEnabled') : t('settings.audio.autoLoaded'),
+                        support: languageSupported ? languageName : t('settings.audio.englishOnly'),
+                      })}
+                    </li>
+                    <li>{t('settings.audio.priority3')}</li>
+                  </ol>
+                </div>
+              </div>
             )}
-          </>
-        )}
+          </div>
+        </section>
 
-        {/* Edge TTS Voice Selection (always visible) */}
-        {edgeTTSAvailable && edgeVoices.length > 0 && (
-          <>
-            <div className={styles.voiceSelectionHeader} style={{ marginTop: '1.5rem' }}>
-              <IoVolumeHigh className={styles.settingLabelIcon} />
-              <Text className={styles.settingLabel}>{t('settings.audio.edgeTitle', { language: languageName })}</Text>
+        {/* Appearance */}
+        <section className={styles.section} aria-labelledby={`${idPrefix}-appearance`}>
+          <h2 id={`${idPrefix}-appearance`} className={styles.sectionTitle}>
+            <IoColorPalette className={styles.sectionIcon} aria-hidden="true" />
+            {t('settings.appearance.title')}
+          </h2>
+
+          <div className={styles.card}>
+            <div className={styles.row}>
+              <div className={styles.rowInfo}>
+                <label htmlFor={`${idPrefix}-global-theme`} className={styles.rowLabel}>
+                  {t('settings.appearance.globalTheme')}
+                </label>
+                <span className={styles.rowDescription}>{t('settings.appearance.themeDescription')}</span>
+              </div>
+              <div className={styles.rowControl}>
+                <Select
+                  id={`${idPrefix}-global-theme`}
+                  wrapperClassName={styles.select}
+                  value={settings.globalTheme}
+                  onChange={(e) => handleThemeChange(e.target.value)}
+                >
+                  <option value="auto">{t('settings.appearance.auto')}</option>
+                  <option value="light">{t('settings.appearance.themes.light')}</option>
+                  {LANGUAGE_THEME_IDS.map((themeId) => (
+                    <option key={themeId} value={themeId}>{t(`settings.appearance.themes.${themeId}`)}</option>
+                  ))}
+                </Select>
+              </div>
             </div>
-            <Text variant="label" color="muted" className={styles.voiceSelectionNote}>{t('settings.audio.edgeDesc', { language: languageName })}</Text>
+          </div>
 
-            <div className={styles.voiceSelector}>
-              <select
-                className={styles.voiceSelect}
-                value={edgeVoice}
-                onChange={(e) => handleEdgeVoiceChange(e.target.value)}
-              >
-                {edgeVoicesByGender.female.length > 0 && (
-                  <optgroup label="Female">
-                    {edgeVoicesByGender.female.map((voice) => (
-                      <option key={voice.id} value={voice.id}>
-                        {voice.name}
-                      </option>
-                    ))}
-                  </optgroup>
-                )}
-                {edgeVoicesByGender.male.length > 0 && (
-                  <optgroup label="Male">
-                    {edgeVoicesByGender.male.map((voice) => (
-                      <option key={voice.id} value={voice.id}>
-                        {voice.name}
-                      </option>
-                    ))}
-                  </optgroup>
-                )}
-              </select>
+          {/* Per-language overrides */}
+          <div className={styles.subsection}>
+            <h3 className={styles.subsectionTitle}>{t('settings.appearance.languageOverrides')}</h3>
+            <p className={styles.subsectionText}>{t('settings.appearance.languageOverridesDescription')}</p>
+            <div className={styles.card}>
+              {getAvailableLanguages().map((langCode) => {
+                const selectId = `${idPrefix}-theme-${langCode}`;
+                return (
+                  <div key={langCode} className={`${styles.row} ${styles.rowCompact}`}>
+                    <label htmlFor={selectId} className={styles.rowLabel}>{getLanguageName(langCode, t)}</label>
+                    <div className={styles.rowControl}>
+                      <Select
+                        id={selectId}
+                        wrapperClassName={styles.select}
+                        value={settings.languageThemes?.[langCode] || 'auto'}
+                        onChange={(e) => handleLanguageThemeChange(langCode, e.target.value)}
+                      >
+                        <option value="auto">{t('settings.appearance.auto')}</option>
+                        <option value="light">{t('settings.appearance.themes.light')}</option>
+                        {LANGUAGE_THEME_IDS.map((themeId) => (
+                          <option key={themeId} value={themeId}>{t(`settings.appearance.themes.${themeId}`)}</option>
+                        ))}
+                      </Select>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
 
-              <Button
-                variant="secondary"
-                onClick={handleTestEdgeVoice}
-                disabled={isTestingEdgeVoice || !edgeVoice}
-                className={styles.testVoiceButton}
-              >
-                <IoPlay />
-                {isTestingEdgeVoice ? t('settings.audio.playing') : t('settings.audio.test')}
+          {/* Custom colours */}
+          <div className={styles.subsection}>
+            <div className={styles.subsectionHeader}>
+              <div>
+                <h3 className={styles.subsectionTitle}>{t('settings.appearance.customColors')}</h3>
+                <p className={styles.subsectionText}>{t('settings.appearance.customColorsDescription')}</p>
+              </div>
+              <Button variant="secondary" size="sm" onClick={handleResetColors} className={styles.resetButton}>
+                {t('settings.appearance.resetColors')}
               </Button>
             </div>
-          </>
-        )}
 
-        {/* Advanced Audio Settings (collapsible) */}
-        <button
-          className={styles.advancedToggle}
-          onClick={() => setShowAdvancedAudio(!showAdvancedAudio)}
-        >
-          <Text variant="label">{t('settings.audio.advancedSettings')}</Text>
-          <IoChevronForward className={`${styles.chevron} ${showAdvancedAudio ? styles.chevronOpen : ''}`} />
-        </button>
-
-        {showAdvancedAudio && (
-          <div className={styles.advancedContent}>
-            {/* Kokoro TTS Enable/Disable (mobile only shows toggle) */}
-            {isMobile && (
-              <div className={styles.settingRow}>
-                <div className={styles.settingInfo}>
-                  <div className={styles.settingLabelRow}>
-                    <IoCloudOffline className={styles.settingLabelIcon} />
-                    <Text className={styles.settingLabel}>{t('settings.audio.offlineTTS')}</Text>
-                  </div>
-                  <Text variant="label" color="muted">
-                    {t('settings.audio.offlineTTSDescription', { size: modelSize })}
-                  </Text>
-                  {!kokoroSupported && kokoroSupported !== null && (
-                    <Text variant="label" color="error" className={styles.warningText}>
-                      {t('settings.audio.notSupported', { reason: kokoroSupportReason })}
-                    </Text>
-                  )}
-                </div>
-                <div className={styles.settingControl}>
-                  {kokoroSupported && (
-                    <Toggle
-                      options={[
-                        { id: 'disabled', label: t('settings.audio.off') },
-                        { id: 'enabled', label: t('settings.audio.on') },
-                      ]}
-                      value={kokoroStatus === 'ready' ? 'enabled' : 'disabled'}
-                      onChange={handleKokoroToggle}
-                      name="offlineTTS"
-                      disabled={kokoroStatus === 'loading'}
+            <div className={styles.colorGrid}>
+              {COLOR_KEYS.map((colorKey) => {
+                const inputId = `${idPrefix}-color-${colorKey}`;
+                return (
+                  <div key={colorKey} className={styles.colorRow}>
+                    <label htmlFor={inputId} className={styles.rowLabel}>
+                      {t(`settings.appearance.colors.${colorKey}`)}
+                    </label>
+                    <input
+                      id={inputId}
+                      type="color"
+                      className={styles.colorPicker}
+                      value={settings.customColors?.[colorKey] || DEFAULT_COLORS[colorKey]}
+                      onChange={(e) => handleColorChange(colorKey, e.target.value)}
                     />
+                  </div>
+                );
+              })}
+            </div>
+
+            {(contrastWarnings.textFails || contrastWarnings.goldFails) ? (
+              <div className={`${styles.status} ${styles.statusError}`} role="status">
+                <IoWarning aria-hidden="true" />
+                <div className={styles.statusLines}>
+                  {contrastWarnings.textFails && (
+                    <span>
+                      {t('settings.appearance.contrastWarningTextRatio', { ratio: contrastWarnings.textRatio })}
+                    </span>
+                  )}
+                  {contrastWarnings.goldFails && (
+                    <span>
+                      {t('settings.appearance.contrastWarningAccentRatio', { ratio: contrastWarnings.goldRatio })}
+                    </span>
                   )}
                 </div>
               </div>
+            ) : (
+              <p className={`${styles.status} ${styles.statusSuccess}`} role="status">
+                <IoCheckmarkCircle aria-hidden="true" />
+                <span>{t('settings.appearance.contrastOk')}</span>
+              </p>
             )}
-
-            {/* Desktop auto-load notice */}
-            {!isMobile && kokoroSupported && (
-              <div className={styles.statusSection}>
-                <IoCheckmarkCircle className={styles.successIcon} />
-                <Text variant="label" color="success">
-                  {t('settings.audio.desktopNotice')}
-                </Text>
-              </div>
-            )}
-
-            {/* Kokoro Loading Progress */}
-            {kokoroStatus === 'loading' && (
-              <div className={styles.progressSection}>
-                <div className={styles.progressHeader}>
-                  <IoDownload className={styles.progressIcon} />
-                  <Text variant="label">{kokoroMessage}</Text>
-                </div>
-                <div className={styles.progressBar}>
-                  <div
-                    className={styles.progressFill}
-                    style={{ width: `${kokoroProgress}%` }}
-                  />
-                </div>
-                <Text variant="label" color="muted" className={styles.progressPercent}>
-                  {kokoroProgress}%
-                </Text>
-              </div>
-            )}
-
-            {/* Kokoro Ready Status */}
-            {kokoroStatus === 'ready' && isMobile && (
-              <div className={styles.statusSection}>
-                <IoCheckmarkCircle className={styles.successIcon} />
-                <Text variant="label" color="success">
-                  {t('settings.audio.readyNotice')}
-                </Text>
-              </div>
-            )}
-
-            {/* Kokoro Error Status */}
-            {kokoroStatus === 'error' && (
-              <div className={styles.statusSection}>
-                <IoCloseCircle className={styles.errorIcon} />
-                <Text variant="label" color="error">
-                  {kokoroMessage || t('settings.audio.loadError')}
-                </Text>
-              </div>
-            )}
-
-            {/* TTS Tiers Explanation */}
-            <div className={styles.ttsInfo}>
-              <Text variant="label" color="muted" className={styles.ttsInfoTitle}>
-                {t('settings.audio.priorityTitle')}
-              </Text>
-              <ol className={styles.ttsTierList}>
-                <li>{t('settings.audio.priority1')}</li>
-                <li>Edge TTS (Microsoft neural voices for {languageName})</li>
-                <li>
-                  {t('settings.audio.priority2', {
-                    status: isMobile ? t('settings.audio.ifEnabled') : t('settings.audio.autoLoaded'),
-                    support: languageSupported ? languageName : t('settings.audio.englishOnly')
-                  })}
-                </li>
-                <li>{t('settings.audio.priority3')}</li>
-              </ol>
-            </div>
           </div>
-        )}
-      </Card>
-
-      <Card variant="glass" className={styles.settingsSection}>
-        <div className={styles.sectionHeader}>
-          <IoColorPalette className={styles.sectionIcon} />
-          <Text variant="h3">{t('settings.appearance.title')}</Text>
-        </div>
-        <div className={styles.settingRow}>
-          <div className={styles.settingInfo}>
-            <Text className={styles.settingLabel}>{t('settings.appearance.globalTheme')}</Text>
-            <Text variant="label" color="muted">
-              {t('settings.appearance.themeDescription')}
-            </Text>
-          </div>
-          <div className={styles.settingControl}>
-            <select
-              className={styles.voiceSelect}
-              value={settings.globalTheme}
-              onChange={(e) => handleThemeChange(e.target.value)}
-            >
-              <option value="auto">{t('settings.appearance.auto')}</option>
-              <option value="light">{t('settings.appearance.themes.light')}</option>
-              <option value="ja">Japanese (Zen Garden)</option>
-              <option value="zh">Chinese (Silk Road)</option>
-              <option value="ko">Korean (Hanok)</option>
-              <option value="es">Spanish (Sol y Sombra)</option>
-              <option value="fr">French (Château)</option>
-              <option value="it">Italian (Rinascimento)</option>
-              <option value="en">English (Oxford Library)</option>
-              <option value="de">German (Schwarzwald)</option>
-            </select>
-          </div>
-        </div>
-
-        {/* Per-Language Overrides */}
-        <div className={styles.languageOverridesSection}>
-          <Text variant="h3" className={styles.overridesTitle}>{t('settings.appearance.languageOverrides')}</Text>
-          <Text variant="label" color="muted" className={styles.overridesSubtitle}>
-            {t('settings.appearance.languageOverridesDescription')}
-          </Text>
-
-          <div className={styles.overridesGrid}>
-            {getAvailableLanguages().map((langCode) => {
-              const info = getLanguageDisplayInfo(langCode);
-              return (
-                <div key={langCode} className={styles.overrideRow}>
-                  <Text className={styles.overrideLangName}>{info?.name || langCode}</Text>
-                  <select
-                    className={styles.overrideSelect}
-                    value={settings.languageThemes?.[langCode] || 'auto'}
-                    onChange={(e) => handleLanguageThemeChange(langCode, e.target.value)}
-                  >
-                    <option value="auto">{t('settings.appearance.auto')}</option>
-                    <option value="light">{t('settings.appearance.themes.light')}</option>
-                    <option value="ja">{t('languages.ja')}</option>
-                    <option value="zh">{t('languages.zh')}</option>
-                    <option value="ko">{t('languages.ko')}</option>
-                    <option value="es">{t('languages.es')}</option>
-                    <option value="fr">{t('languages.fr')}</option>
-                    <option value="it">{t('languages.it')}</option>
-                    <option value="en">{t('languages.en')}</option>
-                    <option value="de">{t('languages.de')}</option>
-                  </select>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Custom Colors Section */}
-        <div className={styles.customColorsSection}>
-          <div className={styles.overridesHeader}>
-            <div>
-              <Text variant="h3" className={styles.overridesTitle}>{t('settings.appearance.customColors')}</Text>
-              <Text variant="label" color="muted" className={styles.overridesSubtitle}>
-                {t('settings.appearance.customColorsDescription')}
-              </Text>
-            </div>
-            <Button
-              variant="secondary"
-              size="sm"
-              onClick={handleResetColors}
-              className={styles.resetButton}
-            >
-              {t('settings.appearance.resetColors')}
-            </Button>
-          </div>
-
-          <div className={styles.colorGrid}>
-            <div className={styles.colorRow}>
-              <Text className={styles.colorLabel}>{t('settings.appearance.colors.bgPrimary')}</Text>
-              <input
-                type="color"
-                className={styles.colorPicker}
-                value={settings.customColors?.bgPrimary || '#0a0a0a'}
-                onChange={(e) => handleColorChange('bgPrimary', e.target.value)}
-                aria-label={t('settings.appearance.colors.bgPrimary')}
-              />
-            </div>
-            <div className={styles.colorRow}>
-              <Text className={styles.colorLabel}>{t('settings.appearance.colors.bgSecondary')}</Text>
-              <input
-                type="color"
-                className={styles.colorPicker}
-                value={settings.customColors?.bgSecondary || '#1a1a1a'}
-                onChange={(e) => handleColorChange('bgSecondary', e.target.value)}
-                aria-label={t('settings.appearance.colors.bgSecondary')}
-              />
-            </div>
-            <div className={styles.colorRow}>
-              <Text className={styles.colorLabel}>{t('settings.appearance.colors.textPrimary')}</Text>
-              <input
-                type="color"
-                className={styles.colorPicker}
-                value={settings.customColors?.textPrimary || '#ffffff'}
-                onChange={(e) => handleColorChange('textPrimary', e.target.value)}
-                aria-label={t('settings.appearance.colors.textPrimary')}
-              />
-            </div>
-            <div className={styles.colorRow}>
-              <Text className={styles.colorLabel}>{t('settings.appearance.colors.accentPrimary')}</Text>
-              <input
-                type="color"
-                className={styles.colorPicker}
-                value={settings.customColors?.accentPrimary || '#d4a574'}
-                onChange={(e) => handleColorChange('accentPrimary', e.target.value)}
-                aria-label={t('settings.appearance.colors.accentPrimary')}
-              />
-            </div>
-            <div className={styles.colorRow}>
-              <Text className={styles.colorLabel}>{t('settings.appearance.colors.accentGold')}</Text>
-              <input
-                type="color"
-                className={styles.colorPicker}
-                value={settings.customColors?.accentGold || '#d4a574'}
-                onChange={(e) => handleColorChange('accentGold', e.target.value)}
-                aria-label={t('settings.appearance.colors.accentGold')}
-              />
-            </div>
-          </div>
-
-          {/* Contrast Warnings */}
-          {(contrastWarnings.textFails || contrastWarnings.goldFails) ? (
-            <div className={styles.contrastWarning}>
-              <IoWarning style={{ flexShrink: 0, fontSize: '1.2rem' }} />
-              <div>
-                {contrastWarnings.textFails && (
-                  <Text variant="label">{t('settings.appearance.contrastWarningText')} ({contrastWarnings.textRatio}:1)</Text>
-                )}
-                {contrastWarnings.goldFails && (
-                  <Text variant="label">{t('settings.appearance.contrastWarningAccent')} ({contrastWarnings.goldRatio}:1)</Text>
-                )}
-              </div>
-            </div>
-          ) : (
-            <div className={styles.contrastOk}>
-              <IoCheckmarkCircle style={{ flexShrink: 0, fontSize: '1.2rem' }} />
-              <Text variant="label">{t('settings.appearance.contrastOk')}</Text>
-            </div>
-          )}
-        </div>
-      </Card>
-
-      {/* Back Button */}
-      <Button variant="ghost" onClick={() => router.push('/')} className={styles.backButton}>
-        {t('settings.backToDashboard')}
-      </Button>
+        </section>
+      </div>
     </Container>
   );
 }

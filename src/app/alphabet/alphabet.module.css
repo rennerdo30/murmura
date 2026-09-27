@@ -1,49 +1,10 @@
-.alphabetToggle {
+/* Alphabet learn mode; shared layout lives in src/styles/study.module.css */
+
+.learnStage {
   display: flex;
-  background: var(--bg-card);
-  border-radius: 50px;
-  padding: 0.25rem;
-  border: 1px solid var(--border-subtle);
-}
-
-.alphabetToggle input[type="radio"] {
-  display: none;
-}
-
-.alphabetToggle label {
-  padding: 0.75rem 2rem;
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: var(--text-muted);
-  cursor: pointer;
-  border-radius: 50px;
-  transition: all 0.3s ease;
-}
-
-.alphabetToggle input[type="radio"]:checked + label {
-  background: var(--accent-red);
-  color: var(--text-primary);
-  box-shadow: 0 2px 10px var(--accent-red-glow);
-}
-
-@media (max-width: 640px) {
-  .alphabetToggle label {
-    padding: 0.6rem 1.5rem;
-    font-size: 0.85rem;
-  }
-}
-
-/* Learn Mode Toggle Wrapper */
-.modeToggleWrapper {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 1.5rem;
-}
-
-/* No characters/lessons message */
-.noCharacters {
-  text-align: center;
-  padding: 2rem;
-  color: var(--text-muted);
-  font-size: 1rem;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-5);
+  width: min(640px, 100%);
+  margin-inline: auto;
 }

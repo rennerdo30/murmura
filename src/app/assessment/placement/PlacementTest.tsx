@@ -1,12 +1,16 @@
 'use client';
 
-import React, { useState, useCallback, useMemo } from 'react';
+import { useState, useCallback, useMemo } from 'react';
+import { IoClose, IoCheckmarkCircle, IoCloseCircle, IoArrowForward } from 'react-icons/io5';
 import { useLanguage } from '@/context/LanguageProvider';
+import { useTargetLanguage } from '@/hooks/useTargetLanguage';
+import { Button } from '@/components/ui';
+import type { LanguageLevel } from '@/lib/language';
 import styles from './PlacementTest.module.css';
 import type { Assessment, AssessmentResult, AssessmentSection } from '@/types/assessment';
 
 interface PlacementTestProps {
-  assessment: Assessment | null;
+  assessment: Assessment;
   onComplete: (result: AssessmentResult) => void;
   onCancel: () => void;
 }
@@ -18,90 +22,50 @@ interface QuestionAnswer {
   correct: boolean;
 }
 
-// Sample questions for when no assessment data is loaded
-const SAMPLE_SECTIONS: AssessmentSection[] = [
-  {
-    skill: 'vocabulary',
-    name: 'Vocabulary',
-    weight: 25,
-    questions: [
-      {
-        id: 'v1',
-        sectionIndex: 0,
-        questionIndex: 0,
-        skill: 'vocabulary',
-        difficulty: 'easy',
-        questionData: {
-          id: 'v1-q',
-          type: 'multiple_choice',
-          question: 'What does "\u3042\u308a\u304c\u3068\u3046" mean?',
-          options: ['Hello', 'Thank you', 'Goodbye', 'Sorry'],
-          correctIndex: 1,
-        },
-        points: 1,
-      },
-      {
-        id: 'v2',
-        sectionIndex: 0,
-        questionIndex: 1,
-        skill: 'vocabulary',
-        difficulty: 'medium',
-        questionData: {
-          id: 'v2-q',
-          type: 'multiple_choice',
-          question: 'What does "\u98df\u3079\u308b" (taberu) mean?',
-          options: ['To drink', 'To eat', 'To sleep', 'To walk'],
-          correctIndex: 1,
-        },
-        points: 1,
-      },
-    ],
-  },
-  {
-    skill: 'grammar',
-    name: 'Grammar',
-    weight: 25,
-    questions: [
-      {
-        id: 'g1',
-        sectionIndex: 1,
-        questionIndex: 0,
-        skill: 'grammar',
-        difficulty: 'easy',
-        questionData: {
-          id: 'g1-q',
-          type: 'multiple_choice',
-          question: 'Which particle marks the topic of a sentence?',
-          options: ['\u3092', '\u306f', '\u306b', '\u3067'],
-          correctIndex: 1,
-        },
-        points: 1,
-      },
-      {
-        id: 'g2',
-        sectionIndex: 1,
-        questionIndex: 1,
-        skill: 'grammar',
-        difficulty: 'medium',
-        questionData: {
-          id: 'g2-q',
-          type: 'multiple_choice',
-          question: 'How do you say "I want to eat" in Japanese?',
-          options: ['\u98df\u3079\u307e\u3059', '\u98df\u3079\u305f\u3044', '\u98df\u3079\u3066', '\u98df\u3079\u305f'],
-          correctIndex: 1,
-        },
-        points: 1,
-      },
-    ],
-  },
-];
+const FULL_PERCENT = 100;
+const OPTION_LETTER_OFFSET = 65; // 'A'
+const SKILL_KEY_PREFIX = 'assessment.placement.skills.';
+
+/**
+ * Score bands used when the assessment has no scoring rubric: the n-th band maps
+ * to the n-th level of the target language (lowest first).
+ */
+const FALLBACK_BAND_THRESHOLDS = [0, 60, 75, 90];
+
+function pickLevel(
+  percentScore: number,
+  assessment: Assessment,
+  levels: LanguageLevel[]
+): { level: string; path: string } {
+  const rubric = assessment.scoringRubric;
+  const thresholds = rubric?.levelThresholds ? Object.entries(rubric.levelThresholds) : [];
+
+  if (thresholds.length > 0) {
+    // Highest level whose threshold the score reaches; fall back to the lowest threshold
+    const sorted = [...thresholds].sort((a, b) => a[1] - b[1]);
+    const reached = sorted.filter(([, threshold]) => percentScore >= threshold);
+    const [level] = reached.length > 0 ? reached[reached.length - 1] : sorted[0];
+    return { level, path: rubric.recommendations?.[level] ?? level };
+  }
+
+  const ordered = [...levels].sort((a, b) => a.order - b.order);
+  let bandIndex = 0;
+  FALLBACK_BAND_THRESHOLDS.forEach((threshold, index) => {
+    if (percentScore >= threshold) bandIndex = index;
+  });
+  const level = ordered[Math.min(bandIndex, ordered.length - 1)];
+  const levelId = level?.id ?? assessment.targetLevel ?? '';
+  return { level: levelId, path: levelId };
+}
 
 export default function PlacementTest({ assessment, onComplete, onCancel }: PlacementTestProps) {
   const { t } = useLanguage();
+  const { levels } = useTargetLanguage();
 
-  const sections = useMemo(() => {
-    return assessment?.sections ?? SAMPLE_SECTIONS;
-  }, [assessment]);
+  const sections = useMemo(
+    () => assessment.sections.filter(section => section.questions.length > 0),
+    [assessment]
+  );
 
   const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -112,24 +76,26 @@ export default function PlacementTest({ assessment, onComplete, onCancel }: Plac
   const currentSection = sections[currentSectionIndex];
   const currentQuestion = currentSection?.questions[currentQuestionIndex];
   const totalQuestions = sections.reduce((sum, s) => sum + s.questions.length, 0);
-  const answeredCount = answers.length;
 
-  // Get translated section name
   const getSectionName = useCallback((section: AssessmentSection) => {
-    const skillKey = section.skill as string;
-    const translated = t(`assessment.placement.skills.${skillKey}`);
-    // If translation returns the key itself, fall back to the section name
-    return translated.startsWith('assessment.') ? section.name : translated;
+    const key = `${SKILL_KEY_PREFIX}${section.skill}`;
+    const translated = t(key);
+    return translated === key ? section.name : translated;
   }, [t]);
 
-  const progress = useMemo(() => {
+  const questionNumber = useMemo(() => {
     let count = 0;
     for (let i = 0; i < currentSectionIndex; i++) {
       count += sections[i].questions.length;
     }
-    count += currentQuestionIndex;
-    return ((count + 1) / totalQuestions) * 100;
-  }, [currentSectionIndex, currentQuestionIndex, sections, totalQuestions]);
+    return count + currentQuestionIndex + 1;
+  }, [currentSectionIndex, currentQuestionIndex, sections]);
+
+  const progress = totalQuestions > 0 ? (questionNumber / totalQuestions) * FULL_PERCENT : 0;
+  const isLastQuestion =
+    currentSectionIndex === sections.length - 1 &&
+    currentSection !== undefined &&
+    currentQuestionIndex === currentSection.questions.length - 1;
 
   const handleSelectAnswer = useCallback((index: number) => {
     if (showFeedback) return;
@@ -154,205 +120,168 @@ export default function PlacementTest({ assessment, onComplete, onCancel }: Plac
     setShowFeedback(true);
   }, [selectedAnswer, currentQuestion, currentSectionIndex, currentQuestionIndex]);
 
+  const finishTest = useCallback(() => {
+    // `answers` already contains the last answer (added when it was checked)
+    const sectionScores: AssessmentResult['sectionScores'] = {};
+    let totalScore = 0;
+    let totalPossible = 0;
+
+    sections.forEach((section, sIdx) => {
+      const correct = answers.filter(a => a.sectionIndex === sIdx && a.correct).length;
+      const total = section.questions.length;
+      sectionScores[section.skill] = {
+        score: correct,
+        maxScore: total,
+        percent: total > 0 ? Math.round((correct / total) * FULL_PERCENT) : 0,
+      };
+      totalScore += correct * section.weight;
+      totalPossible += total * section.weight;
+    });
+
+    const percentScore = totalPossible > 0 ? Math.round((totalScore / totalPossible) * FULL_PERCENT) : 0;
+    const { level, path } = pickLevel(percentScore, assessment, levels);
+
+    onComplete({
+      assessmentId: assessment.id,
+      totalScore,
+      maxScore: totalPossible,
+      percentScore,
+      sectionScores,
+      recommendedLevel: level,
+      recommendedPath: path,
+      answeredQuestions: answers.map(a => ({
+        questionId: `${a.sectionIndex}-${a.questionIndex}`,
+        correct: a.correct,
+        userAnswer: a.answer,
+      })),
+      completedAt: new Date().toISOString(),
+    });
+  }, [sections, answers, assessment, levels, onComplete]);
+
   const handleNext = useCallback(() => {
     setShowFeedback(false);
     setSelectedAnswer(null);
 
-    // Check if there are more questions in current section
     if (currentQuestionIndex < currentSection.questions.length - 1) {
       setCurrentQuestionIndex(prev => prev + 1);
     } else if (currentSectionIndex < sections.length - 1) {
-      // Move to next section
       setCurrentSectionIndex(prev => prev + 1);
       setCurrentQuestionIndex(0);
     } else {
-      // Test complete - calculate results
-      const sectionScores: Record<string, { score: number; total: number }> = {};
-      let totalScore = 0;
-      let totalPossible = 0;
-
-      sections.forEach((section, sIdx) => {
-        const sectionAnswers = answers.filter(a => a.sectionIndex === sIdx);
-        // Include current answer if we just answered the last question
-        if (sIdx === currentSectionIndex && selectedAnswer !== null) {
-          const lastCorrect = selectedAnswer === currentQuestion?.questionData.correctIndex;
-          sectionAnswers.push({
-            sectionIndex: sIdx,
-            questionIndex: currentQuestionIndex,
-            answer: selectedAnswer,
-            correct: lastCorrect,
-          });
-        }
-
-        const correct = sectionAnswers.filter(a => a.correct).length;
-        const total = section.questions.length;
-        sectionScores[section.skill] = { score: correct, total };
-        totalScore += correct * section.weight;
-        totalPossible += total * section.weight;
-      });
-
-      const percentScore = Math.round((totalScore / totalPossible) * 100);
-
-      // Determine recommended level based on score
-      let recommendedLevel = 'N5';
-      let recommendedPath = 'beginner';
-      if (percentScore >= 90) {
-        recommendedLevel = 'N2';
-        recommendedPath = 'advanced';
-      } else if (percentScore >= 75) {
-        recommendedLevel = 'N3';
-        recommendedPath = 'intermediate';
-      } else if (percentScore >= 60) {
-        recommendedLevel = 'N4';
-        recommendedPath = 'elementary';
-      }
-
-      const result: AssessmentResult = {
-        assessmentId: assessment?.id ?? 'sample',
-        totalScore: totalScore,
-        maxScore: totalPossible,
-        percentScore,
-        sectionScores: Object.fromEntries(
-          Object.entries(sectionScores).map(([key, val]) => [
-            key,
-            {
-              score: val.score,
-              maxScore: val.total,
-              percent: Math.round((val.score / val.total) * 100),
-            },
-          ])
-        ),
-        recommendedLevel,
-        recommendedPath,
-        answeredQuestions: answers.map(a => ({
-          questionId: `${a.sectionIndex}-${a.questionIndex}`,
-          correct: a.correct,
-          userAnswer: a.answer,
-        })),
-        completedAt: new Date().toISOString(),
-      };
-
-      onComplete(result);
+      finishTest();
     }
-  }, [
-    currentQuestionIndex,
-    currentSection,
-    currentSectionIndex,
-    sections,
-    answers,
-    selectedAnswer,
-    currentQuestion,
-    assessment,
-    onComplete,
-  ]);
+  }, [currentQuestionIndex, currentSection, currentSectionIndex, sections.length, finishTest]);
 
   if (!currentQuestion) {
     return (
       <div className={styles.container}>
-        <p>{t('assessment.placement.noQuestions')}</p>
-        <button onClick={onCancel}>{t('assessment.placement.goBack')}</button>
+        <p className={styles.noQuestions}>{t('assessment.placement.noQuestions')}</p>
+        <Button variant="secondary" onClick={onCancel}>{t('assessment.placement.goBack')}</Button>
       </div>
     );
   }
 
   const isCorrect = selectedAnswer === currentQuestion.questionData.correctIndex;
+  const difficultyKey = `placement.difficulty.${currentQuestion.difficulty}`;
+  const difficultyLabel = t(difficultyKey);
 
   return (
     <div className={styles.container}>
-      {/* Header */}
       <div className={styles.header}>
-        <button className={styles.cancelButton} onClick={onCancel}>
-          &#10005;
+        <button
+          type="button"
+          className={styles.cancelButton}
+          onClick={onCancel}
+          aria-label={t('placement.leaveTest')}
+        >
+          <IoClose aria-hidden="true" />
         </button>
         <div className={styles.progressInfo}>
           <span className={styles.sectionName}>{getSectionName(currentSection)}</span>
           <span className={styles.questionCount}>
-            {t('assessment.placement.questionProgress', { current: answeredCount + 1, total: totalQuestions })}
+            {t('assessment.placement.questionProgress', { current: questionNumber, total: totalQuestions })}
           </span>
         </div>
       </div>
 
-      {/* Progress bar */}
-      <div className={styles.progressBar}>
+      <div
+        className={styles.progressBar}
+        role="progressbar"
+        aria-valuenow={Math.round(progress)}
+        aria-valuemin={0}
+        aria-valuemax={FULL_PERCENT}
+        aria-label={t('assessment.placement.questionProgress', { current: questionNumber, total: totalQuestions })}
+      >
         <div className={styles.progressFill} style={{ width: `${progress}%` }} />
       </div>
 
-      {/* Section indicators */}
-      <div className={styles.sectionIndicators}>
+      <ol className={styles.sectionIndicators} aria-label={t('placement.sectionsLabel')}>
         {sections.map((section, idx) => (
-          <div
-            key={section.skill}
-            className={`${styles.sectionDot} ${
-              idx < currentSectionIndex ? styles.completed : ''
-            } ${idx === currentSectionIndex ? styles.active : ''}`}
+          <li
+            key={`${section.skill}-${idx}`}
+            className={`${styles.sectionPill} ${idx < currentSectionIndex ? styles.completed : ''} ${idx === currentSectionIndex ? styles.active : ''}`}
+            aria-current={idx === currentSectionIndex ? 'step' : undefined}
           >
-            {getSectionName(section).charAt(0)}
-          </div>
+            {idx < currentSectionIndex && <IoCheckmarkCircle aria-hidden="true" />}
+            {getSectionName(section)}
+          </li>
         ))}
-      </div>
+      </ol>
 
-      {/* Question */}
-      <div className={styles.questionCard}>
-        <div className={styles.difficultyBadge} data-difficulty={currentQuestion.difficulty}>
-          {currentQuestion.difficulty}
+      <section className={styles.questionCard} aria-labelledby="placement-question">
+        <span className={styles.difficultyBadge} data-difficulty={currentQuestion.difficulty}>
+          {difficultyLabel === difficultyKey ? currentQuestion.difficulty : difficultyLabel}
+        </span>
+
+        <h2 id="placement-question" className={styles.question}>{currentQuestion.questionData.question}</h2>
+
+        <div className={styles.options} role="radiogroup" aria-labelledby="placement-question">
+          {currentQuestion.questionData.options?.map((option: string, idx: number) => {
+            const isSelected = selectedAnswer === idx;
+            const isAnswer = showFeedback && idx === currentQuestion.questionData.correctIndex;
+            const isWrongPick = showFeedback && isSelected && !isCorrect;
+            return (
+              <button
+                key={idx}
+                type="button"
+                role="radio"
+                aria-checked={isSelected}
+                className={`${styles.option} ${isSelected ? styles.selected : ''} ${isAnswer ? styles.correct : ''} ${isWrongPick ? styles.incorrect : ''}`}
+                onClick={() => handleSelectAnswer(idx)}
+                disabled={showFeedback}
+              >
+                <span className={styles.optionLetter} aria-hidden="true">
+                  {String.fromCharCode(OPTION_LETTER_OFFSET + idx)}
+                </span>
+                <span className={styles.optionText}>{option}</span>
+              </button>
+            );
+          })}
         </div>
 
-        <h2 className={styles.question}>{currentQuestion.questionData.question}</h2>
-
-        <div className={styles.options}>
-          {currentQuestion.questionData.options?.map((option: string, idx: number) => (
-            <button
-              key={idx}
-              className={`${styles.option} ${
-                selectedAnswer === idx ? styles.selected : ''
-              } ${
-                showFeedback && idx === currentQuestion.questionData.correctIndex
-                  ? styles.correct
-                  : ''
-              } ${
-                showFeedback && selectedAnswer === idx && !isCorrect
-                  ? styles.incorrect
-                  : ''
-              }`}
-              onClick={() => handleSelectAnswer(idx)}
-              disabled={showFeedback}
-            >
-              <span className={styles.optionLetter}>
-                {String.fromCharCode(65 + idx)}
-              </span>
-              <span className={styles.optionText}>{option}</span>
-            </button>
-          ))}
-        </div>
-
-        {/* Feedback */}
         {showFeedback && (
-          <div className={`${styles.feedback} ${isCorrect ? styles.feedbackCorrect : styles.feedbackIncorrect}`}>
-            <span className={styles.feedbackIcon}>
-              {isCorrect ? '\u2713' : '\u2717'}
-            </span>
+          <div
+            className={`${styles.feedback} ${isCorrect ? styles.feedbackCorrect : styles.feedbackIncorrect}`}
+            role="status"
+          >
+            {isCorrect
+              ? <IoCheckmarkCircle className={styles.feedbackIcon} aria-hidden="true" />
+              : <IoCloseCircle className={styles.feedbackIcon} aria-hidden="true" />}
             <span>{isCorrect ? t('assessment.placement.correct') : t('assessment.placement.incorrect')}</span>
           </div>
         )}
-      </div>
+      </section>
 
-      {/* Actions */}
       <div className={styles.actions}>
         {!showFeedback ? (
-          <button
-            className={styles.submitButton}
-            onClick={handleSubmitAnswer}
-            disabled={selectedAnswer === null}
-          >
+          <Button onClick={handleSubmitAnswer} disabled={selectedAnswer === null} size="lg" fullWidth>
             {t('assessment.placement.checkAnswer')}
-          </button>
+          </Button>
         ) : (
-          <button className={styles.nextButton} onClick={handleNext}>
-            {currentSectionIndex === sections.length - 1 &&
-            currentQuestionIndex === currentSection.questions.length - 1
-              ? t('assessment.placement.seeResults')
-              : t('assessment.placement.nextQuestion')}
-          </button>
+          <Button onClick={handleNext} size="lg" fullWidth>
+            {isLastQuestion ? t('assessment.placement.seeResults') : t('assessment.placement.nextQuestion')}
+            <IoArrowForward aria-hidden="true" />
+          </Button>
         )}
       </div>
     </div>

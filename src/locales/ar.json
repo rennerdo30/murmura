@@ -492,9 +492,15 @@
     }
   },
   "settings": {
+    "learningTitle": "التعلّم",
+    "srsPage": {
+      "unlimited": "غير محدود",
+      "multiplier": "{value}×"
+    },
     "title": "الإعدادات",
     "subtitle": "خصص تجربة التعلم الخاصة بك",
     "leaderboard": {
+      "signInHint": "سجّل الدخول لتختار ما إذا كنت ستظهر في لوحة المتصدرين.",
       "title": "لوحة المتصدرين",
       "showOnLeaderboard": "عرض على لوحة المتصدرين",
       "showOnLeaderboardDescription": "عند التعطيل، لن يظهر تقدمك في التصنيفات العامة",
@@ -508,6 +514,12 @@
       "description": "خصص جدولة المراجعة والصعوبة"
     },
     "audio": {
+      "initializing": "جارٍ التهيئة...",
+      "female": "أنثى",
+      "male": "ذكر",
+      "voiceOption": "{name} ({quality})",
+      "voiceOptionWithTraits": "{name} ({quality}) – {traits}",
+      "priorityEdge": "Edge TTS (أصوات Microsoft العصبية للغة {language})",
       "title": "الصوت وتحويل النص إلى كلام",
       "offlineTTS": "تحويل النص إلى كلام دون اتصال (Kokoro)",
       "offlineTTSDescription": "نزّل نموذج بحجم ~{{size}} ميغابايت لتحويل النص إلى كلام دون اتصال",
@@ -537,6 +549,8 @@
       "advancedSettings": "إعدادات الصوت المتقدمة"
     },
     "appearance": {
+      "contrastWarningTextRatio": "تباين منخفض: قد يصعب قراءة النص ({ratio}:1)",
+      "contrastWarningAccentRatio": "تباين منخفض: قد يصعب رؤية لون التمييز ({ratio}:1)",
       "title": "المظهر",
       "comingSoon": "إعدادات السمة قريباً",
       "subtitle": "تخصيص المظهر والتجربة",
@@ -559,6 +573,14 @@
       "contrastWarningAccent": "تباين منخفض: قد يصعب رؤية لون التمييز",
       "contrastOk": "تباين الألوان يبدو جيداً",
       "themes": {
+        "ja": "اليابانية (حديقة زن)",
+        "zh": "الصينية (طريق الحرير)",
+        "ko": "الكورية (Hanok)",
+        "es": "الإسبانية (Sol y Sombra)",
+        "fr": "الفرنسية (Château)",
+        "it": "الإيطالية (Rinascimento)",
+        "en": "الإنجليزية (مكتبة أكسفورد)",
+        "de": "الألمانية (الغابة السوداء)",
         "light": "ضوء النهار (فاتح)"
       }
     },
@@ -1100,5 +1122,59 @@
     "relaxed": "مريح",
     "moderate": "معتدل",
     "intensive": "مكثف"
+  },
+  "placement": {
+    "loadError": {
+      "title": "تعذّر تحميل اختبار تحديد المستوى",
+      "text": "حدث خطأ أثناء تحميل اختبار تحديد المستوى. يرجى المحاولة لاحقًا."
+    },
+    "unavailable": {
+      "title": "اختبار تحديد المستوى غير متاح بعد",
+      "text": "لا يوجد اختبار لتحديد المستوى في {language} بعد. في هذه الأثناء، ابدأ بمسار تعليمي أو بالوحدات الموجودة في لوحة التحكم."
+    },
+    "questionCount": "عدد الأسئلة: {count}",
+    "questionCountLabel": "الإجمالي",
+    "leaveTest": "الخروج من الاختبار",
+    "sectionsLabel": "أقسام الاختبار",
+    "overallScoreAria": "النتيجة الإجمالية: {score}",
+    "difficulty": {
+      "easy": "سهل",
+      "medium": "متوسط",
+      "hard": "صعب"
+    }
+  },
+  "pronunciation": {
+    "title": "تدريب النطق",
+    "subtitle": "حسّن مهارات التحدث لديك بتمارين موجّهة",
+    "loading": "جارٍ تحميل التمارين...",
+    "backToDrills": "كل التمارين",
+    "drillsTitle": "التمارين",
+    "clearFilters": "مسح عوامل التصفية",
+    "noResults": "لا توجد تمارين تطابق عوامل التصفية المحددة",
+    "drillCount": "عدد التمارين: {count}",
+    "filters": {
+      "type": "أنواع التمارين",
+      "difficulty": "الصعوبة"
+    },
+    "types": {
+      "shadowing": "المحاكاة الصوتية",
+      "minimal_pair": "الأزواج الدنيا",
+      "listen_repeat": "استمع وكرّر"
+    },
+    "typeDescriptions": {
+      "shadowing": "استمع إلى الناطقين الأصليين وتحدّث معهم في الوقت نفسه",
+      "minimal_pair": "درّب أذنك على التمييز بين الأصوات المتشابهة",
+      "listen_repeat": "تدرّب على العبارات من خلال التكرار الموجّه"
+    },
+    "difficulty": {
+      "all": "كل المستويات",
+      "easy": "سهل",
+      "medium": "متوسط",
+      "hard": "صعب"
+    },
+    "empty": {
+      "title": "لا توجد تمارين نطق بعد",
+      "text": "تمارين النطق للغة {language} غير متاحة بعد. نحن نعمل على إضافتها."
+    }
   }
 }

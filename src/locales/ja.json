@@ -512,9 +512,15 @@
     }
   },
   "settings": {
+    "learningTitle": "学習",
+    "srsPage": {
+      "unlimited": "無制限",
+      "multiplier": "{value}×"
+    },
     "title": "設定",
     "subtitle": "学習体験をカスタマイズ",
     "leaderboard": {
+      "signInHint": "ログインすると、ランキングに表示するかどうかを選べます。",
       "title": "リーダーボード",
       "showOnLeaderboard": "リーダーボードに表示",
       "showOnLeaderboardDescription": "無効にすると、進捗が公開ランキングに表示されません",
@@ -528,6 +534,12 @@
       "description": "復習スケジュールと難易度をカスタマイズ"
     },
     "audio": {
+      "initializing": "初期化中...",
+      "female": "女性",
+      "male": "男性",
+      "voiceOption": "{name} ({quality})",
+      "voiceOptionWithTraits": "{name} ({quality}) – {traits}",
+      "priorityEdge": "Edge TTS（{language}向けのMicrosoftニューラル音声）",
       "title": "音声＆TTS",
       "offlineTTS": "オフラインTTS（Kokoro）",
       "offlineTTSDescription": "オフライン音声合成用に約{{size}}MBモデルをダウンロード",
@@ -557,6 +569,8 @@
       "advancedSettings": "詳細オーディオ設定"
     },
     "appearance": {
+      "contrastWarningTextRatio": "コントラストが低い: テキストが読みにくい可能性があります ({ratio}:1)",
+      "contrastWarningAccentRatio": "コントラストが低い: アクセントカラーが見えにくい可能性があります ({ratio}:1)",
       "title": "外観",
       "comingSoon": "テーマ設定近日公開",
       "subtitle": "外観と雰囲気のカスタマイズ",
@@ -579,6 +593,14 @@
       "contrastWarningAccent": "コントラストが低い: アクセントカラーが見えにくい可能性があります",
       "contrastOk": "色のコントラストは良好です",
       "themes": {
+        "ja": "日本語 (禅の庭)",
+        "zh": "中国語 (シルクロード)",
+        "ko": "韓国語 (韓屋)",
+        "es": "スペイン語 (Sol y Sombra)",
+        "fr": "フランス語 (Château)",
+        "it": "イタリア語 (Rinascimento)",
+        "en": "英語 (オックスフォード図書館)",
+        "de": "ドイツ語 (シュヴァルツヴァルト)",
         "light": "デイライト（ライト）"
       }
     },
@@ -1100,5 +1122,59 @@
     "relaxed": "ゆったり",
     "moderate": "標準",
     "intensive": "集中"
+  },
+  "placement": {
+    "loadError": {
+      "title": "レベル判定テストを読み込めませんでした",
+      "text": "レベル判定テストの読み込み中に問題が発生しました。後でもう一度お試しください。"
+    },
+    "unavailable": {
+      "title": "レベル判定テストはまだ利用できません",
+      "text": "{language}のレベル判定テストはまだありません。それまでは、学習パスやダッシュボードのモジュールから始めましょう。"
+    },
+    "questionCount": "{count}問",
+    "questionCountLabel": "合計",
+    "leaveTest": "テストを終了",
+    "sectionsLabel": "テストのセクション",
+    "overallScoreAria": "総合スコア: {score}",
+    "difficulty": {
+      "easy": "やさしい",
+      "medium": "ふつう",
+      "hard": "むずかしい"
+    }
+  },
+  "pronunciation": {
+    "title": "発音練習",
+    "subtitle": "目的に合わせた練習で話す力を伸ばしましょう",
+    "loading": "練習を読み込み中...",
+    "backToDrills": "練習一覧",
+    "drillsTitle": "練習",
+    "clearFilters": "フィルターをクリア",
+    "noResults": "選択したフィルターに一致する練習はありません",
+    "drillCount": "{count}件の練習",
+    "filters": {
+      "type": "練習の種類",
+      "difficulty": "難易度"
+    },
+    "types": {
+      "shadowing": "シャドーイング",
+      "minimal_pair": "ミニマルペア",
+      "listen_repeat": "聞いて繰り返す"
+    },
+    "typeDescriptions": {
+      "shadowing": "ネイティブの音声に合わせて話しましょう",
+      "minimal_pair": "似た音を聞き分ける耳を鍛えましょう",
+      "listen_repeat": "ガイド付きの繰り返しでフレーズを練習しましょう"
+    },
+    "difficulty": {
+      "all": "すべてのレベル",
+      "easy": "やさしい",
+      "medium": "ふつう",
+      "hard": "むずかしい"
+    },
+    "empty": {
+      "title": "発音練習はまだありません",
+      "text": "{language}の発音練習はまだ利用できません。現在準備中です。"
+    }
   }
 }

@@ -1,7 +1,8 @@
 'use client'
 
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
-import Navigation from '@/components/common/Navigation';
+import PageHeader from '@/components/common/PageHeader';
+import EmptyState from '@/components/common/EmptyState';
 import StatsPanel from '@/components/common/StatsPanel';
 import MultipleChoice from '@/components/common/MultipleChoice';
 import LanguageContentGuard from '@/components/common/LanguageContentGuard';
@@ -14,12 +15,15 @@ import { useTargetLanguage } from '@/hooks/useTargetLanguage';
 import { useTTS } from '@/hooks/useTTS';
 import { useContentTranslation } from '@/hooks/useContentTranslation';
 import { KanjiItem, Filter } from '@/types';
-import { IoVolumeHigh } from 'react-icons/io5';
+import { IoVolumeHigh, IoGrid } from 'react-icons/io5';
+import { getModuleName } from '@/lib/learningModules';
+import study from '@/styles/study.module.css';
 import styles from './kanji.module.css';
 
 // Import kanji/hanzi data for each language
 import jaKanjiJson from '@/data/ja/kanji.json';
 import zhHanziJson from '@/data/zh/hanzi.json';
+import { matchesMeaning, matchesReading } from '@/lib/answerMatching';
 
 // Extended type for Chinese Hanzi
 interface HanziItem {
@@ -338,22 +342,41 @@ export default function KanjiPage() {
         }, 2000);
     }, [currentKanji, speak, updateStats, nextKanji]);
 
+    // Accept any listed meaning (English or localized) or, in meaning mode, a reading too
+    const isAnswerCorrect = useCallback((value: string): boolean => {
+        if (!currentKanji) return false;
+        const readings = [...currentKanji.onyomi, ...currentKanji.kunyomi];
+        const readingOk = matchesReading(value, readings, targetLanguage);
+        if (practiceType === 'meaning') {
+            return readingOk || matchesMeaning(value, [getDisplayMeaning(currentKanji), currentKanji.meaning]);
+        }
+        return readingOk;
+    }, [currentKanji, practiceType, targetLanguage, getDisplayMeaning]);
+
+    // Live check: advance as soon as a correct answer is typed
     const checkInput = useCallback((value: string) => {
         if (isProcessing || !currentKanji) return;
-        const normalizedInput = value.toLowerCase().trim();
-
-        if (practiceType === 'meaning') {
-            if (normalizedInput === getDisplayMeaning(currentKanji).toLowerCase().trim()) {
-                handleCorrect();
-            }
-        } else {
-            const isCorrectReading = currentKanji.onyomi.some(r => r.trim() === normalizedInput) ||
-                currentKanji.kunyomi.some(r => r.trim() === normalizedInput);
-            if (isCorrectReading) {
-                handleCorrect();
-            }
+        if (isAnswerCorrect(value)) {
+            handleCorrect();
         }
-    }, [isProcessing, currentKanji, practiceType, handleCorrect, getDisplayMeaning]);
+    }, [isProcessing, currentKanji, isAnswerCorrect, handleCorrect]);
+
+    // Explicit check (Enter / Check button): a wrong answer shows the solution and moves on
+    const submitAnswer = useCallback(() => {
+        if (isProcessing || !currentKanji || !inputValue.trim()) return;
+        if (isAnswerCorrect(inputValue)) {
+            handleCorrect();
+        } else {
+            setShowInfo(true);
+            handleIncorrect();
+        }
+    }, [isProcessing, currentKanji, inputValue, isAnswerCorrect, handleCorrect, handleIncorrect]);
+
+    const revealAnswer = useCallback(() => {
+        if (isProcessing || !currentKanji) return;
+        setShowInfo(true);
+        handleIncorrect();
+    }, [isProcessing, currentKanji, handleIncorrect]);
 
     // Load initial stats from module data and sync to ref
     useEffect(() => {
@@ -415,117 +438,138 @@ export default function KanjiPage() {
         }));
     }, [t]);
 
-    if (!currentKanji) {
-        return (
-            <ErrorBoundary>
-            <LanguageContentGuard moduleName="kanji">
-                <Container variant="centered">
-                    <Navigation />
-                    <div>{t('kanji.noKanji')}</div>
-                </Container>
-            </LanguageContentGuard>
-            </ErrorBoundary>
-        );
-    }
+    const { title: pageTitle, description: pageDescription } = getModuleName('kanji', targetLanguage, t);
+
+    const toolbar = (
+        <OptionsPanel>
+            <div className={optionsStyles.toggleContainer}>
+                <Text variant="label" color="secondary">{t('vocabulary.practiceMode')}</Text>
+                <Toggle
+                    options={[
+                        { id: 'meaning', label: t('kanji.practiceMeaning') },
+                        { id: 'reading', label: t('kanji.practiceReading') }
+                    ]}
+                    value={practiceType}
+                    onChange={(val) => {
+                        setPracticeType(val as 'meaning' | 'reading');
+                        setFilters(prev => ({
+                            ...prev,
+                            practiceMeaning: { ...prev.practiceMeaning, checked: val === 'meaning' },
+                            practiceReading: { ...prev.practiceReading, checked: val === 'reading' }
+                        }));
+                    }}
+                    name="kanji-mode"
+                />
+            </div>
+            <div className={optionsStyles.group}>
+                {Object.values(filters)
+                    .filter(f => f.id !== 'practice-meaning' && f.id !== 'practice-reading')
+                    .map((filter) => (
+                        <Chip
+                            key={filter.id}
+                            id={filter.id}
+                            label={filter.label}
+                            checked={filter.checked}
+                            onChange={(checked) => handleFilterChange(filter.id, checked)}
+                        />
+                    ))}
+            </div>
+        </OptionsPanel>
+    );
 
     return (
         <ErrorBoundary>
         <LanguageContentGuard moduleName="kanji">
-            <Container variant="centered" streak={streak}>
-                <Navigation />
+            <Container variant="dashboard" streak={currentKanji ? streak : 0}>
+                <PageHeader title={pageTitle} subtitle={pageDescription} />
 
-            <OptionsPanel>
-                <div className={optionsStyles.toggleContainer}>
-                    <Text variant="label" color="muted">{t('kanji.practiceMeaning')}</Text>
-                    <Toggle
-                        options={[
-                            { id: 'meaning', label: t('kanji.practiceMeaning') },
-                            { id: 'reading', label: t('kanji.practiceReading') }
-                        ]}
-                        value={practiceType}
-                        onChange={(val) => {
-                            setPracticeType(val as 'meaning' | 'reading');
-                            setFilters(prev => ({
-                                ...prev,
-                                practiceMeaning: { ...prev.practiceMeaning, checked: val === 'meaning' },
-                                practiceReading: { ...prev.practiceReading, checked: val === 'reading' }
-                            }));
-                        }}
-                        name="kanji-mode"
-                    />
-                </div>
-                <div className={optionsStyles.group}>
-                    {Object.values(filters)
-                        .filter(f => f.id !== 'practice-meaning' && f.id !== 'practice-reading')
-                        .map((filter) => (
-                            <Chip
-                                key={filter.id}
-                                id={filter.id}
-                                label={filter.label}
-                                checked={filter.checked}
-                                onChange={(checked) => handleFilterChange(filter.id, checked)}
-                            />
-                        ))}
-                </div>
-            </OptionsPanel>
+                <div className={study.content}>
+                    {toolbar}
 
-            <CharacterCard entering={isCharacterEntering} correct={isCorrect}>
-                <CharacterDisplay
-                    character={currentKanji.kanji}
-                    entering={isCharacterEntering}
-                    correct={isCorrect}
-                />
-                <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => speak(currentKanji.kanji, { audioUrl: currentKanji.audioUrl })}
-                    className={styles.audioButton}
-                    aria-label={t('common.listen')}
-                >
-                    <IoVolumeHigh />
-                </Button>
-            </CharacterCard>
-
-            <div className="mt-8 mb-4 min-h-[100px] flex flex-col items-center">
-                <Animated animation="fadeInUp" key={currentKanji.id + (showInfo ? '-info' : '')}>
-                    {showInfo ? (
-                        <div className="text-center">
-                            <Text variant="h2" color="gold">{getDisplayMeaning(currentKanji)}</Text>
-                            {/* Show language-specific reading labels */}
-                            <Text color="muted" className="mt-2">
-                                {t(readingLabels.primary)}: {currentKanji.onyomi.join(', ')}
-                            </Text>
-                            {readingLabels.secondary && currentKanji.kunyomi.length > 0 && (
-                                <Text color="muted">
-                                    {t(readingLabels.secondary)}: {currentKanji.kunyomi.join(', ')}
-                                </Text>
-                            )}
-                        </div>
+                    {!currentKanji ? (
+                        // Keep the toolbar visible so another level can be selected
+                        <EmptyState icon={<IoGrid />} title={t('kanji.noKanji')} />
                     ) : (
-                        <Button variant="ghost" onClick={() => setShowInfo(true)}>
-                            {t('kanji.showInfo')}
-                        </Button>
-                    )}
-                </Animated>
-            </div>
+                        <div className={study.stage}>
+                            <CharacterCard entering={isCharacterEntering} correct={isCorrect}>
+                                <CharacterDisplay
+                                    character={currentKanji.kanji}
+                                    entering={isCharacterEntering}
+                                    correct={isCorrect}
+                                    lang={targetLanguage}
+                                />
+                                <Button
+                                    variant="ghost"
+                                    size="sm"
+                                    onClick={() => speak(currentKanji.kanji, { audioUrl: currentKanji.audioUrl })}
+                                    className={styles.audioButton}
+                                    aria-label={t('common.listen')}
+                                >
+                                    <IoVolumeHigh aria-hidden="true" />
+                                </Button>
+                            </CharacterCard>
 
-            <InputSection>
-                <Input
-                    type="text"
-                    value={inputValue}
-                    onChange={(e) => {
-                        setInputValue(e.target.value);
-                        checkInput(e.target.value);
-                    }}
-                    placeholder={practiceType === 'meaning' ? t('kanji.typeMeaningOrReading') : t('kanji.typeReading')}
-                    autoComplete="off"
-                    disabled={isProcessing}
-                    variant={inputState}
-                    size="lg"
-                    fullWidth
-                />
-                <StatsPanel correct={correct} total={total} streak={streak} />
-            </InputSection>
+                            <div className={study.reveal}>
+                                <Animated animation="fadeInUp" key={currentKanji.id + (showInfo ? '-info' : '')}>
+                                    {showInfo ? (
+                                        <div className={study.reveal}>
+                                            <p className={study.revealAnswer}>{getDisplayMeaning(currentKanji)}</p>
+                                            {/* Show language-specific reading labels */}
+                                            <p className={study.revealMeta}>
+                                                {t(readingLabels.primary)}: {currentKanji.onyomi.join(', ')}
+                                            </p>
+                                            {readingLabels.secondary && currentKanji.kunyomi.length > 0 && (
+                                                <p className={study.revealMeta}>
+                                                    {t(readingLabels.secondary)}: {currentKanji.kunyomi.join(', ')}
+                                                </p>
+                                            )}
+                                        </div>
+                                    ) : (
+                                        <Button variant="ghost" className={study.tapTarget} onClick={() => setShowInfo(true)}>
+                                            {t('kanji.showInfo')}
+                                        </Button>
+                                    )}
+                                </Animated>
+                            </div>
+
+                            <InputSection>
+                                <form
+                                    className={styles.answerForm}
+                                    onSubmit={(e) => {
+                                        e.preventDefault();
+                                        submitAnswer();
+                                    }}
+                                >
+                                <Input
+                                    type="text"
+                                    value={inputValue}
+                                    onChange={(e) => {
+                                        setInputValue(e.target.value);
+                                        checkInput(e.target.value);
+                                    }}
+                                    placeholder={practiceType === 'meaning' ? t('kanji.typeMeaningOrReading') : t('kanji.typeReading')}
+                                    aria-label={practiceType === 'meaning' ? t('kanji.typeMeaningOrReading') : t('kanji.typeReading')}
+                                    autoComplete="off"
+                                    disabled={isProcessing}
+                                    variant={inputState}
+                                    size="lg"
+                                    fullWidth
+                                    enterKeyHint="done"
+                                />
+                                <div className={styles.answerActions}>
+                                    <Button type="submit" disabled={!inputValue.trim() || isProcessing}>
+                                        {t('exercises.common.checkAnswer')}
+                                    </Button>
+                                    <Button type="button" variant="ghost" onClick={revealAnswer} disabled={isProcessing}>
+                                        {t('review.card.showAnswer')}
+                                    </Button>
+                                </div>
+                                </form>
+                                <StatsPanel correct={correct} total={total} streak={streak} />
+                            </InputSection>
+                        </div>
+                    )}
+                </div>
             </Container>
         </LanguageContentGuard>
         </ErrorBoundary>

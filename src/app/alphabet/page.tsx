@@ -1,7 +1,8 @@
 'use client'
 
 import { useState, useEffect, useCallback, useRef, useMemo, MutableRefObject } from 'react';
-import Navigation from '@/components/common/Navigation';
+import PageHeader from '@/components/common/PageHeader';
+import EmptyState from '@/components/common/EmptyState';
 import StatsPanel from '@/components/common/StatsPanel';
 import Timer from '@/components/common/Timer';
 import MultipleChoice from '@/components/common/MultipleChoice';
@@ -18,6 +19,9 @@ import { useTTS } from '@/hooks/useTTS';
 import { useTimer } from '@/hooks/useTimer';
 import { Character, Filter, AlphabetLesson } from '@/types';
 import { toKatakana } from 'wanakana';
+import { IoSchool, IoFilter } from 'react-icons/io5';
+import { getModuleName } from '@/lib/learningModules';
+import study from '@/styles/study.module.css';
 import styles from './alphabet.module.css';
 
 // Bundled fallback character data, used when the exported dataset is missing or empty
@@ -650,21 +654,21 @@ export default function AlphabetPage() {
         setFilters(prev => ({ ...prev, [id]: { ...prev[id], checked } }));
     }, []);
 
+    const { title: pageTitle, description: pageDescription } = getModuleName('alphabet', targetLanguage, t);
+
     // Render Learn Mode
     const renderLearnMode = () => {
         const lessonChar = toLessonCharacter(currentLessonChar);
         if (!lessonChar || !currentLesson) {
             return (
-                <div className={styles.noCharacters}>
-                    {t('learnMode.noLessonsAvailable') || 'No lessons available for this language yet.'}
-                </div>
+                <EmptyState icon={<IoSchool />} title={t('learnMode.noLessonsAvailable')} />
             );
         }
 
         const lessonLearnedCount = lessonCharacters.filter(c => learnedCharacters.has(c.romaji)).length;
 
         return (
-            <>
+            <div className={styles.learnStage}>
                 <LessonProgress
                     currentIndex={currentCharIndex}
                     totalCount={lessonCharacters.length}
@@ -674,8 +678,8 @@ export default function AlphabetPage() {
                     hasPrevious={currentCharIndex > 0}
                     hasNext={currentCharIndex < lessonCharacters.length - 1}
                     lessonName={currentLesson.name}
-                    progressLabel={t('learnMode.progress') || 'Progress'}
-                    learnedLabel={t('learnMode.learned') || 'Learned'}
+                    progressLabel={t('learnMode.progress')}
+                    learnedLabel={t('learnMode.learned')}
                 />
 
                 <CharacterLesson
@@ -685,114 +689,117 @@ export default function AlphabetPage() {
                     onPlayAudio={handlePlayAudio}
                     isPlaying={isPlayingAudio}
                     isLearned={learnedCharacters.has(currentLessonChar?.romaji || '')}
-                    typeLabel={t('learnMode.type') || 'Type'}
-                    groupLabel={t('learnMode.group') || 'Group'}
-                    soundLabel={t('learnMode.playSound') || 'Play Sound'}
-                    markLearnedLabel={t('learnMode.markLearned') || 'Mark as Learned'}
-                    learnedLabel={t('learnMode.alreadyLearned') || 'Already Learned'}
-                    mnemonicLabel={t('learnMode.mnemonic') || 'Memory Tip'}
-                    nameLabel={t('learnMode.characterName') || 'Name'} 
+                    typeLabel={t('learnMode.type')}
+                    groupLabel={t('learnMode.group')}
+                    soundLabel={t('learnMode.playSound')}
+                    markLearnedLabel={t('learnMode.markLearned')}
+                    learnedLabel={t('learnMode.alreadyLearned')}
+                    mnemonicLabel={t('learnMode.mnemonic')}
+                    nameLabel={t('learnMode.characterName')}
                 />
-            </>
+            </div>
         );
     };
 
     // Render Practice Mode
-    const renderPracticeMode = () => {
-        if (!currentChar) {
-            return (
-                <div>{t('alphabet.noCharacters')}</div>
-            );
-        }
-
-        return (
-            <>
-                <OptionsPanel>
-                    {toggleConfig.enabled && (
-                        <div className={optionsStyles.toggleContainer}>
-                            <Text variant="label" color="muted">{t('alphabet.title')}</Text>
-                            <Toggle
-                                options={toggleConfig.options.map(opt => ({
-                                    id: opt.id,
-                                    label: t(opt.labelKey)
-                                })) as [{ id: string; label: string }, { id: string; label: string }]}
-                                value={useHiragana ? 'hiragana' : 'katakana'}
-                                onChange={(val) => setUseHiragana(val === 'hiragana')}
-                                name="alphabet-type"
-                            />
-                        </div>
-                    )}
-                    <div className={optionsStyles.group}>
-                        {Object.values(filters).map((filter) => (
-                            <Chip
-                                key={filter.id}
-                                id={filter.id}
-                                label={filter.label}
-                                checked={filter.checked}
-                                onChange={(checked) => handleFilterChange(filter.id, checked)}
-                            />
-                        ))}
+    const renderPracticeMode = () => (
+        <div className={study.content}>
+            <OptionsPanel>
+                {toggleConfig.enabled && (
+                    <div className={optionsStyles.toggleContainer}>
+                        <Text variant="label" color="secondary">{t('alphabet.title')}</Text>
+                        <Toggle
+                            options={toggleConfig.options.map(opt => ({
+                                id: opt.id,
+                                label: t(opt.labelKey)
+                            })) as [{ id: string; label: string }, { id: string; label: string }]}
+                            value={useHiragana ? 'hiragana' : 'katakana'}
+                            onChange={(val) => setUseHiragana(val === 'hiragana')}
+                            name="alphabet-type"
+                        />
                     </div>
-                </OptionsPanel>
-
-                <CharacterCard entering={isCharacterEntering} correct={isCorrect}>
-                    <Timer timeLeft={timeLeft} totalTime={TIME_PER_CHARACTER} />
-                    <CharacterDisplay
-                        character={getDisplayCharacter(currentChar)}
-                        entering={isCharacterEntering}
-                        correct={isCorrect}
-                    />
-                </CharacterCard>
-
-                <InputSection>
-                    {isMobile ? (
-                        <MultipleChoice
-                            options={multipleChoiceOptions}
-                            onSelect={handleMultipleChoice}
-                            disabled={isProcessing}
-                            showCorrect={showMultipleChoiceFeedback}
-                            correctIndex={multipleChoiceOptions.indexOf(currentChar?.romaji)}
+                )}
+                <div className={optionsStyles.group}>
+                    {Object.values(filters).map((filter) => (
+                        <Chip
+                            key={filter.id}
+                            id={filter.id}
+                            label={filter.label}
+                            checked={filter.checked}
+                            onChange={(checked) => handleFilterChange(filter.id, checked)}
                         />
-                    ) : (
-                        <Input
-                            ref={inputRef}
-                            type="text"
-                            value={inputValue}
-                            onChange={(e) => {
-                                setInputValue(e.target.value);
-                                setInputState('');
-                                checkInput(e.target.value);
-                            }}
-                            placeholder="..."
-                            autoComplete="off"
-                            autoCapitalize="off"
-                            spellCheck="false"
-                            disabled={isProcessing}
-                            variant={inputState || 'default'}
-                            size="lg"
-                            fullWidth
+                    ))}
+                </div>
+            </OptionsPanel>
+
+            {!currentChar ? (
+                // Keep the toolbar visible so the filters can be adjusted
+                <EmptyState icon={<IoFilter />} title={t('alphabet.noCharacters')} />
+            ) : (
+                <div className={study.stage}>
+                    <CharacterCard entering={isCharacterEntering} correct={isCorrect}>
+                        <Timer timeLeft={timeLeft} totalTime={TIME_PER_CHARACTER} />
+                        <CharacterDisplay
+                            character={getDisplayCharacter(currentChar)}
+                            entering={isCharacterEntering}
+                            correct={isCorrect}
+                            lang={targetLanguage}
                         />
-                    )}
-                    <StatsPanel correct={correct} total={total} streak={streak} />
-                </InputSection>
-            </>
-        );
-    };
+                    </CharacterCard>
+
+                    <InputSection>
+                        {isMobile ? (
+                            <MultipleChoice
+                                options={multipleChoiceOptions}
+                                onSelect={handleMultipleChoice}
+                                disabled={isProcessing}
+                                showCorrect={showMultipleChoiceFeedback}
+                                correctIndex={multipleChoiceOptions.indexOf(currentChar?.romaji)}
+                            />
+                        ) : (
+                            <Input
+                                ref={inputRef}
+                                type="text"
+                                value={inputValue}
+                                onChange={(e) => {
+                                    setInputValue(e.target.value);
+                                    setInputState('');
+                                    checkInput(e.target.value);
+                                }}
+                                placeholder="..."
+                                aria-label={t('alphabet.title')}
+                                autoComplete="off"
+                                autoCapitalize="off"
+                                spellCheck="false"
+                                disabled={isProcessing}
+                                variant={inputState || 'default'}
+                                size="lg"
+                                fullWidth
+                            />
+                        )}
+                        <StatsPanel correct={correct} total={total} streak={streak} />
+                    </InputSection>
+                </div>
+            )}
+        </div>
+    );
 
     return (
         <ErrorBoundary>
             <LanguageContentGuard moduleName="alphabet">
-                <Container variant="centered" streak={mode === 'practice' ? streak : 0}>
-                    <Navigation />
-
-                    <div className={styles.modeToggleWrapper}>
-                        <LearnModeToggle
-                            mode={mode}
-                            onChange={setMode}
-                            learnLabel={t('learnMode.learn') || 'Learn'}
-                            practiceLabel={t('learnMode.practice') || 'Practice'}
-                        />
-                    </div>
+                <Container variant="dashboard" streak={mode === 'practice' ? streak : 0}>
+                    <PageHeader
+                        title={pageTitle}
+                        subtitle={pageDescription}
+                        actions={
+                            <LearnModeToggle
+                                mode={mode}
+                                onChange={setMode}
+                                learnLabel={t('learnMode.learn')}
+                                practiceLabel={t('learnMode.practice')}
+                            />
+                        }
+                    />
 
                     {mode === 'learn' ? renderLearnMode() : renderPracticeMode()}
                 </Container>

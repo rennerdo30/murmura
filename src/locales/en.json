@@ -755,9 +755,15 @@
     "streak": "streak"
   },
   "settings": {
+    "learningTitle": "Learning",
+    "srsPage": {
+      "unlimited": "Unlimited",
+      "multiplier": "{value}×"
+    },
     "title": "Settings",
     "subtitle": "Customize your learning experience",
     "leaderboard": {
+      "signInHint": "Sign in to choose whether you appear on the leaderboard.",
       "title": "Leaderboard",
       "showOnLeaderboard": "Show on Leaderboard",
       "showOnLeaderboardDescription": "When disabled, your progress won't appear in public rankings",
@@ -771,6 +777,12 @@
       "description": "Customize review scheduling and difficulty"
     },
     "audio": {
+      "initializing": "Initializing...",
+      "female": "Female",
+      "male": "Male",
+      "voiceOption": "{name} ({quality})",
+      "voiceOptionWithTraits": "{name} ({quality}) – {traits}",
+      "priorityEdge": "Edge TTS (Microsoft neural voices for {language})",
       "title": "Audio & TTS",
       "offlineTTS": "Offline TTS (Kokoro)",
       "offlineTTSDescription": "Download ~{{size}}MB model for offline text-to-speech",
@@ -800,6 +812,8 @@
       "advancedSettings": "Advanced Audio Settings"
     },
     "appearance": {
+      "contrastWarningTextRatio": "Low contrast: text may be hard to read ({ratio}:1)",
+      "contrastWarningAccentRatio": "Low contrast: accent color may be hard to see ({ratio}:1)",
       "title": "Appearance",
       "subtitle": "Customize the look and feel",
       "globalTheme": "Global Theme Override",
@@ -821,6 +835,14 @@
       "contrastWarningAccent": "Low contrast: accent color may be hard to see",
       "contrastOk": "Color contrast looks good",
       "themes": {
+        "ja": "Japanese (Zen Garden)",
+        "zh": "Chinese (Silk Road)",
+        "ko": "Korean (Hanok)",
+        "es": "Spanish (Sol y Sombra)",
+        "fr": "French (Château)",
+        "it": "Italian (Rinascimento)",
+        "en": "English (Oxford Library)",
+        "de": "German (Schwarzwald)",
         "light": "Daylight (Light)"
       }
     },
@@ -1076,5 +1098,59 @@
     "relaxed": "Relaxed",
     "moderate": "Moderate",
     "intensive": "Intensive"
+  },
+  "placement": {
+    "loadError": {
+      "title": "Placement test could not be loaded",
+      "text": "Something went wrong while loading the placement test. Please try again later."
+    },
+    "unavailable": {
+      "title": "Placement test not available yet",
+      "text": "There is no placement test for {language} yet. In the meantime, start with a learning path or the modules on your dashboard."
+    },
+    "questionCount": "{count} questions",
+    "questionCountLabel": "Total",
+    "leaveTest": "Leave test",
+    "sectionsLabel": "Test sections",
+    "overallScoreAria": "Overall score: {score}",
+    "difficulty": {
+      "easy": "Easy",
+      "medium": "Medium",
+      "hard": "Hard"
+    }
+  },
+  "pronunciation": {
+    "title": "Pronunciation Practice",
+    "subtitle": "Improve your speaking skills with targeted exercises",
+    "loading": "Loading drills...",
+    "backToDrills": "All drills",
+    "drillsTitle": "Drills",
+    "clearFilters": "Clear filters",
+    "noResults": "No drills match the selected filters",
+    "drillCount": "{count} drills",
+    "filters": {
+      "type": "Drill types",
+      "difficulty": "Difficulty"
+    },
+    "types": {
+      "shadowing": "Shadowing",
+      "minimal_pair": "Minimal Pairs",
+      "listen_repeat": "Listen & Repeat"
+    },
+    "typeDescriptions": {
+      "shadowing": "Listen and speak along with native speakers",
+      "minimal_pair": "Train your ear to distinguish similar sounds",
+      "listen_repeat": "Practice phrases with guided repetition"
+    },
+    "difficulty": {
+      "all": "All levels",
+      "easy": "Easy",
+      "medium": "Medium",
+      "hard": "Hard"
+    },
+    "empty": {
+      "title": "No pronunciation drills yet",
+      "text": "Pronunciation drills for {language} are not available yet. We're working on adding them."
+    }
   }
 }

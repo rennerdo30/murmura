@@ -21,8 +21,8 @@
 .input {
   width: 100%;
   padding: 0.875rem 2.75rem 0.875rem 2.75rem;
-  background: var(--glass-bg, rgba(255, 255, 255, 0.05));
-  border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.1));
+  background: var(--glass-bg, var(--surface-overlay));
+  border: 1px solid var(--glass-border, var(--surface-overlay-strong));
   border-radius: 12px;
   color: var(--text-primary);
   font-size: 1rem;
@@ -35,8 +35,8 @@
 
 .input:focus {
   outline: none;
-  border-color: var(--gold, #FFD700);
-  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--accent-gold);
+  background: var(--surface-overlay);
 }
 
 .clearButton {
@@ -58,14 +58,14 @@
 }
 
 .clearButton:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--surface-overlay-strong);
   color: var(--text-primary);
 }
 
 .clearButton:focus-visible {
-  outline: 2px solid var(--gold, #FFD700);
+  outline: 2px solid var(--accent-gold);
   outline-offset: 2px;
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--surface-overlay-strong);
   color: var(--text-primary);
 }
 

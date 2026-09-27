@@ -1,12 +1,13 @@
 'use client'
 
 import { useState, useEffect, useCallback, useMemo } from 'react';
-import Navigation from '@/components/common/Navigation';
+import PageHeader from '@/components/common/PageHeader';
+import EmptyState from '@/components/common/EmptyState';
 import StatsPanel from '@/components/common/StatsPanel';
 import LanguageContentGuard from '@/components/common/LanguageContentGuard';
 import ErrorBoundary from '@/components/common/ErrorBoundary';
 import TabSelector from '@/components/common/TabSelector';
-import { Container, Card, Text, Button, Chip, Toggle, OptionsPanel, Input, Animated, StatTiles } from '@/components/ui';
+import { Container, Text, Button, Chip, Toggle, OptionsPanel, Input, StatTiles } from '@/components/ui';
 import optionsStyles from '@/components/ui/OptionsPanel.module.css';
 import { useProgressContext } from '@/context/ProgressProvider';
 import { useLanguage } from '@/context/LanguageProvider';
@@ -18,10 +19,15 @@ import { ReadingItem, Filter } from '@/types';
 import { markLearned } from '@/lib/storage';
 import { IoVolumeHigh, IoCheckmark, IoClose, IoStop } from 'react-icons/io5';
 import { FiBookOpen, FiCheck, FiSearch } from 'react-icons/fi';
+import { getModuleName } from '@/lib/learningModules';
+import study from '@/styles/study.module.css';
 import styles from './reading.module.css';
 import { normalizeLevelId } from '@/lib/dataLoader';
 
 type TabType = 'myCards' | 'all';
+
+/** Maximum number of readings shown in the browse grid. */
+const BROWSE_LIMIT = 30;
 
 export default function ReadingPage() {
     const { getModuleData: getModule, updateModuleStats: updateStats } = useProgressContext();
@@ -121,7 +127,7 @@ export default function ReadingPage() {
             items = items.filter(r => normalizeLevelId(r.level) === normalizeLevelId(selectedLevel));
         }
 
-        return items.slice(0, 30);
+        return items.slice(0, BROWSE_LIMIT);
     }, [readings, searchQuery, selectedLevel]);
 
     // Tab configuration
@@ -287,35 +293,31 @@ export default function ReadingPage() {
 
     const byTypeStats = learnedStats.byType as Record<string, number>;
 
+    const { title: pageTitle, description: pageDescription } = getModuleName('reading', targetLanguage, t);
+
     // Render My Cards tab - practice view
     const renderMyCardsTab = () => {
         if (myReadingItems.length === 0) {
             return (
-                <div className={styles.emptyState}>
-                    <FiBookOpen className={styles.emptyIcon} />
-                    <Text variant="h3" style={{ marginBottom: '0.5rem' }}>{t('reading.empty.title')}</Text>
-                    <Text color="muted" style={{ marginBottom: '1rem' }}>{t('reading.empty.desc')}</Text>
-                    <Button variant="primary" onClick={() => setActiveTab('all')}>
-                        {t('reading.empty.browse')}
-                    </Button>
-                </div>
-            );
-        }
-
-        if (!currentReading) {
-            return (
-                <div className={styles.emptyState}>
-                    <Text>{t('reading.empty.filterEmpty')}</Text>
-                </div>
+                <EmptyState
+                    icon={<FiBookOpen />}
+                    title={t('reading.empty.title')}
+                    text={t('reading.empty.desc')}
+                    actions={
+                        <Button variant="primary" onClick={() => setActiveTab('all')}>
+                            {t('reading.empty.browse')}
+                        </Button>
+                    }
+                />
             );
         }
 
         return (
-            <>
+            <div className={study.content}>
                 <OptionsPanel>
                     {showFuriganaOption && (
                         <div className={optionsStyles.toggleContainer}>
-                            <Text variant="label" color="muted">{t('reading.showFurigana')}</Text>
+                            <Text variant="label" color="secondary">{t('reading.showFurigana')}</Text>
                             <Toggle
                                 options={[
                                     { id: 'show', label: t('reading.show') },
@@ -328,7 +330,7 @@ export default function ReadingPage() {
                         </div>
                     )}
                     <div className={optionsStyles.group}>
-                        <Text variant="label" color="muted">Level</Text>
+                        <Text variant="label" color="secondary">{t('library.filters.level')}</Text>
                         {Object.values(filters).map((filter) => (
                             <Chip
                                 key={filter.id}
@@ -341,83 +343,104 @@ export default function ReadingPage() {
                     </div>
                 </OptionsPanel>
 
-                <Card className={styles.readingCard} variant="glass">
-                    <Text variant="h2" color="gold" className={styles.readingTitle}>
-                        {getText(currentReading.titleTranslations, currentReading.title)}
-                    </Text>
+                {!currentReading ? (
+                    <EmptyState
+                        icon={<FiSearch />}
+                        title={t('reading.empty.filterEmpty')}
+                    />
+                ) : (
+                    <div className={`${study.content} ${study.column}`}>
+                        <article className={study.surface}>
+                            <h2 className={styles.readingTitle}>
+                                {getText(currentReading.titleTranslations, currentReading.title)}
+                            </h2>
 
-                    <div className={`${styles.readingText} ${showFurigana ? styles.withFurigana : styles.noFurigana}`}>
-                        {currentReading.text}
-                    </div>
+                            <div
+                                lang={targetLanguage}
+                                className={`${styles.readingText} ${showFurigana ? styles.withFurigana : styles.noFurigana}`}
+                            >
+                                {currentReading.text}
+                            </div>
 
-                    <div className="mt-8 flex justify-center gap-4">
-                        {isPlaying ? (
-                            <Button onClick={stop} variant="danger">
-                                <IoStop style={{ marginRight: '0.5rem' }} /> {t('common.stop') || 'Stop'}
-                            </Button>
-                        ) : (
-                            <Button onClick={handlePlayReading} variant="secondary">
-                                <IoVolumeHigh style={{ marginRight: '0.5rem' }} /> {t('listening.playAudio')}
-                            </Button>
-                        )}
-                        {currentReading.questions && (
-                            <Button onClick={() => setShowQuestions(!showQuestions)} variant="primary">
-                                {t('reading.showQuestions')}
-                            </Button>
-                        )}
-                    </div>
-                </Card>
+                            <div className={styles.readingActions}>
+                                {isPlaying ? (
+                                    <Button onClick={stop} variant="secondary">
+                                        <IoStop aria-hidden="true" /> {t('common.stop')}
+                                    </Button>
+                                ) : (
+                                    <Button onClick={handlePlayReading} variant="secondary">
+                                        <IoVolumeHigh aria-hidden="true" /> {t('listening.playAudio')}
+                                    </Button>
+                                )}
+                                {currentReading.questions && (
+                                    <Button
+                                        onClick={() => setShowQuestions(!showQuestions)}
+                                        variant="primary"
+                                        aria-expanded={showQuestions}
+                                    >
+                                        {t('reading.showQuestions')}
+                                    </Button>
+                                )}
+                            </div>
+                        </article>
 
-                {showQuestions && currentReading.questions && (
-                    <Card className={styles.questionsSection} variant="glass">
-                        <Text variant="h2" className={styles.questionsTitle}>{t('reading.comprehensionQuestions')}</Text>
-                        <div className={styles.questionsList}>
-                            {currentReading.questions.map((q, index) => (
-                                <div key={index} className={styles.questionItem}>
-                                    <Text variant="h3" className={styles.questionText}>
-                                        {index + 1}. {getQuestion(q.question, q.questionTranslations)}
-                                    </Text>
-                                    <div className={styles.optionsGrid}>
-                                        {q.options.map((opt, optIndex) => (
-                                            <Button
-                                                key={optIndex}
-                                                variant={questionAnswers[index] === optIndex ? 'primary' : 'ghost'}
-                                                onClick={() => setQuestionAnswers(prev => ({ ...prev, [index]: optIndex }))}
-                                                className={styles.optionButton}
-                                                disabled={showCorrectness}
-                                            >
-                                                {opt}
-                                                {showCorrectness && optIndex === q.correct && <IoCheckmark style={{ marginLeft: '0.5rem', color: 'var(--success)' }} />}
-                                                {showCorrectness && questionAnswers[index] === optIndex && optIndex !== q.correct && <IoClose style={{ marginLeft: '0.5rem', color: 'var(--error)' }} />}
-                                            </Button>
-                                        ))}
-                                    </div>
+                        {showQuestions && currentReading.questions && (
+                            <section className={study.surface}>
+                                <h2 className={study.sectionTitle}>{t('reading.comprehensionQuestions')}</h2>
+                                <ol className={styles.questionsList}>
+                                    {currentReading.questions.map((q, index) => (
+                                        <li key={index} className={styles.questionItem}>
+                                            <h3 className={styles.questionText}>
+                                                {index + 1}. {getQuestion(q.question, q.questionTranslations)}
+                                            </h3>
+                                            <div className={styles.optionsGrid}>
+                                                {q.options.map((opt, optIndex) => (
+                                                    <Button
+                                                        key={optIndex}
+                                                        variant={questionAnswers[index] === optIndex ? 'primary' : 'ghost'}
+                                                        onClick={() => setQuestionAnswers(prev => ({ ...prev, [index]: optIndex }))}
+                                                        className={styles.optionButton}
+                                                        disabled={showCorrectness}
+                                                        aria-pressed={questionAnswers[index] === optIndex}
+                                                    >
+                                                        <span className={styles.optionLabel}>{opt}</span>
+                                                        {showCorrectness && optIndex === q.correct && <IoCheckmark className={styles.optionCorrect} role="img" aria-label={t('common.correct')} />}
+                                                        {showCorrectness && questionAnswers[index] === optIndex && optIndex !== q.correct && <IoClose className={styles.optionIncorrect} role="img" aria-label={t('common.incorrect')} />}
+                                                    </Button>
+                                                ))}
+                                            </div>
+                                        </li>
+                                    ))}
+                                </ol>
+                                <div className={styles.questionsFooter}>
+                                    {!showCorrectness ? (
+                                        <Button onClick={handleCheckAnswers} fullWidth>
+                                            {t('reading.checkAnswers')}
+                                        </Button>
+                                    ) : (
+                                        <Button onClick={nextReading} fullWidth>
+                                            {t('common.next')}
+                                        </Button>
+                                    )}
                                 </div>
-                            ))}
-                        </div>
-                        {!showCorrectness ? (
-                            <Button onClick={handleCheckAnswers} fullWidth className="mt-6">
-                                {t('reading.checkAnswers')}
-                            </Button>
-                        ) : (
-                            <Button onClick={nextReading} fullWidth className="mt-6">
-                                {t('common.next')}
-                            </Button>
+                            </section>
                         )}
-                    </Card>
-                )}
 
-                <StatsPanel correct={stats.correct} total={stats.total} streak={stats.streak} />
-            </>
+                        <div className={study.actions}>
+                            <StatsPanel correct={stats.correct} total={stats.total} streak={stats.streak} />
+                        </div>
+                    </div>
+                )}
+            </div>
         );
     };
 
     // Render All tab - browse view
     const renderAllTab = () => {
         return (
-            <>
-                {/* Stats Row */}
+            <div className={study.content}>
                 <StatTiles
+                    className={study.stats}
                     items={[
                         { id: 'learned', value: byTypeStats?.reading || 0, label: t('reading.stats.learned') },
                         { id: 'total', value: readings.length, label: t('reading.stats.total') },
@@ -425,15 +448,15 @@ export default function ReadingPage() {
                     ]}
                 />
 
-                {/* Filter section */}
-                <div className={styles.filterSection}>
+                <div className={study.filterBar}>
                     <Input
                         size="sm"
-                        type="text"
+                        type="search"
                         placeholder={t('reading.searchPlaceholder')}
+                        aria-label={t('reading.searchPlaceholder')}
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        className={styles.searchInput}
+                        className={study.search}
                     />
                     {displayLevels.map((level) => (
                         <Chip
@@ -446,58 +469,57 @@ export default function ReadingPage() {
                     ))}
                 </div>
 
-                {/* Browse grid */}
-                <div className={styles.browseGrid}>
-                    {browseItems.map((reading) => {
-                        const isLearned = learnedReadingIds.has(String(reading.id));
-                        return (
-                            <div
-                                key={reading.id}
-                                className={`${styles.readingBrowseCard} ${isLearned ? styles.learned : ''}`}
-                            >
-                                <div className={styles.readingHeader}>
-                                    <div className={styles.readingItemTitle}>
-                                        {getText(reading.titleTranslations, reading.title)}
-                                    </div>
-                                    <span className={styles.readingLevel}>
-                                        {reading.level || 'N/A'}
-                                    </span>
-                                </div>
-                                <div className={styles.readingPreview}>
-                                    {reading.text?.substring(0, 150)}...
-                                </div>
-                                <div className={styles.readingActions}>
-                                    {isLearned ? (
-                                        <span className={styles.learnedBadge}>
-                                            <FiCheck size={12} /> Learned
+                {browseItems.length > 0 ? (
+                    <ul className={study.grid}>
+                        {browseItems.map((reading) => {
+                            const isLearned = learnedReadingIds.has(String(reading.id));
+                            return (
+                                <li
+                                    key={reading.id}
+                                    className={`${study.item} ${isLearned ? study.itemLearned : ''}`}
+                                >
+                                    <div className={study.itemHeader}>
+                                        <h3 className={study.itemTitle}>
+                                            {getText(reading.titleTranslations, reading.title)}
+                                        </h3>
+                                        <span className={study.level}>
+                                            {reading.level || t('common.unknown')}
                                         </span>
-                                    ) : (
-                                        <Button variant="ghost" size="sm">
-                                            {t('reading.viewLesson')}
-                                        </Button>
-                                    )}
-                                </div>
-                            </div>
-                        );
-                    })}
-                </div>
-
-                {browseItems.length === 0 && (
-                    <div className={styles.emptyState}>
-                        <FiSearch className={styles.emptyIcon} />
-                        <Text variant="h3">{t('reading.empty.searchEmpty')}</Text>
-                        <Text color="muted">{t('reading.empty.searchHint')}</Text>
-                    </div>
+                                    </div>
+                                    <p className={study.itemText} lang={targetLanguage}>
+                                        {reading.text}
+                                    </p>
+                                    <div className={study.itemActions}>
+                                        {isLearned ? (
+                                            <span className={study.learnedBadge}>
+                                                <FiCheck aria-hidden="true" /> {t('reading.stats.learned')}
+                                            </span>
+                                        ) : (
+                                            <Button variant="ghost" size="sm">
+                                                {t('reading.viewLesson')}
+                                            </Button>
+                                        )}
+                                    </div>
+                                </li>
+                            );
+                        })}
+                    </ul>
+                ) : (
+                    <EmptyState
+                        icon={<FiSearch />}
+                        title={t('reading.empty.searchEmpty')}
+                        text={t('reading.empty.searchHint')}
+                    />
                 )}
-            </>
+            </div>
         );
     };
 
     return (
         <ErrorBoundary>
             <LanguageContentGuard moduleName="reading">
-                <Container variant="centered" streak={stats.streak}>
-                    <Navigation />
+                <Container variant="dashboard" streak={stats.streak}>
+                    <PageHeader title={pageTitle} subtitle={pageDescription} />
 
                     <TabSelector
                         tabs={tabs}

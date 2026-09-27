@@ -58,10 +58,10 @@ export default function ReviewStats({
     <Card variant="glass" className={styles.statsCard}>
       <Animated animation="fadeInDown">
         <div className={styles.header}>
-          <IoTrophy className={styles.trophyIcon} />
-          <Text variant="h1" color="gold">
+          <IoTrophy className={styles.trophyIcon} aria-hidden="true" />
+          <h2 className={styles.title}>
             {t('review.stats.sessionComplete')}
-          </Text>
+          </h2>
         </div>
       </Animated>
 
@@ -77,7 +77,7 @@ export default function ReviewStats({
 
           <div className={styles.sideStats}>
             <div className={styles.statItem}>
-              <IoCheckmarkCircle className={styles.correctIcon} />
+              <IoCheckmarkCircle className={styles.correctIcon} aria-hidden="true" />
               <div>
                 <Text variant="h3">{stats.correct}</Text>
                 <Text variant="label" color="muted">{t('review.stats.correct')}</Text>
@@ -85,7 +85,7 @@ export default function ReviewStats({
             </div>
 
             <div className={styles.statItem}>
-              <IoCloseCircle className={styles.incorrectIcon} />
+              <IoCloseCircle className={styles.incorrectIcon} aria-hidden="true" />
               <div>
                 <Text variant="h3">{stats.incorrect}</Text>
                 <Text variant="label" color="muted">{t('review.stats.incorrect')}</Text>
@@ -93,7 +93,7 @@ export default function ReviewStats({
             </div>
 
             <div className={styles.statItem}>
-              <IoTime className={styles.timeIcon} />
+              <IoTime className={styles.timeIcon} aria-hidden="true" />
               <div>
                 <Text variant="h3">{formatDuration(stats.duration)}</Text>
                 <Text variant="label" color="muted">{t('review.stats.duration')}</Text>
@@ -124,7 +124,7 @@ export default function ReviewStats({
                 return (
                   <div key={module} className={styles.moduleItem}>
                     <div className={styles.moduleInfo}>
-                      <ModuleIcon className={styles.moduleIcon} />
+                      <ModuleIcon className={styles.moduleIcon} aria-hidden="true" />
                       <Text>{t(`review.modules.${module === 'kanji' ? 'kanji' : module}`)}</Text>
                     </div>
                     <div className={styles.moduleStats}>

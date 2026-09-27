@@ -1,48 +1,50 @@
+/* Compact practice toolbar: answer mode toggle and level chips in one wrapping row. */
 .panel {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 2rem;
-  margin-bottom: 3.5rem;
+  gap: var(--space-3) var(--space-5);
   width: 100%;
-  max-width: 900px;
-  margin-left: auto;
-  margin-right: auto;
-  animation: fadeInDown 0.6s ease-out;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  background: color-mix(in srgb, var(--bg-card) 85%, transparent);
 }
 
-.group {
+.group,
+.toggleContainer {
   display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
-  justify-content: center;
   align-items: center;
-  gap: 1rem;
+  gap: var(--space-2);
+  min-width: 0;
 }
 
 .toggleContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.75rem;
+  column-gap: var(--space-3);
 }
 
-@keyframes fadeInDown {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@media (max-width: 768px) {
+/* Phones: each control group takes its own full-width line; the toggle stretches evenly. */
+@media (max-width: 480px) {
   .panel {
     flex-direction: column;
-    gap: 1.25rem;
-    margin-bottom: 2.5rem;
+    align-items: stretch;
+    padding: var(--space-3);
+  }
+
+  .toggleContainer > div:last-child {
+    display: flex;
+    width: 100%;
+  }
+
+  .toggleContainer > div:last-child > div {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .toggleContainer label {
+    justify-content: center;
+    padding-inline: var(--space-3);
+    text-align: center;
   }
 }

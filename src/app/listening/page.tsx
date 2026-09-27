@@ -1,10 +1,12 @@
 'use client'
 
 import { useState, useEffect, useCallback, useMemo } from 'react';
-import Navigation from '@/components/common/Navigation';
+import PageHeader from '@/components/common/PageHeader';
+import EmptyState from '@/components/common/EmptyState';
+import ErrorBoundary from '@/components/common/ErrorBoundary';
 import StatsPanel from '@/components/common/StatsPanel';
 import LanguageContentGuard from '@/components/common/LanguageContentGuard';
-import { Container, Card, Text, Button, Chip, OptionsPanel, Animated } from '@/components/ui';
+import { Container, Text, Button, Chip, OptionsPanel, Animated } from '@/components/ui';
 import optionsStyles from '@/components/ui/OptionsPanel.module.css';
 import { useProgressContext } from '@/context/ProgressProvider';
 import { useLanguage } from '@/context/LanguageProvider';
@@ -12,8 +14,13 @@ import { useTargetLanguage } from '@/hooks/useTargetLanguage';
 import { useTTS } from '@/hooks/useTTS';
 import { ListeningExercise, Filter } from '@/types';
 import { markLearned } from '@/lib/storage';
-import { IoVolumeHigh, IoCheckmark, IoClose, IoStop } from 'react-icons/io5';
+import { IoVolumeHigh, IoCheckmark, IoClose, IoStop, IoHeadset, IoHome } from 'react-icons/io5';
+import { getModuleName } from '@/lib/learningModules';
+import study from '@/styles/study.module.css';
 import styles from './listening.module.css';
+
+/** Dictation answers are compared without any whitespace. */
+const normalizeDictation = (value: string): string => value.trim().replace(/\s+/g, '');
 
 export default function ListeningPage() {
     const { getModuleData: getModule, updateModuleStats: updateStats } = useProgressContext();
@@ -101,7 +108,7 @@ export default function ListeningPage() {
 
     const handleCheckAnswer = useCallback(() => {
         if (!currentExercise) return;
-        const isCorrect = inputValue.trim().replace(/\s+/g, '') === currentExercise.text.trim().replace(/\s+/g, '');
+        const isCorrect = normalizeDictation(inputValue) === normalizeDictation(currentExercise.text);
 
         const newCorrect = correct + (isCorrect ? 1 : 0);
         const newTotal = total + 1;
@@ -129,103 +136,130 @@ export default function ListeningPage() {
         setShowTranscript(false);
     }, [currentIndex, exercises]);
 
+    const { title: pageTitle, description: pageDescription } = getModuleName('listening', targetLanguage, t);
+
     if (!currentExercise) {
         return (
-            <LanguageContentGuard moduleName="listening">
-                <Container variant="centered">
-                    <Navigation />
-                    <Text>{t('listening.noExercises')}</Text>
-                </Container>
-            </LanguageContentGuard>
+            <ErrorBoundary>
+                <LanguageContentGuard moduleName="listening">
+                    <Container variant="dashboard">
+                        <PageHeader title={pageTitle} subtitle={pageDescription} />
+                        <EmptyState
+                            icon={<IoHeadset />}
+                            title={t('listening.noExercises')}
+                            text={t('learnMode.noLessonsAvailable')}
+                            actions={
+                                <Button href="/" variant="primary">
+                                    <IoHome aria-hidden="true" /> {t('review.stats.backToDashboard')}
+                                </Button>
+                            }
+                        />
+                    </Container>
+                </LanguageContentGuard>
+            </ErrorBoundary>
         );
     }
 
+    const answeredCorrectly = showFeedback && normalizeDictation(inputValue) === normalizeDictation(currentExercise.text);
+
     return (
-        <LanguageContentGuard moduleName="listening">
-            <Container variant="centered" streak={streak}>
-                <Navigation />
+        <ErrorBoundary>
+            <LanguageContentGuard moduleName="listening">
+                <Container variant="dashboard" streak={streak}>
+                    <PageHeader title={pageTitle} subtitle={pageDescription} />
 
-            <OptionsPanel>
-                <div className={optionsStyles.toggleContainer}>
-                    <Text variant="label" color="muted">Level</Text>
-                    <div className={optionsStyles.group}>
-                        {Object.values(filters).map((filter) => (
-                            <Chip
-                                key={filter.id}
-                                id={filter.id}
-                                label={filter.label}
-                                checked={filter.checked}
-                                onChange={(checked) => handleFilterChange(filter.id, checked)}
-                            />
-                        ))}
-                    </div>
-                </div>
-            </OptionsPanel>
+                    <div className={study.content}>
+                        <OptionsPanel>
+                            <div className={optionsStyles.group}>
+                                <Text variant="label" color="secondary">{t('library.filters.level')}</Text>
+                                {Object.values(filters).map((filter) => (
+                                    <Chip
+                                        key={filter.id}
+                                        id={filter.id}
+                                        label={filter.label}
+                                        checked={filter.checked}
+                                        onChange={(checked) => handleFilterChange(filter.id, checked)}
+                                    />
+                                ))}
+                            </div>
+                        </OptionsPanel>
 
-            <Card className={styles.listeningCard} variant="glass">
-                <Text variant="h2" color="gold" className={styles.listeningTitle}>
-                    {currentExercise.title}
-                </Text>
+                        <div className={`${study.content} ${study.column}`}>
+                            <section className={`${study.surface} ${styles.playerCard}`}>
+                                <h2 className={styles.listeningTitle}>{currentExercise.title}</h2>
 
-                <div className={styles.audioControls}>
-                    {isPlaying ? (
-                        <Button onClick={stop} variant="danger" size="lg" className={styles.playButton}>
-                            <IoStop /> {t('common.stop')}
-                        </Button>
-                    ) : (
-                        <Button onClick={handlePlayAudio} variant="primary" size="lg" className={styles.playButton}>
-                            <IoVolumeHigh /> {t('listening.playAudio')}
-                        </Button>
-                    )}
-                </div>
+                                {isPlaying ? (
+                                    <Button onClick={stop} variant="secondary" size="lg" className={styles.playButton}>
+                                        <IoStop aria-hidden="true" /> {t('common.stop')}
+                                    </Button>
+                                ) : (
+                                    <Button onClick={handlePlayAudio} variant="primary" size="lg" className={styles.playButton}>
+                                        <IoVolumeHigh aria-hidden="true" /> {t('listening.playAudio')}
+                                    </Button>
+                                )}
 
-                <div className="mt-6">
-                    <Button variant="ghost" onClick={() => setShowTranscript(!showTranscript)}>
-                        {showTranscript ? t('listening.hideTranscript') : t('listening.showTranscript')}
-                    </Button>
-                    {showTranscript && (
-                        <Animated animation="fadeInUp">
-                            <Text className={styles.transcriptText}>{currentExercise.transcript}</Text>
-                        </Animated>
-                    )}
-                </div>
-            </Card>
+                                <Button
+                                    variant="ghost"
+                                    size="sm"
+                                    className={study.tapTarget}
+                                    onClick={() => setShowTranscript(!showTranscript)}
+                                    aria-expanded={showTranscript}
+                                >
+                                    {showTranscript ? t('listening.hideTranscript') : t('listening.showTranscript')}
+                                </Button>
+                                {showTranscript && (
+                                    <Animated animation="fadeInUp">
+                                        <p className={styles.transcriptText} lang={targetLanguage}>{currentExercise.transcript}</p>
+                                    </Animated>
+                                )}
+                            </section>
 
-            <Card className={styles.dictationSection} variant="glass">
-                <Text className={styles.dictationLabel}>{t('listening.typeWhatYouHear')}</Text>
-                <textarea
-                    className={styles.dictationInput}
-                    value={inputValue}
-                    onChange={(e) => setInputValue(e.target.value)}
-                    placeholder={t('listening.typeJapaneseText')}
-                    disabled={showFeedback}
-                />
+                            <section className={study.surface}>
+                                <label htmlFor="listening-dictation" className={study.sectionTitle}>
+                                    {t('listening.typeWhatYouHear')}
+                                </label>
+                                <textarea
+                                    id="listening-dictation"
+                                    lang={targetLanguage}
+                                    className={styles.dictationInput}
+                                    value={inputValue}
+                                    onChange={(e) => setInputValue(e.target.value)}
+                                    placeholder={t('listening.typeJapaneseText')}
+                                    disabled={showFeedback}
+                                />
 
-                {!showFeedback ? (
-                    <Button onClick={handleCheckAnswer} fullWidth className="mt-4">
-                        {t('listening.checkAnswer')}
-                    </Button>
-                ) : (
-                    <Button onClick={nextExercise} fullWidth className="mt-4">
-                        {t('common.next')}
-                    </Button>
-                )}
+                                {showFeedback && (
+                                    <Animated animation="pulse">
+                                        <p
+                                            role="status"
+                                            aria-live="polite"
+                                            className={`${styles.dictationFeedback} ${answeredCorrectly ? styles.correct : styles.incorrect}`}
+                                        >
+                                            {answeredCorrectly
+                                                ? <><IoCheckmark aria-hidden="true" /> {t('common.correct')}!</>
+                                                : <><IoClose aria-hidden="true" /> {t('common.incorrect')}. {t('common.correct')}: {currentExercise.text}</>}
+                                        </p>
+                                    </Animated>
+                                )}
 
-                {showFeedback && (
-                    <Animated animation="pulse">
-                        <div className={`${styles.dictationFeedback} ${inputValue.trim().replace(/\s+/g, '') === currentExercise.text.trim().replace(/\s+/g, '') ? styles.correct : styles.incorrect}`}>
-                            <Text variant="h3" color={inputValue.trim().replace(/\s+/g, '') === currentExercise.text.trim().replace(/\s+/g, '') ? 'success' : 'error'}>
-                                {inputValue.trim().replace(/\s+/g, '') === currentExercise.text.trim().replace(/\s+/g, '')
-                                    ? <>{t('common.correct')}! <IoCheckmark style={{ display: 'inline-block', verticalAlign: 'middle' }} /></>
-                                    : <><IoClose style={{ display: 'inline-block', verticalAlign: 'middle' }} /> {t('common.incorrect')}. {t('common.correct')}: {currentExercise.text}</>}
-                            </Text>
+                                {!showFeedback ? (
+                                    <Button onClick={handleCheckAnswer} fullWidth className={study.tapTarget}>
+                                        {t('listening.checkAnswer')}
+                                    </Button>
+                                ) : (
+                                    <Button onClick={nextExercise} fullWidth className={study.tapTarget}>
+                                        {t('common.next')}
+                                    </Button>
+                                )}
+                            </section>
+
+                            <div className={study.actions}>
+                                <StatsPanel correct={correct} total={total} streak={streak} />
+                            </div>
                         </div>
-                    </Animated>
-                )}
-            </Card>
-
-            <StatsPanel correct={correct} total={total} streak={streak} />
-            </Container>
-        </LanguageContentGuard>
+                    </div>
+                </Container>
+            </LanguageContentGuard>
+        </ErrorBoundary>
     );
 }

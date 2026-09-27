@@ -18,6 +18,11 @@ export const LEARNING_MODULES: LearningModuleDef[] = [
     { id: 'listening', href: '/listening' },
 ];
 
+/** Type guard for strings coming from data (e.g. milestone.module). */
+export function isLearningModule(value: string): value is ModuleName {
+    return LEARNING_MODULES.some((module) => module.id === value);
+}
+
 // Script glyphs that represent the alphabet / character modules for each language
 const ALPHABET_GLYPHS: Record<string, string> = { ja: 'あ', ko: '한', zh: '拼', default: 'A' };
 const CHARACTER_GLYPHS: Record<string, string> = { ja: '字', zh: '汉', default: '字' };

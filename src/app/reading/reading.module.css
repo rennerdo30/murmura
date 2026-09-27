@@ -1,272 +1,134 @@
-.readingCard {
-    padding: 2.5rem;
-    margin-bottom: 2rem;
-    animation: fadeInUp 0.6s ease-out both;
-}
+/* Reading practice; shared layout lives in src/styles/study.module.css */
 
 .readingTitle {
-    font-size: 2.2rem;
-    color: var(--accent-gold);
-    margin-bottom: 2.5rem;
-    text-align: center;
-    font-weight: 700;
+  margin: 0 0 var(--space-4);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  line-height: var(--leading-snug);
+  color: var(--accent-gold);
 }
 
 .readingText {
-    font-size: 1.4rem;
-    line-height: 2.2;
-    color: var(--text-primary);
-    margin-bottom: 2.5rem;
-    white-space: pre-wrap;
-    padding: 1.5rem;
-    background: rgba(255, 255, 255, 0.02);
-    border-radius: 16px;
-    border: 1px solid var(--border-subtle);
+  max-width: var(--reading-measure);
+  margin: 0 0 var(--space-5);
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--surface-overlay-soft);
+  font-family: var(--font-cjk);
+  font-size: var(--text-xl);
+  line-height: 2;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  color: var(--text-primary);
 }
 
 /* Furigana (ruby text) support for Japanese readings */
-.withFurigana ruby rt {
-    font-size: 0.55em;
-    color: var(--text-muted);
-    opacity: 1;
-    visibility: visible;
-}
-
-.noFurigana ruby rt {
-    font-size: 0;
-    opacity: 0;
-    visibility: hidden;
-}
-
-/* Ruby element styling */
 .readingText ruby {
-    ruby-position: over;
-    ruby-align: center;
+  ruby-position: over;
+  ruby-align: center;
 }
 
 .readingText ruby rt {
-    transition: opacity 0.2s ease, font-size 0.2s ease;
+  transition: opacity var(--duration-base) var(--ease-out), font-size var(--duration-base) var(--ease-out);
 }
 
-.questionsSection {
-    padding: 2.5rem;
-    margin-bottom: 2rem;
-    animation: fadeInUp 0.6s ease-out both;
+.withFurigana ruby rt {
+  font-size: 0.55em;
+  color: var(--text-secondary);
+  opacity: 1;
+  visibility: visible;
 }
 
-.questionsTitle {
-    margin-bottom: 2.5rem;
-    color: var(--accent-gold);
-    font-weight: 700;
-    text-align: center;
-}
-
-.questionsList {
-    display: flex;
-    flex-direction: column;
-    gap: 2.5rem;
-}
-
-.questionItem {
-    padding: 2rem;
-    background: rgba(255, 255, 255, 0.02);
-    border-radius: 16px;
-    border: 1px solid var(--border-subtle);
-}
-
-.questionText {
-    font-size: 1.2rem;
-    margin-bottom: 1.5rem;
-    font-weight: 700;
-    color: var(--text-primary);
-}
-
-.optionsGrid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
-}
-
-.optionButton {
-    justify-content: flex-start;
-    padding: 1rem 1.25rem;
-    font-size: 1rem;
-    text-align: left;
-}
-
-@media (max-width: 640px) {
-
-    .readingCard,
-    .questionsSection {
-        padding: 1.5rem;
-    }
-
-    .readingTitle {
-        font-size: 1.8rem;
-    }
-
-    .readingText {
-        font-size: 1.2rem;
-        line-height: 2;
-        padding: 1rem;
-    }
-
-    .optionsGrid {
-        grid-template-columns: 1fr;
-    }
-}
-
-/* Tab content area */
-.pageHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-/* Browse view */
-.browseGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr));
-  gap: 1rem;
-  margin-top: 1rem;
-}
-
-.readingBrowseCard {
-  display: flex;
-  flex-direction: column;
-  padding: 1.25rem;
-  background: var(--color-surface);
-  border-radius: 12px;
-  border: 1px solid var(--color-border);
-  transition: all 0.2s ease;
-}
-
-.readingBrowseCard:hover {
-  border-color: var(--color-primary);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.readingBrowseCard.learned {
-  border-color: var(--color-success);
-  background: linear-gradient(135deg, var(--color-surface), color-mix(in srgb, var(--color-success) 5%, transparent));
-}
-
-.readingHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 0.75rem;
-}
-
-.readingItemTitle {
-  font-size: 1.125rem;
-  font-weight: 600;
-  color: var(--color-text);
-}
-
-.readingLevel {
-  display: inline-flex;
-  padding: 0.125rem 0.5rem;
-  background: var(--color-primary);
-  color: var(--color-text-on-primary);
-  border-radius: 9999px;
-  font-size: 0.625rem;
-  font-weight: 600;
-}
-
-.readingPreview {
-  font-size: 0.875rem;
-  color: var(--color-text-secondary);
-  line-height: 1.5;
-  margin-bottom: 0.75rem;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+.noFurigana ruby rt {
+  font-size: 0;
+  opacity: 0;
+  visibility: hidden;
 }
 
 .readingActions {
   display: flex;
-  gap: 0.5rem;
-  margin-top: auto;
-  padding-top: 0.75rem;
-  border-top: 1px solid var(--color-border);
+  flex-wrap: wrap;
+  gap: var(--space-2);
 }
 
-.learnedBadge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.25rem;
-  padding: 0.25rem 0.5rem;
-  background: color-mix(in srgb, var(--color-success) 15%, transparent);
-  color: var(--color-success);
-  border-radius: 9999px;
-  font-size: 0.75rem;
-  font-weight: 500;
+.readingActions > button {
+  min-height: var(--tap-target-min);
 }
 
-/* Empty state */
-.emptyState {
+.questionsList {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 3rem;
-  text-align: center;
-  background: var(--color-surface);
-  border-radius: 12px;
-  border: 2px dashed var(--color-border);
+  gap: var(--space-5);
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
-.emptyIcon {
-  font-size: 3rem;
-  color: var(--color-text-muted);
-  margin-bottom: 1rem;
+.questionItem {
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--glass-border);
 }
 
-/* Filter section for browse */
-.filterSection {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-  margin-bottom: 1rem;
+.questionItem:first-child {
+  padding-top: 0;
+  border-top: none;
 }
 
-.searchInput {
-  flex: 1;
-  min-width: 200px;
-}
-
-/* Review button */
-.reviewButton {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.reviewCount {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 1.5rem;
-  height: 1.5rem;
-  padding: 0 0.5rem;
-  background: var(--color-primary);
-  color: var(--color-text-on-primary);
-  border-radius: 9999px;
-  font-size: 0.75rem;
+.questionText {
+  margin: 0 0 var(--space-3);
+  font-size: var(--text-base);
   font-weight: 600;
+  line-height: var(--leading-snug);
+  color: var(--text-primary);
 }
 
-/* Responsive */
-@media (max-width: 480px) {
+.optionsGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-2);
+}
 
-  .browseGrid {
-    grid-template-columns: 1fr;
+@media (min-width: 641px) {
+  .optionsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
+.optionButton {
+  justify-content: space-between;
+  min-height: var(--tap-target-min);
+  padding: var(--space-3) var(--space-4);
+  text-align: left;
+}
+
+.optionLabel {
+  flex: 1;
+  min-width: 0;
+}
+
+.optionCorrect {
+  flex: none;
+  color: var(--success);
+}
+
+.optionIncorrect {
+  flex: none;
+  color: var(--error);
+}
+
+.questionsFooter {
+  margin-top: var(--space-5);
+}
+
+@media (max-width: 480px) {
+  .readingText {
+    padding: var(--space-3);
+    font-size: var(--text-lg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .readingText ruby rt {
+    transition: none;
+  }
+}

@@ -492,9 +492,15 @@
     }
   },
   "settings": {
+    "learningTitle": "학습",
+    "srsPage": {
+      "unlimited": "무제한",
+      "multiplier": "{value}×"
+    },
     "title": "설정",
     "subtitle": "학습 경험을 맞춤 설정하세요",
     "leaderboard": {
+      "signInHint": "로그인하면 리더보드 표시 여부를 선택할 수 있습니다.",
       "title": "리더보드",
       "showOnLeaderboard": "리더보드에 표시",
       "showOnLeaderboardDescription": "비활성화하면 진행 상황이 공개 순위에 표시되지 않습니다",
@@ -508,6 +514,12 @@
       "description": "복습 일정과 난이도를 맞춤 설정하세요"
     },
     "audio": {
+      "initializing": "초기화 중...",
+      "female": "여성",
+      "male": "남성",
+      "voiceOption": "{name} ({quality})",
+      "voiceOptionWithTraits": "{name} ({quality}) – {traits}",
+      "priorityEdge": "Edge TTS ({language}용 Microsoft 신경망 음성)",
       "title": "오디오 & TTS",
       "offlineTTS": "오프라인 TTS (Kokoro)",
       "offlineTTSDescription": "오프라인 텍스트 음성 변환을 위해 ~{{size}}MB 모델 다운로드",
@@ -537,6 +549,8 @@
       "advancedSettings": "고급 오디오 설정"
     },
     "appearance": {
+      "contrastWarningTextRatio": "낮은 대비: 텍스트를 읽기 어려울 수 있습니다 ({ratio}:1)",
+      "contrastWarningAccentRatio": "낮은 대비: 강조 색상이 보기 어려울 수 있습니다 ({ratio}:1)",
       "title": "외관",
       "comingSoon": "테마 설정이 곧 제공됩니다",
       "subtitle": "화면 모양 및 스타일 설정",
@@ -559,6 +573,14 @@
       "contrastWarningAccent": "낮은 대비: 강조 색상이 보기 어려울 수 있습니다",
       "contrastOk": "색상 대비가 좋습니다",
       "themes": {
+        "ja": "일본어 (선 정원)",
+        "zh": "중국어 (실크로드)",
+        "ko": "한국어 (한옥)",
+        "es": "스페인어 (Sol y Sombra)",
+        "fr": "프랑스어 (Château)",
+        "it": "이탈리아어 (Rinascimento)",
+        "en": "영어 (옥스퍼드 도서관)",
+        "de": "독일어 (슈바르츠발트)",
         "light": "데이라이트 (라이트)"
       }
     },
@@ -1100,5 +1122,59 @@
     "relaxed": "여유롭게",
     "moderate": "보통",
     "intensive": "집중"
+  },
+  "placement": {
+    "loadError": {
+      "title": "레벨 테스트를 불러올 수 없습니다",
+      "text": "레벨 테스트를 불러오는 중 문제가 발생했습니다. 나중에 다시 시도해 주세요."
+    },
+    "unavailable": {
+      "title": "레벨 테스트는 아직 준비되지 않았습니다",
+      "text": "{language} 레벨 테스트는 아직 없습니다. 그동안 학습 경로나 대시보드의 모듈로 시작해 보세요."
+    },
+    "questionCount": "{count}문항",
+    "questionCountLabel": "전체",
+    "leaveTest": "테스트 나가기",
+    "sectionsLabel": "테스트 섹션",
+    "overallScoreAria": "총점: {score}",
+    "difficulty": {
+      "easy": "쉬움",
+      "medium": "보통",
+      "hard": "어려움"
+    }
+  },
+  "pronunciation": {
+    "title": "발음 연습",
+    "subtitle": "맞춤 연습으로 말하기 실력을 키우세요",
+    "loading": "연습을 불러오는 중...",
+    "backToDrills": "전체 연습",
+    "drillsTitle": "연습",
+    "clearFilters": "필터 지우기",
+    "noResults": "선택한 필터에 맞는 연습이 없습니다",
+    "drillCount": "연습 {count}개",
+    "filters": {
+      "type": "연습 유형",
+      "difficulty": "난이도"
+    },
+    "types": {
+      "shadowing": "섀도잉",
+      "minimal_pair": "최소 대립쌍",
+      "listen_repeat": "듣고 따라 하기"
+    },
+    "typeDescriptions": {
+      "shadowing": "원어민 음성을 들으며 동시에 따라 말해 보세요",
+      "minimal_pair": "비슷한 소리를 구별하는 귀를 훈련하세요",
+      "listen_repeat": "안내에 따라 반복하며 문장을 연습하세요"
+    },
+    "difficulty": {
+      "all": "모든 난이도",
+      "easy": "쉬움",
+      "medium": "보통",
+      "hard": "어려움"
+    },
+    "empty": {
+      "title": "아직 발음 연습이 없습니다",
+      "text": "{language} 발음 연습은 아직 제공되지 않습니다. 준비 중입니다."
+    }
   }
 }

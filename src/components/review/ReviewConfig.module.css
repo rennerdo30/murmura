@@ -13,7 +13,7 @@
 
 .headerIcon {
   font-size: 1.5rem;
-  color: var(--gold, #FFD700);
+  color: var(--accent-gold);
 }
 
 .section {
@@ -41,7 +41,7 @@
   gap: 0.5rem;
   padding: 1rem;
   min-height: 44px;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--surface-overlay);
   border: 2px solid transparent;
   border-radius: 12px;
   cursor: pointer;
@@ -50,13 +50,13 @@
 }
 
 .moduleButton:hover:not(.disabled) {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.2);
+  background: var(--surface-overlay-strong);
+  border-color: var(--surface-overlay-strong);
 }
 
 .moduleButton.selected {
-  background: rgba(255, 215, 0, 0.15);
-  border-color: var(--gold, #FFD700);
+  background: var(--accent-gold-dim);
+  border-color: var(--accent-gold);
 }
 
 .moduleButton.disabled {
@@ -66,7 +66,7 @@
 
 .moduleIcon {
   font-size: 1.5rem;
-  color: var(--gold, #FFD700);
+  color: var(--accent-gold);
 }
 
 .moduleLabel {
@@ -88,7 +88,7 @@
   flex: 1;
   padding: 0.75rem;
   min-height: 44px;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--surface-overlay);
   border: 2px solid transparent;
   border-radius: 8px;
   color: var(--text-primary);
@@ -99,13 +99,13 @@
 }
 
 .countButton:hover:not(:disabled) {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--surface-overlay-strong);
 }
 
 .countButton.selected {
-  background: rgba(255, 215, 0, 0.15);
-  border-color: var(--gold, #FFD700);
-  color: var(--gold, #FFD700);
+  background: var(--accent-gold-dim);
+  border-color: var(--accent-gold);
+  color: var(--accent-gold);
 }
 
 .countButton:disabled {
@@ -121,7 +121,7 @@
 
 .summary {
   padding: 1rem;
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--surface-overlay-soft);
   border-radius: 8px;
   margin-bottom: 1rem;
 }

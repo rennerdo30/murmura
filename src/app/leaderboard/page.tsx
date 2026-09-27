@@ -3,8 +3,8 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useQuery, useMutation } from 'convex/react';
 import { api } from '../../../convex/_generated/api';
-import Navigation from '@/components/common/Navigation';
-import { Container, Card, Text, Button, Animated } from '@/components/ui';
+import PageHeader from '@/components/common/PageHeader';
+import { Container } from '@/components/ui';
 import { useLanguage } from '@/context/LanguageProvider';
 import { useTargetLanguage } from '@/hooks/useTargetLanguage';
 import languageConfigs from '@/data/language-configs.json';
@@ -103,9 +103,9 @@ export default function LeaderboardPage() {
   // Get medal for top 3
   const getMedal = (rank: number) => {
     switch (rank) {
-      case 1: return <IoMedal className={styles.goldMedal} />;
-      case 2: return <IoMedal className={styles.silverMedal} />;
-      case 3: return <IoMedal className={styles.bronzeMedal} />;
+      case 1: return <IoMedal className={styles.goldMedal} role="img" aria-label={`#${rank}`} />;
+      case 2: return <IoMedal className={styles.silverMedal} role="img" aria-label={`#${rank}`} />;
+      case 3: return <IoMedal className={styles.bronzeMedal} role="img" aria-label={`#${rank}`} />;
       default: return null;
     }
   };
@@ -118,194 +118,198 @@ export default function LeaderboardPage() {
 
   const isLoading = leaderboardData === undefined;
 
+  const renderRow = (
+    entry: Omit<LeaderboardEntry, 'anonymousName' | 'streak'> & { anonymousName: string | null; streak: number | null },
+    showMedal: boolean,
+  ) => (
+    <>
+      <div className={styles.rankCell}>
+        {(showMedal && getMedal(entry.rank)) || <span className={styles.rankNumber}>#{entry.rank}</span>}
+      </div>
+      <div className={styles.nameCell}>
+        <span className={styles.playerName}>{entry.anonymousName}</span>
+        {entry.isCurrentUser && <span className={styles.youBadge}>{t('leaderboard.badges.you')}</span>}
+      </div>
+      <div className={styles.streakCell}>
+        <IoFlame className={styles.streakIcon} aria-hidden="true" />
+        <span>{entry.streak}</span>
+      </div>
+      <div className={styles.xpCell}>
+        <span className={styles.xpAmount}>{formatXP(entry.xp)}</span>
+        <span className={styles.xpSuffix}>XP</span>
+      </div>
+    </>
+  );
+
+  const xpRows: { key: keyof XPBreakdown['breakdown']; labelKey: string }[] = [
+    { key: 'studyTime', labelKey: 'leaderboard.stats.studyTime' },
+    { key: 'accuracy', labelKey: 'leaderboard.stats.accuracy' },
+    { key: 'streaks', labelKey: 'leaderboard.stats.streaks' },
+    { key: 'mastery', labelKey: 'leaderboard.stats.mastery' },
+  ];
+
   return (
-    <Container variant="centered">
-      <Navigation />
+    <Container variant="dashboard">
+      <PageHeader title={t('leaderboard.title')} subtitle={t('leaderboard.subtitle')} />
 
-      <Animated animation="fadeInDown">
-        <div className={styles.pageHeader}>
-          <IoTrophy className={styles.headerIcon} />
-          <Text variant="h1" color="gold" className={styles.pageTitle}>
-            {t('leaderboard.title')}
-          </Text>
-        </div>
-        <Text color="muted" align="center" className={styles.pageSubtitle}>
-          {t('leaderboard.subtitle')}
-        </Text>
-      </Animated>
-
-      {/* Time Period Tabs */}
-      <div className={styles.periodTabs}>
-        {periods.map(({ id, label }) => (
-          <button
-            key={id}
-            className={`${styles.periodTab} ${period === id ? styles.active : ''}`}
-            onClick={() => setPeriod(id)}
-          >
-            {label}
-          </button>
-        ))}
-      </div>
-
-      {/* Language Filter */}
-      <div className={styles.filterRow}>
-        <div className={styles.languageDropdownContainer}>
-          <button
-            className={styles.languageDropdownButton}
-            onClick={() => setShowLanguageDropdown(!showLanguageDropdown)}
-          >
-            <IoGlobe />
-            <span>{selectedLanguageName}</span>
-            <IoChevronDown className={showLanguageDropdown ? styles.rotated : ''} />
-          </button>
-          {showLanguageDropdown && (
-            <div className={styles.languageDropdown}>
-              {languages.map(({ code, name }) => (
-                <button
-                  key={code}
-                  className={`${styles.languageOption} ${languageFilter === code ? styles.selected : ''}`}
-                  onClick={() => {
-                    setLanguageFilter(code);
-                    setShowLanguageDropdown(false);
-                  }}
-                >
-                  {name}
-                </button>
-              ))}
-            </div>
-          )}
+      {/* Toolbar: period + scope + visibility */}
+      <div className={styles.toolbar}>
+        <div className={styles.segmented} role="group" aria-label={t('leaderboard.title')}>
+          {periods.map(({ id, label }) => (
+            <button
+              key={id}
+              type="button"
+              className={`${styles.segment} ${period === id ? styles.segmentActive : ''}`}
+              aria-pressed={period === id}
+              onClick={() => setPeriod(id)}
+            >
+              {label}
+            </button>
+          ))}
         </div>
 
-        {/* Visibility Toggle */}
-        {visibility !== undefined && (
-          <Button
-            variant="ghost"
-            onClick={() => setVisibility({ visible: !visibility })}
-            className={styles.visibilityButton}
-          >
-            {visibility ? <IoEye /> : <IoEyeOff />}
-            {visibility ? t('settings.leaderboard.visible') : t('settings.leaderboard.hidden')}
-          </Button>
-        )}
-      </div>
-
-      {/* My Stats Card */}
-      {myXPData && (
-        <Card variant="glass" className={styles.myStatsCard}>
-          <div className={styles.myStatsHeader}>
-            <IoSparkles className={styles.myStatsIcon} />
-            <Text variant="h3">{t('leaderboard.stats.title')}</Text>
-            <Text color="gold" className={styles.anonymousName}>
-              {myXPData.anonymousName || t('leaderboard.generating')}
-            </Text>
-          </div>
-          <div className={styles.xpBreakdown}>
-            <div className={styles.xpRow}>
-              <span className={styles.xpLabel}>{t('leaderboard.stats.studyTime')}</span>
-              <span className={styles.xpValue}>{formatXP(myXPData.breakdown.studyTime ?? 0)} XP</span>
-            </div>
-            <div className={styles.xpRow}>
-              <span className={styles.xpLabel}>{t('leaderboard.stats.accuracy')}</span>
-              <span className={styles.xpValue}>{formatXP(myXPData.breakdown.accuracy ?? 0)} XP</span>
-            </div>
-            <div className={styles.xpRow}>
-              <span className={styles.xpLabel}>{t('leaderboard.stats.streaks')}</span>
-              <span className={styles.xpValue}>{formatXP(myXPData.breakdown.streaks ?? 0)} XP</span>
-            </div>
-            <div className={styles.xpRow}>
-              <span className={styles.xpLabel}>{t('leaderboard.stats.mastery')}</span>
-              <span className={styles.xpValue}>{formatXP(myXPData.breakdown.mastery ?? 0)} XP</span>
-            </div>
-            <div className={`${styles.xpRow} ${styles.xpTotal}`}>
-              <span className={styles.xpLabel}>{t('leaderboard.stats.total')}</span>
-              <span className={styles.xpTotalValue}>{formatXP(myXPData.total)} XP</span>
-            </div>
-          </div>
-          {leaderboardData?.currentUserRank && (
-            <div className={styles.myRank}>
-              <Text variant="label" color="muted">{t('leaderboard.stats.rank')}</Text>
-              <Text variant="h2" color="gold">#{leaderboardData.currentUserRank.rank}</Text>
-              <Text variant="caption" color="muted">
-                {t('leaderboard.stats.participants', { count: leaderboardData.totalParticipants })}
-              </Text>
-            </div>
-          )}
-        </Card>
-      )}
-
-      {/* Leaderboard List */}
-      <Card variant="glass" className={styles.leaderboardCard}>
-        {isLoading ? (
-          <div className={styles.loading}>
-            <Text color="muted">{t('leaderboard.empty.loading')}</Text>
-          </div>
-        ) : leaderboardData?.entries.length === 0 ? (
-          <div className={styles.emptyState}>
-            <IoTrophy className={styles.emptyIcon} />
-            <Text variant="h3" color="muted">{t('leaderboard.empty.noEntries')}</Text>
-            <Text color="muted">
-              {period === 'daily' ? t('leaderboard.empty.daily') :
-               period === 'weekly' ? t('leaderboard.empty.weekly') :
-               t('leaderboard.empty.allTime')}
-            </Text>
-          </div>
-        ) : (
-          <div className={styles.leaderboardList}>
-            {leaderboardData?.entries.map((entry) => (
+        <div className={styles.toolbarEnd}>
+          <div className={styles.languageDropdownContainer}>
+            <button
+              type="button"
+              className={styles.languageDropdownButton}
+              aria-haspopup="listbox"
+              aria-expanded={showLanguageDropdown}
+              onClick={() => setShowLanguageDropdown(!showLanguageDropdown)}
+              onKeyDown={(e) => {
+                if (e.key === 'Escape') setShowLanguageDropdown(false);
+              }}
+            >
+              <IoGlobe aria-hidden="true" />
+              <span className={styles.languageLabel}>{selectedLanguageName}</span>
+              <IoChevronDown className={`${styles.chevron} ${showLanguageDropdown ? styles.rotated : ''}`} aria-hidden="true" />
+            </button>
+            {showLanguageDropdown && (
               <div
-                key={`${entry.rank}-${entry.anonymousName}`}
-                className={`${styles.leaderboardRow} ${entry.isCurrentUser ? styles.currentUser : ''} ${entry.rank <= 3 ? styles.topThree : ''}`}
+                className={styles.languageDropdown}
+                role="listbox"
+                aria-label={selectedLanguageName}
+                onKeyDown={(e) => {
+                  if (e.key === 'Escape') setShowLanguageDropdown(false);
+                }}
               >
-                <div className={styles.rankCell}>
-                  {getMedal(entry.rank) || <span className={styles.rankNumber}>#{entry.rank}</span>}
-                </div>
-                <div className={styles.nameCell}>
-                  <span className={styles.playerName}>{entry.anonymousName}</span>
-                  {entry.isCurrentUser && <span className={styles.youBadge}>{t('leaderboard.badges.you')}</span>}
-                </div>
-                <div className={styles.streakCell}>
-                  <IoFlame className={styles.streakIcon} />
-                  <span>{entry.streak}</span>
-                </div>
-                <div className={styles.xpCell}>
-                  <span className={styles.xpAmount}>{formatXP(entry.xp)}</span>
-                  <span className={styles.xpSuffix}>XP</span>
+                {languages.map(({ code, name }) => (
+                  <button
+                    key={code}
+                    type="button"
+                    role="option"
+                    aria-selected={languageFilter === code}
+                    className={`${styles.languageOption} ${languageFilter === code ? styles.selected : ''}`}
+                    onClick={() => {
+                      setLanguageFilter(code);
+                      setShowLanguageDropdown(false);
+                    }}
+                  >
+                    {name}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Visibility Toggle */}
+          {visibility !== undefined && (
+            <button
+              type="button"
+              onClick={() => setVisibility({ visible: !visibility })}
+              className={styles.visibilityButton}
+              aria-pressed={visibility}
+            >
+              {visibility ? <IoEye aria-hidden="true" /> : <IoEyeOff aria-hidden="true" />}
+              <span>{visibility ? t('settings.leaderboard.visible') : t('settings.leaderboard.hidden')}</span>
+            </button>
+          )}
+        </div>
+      </div>
+
+      <div className={styles.layout}>
+        <div className={styles.main}>
+          {/* Leaderboard List */}
+          <div className={styles.listCard}>
+            {isLoading ? (
+              <p className={styles.loading} role="status" aria-live="polite">{t('leaderboard.empty.loading')}</p>
+            ) : leaderboardData?.entries.length === 0 ? (
+              <div className={styles.emptyState}>
+                <IoTrophy className={styles.emptyIcon} aria-hidden="true" />
+                <h2 className={styles.emptyTitle}>{t('leaderboard.empty.noEntries')}</h2>
+                <p className={styles.emptyText}>
+                  {period === 'daily' ? t('leaderboard.empty.daily') :
+                   period === 'weekly' ? t('leaderboard.empty.weekly') :
+                   t('leaderboard.empty.allTime')}
+                </p>
+              </div>
+            ) : (
+              <ol className={styles.leaderboardList}>
+                {leaderboardData?.entries.map((entry) => (
+                  <li
+                    key={`${entry.rank}-${entry.anonymousName}`}
+                    className={`${styles.leaderboardRow} ${entry.isCurrentUser ? styles.currentUser : ''}`}
+                    aria-current={entry.isCurrentUser ? 'true' : undefined}
+                  >
+                    {renderRow(entry, true)}
+                  </li>
+                ))}
+              </ol>
+            )}
+          </div>
+
+          {/* Current User Outside Top 50 */}
+          {leaderboardData?.currentUserRank &&
+           !leaderboardData.entries.find(e => e.isCurrentUser) && (
+            <div className={styles.currentUserOutside}>
+              <p className={styles.outsideLabel}>{t('leaderboard.stats.position')}</p>
+              <div className={`${styles.leaderboardRow} ${styles.currentUser}`}>
+                {renderRow({ ...leaderboardData.currentUserRank, isCurrentUser: true }, false)}
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* My Stats Card */}
+        {myXPData && (
+          <aside className={styles.aside}>
+            <section className={styles.myStatsCard} aria-labelledby="leaderboard-my-stats">
+              <div className={styles.myStatsHeader}>
+                <span className={styles.myStatsIcon} aria-hidden="true"><IoSparkles /></span>
+                <div className={styles.myStatsTitles}>
+                  <h2 id="leaderboard-my-stats" className={styles.sectionTitle}>{t('leaderboard.stats.title')}</h2>
+                  <span className={styles.anonymousName}>
+                    {myXPData.anonymousName || t('leaderboard.generating')}
+                  </span>
                 </div>
               </div>
-            ))}
-          </div>
+
+              {leaderboardData?.currentUserRank && (
+                <div className={styles.myRank}>
+                  <span className={styles.myRankLabel}>{t('leaderboard.stats.rank')}</span>
+                  <span className={styles.myRankValue}>#{leaderboardData.currentUserRank.rank}</span>
+                  <span className={styles.myRankMeta}>
+                    {t('leaderboard.stats.participants', { count: leaderboardData.totalParticipants })}
+                  </span>
+                </div>
+              )}
+
+              <dl className={styles.xpBreakdown}>
+                {xpRows.map(({ key, labelKey }) => (
+                  <div key={key} className={styles.xpRow}>
+                    <dt className={styles.xpLabel}>{t(labelKey)}</dt>
+                    <dd className={styles.xpValue}>{formatXP(myXPData.breakdown[key] ?? 0)} XP</dd>
+                  </div>
+                ))}
+                <div className={`${styles.xpRow} ${styles.xpTotal}`}>
+                  <dt className={styles.xpLabel}>{t('leaderboard.stats.total')}</dt>
+                  <dd className={styles.xpTotalValue}>{formatXP(myXPData.total)} XP</dd>
+                </div>
+              </dl>
+            </section>
+          </aside>
         )}
-      </Card>
-
-      {/* Current User Outside Top 50 */}
-      {leaderboardData?.currentUserRank &&
-       !leaderboardData.entries.find(e => e.isCurrentUser) && (
-        <Card variant="glass" className={styles.currentUserOutside}>
-          <Text variant="caption" color="muted">{t('leaderboard.stats.position')}</Text>
-          <div className={`${styles.leaderboardRow} ${styles.currentUser}`}>
-            <div className={styles.rankCell}>
-              <span className={styles.rankNumber}>#{leaderboardData.currentUserRank.rank}</span>
-            </div>
-            <div className={styles.nameCell}>
-              <span className={styles.playerName}>{leaderboardData.currentUserRank.anonymousName}</span>
-              <span className={styles.youBadge}>{t('leaderboard.badges.you')}</span>
-            </div>
-            <div className={styles.streakCell}>
-              <IoFlame className={styles.streakIcon} />
-              <span>{leaderboardData.currentUserRank.streak}</span>
-            </div>
-            <div className={styles.xpCell}>
-              <span className={styles.xpAmount}>{formatXP(leaderboardData.currentUserRank.xp)}</span>
-              <span className={styles.xpSuffix}>XP</span>
-            </div>
-          </div>
-        </Card>
-      )}
-
-      {/* Back Button */}
-      <Button variant="ghost" onClick={() => window.history.back()} className={styles.backButton}>
-        {t('settings.backToDashboard')}
-      </Button>
+      </div>
     </Container>
   );
 }

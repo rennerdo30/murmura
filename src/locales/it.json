@@ -492,9 +492,15 @@
     }
   },
   "settings": {
+    "learningTitle": "Apprendimento",
+    "srsPage": {
+      "unlimited": "Illimitato",
+      "multiplier": "{value}×"
+    },
     "title": "Impostazioni",
     "subtitle": "Personalizza la tua esperienza di apprendimento",
     "leaderboard": {
+      "signInHint": "Accedi per scegliere se comparire nella classifica.",
       "title": "Classifica",
       "showOnLeaderboard": "Mostra in Classifica",
       "showOnLeaderboardDescription": "Se disabilitato, i tuoi progressi non appariranno nelle classifiche pubbliche",
@@ -508,6 +514,12 @@
       "description": "Personalizza la pianificazione delle revisioni e la difficoltà"
     },
     "audio": {
+      "initializing": "Inizializzazione...",
+      "female": "Femminile",
+      "male": "Maschile",
+      "voiceOption": "{name} ({quality})",
+      "voiceOptionWithTraits": "{name} ({quality}) – {traits}",
+      "priorityEdge": "Edge TTS (voci neurali Microsoft per {language})",
       "title": "Audio e TTS",
       "offlineTTS": "TTS Offline (Kokoro)",
       "offlineTTSDescription": "Scarica il modello di ~{{size}}MB per il text-to-speech offline",
@@ -537,6 +549,8 @@
       "advancedSettings": "Impostazioni audio avanzate"
     },
     "appearance": {
+      "contrastWarningTextRatio": "Basso contrasto: il testo potrebbe essere difficile da leggere ({ratio}:1)",
+      "contrastWarningAccentRatio": "Basso contrasto: il colore d'accento potrebbe essere difficile da vedere ({ratio}:1)",
       "title": "Aspetto",
       "comingSoon": "Impostazioni tema in arrivo",
       "subtitle": "Personalizza l'aspetto e l'interfaccia",
@@ -559,6 +573,14 @@
       "contrastWarningAccent": "Basso contrasto: il colore d'accento potrebbe essere difficile da vedere",
       "contrastOk": "Il contrasto dei colori è buono",
       "themes": {
+        "ja": "Giapponese (Giardino zen)",
+        "zh": "Cinese (Via della Seta)",
+        "ko": "Coreano (Hanok)",
+        "es": "Spagnolo (Sol y Sombra)",
+        "fr": "Francese (Château)",
+        "it": "Italiano (Rinascimento)",
+        "en": "Inglese (Biblioteca di Oxford)",
+        "de": "Tedesco (Foresta Nera)",
         "light": "Luce del giorno (Chiaro)"
       }
     },
@@ -1100,5 +1122,59 @@
     "relaxed": "Rilassato",
     "moderate": "Moderato",
     "intensive": "Intensivo"
+  },
+  "placement": {
+    "loadError": {
+      "title": "Impossibile caricare il test di livello",
+      "text": "Si è verificato un errore durante il caricamento del test di livello. Riprova più tardi."
+    },
+    "unavailable": {
+      "title": "Il test di livello non è ancora disponibile",
+      "text": "Non esiste ancora un test di livello per {language}. Nel frattempo, inizia con un percorso di apprendimento o con i moduli della tua dashboard."
+    },
+    "questionCount": "{count} domande",
+    "questionCountLabel": "In totale",
+    "leaveTest": "Esci dal test",
+    "sectionsLabel": "Sezioni del test",
+    "overallScoreAria": "Punteggio complessivo: {score}",
+    "difficulty": {
+      "easy": "Facile",
+      "medium": "Media",
+      "hard": "Difficile"
+    }
+  },
+  "pronunciation": {
+    "title": "Esercizi di pronuncia",
+    "subtitle": "Migliora la tua pronuncia con esercizi mirati",
+    "loading": "Caricamento degli esercizi...",
+    "backToDrills": "Tutti gli esercizi",
+    "drillsTitle": "Esercizi",
+    "clearFilters": "Cancella filtri",
+    "noResults": "Nessun esercizio corrisponde ai filtri selezionati",
+    "drillCount": "{count} esercizi",
+    "filters": {
+      "type": "Tipi di esercizio",
+      "difficulty": "Difficoltà"
+    },
+    "types": {
+      "shadowing": "Shadowing",
+      "minimal_pair": "Coppie minime",
+      "listen_repeat": "Ascolta e ripeti"
+    },
+    "typeDescriptions": {
+      "shadowing": "Ascolta i madrelingua e parla insieme a loro",
+      "minimal_pair": "Allena l'orecchio a distinguere suoni simili",
+      "listen_repeat": "Esercitati con frasi tramite ripetizione guidata"
+    },
+    "difficulty": {
+      "all": "Tutti i livelli",
+      "easy": "Facile",
+      "medium": "Media",
+      "hard": "Difficile"
+    },
+    "empty": {
+      "title": "Ancora nessun esercizio di pronuncia",
+      "text": "Gli esercizi di pronuncia per {language} non sono ancora disponibili. Ci stiamo lavorando."
+    }
   }
 }

@@ -38,7 +38,7 @@
   justify-content: space-between;
   align-items: center;
   padding-top: 0.5rem;
-  border-top: 1px solid var(--glass-border, rgba(255, 255, 255, 0.1));
+  border-top: 1px solid var(--glass-border, var(--surface-overlay-strong));
 }
 
 .meta {
@@ -75,7 +75,7 @@
 
 .audioButton svg {
   font-size: 1rem;
-  color: var(--gold, #FFD700);
+  color: var(--accent-gold);
 }
 
 .masteryBar {
@@ -84,12 +84,12 @@
   left: 0;
   right: 0;
   height: 3px;
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--surface-overlay-strong);
 }
 
 .masteryFill {
   height: 100%;
-  background: linear-gradient(90deg, var(--gold, #FFD700), var(--accent-green, #4ADE80));
+  background: linear-gradient(90deg, var(--accent-gold), var(--accent-green));
   transition: width 0.3s ease;
 }
 

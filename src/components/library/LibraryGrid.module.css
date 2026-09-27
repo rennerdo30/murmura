@@ -24,7 +24,7 @@
 
 .viewToggle {
   display: flex;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--surface-overlay);
   border-radius: 8px;
   padding: 4px;
 }
@@ -48,8 +48,8 @@
 }
 
 .viewButton.active {
-  background: rgba(255, 255, 255, 0.1);
-  color: var(--gold, #FFD700);
+  background: var(--surface-overlay-strong);
+  color: var(--accent-gold);
 }
 
 .viewButton svg {
@@ -58,7 +58,7 @@
 
 .resultsCount {
   padding-bottom: 0.5rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid var(--glass-border);
 }
 
 .grid {
@@ -79,9 +79,9 @@
   align-items: center;
   justify-content: center;
   padding: 3rem 1rem;
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--surface-overlay-soft);
   border-radius: 12px;
-  border: 1px dashed rgba(255, 255, 255, 0.1);
+  border: 1px dashed var(--glass-border);
 }
 
 /* Mobile */

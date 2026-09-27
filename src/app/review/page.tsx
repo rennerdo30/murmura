@@ -2,8 +2,9 @@
 
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
-import Navigation from '@/components/common/Navigation';
-import { Container, Card, Text, Button, Animated } from '@/components/ui';
+import type { IconType } from 'react-icons';
+import PageHeader from '@/components/common/PageHeader';
+import { Container, Button } from '@/components/ui';
 import ReviewCard from '@/components/review/ReviewCard';
 import ReviewProgress from '@/components/review/ReviewProgress';
 import ReviewStats from '@/components/review/ReviewStats';
@@ -25,10 +26,19 @@ import {
   DEFAULT_SRS_SETTINGS,
   ReviewModuleName,
 } from '@/lib/reviewQueue';
-import { IoBook, IoSchool, IoDocumentText, IoReader, IoHeadset, IoCheckmarkCircle, IoTime, IoFlame } from 'react-icons/io5';
+import { IoBook, IoSchool, IoDocumentText, IoReader, IoHeadset, IoCheckmarkCircle, IoEllipseOutline, IoTime } from 'react-icons/io5';
 import styles from './review.module.css';
 
 type ReviewMode = 'overview' | 'session' | 'complete';
+
+/** Modules that can be toggled in the review overview, in display order. */
+const REVIEW_MODULES: { id: ReviewModuleName; icon: IconType }[] = [
+  { id: 'vocabulary', icon: IoBook },
+  { id: 'kanji', icon: IoSchool },
+  { id: 'grammar', icon: IoDocumentText },
+  { id: 'reading', icon: IoReader },
+  { id: 'listening', icon: IoHeadset },
+];
 
 interface ItemDataMap {
   vocabulary: Record<string, { front: string; back: string; reading?: string; audioUrl?: string }>;
@@ -428,109 +438,86 @@ export default function ReviewPage() {
     };
   }, [queue, selectedModules]);
 
+  const header = <PageHeader title={t('review.title')} />;
+
   if (isLoading) {
     return (
-      <Container variant="centered">
-        <Navigation />
-        <Text>{t('review.loading')}</Text>
+      <Container variant="dashboard">
+        {header}
+        <p className={styles.statusText} role="status" aria-live="polite">{t('review.loading')}</p>
       </Container>
     );
   }
 
   // Overview mode - show queue summary and start button
   if (mode === 'overview') {
+    const urgency = queue?.urgency || 'none';
+
     return (
-      <Container variant="centered">
-        <Navigation />
+      <Container variant="dashboard">
+        {header}
 
-        <Animated animation="fadeInDown">
-          <Text variant="h1" color="gold" className={styles.pageTitle}>
-            {t('review.title')}
-          </Text>
-        </Animated>
-
-        <Card variant="glass" className={styles.queueSummary}>
-          <div className={styles.queueHeader}>
-            <Text variant="h2">
-              {t('review.itemsDue', { count: queue?.total || 0 })}
-            </Text>
-            <div className={`${styles.urgencyBadge} ${styles[queue?.urgency || 'none']}`}>
-              {queue?.urgency === 'overdue' && t('review.urgency.overdue')}
-              {queue?.urgency === 'due' && t('review.urgency.dueToday')}
-              {queue?.urgency === 'upcoming' && t('review.urgency.upcoming')}
-              {queue?.urgency === 'none' && t('review.urgency.allClear')}
+        <div className={styles.overview}>
+          <section className={styles.summary} aria-labelledby="review-due-title">
+            <div className={styles.summaryHeader}>
+              <h2 id="review-due-title" className={styles.summaryTitle}>
+                {t('review.itemsDue', { count: queue?.total || 0 })}
+              </h2>
+              <span className={`${styles.urgencyBadge} ${styles[urgency]}`}>
+                {urgency === 'overdue' && t('review.urgency.overdue')}
+                {urgency === 'due' && t('review.urgency.dueToday')}
+                {urgency === 'upcoming' && t('review.urgency.upcoming')}
+                {urgency === 'none' && t('review.urgency.allClear')}
+              </span>
             </div>
-          </div>
 
-          <div className={styles.moduleBreakdown} role="group" aria-label={t('review.moduleSelection')}>
-            <button
-              className={`${styles.moduleChip} ${selectedModules.includes('vocabulary') ? styles.active : ''}`}
-              onClick={() => toggleModule('vocabulary')}
-              aria-pressed={selectedModules.includes('vocabulary')}
-              aria-label={t('review.toggleModule', { module: t('review.modules.vocabulary'), count: queue?.byModule.vocabulary || 0 })}
-            >
-              <IoBook className={styles.moduleIcon} aria-hidden="true" />
-              <span>{t('review.modules.vocabulary')}: {queue?.byModule.vocabulary || 0}</span>
-            </button>
-            <button
-              className={`${styles.moduleChip} ${selectedModules.includes('kanji') ? styles.active : ''}`}
-              onClick={() => toggleModule('kanji')}
-              aria-pressed={selectedModules.includes('kanji')}
-              aria-label={t('review.toggleModule', { module: t('review.modules.kanji'), count: queue?.byModule.kanji || 0 })}
-            >
-              <IoSchool className={styles.moduleIcon} aria-hidden="true" />
-              <span>{t('review.modules.kanji')}: {queue?.byModule.kanji || 0}</span>
-            </button>
-            <button
-              className={`${styles.moduleChip} ${selectedModules.includes('grammar') ? styles.active : ''}`}
-              onClick={() => toggleModule('grammar')}
-              aria-pressed={selectedModules.includes('grammar')}
-              aria-label={t('review.toggleModule', { module: t('review.modules.grammar'), count: queue?.byModule.grammar || 0 })}
-            >
-              <IoDocumentText className={styles.moduleIcon} aria-hidden="true" />
-              <span>{t('review.modules.grammar')}: {queue?.byModule.grammar || 0}</span>
-            </button>
-            <button
-              className={`${styles.moduleChip} ${selectedModules.includes('reading') ? styles.active : ''}`}
-              onClick={() => toggleModule('reading')}
-              aria-pressed={selectedModules.includes('reading')}
-              aria-label={t('review.toggleModule', { module: t('review.modules.reading'), count: queue?.byModule.reading || 0 })}
-            >
-              <IoReader className={styles.moduleIcon} aria-hidden="true" />
-              <span>{t('review.modules.reading')}: {queue?.byModule.reading || 0}</span>
-            </button>
-            <button
-              className={`${styles.moduleChip} ${selectedModules.includes('listening') ? styles.active : ''}`}
-              onClick={() => toggleModule('listening')}
-              aria-pressed={selectedModules.includes('listening')}
-              aria-label={t('review.toggleModule', { module: t('review.modules.listening'), count: queue?.byModule.listening || 0 })}
-            >
-              <IoHeadset className={styles.moduleIcon} aria-hidden="true" />
-              <span>{t('review.modules.listening')}: {queue?.byModule.listening || 0}</span>
-            </button>
-          </div>
+            <p className={styles.estimatedTime}>
+              <IoTime className={styles.timeIcon} aria-hidden="true" />
+              <span>
+                {t('review.estimatedTime', { minutes: filteredQueueStats.estimatedMinutes, items: filteredQueueStats.total })}
+              </span>
+            </p>
 
-          <div className={styles.estimatedTime}>
-            <IoTime className={styles.timeIcon} />
-            <Text>
-              {t('review.estimatedTime', { minutes: filteredQueueStats.estimatedMinutes, items: filteredQueueStats.total })}
-            </Text>
-          </div>
+            <Button
+              onClick={handleStartSession}
+              disabled={filteredQueueStats.total === 0}
+              fullWidth
+              size="lg"
+              className={styles.startButton}
+            >
+              {filteredQueueStats.total > 0 ? t('review.startSession') : t('review.noReviewsDue')}
+            </Button>
+          </section>
 
-          <Button
-            onClick={handleStartSession}
-            disabled={filteredQueueStats.total === 0}
-            fullWidth
-            size="lg"
-            className={styles.startButton}
-          >
-            {filteredQueueStats.total > 0 ? t('review.startSession') : t('review.noReviewsDue')}
-          </Button>
-        </Card>
-
-        <Button variant="ghost" onClick={handleBackToDashboard} className={styles.backButton}>
-          {t('review.stats.backToDashboard')}
-        </Button>
+          <section className={styles.modules} aria-labelledby="review-modules-title">
+            <h2 id="review-modules-title" className={styles.sectionTitle}>{t('review.moduleSelection')}</h2>
+            <ul className={styles.moduleList}>
+              {REVIEW_MODULES.map(({ id, icon: ModuleIcon }) => {
+                const selected = selectedModules.includes(id);
+                const count = queue?.byModule[id] || 0;
+                const label = t(`review.modules.${id}`);
+                return (
+                  <li key={id}>
+                    <button
+                      type="button"
+                      className={`${styles.moduleRow} ${selected ? styles.moduleRowSelected : ''}`}
+                      onClick={() => toggleModule(id)}
+                      aria-pressed={selected}
+                      aria-label={t('review.toggleModule', { module: label, count })}
+                    >
+                      <span className={styles.moduleIcon} aria-hidden="true"><ModuleIcon /></span>
+                      <span className={styles.moduleLabel}>{label}</span>
+                      <span className={`${styles.moduleCount} ${count === 0 ? styles.moduleCountEmpty : ''}`}>{count}</span>
+                      <span className={styles.moduleCheck} aria-hidden="true">
+                        {selected ? <IoCheckmarkCircle /> : <IoEllipseOutline />}
+                      </span>
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+          </section>
+        </div>
       </Container>
     );
   }
@@ -540,21 +527,23 @@ export default function ReviewPage() {
     const currentItem = session.items[session.currentIndex];
 
     return (
-      <Container variant="centered">
-        <ReviewProgress
-          current={session.currentIndex + 1}
-          total={session.items.length}
-          correct={session.results.correct}
-          incorrect={session.results.incorrect}
-          onEndSession={() => setMode('complete')}
-        />
+      <Container variant="dashboard">
+        <div className={styles.sessionColumn}>
+          <ReviewProgress
+            current={session.currentIndex + 1}
+            total={session.items.length}
+            correct={session.results.correct}
+            incorrect={session.results.incorrect}
+            onEndSession={() => setMode('complete')}
+          />
 
-        <ReviewCard
-          item={currentItem}
-          showAnswer={showAnswer}
-          onShowAnswer={handleShowAnswer}
-          onRate={handleQualityRating}
-        />
+          <ReviewCard
+            item={currentItem}
+            showAnswer={showAnswer}
+            onShowAnswer={handleShowAnswer}
+            onRate={handleQualityRating}
+          />
+        </div>
       </Container>
     );
   }
@@ -564,8 +553,8 @@ export default function ReviewPage() {
     const stats = calculateSessionStats(session);
 
     return (
-      <Container variant="centered">
-        <Navigation />
+      <Container variant="dashboard">
+        {header}
 
         <ReviewStats
           stats={stats}

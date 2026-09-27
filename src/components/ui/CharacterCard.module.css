@@ -4,45 +4,30 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: min(90vw, 400px);
+  gap: var(--space-3);
+  width: min(360px, 100%);
   aspect-ratio: 1;
-  background: var(--bg-glass);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  padding: var(--space-6);
   border: 1px solid var(--glass-border);
-  border-radius: 12px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  animation: fadeInScale 0.5s ease-out;
-}
-
-.card::before {
-  content: '';
-  position: absolute;
-  inset: -1px;
-  border-radius: 12px;
-  padding: 1px;
-  background: linear-gradient(135deg, rgba(212, 165, 116, 0.2), transparent, rgba(196, 30, 58, 0.2));
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.3s ease;
+  border-radius: var(--radius-xl);
+  background: color-mix(in srgb, var(--bg-card) 85%, transparent);
+  transition: border-color var(--duration-base) var(--ease-out);
+  animation: fadeInScale var(--duration-slow) var(--ease-out);
 }
 
 .entering {
-  animation: characterEnter 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  animation: characterEnter var(--duration-slow) var(--ease-out);
 }
 
 .correct {
-  animation: pulseSuccess 0.5s ease-out;
+  border-color: color-mix(in srgb, var(--success) 50%, var(--glass-border));
+  animation: pulseSuccess var(--duration-slow) var(--ease-out);
 }
 
 @keyframes fadeInScale {
   from {
     opacity: 0;
-    transform: scale(0.95);
+    transform: scale(0.97);
   }
 
   to {
@@ -52,34 +37,41 @@
 }
 
 @keyframes characterEnter {
-  0% {
+  from {
     opacity: 0;
-    transform: scale(0.8) rotate(-5deg);
+    transform: scale(0.94);
   }
 
-  100% {
+  to {
     opacity: 1;
-    transform: scale(1) rotate(0deg);
+    transform: scale(1);
   }
 }
 
 @keyframes pulseSuccess {
-  0% {
+  0%,
+  100% {
     transform: scale(1);
   }
 
   50% {
-    transform: scale(1.05);
-  }
-
-  100% {
-    transform: scale(1);
+    transform: scale(1.03);
   }
 }
 
-@media (max-width: 640px) {
+/* Phones: a slightly wider-than-tall card keeps the answer area above the fold */
+@media (max-width: 480px) {
   .card {
-    width: 85vw;
+    aspect-ratio: 5 / 4;
+    padding: var(--space-5);
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .entering,
+  .correct {
+    animation: none;
+    transition: none;
+  }
+}

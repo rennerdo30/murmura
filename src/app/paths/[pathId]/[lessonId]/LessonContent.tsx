@@ -2,9 +2,8 @@
 
 import { useParams, useRouter } from 'next/navigation';
 import { useState, useEffect, useMemo, useCallback } from 'react';
-import Navigation from '@/components/common/Navigation';
-import Breadcrumb from '@/components/common/Breadcrumb';
-import { Container, Card, Text, Button, Animated } from '@/components/ui';
+import PageHeader from '@/components/common/PageHeader';
+import { Container, Button, Animated, Spinner } from '@/components/ui';
 import { useCurriculum } from '@/hooks/useCurriculum';
 import { useGamification } from '@/hooks/useGamification';
 import { useLanguage } from '@/context/LanguageProvider';
@@ -14,7 +13,7 @@ import { loadLearningPathsData, LearningPathsData } from '@/lib/dataLoader';
 import { calculateLessonXP } from '@/lib/xp';
 import LessonView from '@/components/lesson/LessonView';
 import LessonSummary from '@/components/lesson/LessonSummary';
-import { IoArrowBack, IoWarning } from 'react-icons/io5';
+import { IoArrowBack, IoWarning, IoLockClosed } from 'react-icons/io5';
 import styles from './lesson.module.css';
 
 type LessonPhase = 'loading' | 'intro' | 'learning' | 'exercises' | 'summary' | 'error';
@@ -60,14 +59,14 @@ export default function LessonContent() {
   const [pathsData, setPathsData] = useState<LearningPathsData | null>(null);
   const [lessonResult, setLessonResult] = useState<LessonResult | null>(null);
 
-  // Load path data for breadcrumb
+  // Load path data for the page header
   useEffect(() => {
     if (targetLanguage) {
       loadLearningPathsData(targetLanguage).then(data => setPathsData(data));
     }
   }, [targetLanguage]);
 
-  // Get translated path name for breadcrumb
+  // Get translated path name for the page header
   const pathName = useMemo(() => {
     const pathData = pathsData?.paths[pathId];
     if (pathData) {
@@ -178,15 +177,20 @@ export default function LessonContent() {
     router.push(`/paths/${pathId}`);
   }, [pathId, router]);
 
+  const backHref = `/paths/${pathId}`;
+  const backLabel = t('lessons.backToPath');
+
   // Render loading state
   if (phase === 'loading') {
     return (
-      <Container variant="centered">
-        <Navigation />
-        <Card variant="glass" className={styles.loadingCard}>
-          <div className={styles.loader} />
-          <Text color="muted">{t('lessons.loading')}</Text>
-        </Card>
+      <Container variant="dashboard">
+        <div className={styles.column}>
+          <PageHeader title={pathName} backHref={backHref} backLabel={backLabel} />
+          <div className={styles.stateCard} role="status" aria-live="polite">
+            <Spinner size="lg" />
+            <p className={styles.stateText}>{t('lessons.loading')}</p>
+          </div>
+        </div>
       </Container>
     );
   }
@@ -194,37 +198,41 @@ export default function LessonContent() {
   // Render error state
   if (phase === 'error' || !lesson) {
     return (
-      <Container variant="centered">
-        <Navigation />
-        <Card variant="glass" className={styles.errorCard}>
-          <IoWarning className={styles.errorIcon} />
-          <Text variant="h2">{t('lessons.notFound')}</Text>
-          <Text color="muted">
-            {curriculumError || t('lessons.notFoundDescription', { lessonId })}
-          </Text>
-          <Button variant="ghost" onClick={handleBackToPath}>
-            <IoArrowBack /> {t('lessons.backToPath')}
-          </Button>
-        </Card>
+      <Container variant="dashboard">
+        <div className={styles.column}>
+          <PageHeader title={pathName} backHref={backHref} backLabel={backLabel} />
+          <div className={styles.stateCard} role="alert">
+            <IoWarning className={`${styles.stateIcon} ${styles.errorIcon}`} aria-hidden="true" />
+            <h2 className={styles.stateTitle}>{t('lessons.notFound')}</h2>
+            <p className={styles.stateText}>
+              {curriculumError || t('lessons.notFoundDescription', { lessonId })}
+            </p>
+            <Button variant="ghost" onClick={handleBackToPath}>
+              <IoArrowBack aria-hidden="true" /> {backLabel}
+            </Button>
+          </div>
+        </div>
       </Container>
     );
   }
 
+  const lessonTitle = getText(lesson.titleTranslations, lesson.title) || lessonId;
+
   // Render locked state
   if (lessonStatus === 'locked') {
     return (
-      <Container variant="centered">
-        <Navigation />
-        <Card variant="glass" className={styles.lockedCard}>
-          <IoWarning className={styles.lockedIcon} />
-          <Text variant="h2">{t('lessons.locked')}</Text>
-          <Text color="muted">
-            {t('lessons.lockedDescription')}
-          </Text>
-          <Button variant="ghost" onClick={handleBackToPath}>
-            <IoArrowBack /> {t('lessons.backToPath')}
-          </Button>
-        </Card>
+      <Container variant="dashboard">
+        <div className={styles.column}>
+          <PageHeader title={lessonTitle} subtitle={pathName} backHref={backHref} backLabel={backLabel} />
+          <div className={styles.stateCard}>
+            <IoLockClosed className={styles.stateIcon} aria-hidden="true" />
+            <h2 className={styles.stateTitle}>{t('lessons.locked')}</h2>
+            <p className={styles.stateText}>{t('lessons.lockedDescription')}</p>
+            <Button variant="ghost" onClick={handleBackToPath}>
+              <IoArrowBack aria-hidden="true" /> {backLabel}
+            </Button>
+          </div>
+        </div>
       </Container>
     );
   }
@@ -232,42 +240,38 @@ export default function LessonContent() {
   // Render summary phase
   if (phase === 'summary' && lessonResult) {
     return (
-      <Container variant="centered" className={styles.lessonFlowContainer}>
-        <Navigation />
-        <LessonSummary
-          lesson={lesson}
-          result={lessonResult}
-          nextLesson={nextLesson}
-          onNextLesson={handleNextLesson}
-          onBackToPath={handleBackToPath}
-        />
+      <Container variant="dashboard">
+        <div className={styles.column}>
+          <PageHeader title={lessonTitle} subtitle={pathName} backHref={backHref} backLabel={backLabel} />
+          <LessonSummary
+            lesson={lesson}
+            result={lessonResult}
+            nextLesson={nextLesson}
+            onNextLesson={handleNextLesson}
+            onBackToPath={handleBackToPath}
+          />
+        </div>
       </Container>
     );
   }
 
-  // Build breadcrumb items
-  const breadcrumbItems = [
-    { label: t('breadcrumb.paths'), href: '/paths' },
-    { label: pathName, href: `/paths/${pathId}` },
-    { label: getText(lesson.titleTranslations, lesson.title) || lessonId },
-  ];
-
   // Render lesson view (intro, learning, exercises)
   return (
-    <Container variant="centered" className={styles.lessonFlowContainer}>
-      <Navigation />
-      <Breadcrumb items={breadcrumbItems} />
-      <Animated animation="fadeInUp" className={styles.lessonFlowContent}>
-        <LessonView
-          lesson={lesson}
-          lessonInfo={lessonInfo}
-          phase={phase}
-          onStart={handleStartLesson}
-          onCompleteLearning={handleCompleteLearning}
-          onCompleteExercises={handleCompleteExercises}
-          onBack={handleBackToPath}
-        />
-      </Animated>
+    <Container variant="dashboard">
+      <div className={styles.column}>
+        <PageHeader title={lessonTitle} subtitle={pathName} backHref={backHref} backLabel={backLabel} />
+        <Animated animation="fadeInUp" className={styles.lessonFlowContent}>
+          <LessonView
+            lesson={lesson}
+            lessonInfo={lessonInfo}
+            phase={phase}
+            onStart={handleStartLesson}
+            onCompleteLearning={handleCompleteLearning}
+            onCompleteExercises={handleCompleteExercises}
+            onBack={handleBackToPath}
+          />
+        </Animated>
+      </div>
     </Container>
   );
 }

@@ -1,7 +1,10 @@
 'use client';
 
-import React from 'react';
+import { IoRibbon, IoPlay, IoRefresh, IoBulb } from 'react-icons/io5';
+import PageHeader from '@/components/common/PageHeader';
+import { Button } from '@/components/ui';
 import { useLanguage } from '@/context/LanguageProvider';
+import { useTargetLanguage } from '@/hooks/useTargetLanguage';
 import styles from './PlacementResults.module.css';
 import type { AssessmentResult, SectionScore } from '@/types/assessment';
 
@@ -11,128 +14,117 @@ interface PlacementResultsProps {
   onRetake: () => void;
 }
 
-const LEVEL_COLORS: Record<string, string> = {
-  N5: '#4ADE80',
-  N4: '#60A5FA',
-  N3: '#A855F7',
-  N2: '#F59E0B',
-  N1: '#EF4444',
-};
+const FULL_PERCENT = 100;
+const SKILL_KEY_PREFIX = 'assessment.placement.skills.';
+const LEVEL_KEY_PREFIX = 'assessment.placement.levels.';
+const TIP_KEYS = ['tip1', 'tip2', 'tip3', 'tip4'] as const;
 
 export default function PlacementResults({
   result,
   onStartLearning,
   onRetake,
 }: PlacementResultsProps) {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const { levels } = useTargetLanguage();
 
-  const levelKey = result.recommendedLevel.toLowerCase();
-  const levelColor = LEVEL_COLORS[result.recommendedLevel] ?? '#4ADE80';
-  const levelName = t(`assessment.placement.levels.${levelKey}.name`);
-  const levelDescription = t(`assessment.placement.levels.${levelKey}.description`);
+  // Prefer translated level texts, then the target language's level config, then the raw id
+  const levelKey = `${LEVEL_KEY_PREFIX}${result.recommendedLevel.toLowerCase()}`;
+  const levelConfig = levels.find(level => level.id.toLowerCase() === result.recommendedLevel.toLowerCase());
+  const translatedName = t(`${levelKey}.name`);
+  const translatedDescription = t(`${levelKey}.description`);
+  const levelName = translatedName !== `${levelKey}.name`
+    ? translatedName
+    : levelConfig?.name ?? result.recommendedLevel;
+  const levelDescription = translatedDescription !== `${levelKey}.description`
+    ? translatedDescription
+    : levelConfig?.description ?? '';
 
-  const getScoreColor = (score: number) => {
-    if (score >= 80) return '#4ADE80';
-    if (score >= 60) return '#60A5FA';
-    if (score >= 40) return '#F59E0B';
-    return '#EF4444';
-  };
+  const percent = Math.max(0, Math.min(FULL_PERCENT, result.percentScore));
+  const percentFormatter = new Intl.NumberFormat(language, { style: 'percent' });
 
   return (
     <div className={styles.container}>
-      {/* Celebration */}
-      <div className={styles.celebration}>
-        <div className={styles.celebrationIcon}>&#127881;</div>
-        <h1>{t('assessment.placement.results.title')}</h1>
-        <p>{t('assessment.placement.results.subtitle')}</p>
-      </div>
+      <PageHeader
+        title={t('assessment.placement.results.title')}
+        subtitle={t('assessment.placement.results.subtitle')}
+      />
 
-      {/* Overall Score */}
-      <div className={styles.scoreCard}>
+      {/* Recommended level + overall score */}
+      <section className={styles.summary} aria-labelledby="placement-level-title">
         <div
           className={styles.scoreCircle}
-          style={{
-            background: `conic-gradient(${getScoreColor(result.totalScore)} ${result.totalScore}%, rgba(255,255,255,0.1) 0)`,
-          }}
+          style={{ background: `conic-gradient(var(--accent-gold) ${percent}%, var(--surface-overlay-strong) 0)` }}
+          role="img"
+          aria-label={t('placement.overallScoreAria', { score: percentFormatter.format(percent / FULL_PERCENT) })}
         >
           <div className={styles.scoreInner}>
-            <span className={styles.scoreNumber}>{result.totalScore}</span>
-            <span className={styles.scorePercent}>%</span>
+            <span className={styles.scoreNumber}>{percentFormatter.format(percent / FULL_PERCENT)}</span>
           </div>
         </div>
-        <div className={styles.scoreLabel}>{t('assessment.placement.results.overallScore')}</div>
-      </div>
+        <div className={styles.summaryText}>
+          <p className={styles.eyebrow}>
+            <IoRibbon aria-hidden="true" /> {t('assessment.placement.results.recommendedLevel')}
+          </p>
+          <h2 id="placement-level-title" className={styles.levelName}>{levelName}</h2>
+          {levelDescription && <p className={styles.levelDescription}>{levelDescription}</p>}
+          <p className={styles.scoreLabel}>{t('assessment.placement.results.overallScore')}</p>
+        </div>
+      </section>
 
-      {/* Section Scores */}
-      <div className={styles.sectionScores}>
-        <h3>{t('assessment.placement.results.skillsBreakdown')}</h3>
-        <div className={styles.skillBars}>
+      {/* Skills breakdown */}
+      <section className={styles.panel} aria-labelledby="placement-skills-title">
+        <h2 id="placement-skills-title" className={styles.sectionTitle}>
+          {t('assessment.placement.results.skillsBreakdown')}
+        </h2>
+        <ul className={styles.skillBars}>
           {Object.entries(result.sectionScores).map(([skill, scoreData]: [string, SectionScore]) => {
-            const skillName = t(`assessment.placement.skills.${skill}`);
+            const key = `${SKILL_KEY_PREFIX}${skill}`;
+            const translated = t(key);
+            const skillName = translated === key ? skill : translated;
             return (
-              <div key={skill} className={styles.skillBar}>
+              <li key={skill} className={styles.skillBar}>
                 <div className={styles.skillInfo}>
-                  <span className={styles.skillName}>
-                    {skillName.startsWith('assessment.') ? skill : skillName}
-                  </span>
-                  <span className={styles.skillScore}>{scoreData.percent}%</span>
+                  <span className={styles.skillName}>{skillName}</span>
+                  <span className={styles.skillScore}>{percentFormatter.format(scoreData.percent / FULL_PERCENT)}</span>
                 </div>
-                <div className={styles.barContainer}>
-                  <div
-                    className={styles.barFill}
-                    style={{
-                      width: `${scoreData.percent}%`,
-                      backgroundColor: getScoreColor(scoreData.percent),
-                    }}
-                  />
+                <div
+                  className={styles.barContainer}
+                  role="progressbar"
+                  aria-valuenow={scoreData.percent}
+                  aria-valuemin={0}
+                  aria-valuemax={FULL_PERCENT}
+                  aria-label={skillName}
+                >
+                  <div className={styles.barFill} style={{ width: `${scoreData.percent}%` }} />
                 </div>
-              </div>
+              </li>
             );
           })}
-        </div>
-      </div>
-
-      {/* Recommended Level */}
-      <div
-        className={styles.recommendationCard}
-        style={{ borderColor: levelColor }}
-      >
-        <div className={styles.recommendationHeader}>
-          <span className={styles.recommendationIcon}>&#127919;</span>
-          <h3>{t('assessment.placement.results.recommendedLevel')}</h3>
-        </div>
-        <div
-          className={styles.levelBadge}
-          style={{ backgroundColor: `${levelColor}20`, color: levelColor }}
-        >
-          {levelName}
-        </div>
-        <p className={styles.levelDescription}>{levelDescription}</p>
-      </div>
-
-      {/* Actions */}
-      <div className={styles.actions}>
-        <button
-          className={styles.startButton}
-          onClick={() => onStartLearning(result.recommendedPath)}
-        >
-          {t('assessment.placement.results.startLearning', { level: result.recommendedLevel })}
-        </button>
-        <button className={styles.retakeButton} onClick={onRetake}>
-          {t('assessment.placement.results.retakeTest')}
-        </button>
-      </div>
-
-      {/* Tips */}
-      <div className={styles.tips}>
-        <h4>{t('assessment.placement.results.tipsTitle')}</h4>
-        <ul>
-          <li>{t('assessment.placement.results.tip1')}</li>
-          <li>{t('assessment.placement.results.tip2')}</li>
-          <li>{t('assessment.placement.results.tip3')}</li>
-          <li>{t('assessment.placement.results.tip4')}</li>
         </ul>
+      </section>
+
+      <div className={styles.actions}>
+        <Button variant="primary" size="lg" onClick={() => onStartLearning(result.recommendedPath)}>
+          <IoPlay aria-hidden="true" />
+          {t('assessment.placement.results.startLearning', { level: levelName })}
+        </Button>
+        <Button variant="secondary" onClick={onRetake}>
+          <IoRefresh aria-hidden="true" />
+          {t('assessment.placement.results.retakeTest')}
+        </Button>
       </div>
+
+      <section className={styles.panel} aria-labelledby="placement-tips-title">
+        <h2 id="placement-tips-title" className={styles.sectionTitle}>
+          <IoBulb className={styles.sectionIcon} aria-hidden="true" />
+          {t('assessment.placement.results.tipsTitle')}
+        </h2>
+        <ul className={styles.tips}>
+          {TIP_KEYS.map(tip => (
+            <li key={tip}>{t(`assessment.placement.results.${tip}`)}</li>
+          ))}
+        </ul>
+      </section>
     </div>
   );
 }

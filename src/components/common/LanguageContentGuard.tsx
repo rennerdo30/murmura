@@ -3,10 +3,10 @@
 import { ReactNode } from 'react';
 import { useTargetLanguage } from '@/hooks/useTargetLanguage';
 import { useLanguage } from '@/context/LanguageProvider';
-import Navigation from '@/components/common/Navigation';
-import { Container, Card, Text, Button } from '@/components/ui';
-import { IoConstruct, IoArrowBack } from 'react-icons/io5';
-import Link from 'next/link';
+import EmptyState from '@/components/common/EmptyState';
+import { getLanguageName, formatList } from '@/lib/languageNames';
+import { Container, Button } from '@/components/ui';
+import { IoConstruct, IoHome } from 'react-icons/io5';
 
 interface LanguageContentGuardProps {
   children: ReactNode;
@@ -32,8 +32,8 @@ export default function LanguageContentGuard({
   moduleName,
   supportedLanguages
 }: LanguageContentGuardProps) {
-  const { targetLanguage, languageConfig } = useTargetLanguage();
-  const { t } = useLanguage();
+  const { targetLanguage } = useTargetLanguage();
+  const { t, language } = useLanguage();
 
   // Use provided supported languages or fall back to default
   const availableLanguages = supportedLanguages || MODULE_DATA_AVAILABILITY[moduleName] || [];
@@ -43,26 +43,25 @@ export default function LanguageContentGuard({
 
   if (!hasData) {
     return (
-      <Container variant="centered">
-        <Navigation />
-        <Card variant="glass" style={{ maxWidth: '500px', margin: '2rem auto', padding: '3rem', textAlign: 'center' }}>
-          <div style={{ fontSize: '4rem', marginBottom: '1rem', color: 'var(--accent-gold)' }}>
-            <IoConstruct />
-          </div>
-          <Text variant="h2" align="center" style={{ marginBottom: '1rem' }}>
-            {t('contentGuard.comingSoon')}
-          </Text>
-          <Text variant="body" color="secondary" align="center" style={{ marginBottom: '0.5rem' }}>
-            {t('contentGuard.notAvailable', { language: languageConfig?.name || targetLanguage.toUpperCase() })}
-          </Text>
-          <Text variant="caption" color="muted" align="center" style={{ marginBottom: '2rem' }}>
-            {t('contentGuard.availableFor', { languages: availableLanguages.length > 0 ? availableLanguages.map(l => l.toUpperCase()).join(', ') : t('contentGuard.noLanguages') })}
-          </Text>
-          <Button href="/" variant="primary">
-            <IoArrowBack aria-hidden="true" />
-            {t('common.dashboard')}
-          </Button>
-        </Card>
+      <Container variant="dashboard">
+        {/* No PageHeader here: the empty state title is the page heading */}
+        <EmptyState
+          headingLevel="h1"
+          icon={<IoConstruct />}
+          title={t('contentGuard.comingSoon')}
+          text={t('contentGuard.notAvailable', { language: getLanguageName(targetLanguage, t) })}
+          note={t('contentGuard.availableFor', {
+            languages: availableLanguages.length > 0
+              ? formatList(availableLanguages.map(code => getLanguageName(code, t)), language)
+              : t('contentGuard.noLanguages'),
+          })}
+          actions={
+            <Button href="/" variant="primary">
+              <IoHome aria-hidden="true" />
+              {t('common.dashboard')}
+            </Button>
+          }
+        />
       </Container>
     );
   }

@@ -492,9 +492,15 @@
     }
   },
   "settings": {
+    "learningTitle": "सीखना",
+    "srsPage": {
+      "unlimited": "असीमित",
+      "multiplier": "{value}×"
+    },
     "title": "सेटिंग्स",
     "subtitle": "अपना सीखने का अनुभव अनुकूलित करें",
     "leaderboard": {
+      "signInHint": "लीडरबोर्ड पर दिखना है या नहीं, यह चुनने के लिए साइन इन करें।",
       "title": "लीडरबोर्ड",
       "showOnLeaderboard": "लीडरबोर्ड पर दिखाएँ",
       "showOnLeaderboardDescription": "अक्षम होने पर, आपकी प्रगति सार्वजनिक रैंकिंग में नहीं दिखेगी",
@@ -508,6 +514,12 @@
       "description": "समीक्षा शेड्यूलिंग और कठिनाई अनुकूलित करें"
     },
     "audio": {
+      "initializing": "आरंभ किया जा रहा है...",
+      "female": "महिला",
+      "male": "पुरुष",
+      "voiceOption": "{name} ({quality})",
+      "voiceOptionWithTraits": "{name} ({quality}) – {traits}",
+      "priorityEdge": "Edge TTS ({language} के लिए Microsoft न्यूरल आवाज़ें)",
       "title": "ऑडियो और टीटीएस",
       "offlineTTS": "ऑफ़लाइन टीटीएस (कोकोरो)",
       "offlineTTSDescription": "ऑफ़लाइन टेक्स्ट-टू-स्पीच के लिए ~{{size}}MB मॉडल डाउनलोड करें",
@@ -537,6 +549,8 @@
       "advancedSettings": "उन्नत ऑडियो सेटिंग्स"
     },
     "appearance": {
+      "contrastWarningTextRatio": "कम कंट्रास्ट: टेक्स्ट पढ़ना मुश्किल हो सकता है ({ratio}:1)",
+      "contrastWarningAccentRatio": "कम कंट्रास्ट: एक्सेंट रंग देखना मुश्किल हो सकता है ({ratio}:1)",
       "title": "दिखावट",
       "comingSoon": "थीम सेटिंग्स जल्द ही आ रही हैं",
       "subtitle": "लुक और फील को कस्टमाइज़ करें",
@@ -559,6 +573,14 @@
       "contrastWarningAccent": "कम कंट्रास्ट: एक्सेंट रंग देखना मुश्किल हो सकता है",
       "contrastOk": "रंग कंट्रास्ट अच्छा दिखता है",
       "themes": {
+        "ja": "जापानी (ज़ेन गार्डन)",
+        "zh": "चीनी (सिल्क रोड)",
+        "ko": "कोरियाई (हानोक)",
+        "es": "स्पेनिश (Sol y Sombra)",
+        "fr": "फ्रेंच (Château)",
+        "it": "इतालवी (Rinascimento)",
+        "en": "अंग्रेज़ी (ऑक्सफ़ोर्ड लाइब्रेरी)",
+        "de": "जर्मन (श्वार्ट्सवाल्ड)",
         "light": "दिन का उजाला (हल्का)"
       }
     },
@@ -1100,5 +1122,59 @@
     "relaxed": "आरामदायक",
     "moderate": "मध्यम",
     "intensive": "गहन"
+  },
+  "placement": {
+    "loadError": {
+      "title": "प्लेसमेंट टेस्ट लोड नहीं हो सका",
+      "text": "प्लेसमेंट टेस्ट लोड करते समय कुछ गलत हो गया। कृपया बाद में फिर से प्रयास करें।"
+    },
+    "unavailable": {
+      "title": "प्लेसमेंट टेस्ट अभी उपलब्ध नहीं है",
+      "text": "{language} के लिए अभी कोई प्लेसमेंट टेस्ट नहीं है। तब तक किसी लर्निंग पाथ या अपने डैशबोर्ड के मॉड्यूल से शुरुआत करें।"
+    },
+    "questionCount": "{count} प्रश्न",
+    "questionCountLabel": "कुल",
+    "leaveTest": "टेस्ट छोड़ें",
+    "sectionsLabel": "टेस्ट के खंड",
+    "overallScoreAria": "कुल स्कोर: {score}",
+    "difficulty": {
+      "easy": "आसान",
+      "medium": "मध्यम",
+      "hard": "कठिन"
+    }
+  },
+  "pronunciation": {
+    "title": "उच्चारण अभ्यास",
+    "subtitle": "लक्षित अभ्यासों से अपनी बोलने की क्षमता सुधारें",
+    "loading": "अभ्यास लोड हो रहे हैं...",
+    "backToDrills": "सभी अभ्यास",
+    "drillsTitle": "अभ्यास",
+    "clearFilters": "फ़िल्टर हटाएँ",
+    "noResults": "चुने गए फ़िल्टर से कोई अभ्यास मेल नहीं खाता",
+    "drillCount": "{count} अभ्यास",
+    "filters": {
+      "type": "अभ्यास के प्रकार",
+      "difficulty": "कठिनाई"
+    },
+    "types": {
+      "shadowing": "शैडोइंग",
+      "minimal_pair": "न्यूनतम युग्म",
+      "listen_repeat": "सुनें और दोहराएँ"
+    },
+    "typeDescriptions": {
+      "shadowing": "मूल वक्ताओं को सुनें और साथ-साथ बोलें",
+      "minimal_pair": "मिलती-जुलती ध्वनियों में फ़र्क पहचानने के लिए कान को प्रशिक्षित करें",
+      "listen_repeat": "निर्देशित दोहराव से वाक्यांशों का अभ्यास करें"
+    },
+    "difficulty": {
+      "all": "सभी स्तर",
+      "easy": "आसान",
+      "medium": "मध्यम",
+      "hard": "कठिन"
+    },
+    "empty": {
+      "title": "अभी कोई उच्चारण अभ्यास नहीं है",
+      "text": "{language} के लिए उच्चारण अभ्यास अभी उपलब्ध नहीं हैं। हम इन्हें जोड़ने पर काम कर रहे हैं।"
+    }
   }
 }

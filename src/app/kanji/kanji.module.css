@@ -1,48 +1,31 @@
-.kanjiDisplay {
-  font-size: clamp(8rem, 30vw, 14rem);
-  margin-bottom: 1rem;
+/* Kanji / Hanzi practice; shared layout lives in src/styles/study.module.css */
+
+/* Listen button pinned to the corner of the character card */
+.audioButton {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  min-width: var(--tap-target-min);
+  min-height: var(--tap-target-min);
+  font-size: var(--text-xl);
 }
 
-.kanjiInfo {
+.answerForm {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  margin-top: 1rem;
+  gap: var(--space-3);
+  width: 100%;
 }
 
-.kanjiMeaning {
-  font-size: clamp(1.5rem, 4vw, 2rem);
-}
-
-.kanjiReadings {
-  font-size: clamp(1rem, 3vw, 1.25rem);
-}
-
-.kanjiExamples {
+.answerActions {
   display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  margin-top: 0.5rem;
-  text-align: center;
-}
-
-.exampleItem {
-  font-size: 0.85rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-2);
 }
 
 @media (max-width: 480px) {
-  .kanjiDisplay {
-    font-size: clamp(4.5rem, 28vw, 7rem);
-  }
-
-  .kanjiMeaning {
-    font-size: clamp(1.1rem, 5.5vw, 1.5rem);
-    text-align: center;
-  }
-
-  .kanjiReadings {
-    font-size: 0.95rem;
-    text-align: center;
+  .answerActions > * {
+    flex: 1;
   }
 }

@@ -1,10 +1,10 @@
 'use client'
 
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
-import Link from 'next/link';
 import { FiBook, FiList, FiCheck, FiVolume2, FiClock } from 'react-icons/fi';
 import { IoPlay } from 'react-icons/io5';
-import Navigation from '@/components/common/Navigation';
+import PageHeader from '@/components/common/PageHeader';
+import EmptyState from '@/components/common/EmptyState';
 import StatsPanel from '@/components/common/StatsPanel';
 import MultipleChoice from '@/components/common/MultipleChoice';
 import TabSelector from '@/components/common/TabSelector';
@@ -20,9 +20,13 @@ import { useLearnedContent } from '@/hooks/useLearnedContent';
 import { useTTS } from '@/hooks/useTTS';
 import { loadVocabularyData, getItemLevel } from '@/lib/dataLoader';
 import { VocabularyItem, Filter } from '@/types';
-import styles from './vocabulary.module.css';
+import { getModuleName } from '@/lib/learningModules';
+import study from '@/styles/study.module.css';
 
 type TabType = 'myCards' | 'all';
+
+/** Number of vocabulary cards added to the browse grid per "load more". */
+const BROWSE_PAGE_SIZE = 50;
 
 export default function VocabularyPage() {
     const { updateModuleStats: updateStats, getModuleData } = useProgressContext();
@@ -83,7 +87,7 @@ export default function VocabularyPage() {
     // Browse mode state
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedLevel, setSelectedLevel] = useState<string | null>(null);
-    const [displayLimit, setDisplayLimit] = useState(50);
+    const [displayLimit, setDisplayLimit] = useState(BROWSE_PAGE_SIZE);
 
     // Get vocabulary data
     const [vocabulary, setVocabulary] = useState<VocabularyItem[]>([]);
@@ -161,7 +165,7 @@ export default function VocabularyPage() {
 
     // Reset display limit when filters change
     useEffect(() => {
-        setDisplayLimit(50);
+        setDisplayLimit(BROWSE_PAGE_SIZE);
     }, [searchQuery, selectedLevel]);
 
     // Preload audio for visible vocabulary items (first 10)
@@ -349,18 +353,20 @@ export default function VocabularyPage() {
         return meaning.substring(0, 2) + '...';
     }, [currentWord, getDisplayMeaning]);
 
+    const { title: pageTitle, description: pageDescription } = getModuleName('vocabulary', targetLanguage, t);
+
     // Render browse view (All Vocabulary tab)
     const renderBrowseView = () => (
-        <>
-            {/* Filter Section */}
-            <div className={styles.filterSection}>
+        <div className={study.content}>
+            <div className={study.filterBar}>
                 <Input
                     size="sm"
-                    type="text"
+                    type="search"
                     placeholder={t('vocabulary.searchPlaceholder')}
+                    aria-label={t('vocabulary.searchPlaceholder')}
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className={styles.searchInput}
+                    className={study.search}
                 />
                 {displayLevels.map(level => (
                     <Chip
@@ -373,264 +379,270 @@ export default function VocabularyPage() {
                 ))}
             </div>
 
-            {/* Result count */}
-            <div className={styles.resultCount}>
-                <Text variant="label" color="muted">
-                    {t('vocabulary.resultCount', { count: allFilteredVocabulary.length })}
-                </Text>
-            </div>
+            <p className={study.resultCount} aria-live="polite">
+                {t('vocabulary.resultCount', { count: allFilteredVocabulary.length })}
+            </p>
 
-            {/* Vocabulary Grid */}
-            <div className={styles.browseGrid}>
-                {filteredVocabulary.map((vocab) => {
-                    const vocabId = `${targetLanguage}-vocab-${vocab.id}`;
-                    const isLearned = isContentLearned(vocabId);
+            {filteredVocabulary.length > 0 ? (
+                <ul className={study.grid}>
+                    {filteredVocabulary.map((vocab) => {
+                        const vocabId = `${targetLanguage}-vocab-${vocab.id}`;
+                        const isLearned = isContentLearned(vocabId);
 
-                    return (
-                        <div
-                            key={vocab.id}
-                            className={`${styles.vocabCard} ${isLearned ? styles.learned : ''}`}
-                        >
-                            <div className={styles.vocabHeader}>
-                                <div>
-                                    <div className={styles.vocabWord}>{vocab.word}</div>
-                                    {vocab.reading && (
-                                        <div className={styles.vocabReading}>{vocab.reading}</div>
-                                    )}
+                        return (
+                            <li
+                                key={vocab.id}
+                                className={`${study.item} ${isLearned ? study.itemLearned : ''}`}
+                            >
+                                <div className={study.itemHeader}>
+                                    <div className={study.itemHeading}>
+                                        <p className={study.itemWord}>{vocab.word}</p>
+                                        {vocab.reading && (
+                                            <p className={study.itemSub}>{vocab.reading}</p>
+                                        )}
+                                    </div>
+                                    <span className={study.level}>{getItemLevel(vocab)}</span>
                                 </div>
-                                <span className={styles.vocabLevel}>{getItemLevel(vocab)}</span>
-                            </div>
-                            <div className={styles.vocabMeaning}>
-                                {getDisplayMeaning(vocab)}
-                            </div>
-                            <div className={styles.vocabActions}>
-                                {isLearned ? (
-                                    <span className={styles.learnedBadge}>
-                                        <FiCheck size={12} /> {t('vocabulary.actions.learned')}
-                                    </span>
-                                ) : (
-                                    <Button variant="ghost" size="sm" onClick={() => {
-                                        setActiveTab('myCards');
-                                    }}>
-                                        <FiBook size={14} /> {t('learnMode.practice')}
+                                <p className={study.itemText}>{getDisplayMeaning(vocab)}</p>
+                                <div className={study.itemActions}>
+                                    {isLearned ? (
+                                        <span className={study.learnedBadge}>
+                                            <FiCheck aria-hidden="true" /> {t('vocabulary.actions.learned')}
+                                        </span>
+                                    ) : (
+                                        <Button variant="ghost" size="sm" onClick={() => setActiveTab('myCards')}>
+                                            <FiBook aria-hidden="true" /> {t('learnMode.practice')}
+                                        </Button>
+                                    )}
+                                    <Button
+                                        variant="ghost"
+                                        size="sm"
+                                        className={study.itemActionEnd}
+                                        onClick={() => speak(vocab.word, { audioUrl: vocab.audioUrl })}
+                                        aria-label={t('common.listen')}
+                                    >
+                                        <FiVolume2 aria-hidden="true" />
                                     </Button>
-                                )}
-                                <Button
-                                    variant="ghost"
-                                    size="sm"
-                                    onClick={() => speak(vocab.word, { audioUrl: vocab.audioUrl })}
-                                    aria-label={t('common.listen')}
-                                >
-                                    <FiVolume2 size={14} />
-                                </Button>
-                            </div>
-                        </div>
-                    );
-                })}
-            </div>
+                                </div>
+                            </li>
+                        );
+                    })}
+                </ul>
+            ) : (
+                <EmptyState
+                    icon={<FiList />}
+                    title={t('vocabulary.empty.searchEmpty')}
+                    text={t('vocabulary.empty.searchHint')}
+                />
+            )}
 
             {filteredVocabulary.length < allFilteredVocabulary.length && (
-                <div className={styles.loadMoreContainer}>
+                <div className={study.loadMore}>
                     <Button
-                        variant="ghost"
-                        onClick={() => setDisplayLimit(prev => prev + 50)}
+                        variant="secondary"
+                        onClick={() => setDisplayLimit(prev => prev + BROWSE_PAGE_SIZE)}
                     >
-                        {t('vocabulary.loadMore') || 'Load More'} ({allFilteredVocabulary.length - filteredVocabulary.length})
+                        {t('vocabulary.loadMore')} ({allFilteredVocabulary.length - filteredVocabulary.length})
                     </Button>
                 </div>
             )}
-
-            {filteredVocabulary.length === 0 && (
-                <div className={styles.emptyState}>
-                    <FiList className={styles.emptyIcon} />
-                    <Text variant="h3">{t('vocabulary.empty.searchEmpty')}</Text>
-                    <Text color="muted">{t('vocabulary.empty.searchHint')}</Text>
-                </div>
-            )}
-        </>
+        </div>
     );
 
     // Render practice view (My Cards tab)
     const renderPracticeView = () => {
-        // No learned vocabulary yet
+        // No vocabulary data at all
         if (vocabulary.length === 0 && learnedReady) {
             return (
-                <div className={styles.emptyState}>
-                    <div className={styles.emptyIllustration}>
-                        <div className={styles.emptyDecoCircle1} />
-                        <div className={styles.emptyDecoCircle2} />
-                        <FiBook className={styles.emptyIconLarge} />
-                    </div>
-                    <Text variant="h2" color="gold">{t('vocabulary.empty.title')}</Text>
-                    <Text color="muted">{t('vocabulary.empty.desc')}</Text>
-                    <Button href="/paths" variant="primary" className={styles.emptyCta}>
-                        <IoPlay /> {t('vocabulary.empty.goToLessons')}
-                    </Button>
-                </div>
+                <EmptyState
+                    icon={<FiBook />}
+                    title={t('vocabulary.empty.title')}
+                    text={t('vocabulary.empty.desc')}
+                    actions={
+                        <Button href="/paths" variant="primary">
+                            <IoPlay aria-hidden="true" /> {t('vocabulary.empty.goToLessons')}
+                        </Button>
+                    }
+                />
             );
         }
 
-        // No current word (filters too restrictive)
+        const toolbar = (
+            <OptionsPanel>
+                <div className={optionsStyles.toggleContainer}>
+                    <Text variant="label" color="secondary">{t('vocabulary.answerMode')}</Text>
+                    <Toggle
+                        options={[
+                            { id: 'meaning', label: t('vocabulary.typeAnswer') },
+                            { id: 'practice', label: t('vocabulary.multipleChoice') }
+                        ]}
+                        value={practiceMode ? 'practice' : 'meaning'}
+                        onChange={(val) => {
+                            setPracticeMode(val === 'practice');
+                            setFilters(prev => ({ ...prev, practiceMode: { ...prev.practiceMode, checked: val === 'practice' } }));
+                        }}
+                        name="vocabulary-mode"
+                    />
+                </div>
+                <div className={optionsStyles.group}>
+                    {Object.values(filters)
+                        .filter(f => f.id !== 'practice-mode')
+                        .map((filter) => (
+                            <Chip
+                                key={filter.id}
+                                id={filter.id}
+                                label={filter.label}
+                                checked={filter.checked}
+                                onChange={(checked) => handleFilterChange(filter.id, checked)}
+                            />
+                        ))}
+                </div>
+            </OptionsPanel>
+        );
+
+        // No current word (filters too restrictive) - keep the toolbar so levels can be changed
         if (!currentWord) {
             return (
-                <div className={styles.emptyState}>
-                    <Text variant="h3">{t('vocabulary.noWords')}</Text>
-                    <Text color="muted">{t('vocabulary.empty.unlock')}</Text>
+                <div className={study.content}>
+                    {toolbar}
+                    <EmptyState
+                        icon={<FiList />}
+                        title={t('vocabulary.noWords')}
+                        text={t('vocabulary.empty.unlock')}
+                    />
                 </div>
             );
         }
 
+        const revealed = isCorrect || inputState === 'error';
+
         return (
-            <>
-                <OptionsPanel>
-                    <div className={optionsStyles.toggleContainer}>
-                        <Text variant="label" color="muted">{t('vocabulary.answerMode') || 'Answer Mode'}</Text>
-                        <Toggle
-                            options={[
-                                { id: 'meaning', label: t('vocabulary.typeAnswer') || 'Type Answer' },
-                                { id: 'practice', label: t('vocabulary.multipleChoice') || 'Multiple Choice' }
-                            ]}
-                            value={practiceMode ? 'practice' : 'meaning'}
-                            onChange={(val) => {
-                                setPracticeMode(val === 'practice');
-                                setFilters(prev => ({ ...prev, practiceMode: { ...prev.practiceMode, checked: val === 'practice' } }));
-                            }}
-                            name="vocabulary-mode"
+            <div className={study.content}>
+                {toolbar}
+
+                <div className={study.stage}>
+                    <CharacterCard entering={isCharacterEntering} correct={isCorrect}>
+                        <CharacterDisplay
+                            character={currentWord.word}
+                            entering={isCharacterEntering}
+                            correct={isCorrect}
+                            subtext={currentWord.reading}
+                            variant="word"
                         />
+                    </CharacterCard>
+
+                    <div className={study.reveal}>
+                        <Animated animation="pulse" key={currentWord.id}>
+                            <p className={`${study.revealAnswer} ${!revealed && !showHint ? study.revealPlaceholder : ''}`}>
+                                {revealed ? getDisplayMeaning(currentWord) : (showHint ? getHint() : '???')}
+                            </p>
+                        </Animated>
+                        {!isCorrect && !practiceMode && (
+                            <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={() => setShowHint(true)}
+                                disabled={showHint}
+                                className={study.tapTarget}
+                            >
+                                {showHint ? t('vocabulary.hintShown') : t('vocabulary.showHint')}
+                            </Button>
+                        )}
                     </div>
-                    <div className={optionsStyles.group}>
-                        {Object.values(filters)
-                            .filter(f => f.id !== 'practice-mode')
-                            .map((filter) => (
-                                <Chip
-                                    key={filter.id}
-                                    id={filter.id}
-                                    label={filter.label}
-                                    checked={filter.checked}
-                                    onChange={(checked) => handleFilterChange(filter.id, checked)}
+
+                    <InputSection>
+                        {practiceMode ? (
+                            <>
+                                <MultipleChoice
+                                    options={multipleChoiceOptions}
+                                    onSelect={(selected) => {
+                                        if (selected === getDisplayMeaning(currentWord)) handleCorrect();
+                                        else handleIncorrect();
+                                    }}
+                                    disabled={isProcessing}
                                 />
-                            ))}
-                    </div>
-                </OptionsPanel>
-
-                <CharacterCard entering={isCharacterEntering} correct={isCorrect}>
-                    <CharacterDisplay
-                        character={currentWord.word}
-                        entering={isCharacterEntering}
-                        correct={isCorrect}
-                        subtext={currentWord.reading}
-                        variant="word"
-                    />
-                </CharacterCard>
-
-                <div className="mt-8 mb-4">
-                    <Animated animation="pulse" key={currentWord.id}>
-                        <Text variant="h2" color="gold">
-                            {isCorrect || inputState === 'error' ? getDisplayMeaning(currentWord) : (showHint ? getHint() : '???')}
-                        </Text>
-                    </Animated>
-                    {!isCorrect && !practiceMode && (
-                        <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => setShowHint(true)}
-                            disabled={showHint}
-                            className="mt-2"
-                        >
-                            {showHint ? t('vocabulary.hintShown') : t('vocabulary.showHint')}
-                        </Button>
-                    )}
-                </div>
-
-                <InputSection>
-                    {practiceMode ? (
-                        <>
-                            <MultipleChoice
-                                options={multipleChoiceOptions}
-                                onSelect={(selected) => {
-                                    if (selected === getDisplayMeaning(currentWord)) handleCorrect();
-                                    else handleIncorrect();
-                                }}
-                                disabled={isProcessing}
-                            />
-                            {inputState === 'error' && (
-                                <div className={styles.practiceActions} role="status" aria-live="polite">
-                                    <Text>{t('exercises.fillBlank.correctAnswerIs')} {getDisplayMeaning(currentWord)}</Text>
-                                    <Button onClick={() => {
-                                        nextWord();
-                                        setIsProcessing(false);
-                                    }}>{t('common.continue')}</Button>
-                                </div>
-                            )}
-                        </>
-                    ) : (
-                        <>
-                            <Input
-                                ref={inputRef}
-                                type="text"
-                                value={inputValue}
-                                onChange={(e) => {
-                                    setInputValue(e.target.value);
-                                    checkInput(e.target.value);
-                                }}
-                                onKeyDown={(e) => {
-                                    if (e.key === 'Enter' && inputValue.trim() && !isProcessing) {
-                                        handleIncorrect();
-                                    }
-                                }}
-                                placeholder={t('vocabulary.typeMeaning')}
-                                autoComplete="off"
-                                disabled={isProcessing}
-                                variant={inputState}
-                                size="lg"
-                                fullWidth
-                            />
-                            <div className={styles.practiceActions}>
-                                {inputState === 'error' ? (
-                                    <>
-                                        <Text role="status" aria-live="polite">{t('exercises.fillBlank.correctAnswerIs')} {getDisplayMeaning(currentWord)}</Text>
+                                {inputState === 'error' && (
+                                    <div className={study.actions} role="status" aria-live="polite">
+                                        <p className={study.feedback}>
+                                            {t('exercises.fillBlank.correctAnswerIs')} <span className={study.feedbackValue}>{getDisplayMeaning(currentWord)}</span>
+                                        </p>
                                         <Button onClick={() => {
                                             nextWord();
                                             setIsProcessing(false);
-                                            timeoutsRef.current.push(setTimeout(() => inputRef.current?.focus(), 100));
                                         }}>{t('common.continue')}</Button>
-                                    </>
-                                ) : (
-                                    <>
-                                        <Button onClick={handleIncorrect} disabled={!inputValue.trim() || isProcessing}>{t('exercises.common.checkAnswer')}</Button>
-                                        <Button variant="ghost" onClick={handleIncorrect} disabled={isProcessing}>{t('review.card.showAnswer')}</Button>
-                                    </>
+                                    </div>
                                 )}
-                            </div>
-                        </>
-                    )}
-                    <StatsPanel correct={correct} total={total} streak={streak} />
-                </InputSection>
-            </>
+                            </>
+                        ) : (
+                            <>
+                                <Input
+                                    ref={inputRef}
+                                    type="text"
+                                    value={inputValue}
+                                    onChange={(e) => {
+                                        setInputValue(e.target.value);
+                                        checkInput(e.target.value);
+                                    }}
+                                    onKeyDown={(e) => {
+                                        if (e.key === 'Enter' && inputValue.trim() && !isProcessing) {
+                                            handleIncorrect();
+                                        }
+                                    }}
+                                    placeholder={t('vocabulary.typeMeaning')}
+                                    aria-label={t('vocabulary.typeMeaning')}
+                                    autoComplete="off"
+                                    disabled={isProcessing}
+                                    variant={inputState}
+                                    size="lg"
+                                    fullWidth
+                                />
+                                <div className={study.actions}>
+                                    {inputState === 'error' ? (
+                                        <>
+                                            <p className={study.feedback} role="status" aria-live="polite">
+                                                {t('exercises.fillBlank.correctAnswerIs')} <span className={study.feedbackValue}>{getDisplayMeaning(currentWord)}</span>
+                                            </p>
+                                            <Button onClick={() => {
+                                                nextWord();
+                                                setIsProcessing(false);
+                                                timeoutsRef.current.push(setTimeout(() => inputRef.current?.focus(), 100));
+                                            }}>{t('common.continue')}</Button>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <Button onClick={handleIncorrect} disabled={!inputValue.trim() || isProcessing}>{t('exercises.common.checkAnswer')}</Button>
+                                            <Button variant="ghost" onClick={handleIncorrect} disabled={isProcessing}>{t('review.card.showAnswer')}</Button>
+                                        </>
+                                    )}
+                                </div>
+                            </>
+                        )}
+                        <StatsPanel correct={correct} total={total} streak={streak} />
+                    </InputSection>
+                </div>
+            </div>
         );
     };
 
     return (
         <ErrorBoundary>
             <LanguageContentGuard moduleName="vocabulary">
-                <Container variant="centered" streak={activeTab === 'myCards' ? streak : 0}>
-                    <Navigation />
-
-                    {/* Page Header */}
-                    <div className={styles.pageHeader}>
-                        <Text variant="h1">{t('modules.vocabulary.title')}</Text>
-                        {dueCount > 0 && (
-                            <Button variant="primary" size="sm" className={styles.reviewButton} onClick={() => window.location.assign('/review/')}>
-                                <FiClock />
+                <Container variant="dashboard" streak={activeTab === 'myCards' ? streak : 0}>
+                    <PageHeader
+                        title={pageTitle}
+                        subtitle={pageDescription}
+                        actions={dueCount > 0 ? (
+                            <Button href="/review" variant="primary" size="sm" className={study.reviewButton}>
+                                <FiClock aria-hidden="true" />
                                 {t('grammar.actions.review')}
-                                <span className={styles.reviewCount}>{dueCount}</span>
+                                <span className={study.reviewCount}>{dueCount}</span>
                             </Button>
-                        )}
-                    </div>
+                        ) : undefined}
+                    />
 
-                    {/* Stats Row */}
                     {activeTab === 'myCards' && (
                         <StatTiles
+                            className={study.stats}
                             items={[
                                 { id: 'learned', value: (learnedStats.byType as Record<string, number>)?.vocabulary || myVocabularyItems.length, label: t('vocabulary.stats.wordsLearned') },
                                 { id: 'due', value: dueCount, label: t('vocabulary.stats.dueForReview') },
@@ -639,14 +651,12 @@ export default function VocabularyPage() {
                         />
                     )}
 
-                    {/* Tabs */}
                     <TabSelector
                         tabs={tabs}
                         activeTab={activeTab}
                         onTabChange={(tab) => setActiveTab(tab as TabType)}
                     />
 
-                    {/* Tab Content */}
                     {activeTab === 'myCards' ? renderPracticeView() : renderBrowseView()}
                 </Container>
             </LanguageContentGuard>

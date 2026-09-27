@@ -492,9 +492,15 @@
     }
   },
   "settings": {
+    "learningTitle": "Lernen",
+    "srsPage": {
+      "unlimited": "Unbegrenzt",
+      "multiplier": "{value}×"
+    },
     "title": "Einstellungen",
     "subtitle": "Passen Sie Ihr Lernerlebnis an",
     "leaderboard": {
+      "signInHint": "Melden Sie sich an, um festzulegen, ob Sie in der Bestenliste erscheinen.",
       "title": "Bestenliste",
       "showOnLeaderboard": "Auf Bestenliste anzeigen",
       "showOnLeaderboardDescription": "Wenn deaktiviert, erscheint Ihr Fortschritt nicht in öffentlichen Ranglisten",
@@ -508,6 +514,12 @@
       "description": "Passen Sie die Wiederholungsplanung und Schwierigkeit an"
     },
     "audio": {
+      "initializing": "Wird initialisiert...",
+      "female": "Weiblich",
+      "male": "Männlich",
+      "voiceOption": "{name} ({quality})",
+      "voiceOptionWithTraits": "{name} ({quality}) – {traits}",
+      "priorityEdge": "Edge TTS (neuronale Microsoft-Stimmen für {language})",
       "title": "Audio & TTS",
       "offlineTTS": "Offline-TTS (Kokoro)",
       "offlineTTSDescription": "Laden Sie ~{{size}}MB Modell für Offline-Text-zu-Sprache herunter",
@@ -537,6 +549,8 @@
       "advancedSettings": "Erweiterte Audioeinstellungen"
     },
     "appearance": {
+      "contrastWarningTextRatio": "Niedriger Kontrast: Text könnte schwer lesbar sein ({ratio}:1)",
+      "contrastWarningAccentRatio": "Niedriger Kontrast: Akzentfarbe könnte schwer sichtbar sein ({ratio}:1)",
       "title": "Erscheinungsbild",
       "comingSoon": "Themeneinstellungen kommen bald",
       "subtitle": "Erscheinungsbild anpassen",
@@ -559,6 +573,14 @@
       "contrastWarningAccent": "Niedriger Kontrast: Akzentfarbe könnte schwer sichtbar sein",
       "contrastOk": "Farbkontrast sieht gut aus",
       "themes": {
+        "ja": "Japanisch (Zen-Garten)",
+        "zh": "Chinesisch (Seidenstraße)",
+        "ko": "Koreanisch (Hanok)",
+        "es": "Spanisch (Sol y Sombra)",
+        "fr": "Französisch (Château)",
+        "it": "Italienisch (Rinascimento)",
+        "en": "Englisch (Oxford Library)",
+        "de": "Deutsch (Schwarzwald)",
         "light": "Tageslicht (Hell)"
       }
     },
@@ -1100,5 +1122,59 @@
     "relaxed": "Entspannt",
     "moderate": "Moderat",
     "intensive": "Intensiv"
+  },
+  "placement": {
+    "loadError": {
+      "title": "Einstufungstest konnte nicht geladen werden",
+      "text": "Beim Laden des Einstufungstests ist etwas schiefgelaufen. Bitte versuchen Sie es später erneut."
+    },
+    "unavailable": {
+      "title": "Einstufungstest noch nicht verfügbar",
+      "text": "Für {language} gibt es noch keinen Einstufungstest. Beginnen Sie in der Zwischenzeit mit einem Lernpfad oder den Modulen auf Ihrem Dashboard."
+    },
+    "questionCount": "{count} Fragen",
+    "questionCountLabel": "Insgesamt",
+    "leaveTest": "Test verlassen",
+    "sectionsLabel": "Testabschnitte",
+    "overallScoreAria": "Gesamtergebnis: {score}",
+    "difficulty": {
+      "easy": "Leicht",
+      "medium": "Mittel",
+      "hard": "Schwer"
+    }
+  },
+  "pronunciation": {
+    "title": "Ausspracheübungen",
+    "subtitle": "Verbessern Sie Ihre Aussprache mit gezielten Übungen",
+    "loading": "Übungen werden geladen...",
+    "backToDrills": "Alle Übungen",
+    "drillsTitle": "Übungen",
+    "clearFilters": "Filter zurücksetzen",
+    "noResults": "Keine Übungen passen zu den gewählten Filtern",
+    "drillCount": "{count} Übungen",
+    "filters": {
+      "type": "Übungsarten",
+      "difficulty": "Schwierigkeit"
+    },
+    "types": {
+      "shadowing": "Shadowing",
+      "minimal_pair": "Minimalpaare",
+      "listen_repeat": "Hören & Nachsprechen"
+    },
+    "typeDescriptions": {
+      "shadowing": "Hören Sie Muttersprachlern zu und sprechen Sie gleichzeitig mit",
+      "minimal_pair": "Trainieren Sie Ihr Gehör, ähnliche Laute zu unterscheiden",
+      "listen_repeat": "Üben Sie Sätze durch angeleitetes Wiederholen"
+    },
+    "difficulty": {
+      "all": "Alle Stufen",
+      "easy": "Leicht",
+      "medium": "Mittel",
+      "hard": "Schwer"
+    },
+    "empty": {
+      "title": "Noch keine Ausspracheübungen",
+      "text": "Ausspracheübungen für {language} sind noch nicht verfügbar. Wir arbeiten daran."
+    }
   }
 }
