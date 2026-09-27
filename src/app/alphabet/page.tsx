@@ -771,7 +771,8 @@ export default function AlphabetPage() {
                                 autoComplete="off"
                                 autoCapitalize="off"
                                 spellCheck="false"
-                                disabled={isProcessing}
+                                readOnly={isProcessing}
+                                aria-disabled={isProcessing}
                                 variant={inputState || 'default'}
                                 size="lg"
                                 fullWidth

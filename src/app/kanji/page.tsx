@@ -163,6 +163,9 @@ export default function KanjiPage() {
 
     // Use refs to track current stats values for updateStats to avoid stale closures
     const statsRef = useRef({ correct: 0, total: 0, streak: 0, bestStreak: 0 });
+    const inputRef = useRef<HTMLInputElement>(null);
+    // Set once the learner starts typing, so we don't pop up the mobile keyboard on page load
+    const hasTypedRef = useRef(false);
     const [practiceType, setPracticeType] = useState<'meaning' | 'reading'>('meaning');
     const [inputValue, setInputValue] = useState('');
     const [isCharacterEntering, setIsCharacterEntering] = useState(false);
@@ -378,6 +381,13 @@ export default function KanjiPage() {
         handleIncorrect();
     }, [isProcessing, currentKanji, handleIncorrect]);
 
+    // Keep typing flow: return focus to the answer field for each new kanji
+    useEffect(() => {
+        if (hasTypedRef.current && currentKanji) {
+            inputRef.current?.focus({ preventScroll: true });
+        }
+    }, [currentKanji]);
+
     // Load initial stats from module data and sync to ref
     useEffect(() => {
         const moduleData = getModuleData('kanji');
@@ -543,14 +553,17 @@ export default function KanjiPage() {
                                 <Input
                                     type="text"
                                     value={inputValue}
+                                    ref={inputRef}
                                     onChange={(e) => {
+                                        hasTypedRef.current = true;
                                         setInputValue(e.target.value);
                                         checkInput(e.target.value);
                                     }}
                                     placeholder={practiceType === 'meaning' ? t('kanji.typeMeaningOrReading') : t('kanji.typeReading')}
                                     aria-label={practiceType === 'meaning' ? t('kanji.typeMeaningOrReading') : t('kanji.typeReading')}
                                     autoComplete="off"
-                                    disabled={isProcessing}
+                                    readOnly={isProcessing}
+                                    aria-disabled={isProcessing}
                                     variant={inputState}
                                     size="lg"
                                     fullWidth

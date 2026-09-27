@@ -594,7 +594,8 @@ export default function VocabularyPage() {
                                     placeholder={t('vocabulary.typeMeaning')}
                                     aria-label={t('vocabulary.typeMeaning')}
                                     autoComplete="off"
-                                    disabled={isProcessing}
+                                    readOnly={isProcessing}
+                                    aria-disabled={isProcessing}
                                     variant={inputState}
                                     size="lg"
                                     fullWidth

@@ -37,21 +37,21 @@
 }
 
 .button:hover:not(:disabled) {
-    border-color: var(--accent-gold);
-    box-shadow: 0 0 20px var(--accent-gold-dim);
+    border-color: var(--accent-gold-border);
     transform: translateY(-1px);
 }
 
 .primary {
-    background: linear-gradient(135deg, var(--accent-red), #8e152a);
+    background: var(--accent-red);
     border: none;
-    box-shadow: 0 4px 15px var(--accent-red-glow);
+    color: var(--on-accent);
+    box-shadow: var(--shadow-sm);
 }
 
 .primary:hover:not(:disabled) {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px var(--accent-red-glow);
-    filter: brightness(1.1);
+    background: color-mix(in srgb, var(--accent-red) 88%, #fff);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
 }
 
 .signOut {

@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { IoChevronDown, IoCheckmark } from 'react-icons/io5';
+import { IoChevronDown, IoCheckmark, IoLanguage } from 'react-icons/io5';
 import { useLanguage } from '@/context/LanguageProvider';
 import styles from './LanguageSwitcher.module.css';
 
@@ -114,7 +114,8 @@ export default function LanguageSwitcher() {
                 aria-expanded={isOpen}
                 aria-haspopup="listbox"
             >
-                <span className={styles.flag}>{currentLanguage.flag}</span>
+                {/* Icon instead of a flag emoji: Windows renders flags as letters ("US"), and a flag is a country, not a language */}
+                <IoLanguage className={styles.icon} aria-hidden="true" />
                 <span className={styles.code}>{currentLanguage.code.toUpperCase()}</span>
                 <IoChevronDown className={styles.arrow} style={{ transform: isOpen ? 'rotate(180deg)' : 'none' }} />
             </button>
@@ -136,7 +137,7 @@ export default function LanguageSwitcher() {
                             aria-selected={language === lang.code}
                             tabIndex={focusedIndex === index ? 0 : -1}
                         >
-                            <span className={styles.flag}>{lang.flag}</span>
+                            <span className={styles.optionCode} aria-hidden="true">{lang.code.toUpperCase()}</span>
                             <span className={styles.optionName}>{lang.name}</span>
                             {language === lang.code && <IoCheckmark className={styles.check} />}
                         </button>
