@@ -41,14 +41,6 @@
   font-family: var(--font-secondary);
 }
 
-.wordmark {
-  width: 100%;
-  height: auto;
-  max-width: 600px;
-  max-height: 100px;
-  /* Constrain height for density */
-}
-
 .statsOverview {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));

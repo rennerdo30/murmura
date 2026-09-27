@@ -44,3 +44,6 @@ convex/_generated/
 .temp-audio
 .claude/ralph-loop.local.md
 .venv
+
+# Fonts downloaded for tools/logo/build_logo.py
+tools/logo/fonts/

@@ -24,6 +24,7 @@ import LearningCompass from '@/components/dashboard/LearningCompass';
 import MasteryHeatmap from '@/components/dashboard/MasteryHeatmap';
 import StreakCalendar from '@/components/dashboard/StreakCalendar';
 import styles from './Dashboard.module.css';
+import Logo from '@/components/common/Logo';
 
 // Mapping from language code to primary learning path ID
 const LANGUAGE_PATH_MAP: Record<string, string> = {
@@ -193,52 +194,7 @@ function Dashboard() {
                     <div>
 
 
-                        {/* Wordmark colours come from the active theme so the logo
-                            follows the language theme and the light theme. */}
-                        <svg className={styles.wordmark} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 220" role="img" aria-label={t('dashboard.title')}>
-                            <defs>
-                                <linearGradient id="murmuraSealGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" stopColor="var(--bg-secondary)" />
-                                    <stop offset="100%" stopColor="var(--bg-primary)" />
-                                </linearGradient>
-                                <linearGradient id="murmuraRingGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" stopColor="var(--accent-red)" />
-                                    <stop offset="50%" stopColor="var(--accent-gold)" />
-                                    <stop offset="100%" stopColor="var(--accent-red)" />
-                                </linearGradient>
-                            </defs>
-
-                            <g transform="translate(80,110)">
-                                <circle r="70" fill="url(#murmuraSealGradient)" stroke="url(#murmuraRingGradient)" strokeWidth="4" />
-                                <text x="0" y="0"
-                                    textAnchor="middle"
-                                    dominantBaseline="central"
-                                    fontSize="68"
-                                    fontWeight="700"
-                                    fill="var(--accent-gold)"
-                                    fontFamily="var(--font-cjk)">学</text>
-                            </g>
-
-                            <g transform="translate(190,0)">
-                                <text x="0" y="118"
-                                    fontSize="120"
-                                    fontWeight="700"
-                                    fill="var(--text-primary)"
-                                    letterSpacing="1.2"
-                                    fontFamily="var(--font-secondary)">{t('dashboard.title')}</text>
-
-                                <g transform="translate(12,145)" fill="none" stroke="var(--accent-gold)" strokeLinecap="round" opacity="0.4">
-                                    <path d="M0 0 C45 -24, 95 -24, 140 0 S235 24, 280 0" strokeWidth="4" />
-                                    <path d="M0 18 C45 -6, 95 -6, 140 18 S235 42, 280 18" strokeWidth="3" opacity="0.6" />
-                                </g>
-
-                                <text x="12" y="196"
-                                    fontSize="30"
-                                    fill="var(--accent-gold)"
-                                    letterSpacing="2.2"
-                                    fontFamily="var(--font-primary)">{t('dashboard.subtitle')}</text>
-                            </g>
-                        </svg>
+                        <Logo />
 
 
 

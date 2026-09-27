@@ -1,0 +1,34 @@
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.mark {
+  flex: none;
+  width: clamp(48px, 8vw, 68px);
+  height: auto;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.name {
+  font-family: var(--font-secondary);
+  font-size: clamp(1.75rem, 4.5vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: var(--tracking-tight);
+  color: var(--text-primary);
+}
+
+.tagline {
+  margin-top: var(--space-1);
+  font-size: var(--text-sm);
+  letter-spacing: 0.04em;
+  color: var(--accent-gold);
+}
