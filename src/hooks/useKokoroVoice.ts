@@ -27,7 +27,14 @@ export function useKokoroVoice(targetLanguage?: string) {
   const [isLoading, setIsLoading] = useState(true);
 
   // Convex queries and mutations
-  const settings = useQuery(api.settings.getSettings);
+  // Skip the settings query while logged out; getSettings requires auth.
+  const currentUser = useQuery(api.auth.getCurrentUser);
+  const settingsResult = useQuery(
+    api.settings.getSettings,
+    currentUser ? {} : 'skip'
+  );
+  // null = logged out, undefined = still loading
+  const settings = currentUser === null ? null : settingsResult;
   const updateKokoroVoice = useMutation(api.settings.updateKokoroVoice);
 
   // Check if user is logged in (settings query returns data, not undefined)

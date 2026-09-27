@@ -7,7 +7,7 @@ export const getSettings = query({
   handler: async (ctx) => {
     const userId = await auth.getUserId(ctx);
     if (!userId) {
-      throw new Error("Not authenticated");
+      return null;
     }
 
     const settings = await ctx.db

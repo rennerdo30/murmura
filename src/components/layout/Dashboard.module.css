@@ -51,7 +51,7 @@
 
 .statsOverview {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1.5rem;
   margin-bottom: 3rem;
   animation: fadeInUp 0.6s ease-out 0.1s both;
@@ -253,17 +253,29 @@
 
 /* Quick Actions */
 .quickActions {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
   margin-bottom: 2rem;
-  flex-wrap: wrap;
 }
 
 .quickActionButton {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
+  min-height: var(--tap-target-min);
+  min-width: 0;
+}
+
+@media (min-width: 640px) {
+  .statsOverview {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .quickActions {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
 /* Widgets Section */
@@ -289,15 +301,6 @@
 
 /* Mobile responsive for widgets */
 @media (max-width: 480px) {
-  .quickActions {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .quickActionButton {
-    justify-content: center;
-  }
-
   .widgetsSection {
     grid-template-columns: 1fr;
   }
@@ -443,12 +446,4 @@
   gap: var(--space-4);
   min-height: 40vh;
   text-align: center;
-}
-
-/* Keep dashboard content clear of the fixed Learning Companion rail, which
-   otherwise covers the header actions and the "continue" call to action. */
-@media (min-width: 1024px) {
-  .dashboardShell {
-    padding-right: calc(var(--space-8) + var(--companion-width) + var(--space-4));
-  }
 }
