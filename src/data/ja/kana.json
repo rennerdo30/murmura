@@ -1,0 +1,499 @@
+[
+  {
+    "romaji": "a",
+    "hiragana": "あ",
+    "type": "gojuon",
+    "group": "vowels",
+    "order": 1
+  },
+  {
+    "romaji": "i",
+    "hiragana": "い",
+    "type": "gojuon",
+    "group": "vowels",
+    "order": 2
+  },
+  {
+    "romaji": "u",
+    "hiragana": "う",
+    "type": "gojuon",
+    "group": "vowels",
+    "order": 3
+  },
+  {
+    "romaji": "e",
+    "hiragana": "え",
+    "type": "gojuon",
+    "group": "vowels",
+    "order": 4
+  },
+  {
+    "romaji": "o",
+    "hiragana": "お",
+    "type": "gojuon",
+    "group": "vowels",
+    "order": 5
+  },
+  {
+    "romaji": "ka",
+    "hiragana": "か",
+    "type": "gojuon",
+    "group": "k-row",
+    "order": 6
+  },
+  {
+    "romaji": "ki",
+    "hiragana": "き",
+    "type": "gojuon",
+    "group": "k-row",
+    "order": 7
+  },
+  {
+    "romaji": "ku",
+    "hiragana": "く",
+    "type": "gojuon",
+    "group": "k-row",
+    "order": 8
+  },
+  {
+    "romaji": "ke",
+    "hiragana": "け",
+    "type": "gojuon",
+    "group": "k-row",
+    "order": 9
+  },
+  {
+    "romaji": "ko",
+    "hiragana": "こ",
+    "type": "gojuon",
+    "group": "k-row",
+    "order": 10
+  },
+  {
+    "romaji": "sa",
+    "hiragana": "さ",
+    "type": "gojuon",
+    "group": "s-row",
+    "order": 11
+  },
+  {
+    "romaji": "shi",
+    "hiragana": "し",
+    "type": "gojuon",
+    "group": "s-row",
+    "order": 12
+  },
+  {
+    "romaji": "su",
+    "hiragana": "す",
+    "type": "gojuon",
+    "group": "s-row",
+    "order": 13
+  },
+  {
+    "romaji": "se",
+    "hiragana": "せ",
+    "type": "gojuon",
+    "group": "s-row",
+    "order": 14
+  },
+  {
+    "romaji": "so",
+    "hiragana": "そ",
+    "type": "gojuon",
+    "group": "s-row",
+    "order": 15
+  },
+  {
+    "romaji": "ta",
+    "hiragana": "た",
+    "type": "gojuon",
+    "group": "t-row",
+    "order": 16
+  },
+  {
+    "romaji": "chi",
+    "hiragana": "ち",
+    "type": "gojuon",
+    "group": "t-row",
+    "order": 17
+  },
+  {
+    "romaji": "tsu",
+    "hiragana": "つ",
+    "type": "gojuon",
+    "group": "t-row",
+    "order": 18
+  },
+  {
+    "romaji": "te",
+    "hiragana": "て",
+    "type": "gojuon",
+    "group": "t-row",
+    "order": 19
+  },
+  {
+    "romaji": "to",
+    "hiragana": "と",
+    "type": "gojuon",
+    "group": "t-row",
+    "order": 20
+  },
+  {
+    "romaji": "na",
+    "hiragana": "な",
+    "type": "gojuon",
+    "group": "n-row",
+    "order": 21
+  },
+  {
+    "romaji": "ni",
+    "hiragana": "に",
+    "type": "gojuon",
+    "group": "n-row",
+    "order": 22
+  },
+  {
+    "romaji": "nu",
+    "hiragana": "ぬ",
+    "type": "gojuon",
+    "group": "n-row",
+    "order": 23
+  },
+  {
+    "romaji": "ne",
+    "hiragana": "ね",
+    "type": "gojuon",
+    "group": "n-row",
+    "order": 24
+  },
+  {
+    "romaji": "no",
+    "hiragana": "の",
+    "type": "gojuon",
+    "group": "n-row",
+    "order": 25
+  },
+  {
+    "romaji": "ha",
+    "hiragana": "は",
+    "type": "gojuon",
+    "group": "h-row",
+    "order": 26
+  },
+  {
+    "romaji": "hi",
+    "hiragana": "ひ",
+    "type": "gojuon",
+    "group": "h-row",
+    "order": 27
+  },
+  {
+    "romaji": "fu",
+    "hiragana": "ふ",
+    "type": "gojuon",
+    "group": "h-row",
+    "order": 28
+  },
+  {
+    "romaji": "he",
+    "hiragana": "へ",
+    "type": "gojuon",
+    "group": "h-row",
+    "order": 29
+  },
+  {
+    "romaji": "ho",
+    "hiragana": "ほ",
+    "type": "gojuon",
+    "group": "h-row",
+    "order": 30
+  },
+  {
+    "romaji": "ma",
+    "hiragana": "ま",
+    "type": "gojuon",
+    "group": "m-row",
+    "order": 31
+  },
+  {
+    "romaji": "mi",
+    "hiragana": "み",
+    "type": "gojuon",
+    "group": "m-row",
+    "order": 32
+  },
+  {
+    "romaji": "mu",
+    "hiragana": "む",
+    "type": "gojuon",
+    "group": "m-row",
+    "order": 33
+  },
+  {
+    "romaji": "me",
+    "hiragana": "め",
+    "type": "gojuon",
+    "group": "m-row",
+    "order": 34
+  },
+  {
+    "romaji": "mo",
+    "hiragana": "も",
+    "type": "gojuon",
+    "group": "m-row",
+    "order": 35
+  },
+  {
+    "romaji": "ya",
+    "hiragana": "や",
+    "type": "gojuon",
+    "group": "y-row",
+    "order": 36
+  },
+  {
+    "romaji": "yu",
+    "hiragana": "ゆ",
+    "type": "gojuon",
+    "group": "y-row",
+    "order": 37
+  },
+  {
+    "romaji": "yo",
+    "hiragana": "よ",
+    "type": "gojuon",
+    "group": "y-row",
+    "order": 38
+  },
+  {
+    "romaji": "ra",
+    "hiragana": "ら",
+    "type": "gojuon",
+    "group": "r-row",
+    "order": 39
+  },
+  {
+    "romaji": "ri",
+    "hiragana": "り",
+    "type": "gojuon",
+    "group": "r-row",
+    "order": 40
+  },
+  {
+    "romaji": "ru",
+    "hiragana": "る",
+    "type": "gojuon",
+    "group": "r-row",
+    "order": 41
+  },
+  {
+    "romaji": "re",
+    "hiragana": "れ",
+    "type": "gojuon",
+    "group": "r-row",
+    "order": 42
+  },
+  {
+    "romaji": "ro",
+    "hiragana": "ろ",
+    "type": "gojuon",
+    "group": "r-row",
+    "order": 43
+  },
+  {
+    "romaji": "wa",
+    "hiragana": "わ",
+    "type": "gojuon",
+    "group": "w-row",
+    "order": 44
+  },
+  {
+    "romaji": "wo",
+    "hiragana": "を",
+    "type": "gojuon",
+    "group": "w-row",
+    "order": 45
+  },
+  {
+    "romaji": "n",
+    "hiragana": "ん",
+    "type": "gojuon",
+    "group": "n-row",
+    "order": 46
+  },
+  {
+    "romaji": "ga",
+    "hiragana": "が",
+    "type": "dakuten",
+    "group": "g-row",
+    "order": 47
+  },
+  {
+    "romaji": "gi",
+    "hiragana": "ぎ",
+    "type": "dakuten",
+    "group": "g-row",
+    "order": 48
+  },
+  {
+    "romaji": "gu",
+    "hiragana": "ぐ",
+    "type": "dakuten",
+    "group": "g-row",
+    "order": 49
+  },
+  {
+    "romaji": "ge",
+    "hiragana": "げ",
+    "type": "dakuten",
+    "group": "g-row",
+    "order": 50
+  },
+  {
+    "romaji": "go",
+    "hiragana": "ご",
+    "type": "dakuten",
+    "group": "g-row",
+    "order": 51
+  },
+  {
+    "romaji": "za",
+    "hiragana": "ざ",
+    "type": "dakuten",
+    "group": "z-row",
+    "order": 52
+  },
+  {
+    "romaji": "ji",
+    "hiragana": "じ",
+    "type": "dakuten",
+    "group": "z-row",
+    "order": 53
+  },
+  {
+    "romaji": "zu",
+    "hiragana": "ず",
+    "type": "dakuten",
+    "group": "z-row",
+    "order": 54
+  },
+  {
+    "romaji": "ze",
+    "hiragana": "ぜ",
+    "type": "dakuten",
+    "group": "z-row",
+    "order": 55
+  },
+  {
+    "romaji": "zo",
+    "hiragana": "ぞ",
+    "type": "dakuten",
+    "group": "z-row",
+    "order": 56
+  },
+  {
+    "romaji": "da",
+    "hiragana": "だ",
+    "type": "dakuten",
+    "group": "d-row",
+    "order": 57
+  },
+  {
+    "romaji": "ji",
+    "hiragana": "ぢ",
+    "type": "dakuten",
+    "group": "d-row",
+    "order": 58
+  },
+  {
+    "romaji": "zu",
+    "hiragana": "づ",
+    "type": "dakuten",
+    "group": "d-row",
+    "order": 59
+  },
+  {
+    "romaji": "de",
+    "hiragana": "で",
+    "type": "dakuten",
+    "group": "d-row",
+    "order": 60
+  },
+  {
+    "romaji": "do",
+    "hiragana": "ど",
+    "type": "dakuten",
+    "group": "d-row",
+    "order": 61
+  },
+  {
+    "romaji": "ba",
+    "hiragana": "ば",
+    "type": "dakuten",
+    "group": "b-row",
+    "order": 62
+  },
+  {
+    "romaji": "bi",
+    "hiragana": "び",
+    "type": "dakuten",
+    "group": "b-row",
+    "order": 63
+  },
+  {
+    "romaji": "bu",
+    "hiragana": "ぶ",
+    "type": "dakuten",
+    "group": "b-row",
+    "order": 64
+  },
+  {
+    "romaji": "be",
+    "hiragana": "べ",
+    "type": "dakuten",
+    "group": "b-row",
+    "order": 65
+  },
+  {
+    "romaji": "bo",
+    "hiragana": "ぼ",
+    "type": "dakuten",
+    "group": "b-row",
+    "order": 66
+  },
+  {
+    "romaji": "pa",
+    "hiragana": "ぱ",
+    "type": "handakuten",
+    "group": "p-row",
+    "order": 67
+  },
+  {
+    "romaji": "pi",
+    "hiragana": "ぴ",
+    "type": "handakuten",
+    "group": "p-row",
+    "order": 68
+  },
+  {
+    "romaji": "pu",
+    "hiragana": "ぷ",
+    "type": "handakuten",
+    "group": "p-row",
+    "order": 69
+  },
+  {
+    "romaji": "pe",
+    "hiragana": "ぺ",
+    "type": "handakuten",
+    "group": "p-row",
+    "order": 70
+  },
+  {
+    "romaji": "po",
+    "hiragana": "ぽ",
+    "type": "handakuten",
+    "group": "p-row",
+    "order": 71
+  }
+]

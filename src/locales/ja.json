@@ -955,7 +955,7 @@
     "percentComplete": "{percent}%完了",
     "requires": "必要: {item}",
     "noPathsYet": "学習パスはまだありません",
-    "noPathsDescription": "この言語の学習パスは近日公開予定です。管理パネルでカリキュラムを生成して構造化された学習パスを作成してください。",
+    "noPathsDescription": "この言語の学習パスは近日公開予定です。それまではダッシュボードのモジュールで練習しましょう。",
     "noMatchingPaths": "フィルターに一致するパスがありません",
     "clearFilters": "フィルターをクリア",
     "hours": "推定{count}時間",

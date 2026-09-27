@@ -955,7 +955,7 @@
     "percentComplete": "{percent}% 완료",
     "requires": "필요 조건: {item}",
     "noPathsYet": "학습 경로 없음",
-    "noPathsDescription": "이 언어에 대한 학습 경로가 곧 제공될 예정입니다. 관리자 패널에서 커리큘럼을 생성하여 체계적인 학습 경로를 만드세요.",
+    "noPathsDescription": "이 언어에 대한 학습 경로가 곧 제공될 예정입니다. 그동안 대시보드의 모듈로 연습해 보세요.",
     "noMatchingPaths": "필터와 일치하는 경로가 없습니다",
     "clearFilters": "필터 초기화",
     "hours": "예상 {count}시간",

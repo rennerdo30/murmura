@@ -16,6 +16,10 @@ import { useContentTranslation } from '@/hooks/useContentTranslation';
 import { useLearnedContent } from '@/hooks/useLearnedContent';
 import { GrammarItem } from '@/types';
 import styles from './grammar.module.css';
+import { normalizeLevelId } from '@/lib/dataLoader';
+
+/** Level of a grammar point: JLPT for Japanese, the generic level field elsewhere (HSK, TOPIK, CEFR). */
+const getGrammarLevel = (item: GrammarItem): string => normalizeLevelId(item.jlpt || item.level);
 
 type TabType = 'myCards' | 'all';
 
@@ -82,10 +86,10 @@ export default function GrammarPage() {
                 const data = await response.json();
 
                 if (!abortController.signal.aborted) {
-                    const levelOrder = new Map(levels.map(level => [level.id, level.order]));
+                    const levelOrder = new Map(levels.map(level => [normalizeLevelId(level.id), level.order]));
                     const orderedData = [...data as GrammarItem[]].sort((a, b) =>
-                        (levelOrder.get(a.jlpt || '') ?? Number.MAX_SAFE_INTEGER) -
-                        (levelOrder.get(b.jlpt || '') ?? Number.MAX_SAFE_INTEGER)
+                        (levelOrder.get(getGrammarLevel(a)) ?? Number.MAX_SAFE_INTEGER) -
+                        (levelOrder.get(getGrammarLevel(b)) ?? Number.MAX_SAFE_INTEGER)
                     );
                     setGrammarPoints(orderedData);
                     if (data.length > 0) {
@@ -158,7 +162,7 @@ export default function GrammarPage() {
         }
 
         if (selectedLevel) {
-            items = items.filter(g => g.jlpt === selectedLevel);
+            items = items.filter(g => getGrammarLevel(g) === normalizeLevelId(selectedLevel));
         }
 
         return items.slice(0, 30);
@@ -268,7 +272,7 @@ export default function GrammarPage() {
                             <div className={styles.grammarHeader}>
                                 <div className={styles.grammarPointTitle}>{getText(grammar.titleTranslations, grammar.title)}</div>
                                 <span className={styles.grammarLevel}>
-                                    {grammar.jlpt || 'N/A'}
+                                    {grammar.jlpt || grammar.level || 'N/A'}
                                 </span>
                             </div>
                             <div className={styles.grammarExplanation}>

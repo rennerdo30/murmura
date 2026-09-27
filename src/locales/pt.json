@@ -955,7 +955,7 @@
     "percentComplete": "{percent}% concluído",
     "requires": "Requer: {item}",
     "noPathsYet": "Ainda Não Há Trilhas de Aprendizagem",
-    "noPathsDescription": "Trilhas de aprendizagem para este idioma estarão disponíveis em breve. Gere o currículo no painel de administração para criar trilhas estruturadas.",
+    "noPathsDescription": "Trilhas de aprendizagem para este idioma estarão disponíveis em breve. Enquanto isso, pratique com os módulos do seu painel.",
     "noMatchingPaths": "Nenhuma trilha corresponde aos seus filtros",
     "clearFilters": "Limpar Filtros",
     "hours": "{count}h estimado",

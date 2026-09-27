@@ -77,6 +77,8 @@ export function useRecommendations(): UseRecommendationsReturn {
   }, [isModuleEnabled]);
 
   const [recommendations, setRecommendations] = useState<Recommendation[]>([]);
+  // Language whose learning-paths.json has been loaded (paths live in a module-level store)
+  const [dynamicPathsLanguage, setDynamicPathsLanguage] = useState<string | null>(null);
   const [stats, setStats] = useState<LearningStats | null>(null);
   const [reviewQueue, setReviewQueue] = useState<ReviewQueue | null>(null);
   const [paths, setPaths] = useState<Array<PathProgress & { description: string; descriptionTranslations?: Record<string, string>; difficulty: string; tags?: string[] }>>([]);
@@ -170,13 +172,14 @@ export function useRecommendations(): UseRecommendationsReturn {
 
       try {
         const dynamicPaths = await loadLearningPathsData(targetLanguage);
-        if (dynamicPaths) {
-          // Set dynamic paths for use in recommendations
-          setDynamicPathsData(dynamicPaths);
-        }
+        // Replace (or clear) the previous language's paths so they don't leak across languages
+        setDynamicPathsData(dynamicPaths);
       } catch (error) {
         console.log('Using static learning paths (no dynamic data)');
+        setDynamicPathsData(null);
       }
+      // Paths arrive after the first calculation; trigger a recalculation
+      setDynamicPathsLanguage(targetLanguage);
     }
 
     loadDynamicPaths();
@@ -201,7 +204,7 @@ export function useRecommendations(): UseRecommendationsReturn {
     if (!storageLoading) {
       calculateRecommendations();
     }
-  }, [targetLanguage, storageLoading, calculateRecommendations]);
+  }, [targetLanguage, dynamicPathsLanguage, storageLoading, calculateRecommendations]);
 
   // Get top recommendation
   const topRecommendation = useMemo(() => {

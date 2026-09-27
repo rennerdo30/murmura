@@ -955,7 +955,7 @@
     "percentComplete": "{percent}% completato",
     "requires": "Richiede: {item}",
     "noPathsYet": "Nessun percorso di apprendimento ancora",
-    "noPathsDescription": "I percorsi di apprendimento per questa lingua arriveranno presto. Genera il curriculum nel pannello di amministrazione per creare percorsi strutturati.",
+    "noPathsDescription": "I percorsi di apprendimento per questa lingua arriveranno presto. Nel frattempo, esercitati con i moduli della tua dashboard.",
     "noMatchingPaths": "Nessun percorso corrisponde ai tuoi filtri",
     "clearFilters": "Cancella filtri",
     "hours": "{count}h stimato",

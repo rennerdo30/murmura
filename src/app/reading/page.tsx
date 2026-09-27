@@ -19,6 +19,7 @@ import { markLearned } from '@/lib/storage';
 import { IoVolumeHigh, IoCheckmark, IoClose, IoStop } from 'react-icons/io5';
 import { FiBookOpen, FiCheck, FiSearch } from 'react-icons/fi';
 import styles from './reading.module.css';
+import { normalizeLevelId } from '@/lib/dataLoader';
 
 type TabType = 'myCards' | 'all';
 
@@ -117,7 +118,7 @@ export default function ReadingPage() {
         }
 
         if (selectedLevel) {
-            items = items.filter(r => r.level === selectedLevel);
+            items = items.filter(r => normalizeLevelId(r.level) === normalizeLevelId(selectedLevel));
         }
 
         return items.slice(0, 30);

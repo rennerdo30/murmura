@@ -955,7 +955,7 @@
     "percentComplete": "{percent}% completado",
     "requires": "Requiere: {item}",
     "noPathsYet": "Aún no hay rutas de aprendizaje",
-    "noPathsDescription": "Las rutas de aprendizaje para este idioma estarán disponibles pronto. Genera el plan de estudios en el panel de administración para crear rutas estructuradas.",
+    "noPathsDescription": "Las rutas de aprendizaje para este idioma estarán disponibles pronto. Mientras tanto, practica con los módulos de tu panel.",
     "noMatchingPaths": "Ninguna ruta coincide con tus filtros",
     "clearFilters": "Borrar filtros",
     "hours": "{count}h estimado",

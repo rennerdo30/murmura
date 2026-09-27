@@ -946,7 +946,7 @@
     "percentComplete": "{percent}% complete",
     "requires": "Requires: {item}",
     "noPathsYet": "No Learning Paths Yet",
-    "noPathsDescription": "Learning paths for this language are coming soon. Generate curriculum in the admin panel to create structured learning paths.",
+    "noPathsDescription": "Learning paths for this language are coming soon. In the meantime, practice with the modules on your dashboard.",
     "noMatchingPaths": "No paths match your filters",
     "clearFilters": "Clear Filters",
     "hours": "{count}h estimated",

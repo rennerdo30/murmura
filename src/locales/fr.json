@@ -955,7 +955,7 @@
     "percentComplete": "{percent} % terminé",
     "requires": "Requis : {item}",
     "noPathsYet": "Aucun parcours d'apprentissage",
-    "noPathsDescription": "Les parcours d'apprentissage pour cette langue arrivent bientôt. Générez le programme dans le panneau d'administration pour créer des parcours structurés.",
+    "noPathsDescription": "Les parcours d'apprentissage pour cette langue arrivent bientôt. En attendant, entraîne-toi avec les modules de ton tableau de bord.",
     "noMatchingPaths": "Aucun parcours ne correspond à vos filtres",
     "clearFilters": "Effacer les filtres",
     "hours": "{count}h estimé",

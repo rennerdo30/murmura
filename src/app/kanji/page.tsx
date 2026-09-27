@@ -189,6 +189,12 @@ export default function KanjiPage() {
                         : [];
 
                 if (!abortController.signal.aborted) {
+                    if (items.length === 0) {
+                        // An empty export is not usable content; use the bundled dataset instead
+                        console.warn('Exported character data is empty, using bundled data');
+                        setCharacterData(getFallbackCharacterData(targetLanguage));
+                        return;
+                    }
                     const normalized = (items as RuntimeCharacterItem[]).map(normalizeRuntimeCharacter);
                     setCharacterData(normalized);
                 }
@@ -378,12 +384,14 @@ export default function KanjiPage() {
             .join(',');
     }, [filters]);
 
+    // Pick a kanji once data has loaded (it arrives after the filters are set up)
+    // and whenever the level filters or practice mode change.
     useEffect(() => {
         if (kanjiData.length > 0) {
             nextKanji();
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [filterStates, practiceType, targetLanguage]);
+    }, [kanjiData, filterStates, practiceType, targetLanguage]);
 
     const handleFilterChange = useCallback((id: string, checked: boolean) => {
         if (id === 'practice-meaning' || id === 'practice-reading') {

@@ -20,8 +20,8 @@ import { Character, Filter, AlphabetLesson } from '@/types';
 import { toKatakana } from 'wanakana';
 import styles from './alphabet.module.css';
 
-// Import character data for each language
-// import jaCharactersJson from '@/data/ja/characters.json';
+// Bundled fallback character data, used when the exported dataset is missing or empty
+import jaKanaJson from '@/data/ja/kana.json';
 import koCharactersJson from '@/data/ko/characters.json';
 
 const TIME_PER_CHARACTER = 5;
@@ -97,6 +97,8 @@ const getStaticCharacterData = (lang: string): Character[] => {
     switch (lang) {
         case 'ko':
             return (koCharactersJson as KoreanCharacterData[]).map(normalizeKoreanCharacter);
+        case 'ja':
+            return jaKanaJson.map(normalizeJapaneseCharacter);
         default:
             return [];
     }
@@ -192,8 +194,8 @@ export default function AlphabetPage() {
             try {
                 // Load characters
                 const charRes = await fetch(`/data/${targetLanguage}/characters.json`);
-                if (charRes.ok) {
-                    const data = await charRes.json();
+                const data: unknown = charRes.ok ? await charRes.json() : null;
+                if (Array.isArray(data) && data.length > 0) {
 
                     // Normalize based on language
                     let normalized: Character[];
@@ -214,11 +216,13 @@ export default function AlphabetPage() {
 
                     // If we successfully loaded characters, also try to load lessons
                     const lessonRes = await fetch(`/data/${targetLanguage}/lessons.json`);
-                    if (lessonRes.ok) {
-                        const lessonData = await lessonRes.json();
+                    const lessonData: unknown = lessonRes.ok ? await lessonRes.json() : null;
+                    if (Array.isArray(lessonData) && lessonData.length > 0) {
                         setLessons(lessonData);
                     } else {
+                        // Nothing to learn step by step; open practice instead of an empty Learn tab
                         setLessons([]);
+                        setMode('practice');
                     }
                     return;
                 }
@@ -229,6 +233,7 @@ export default function AlphabetPage() {
             // Fallback to static data (mostly for Korean or if fetch fails)
             setCharacters(getStaticCharacterData(targetLanguage));
             setLessons([]); // No static lessons for now
+            setMode('practice');
         };
 
         loadData();

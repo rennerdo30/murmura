@@ -955,7 +955,7 @@
     "percentComplete": "完成 {percent}%",
     "requires": "需要：{item}",
     "noPathsYet": "暂无学习路径",
-    "noPathsDescription": "该语言的学习路径即将推出。在管理面板中生成课程以创建结构化学习路径。",
+    "noPathsDescription": "该语言的学习路径即将推出。在此之前，请使用仪表板上的模块进行练习。",
     "noMatchingPaths": "没有匹配的路径",
     "clearFilters": "清除筛选",
     "hours": "预计{count}小时",

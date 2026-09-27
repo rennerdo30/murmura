@@ -955,7 +955,7 @@
     "percentComplete": "{percent}% abgeschlossen",
     "requires": "Erfordert: {item}",
     "noPathsYet": "Noch keine Lernpfade",
-    "noPathsDescription": "Lernpfade für diese Sprache kommen bald. Generiere den Lehrplan im Admin-Panel, um strukturierte Lernpfade zu erstellen.",
+    "noPathsDescription": "Lernpfade für diese Sprache kommen bald. Bis dahin kannst du mit den Modulen auf deinem Dashboard üben.",
     "noMatchingPaths": "Keine Pfade entsprechen deinen Filtern",
     "clearFilters": "Filter zurücksetzen",
     "hours": "geschätzt {count}h",

@@ -185,6 +185,14 @@ export function preloadVocabularyData(lang: string): void {
 }
 
 /**
+ * Normalize a level id for comparison. Exported data mixes cases
+ * (e.g. "hsk1" vs "HSK1", "a1" vs "A1"), config level ids are upper case.
+ */
+export function normalizeLevelId(level?: string | null): string {
+  return (level ?? '').trim().toUpperCase();
+}
+
+/**
  * Get the level field name for a vocabulary item
  * Different languages may use different field names:
  * - Japanese: jlpt
