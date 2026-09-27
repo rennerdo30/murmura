@@ -49,6 +49,7 @@
 
 /* Sizes */
 .sm {
+  min-height: var(--tap-target-min);
   padding: var(--space-2) var(--space-4);
   font-size: var(--text-base);
   min-height: var(--tap-target-min);

@@ -8,7 +8,7 @@ import StatsPanel from '@/components/common/StatsPanel';
 import TabSelector from '@/components/common/TabSelector';
 import LanguageContentGuard from '@/components/common/LanguageContentGuard';
 import ErrorBoundary from '@/components/common/ErrorBoundary';
-import { Container, Card, Text, Button, Chip, Animated, Input } from '@/components/ui';
+import { Container, Card, Text, Button, Chip, Animated, Input, StatTiles } from '@/components/ui';
 import { useProgressContext } from '@/context/ProgressProvider';
 import { useLanguage } from '@/context/LanguageProvider';
 import { useTargetLanguage } from '@/hooks/useTargetLanguage';
@@ -237,6 +237,7 @@ export default function GrammarPage() {
         <>
             <div className={styles.filterSection}>
                 <Input
+                    size="sm"
                     type="text"
                     placeholder={t('grammar.searchPlaceholder')}
                     value={searchQuery}
@@ -425,24 +426,13 @@ export default function GrammarPage() {
 
                     {/* Stats Row */}
                     {activeTab === 'myCards' && (
-                        <div className={styles.statsRow}>
-                            <div className={styles.statCard}>
-                                <span className={styles.statValue}>
-                                    {(learnedStats.byType as Record<string, number>)?.grammar || myGrammarItems.length}
-                                </span>
-                                <span className={styles.statLabel}>{t('grammar.stats.pointsLearned')}</span>
-                            </div>
-                            <div className={styles.statCard}>
-                                <span className={styles.statValue}>{stats.pointsMastered}</span>
-                                <span className={styles.statLabel}>{t('grammar.stats.mastered')}</span>
-                            </div>
-                            <div className={styles.statCard}>
-                                <span className={styles.statValue}>
-                                    {stats.total > 0 ? Math.round((stats.correct / stats.total) * 100) : 0}%
-                                </span>
-                                <span className={styles.statLabel}>{t('grammar.stats.accuracy')}</span>
-                            </div>
-                        </div>
+                        <StatTiles
+                            items={[
+                                { id: 'learned', value: (learnedStats.byType as Record<string, number>)?.grammar || myGrammarItems.length, label: t('grammar.stats.pointsLearned') },
+                                { id: 'mastered', value: stats.pointsMastered, label: t('grammar.stats.mastered') },
+                                { id: 'accuracy', value: `${stats.total > 0 ? Math.round((stats.correct / stats.total) * 100) : 0}%`, label: t('grammar.stats.accuracy') },
+                            ]}
+                        />
                     )}
 
                     {/* Tabs */}

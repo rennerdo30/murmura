@@ -36,16 +36,15 @@
 
 /* Variants */
 .primary {
-  background: linear-gradient(135deg,
-      var(--accent-red) 0%,
-      color-mix(in srgb, var(--accent-red) 78%, #000) 100%);
+  background: var(--accent-red);
   color: var(--on-accent);
-  box-shadow: var(--shadow-sm), 0 4px 20px var(--accent-red-glow);
+  box-shadow: var(--shadow-sm);
 }
 
 .primary:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md), 0 10px 30px var(--accent-red-glow);
+  background: color-mix(in srgb, var(--accent-red) 88%, #fff);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
 }
 
 .secondary {
@@ -56,18 +55,18 @@
 
 .secondary:hover:not(:disabled) {
   border-color: var(--accent-gold);
-  transform: translateY(-2px);
+  transform: translateY(-1px);
 }
 
 .success {
   background: var(--success);
   color: var(--on-accent);
-  box-shadow: var(--shadow-sm), 0 4px 20px var(--success-glow);
+  box-shadow: var(--shadow-sm);
 }
 
 .success:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md), 0 10px 30px var(--success-glow);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
 }
 
 .danger {
@@ -77,7 +76,7 @@
 
 .danger:hover:not(:disabled) {
   background: color-mix(in srgb, var(--danger) 82%, #000);
-  transform: translateY(-2px);
+  transform: translateY(-1px);
 }
 
 .ghost {

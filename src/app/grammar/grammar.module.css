@@ -107,34 +107,6 @@
   gap: 1rem;
 }
 
-.statsRow {
-  display: flex;
-  gap: 1.5rem;
-  margin-bottom: 1.5rem;
-  flex-wrap: wrap;
-}
-
-.statCard {
-  display: flex;
-  flex-direction: column;
-  padding: 0.75rem 1.25rem;
-  background: var(--color-surface);
-  border-radius: 12px;
-  border: 1px solid var(--color-border);
-  min-width: 100px;
-}
-
-.statValue {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: var(--color-primary);
-}
-
-.statLabel {
-  font-size: 0.75rem;
-  color: var(--color-text-muted);
-}
-
 /* Browse view */
 .browseGrid {
   display: grid;
@@ -273,13 +245,6 @@
 
 /* Responsive */
 @media (max-width: 480px) {
-  .statsRow {
-    flex-direction: column;
-  }
-
-  .statCard {
-    width: 100%;
-  }
 
   .browseGrid {
     grid-template-columns: 1fr;

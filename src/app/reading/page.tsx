@@ -6,7 +6,7 @@ import StatsPanel from '@/components/common/StatsPanel';
 import LanguageContentGuard from '@/components/common/LanguageContentGuard';
 import ErrorBoundary from '@/components/common/ErrorBoundary';
 import TabSelector from '@/components/common/TabSelector';
-import { Container, Card, Text, Button, Chip, Toggle, OptionsPanel, Input, Animated } from '@/components/ui';
+import { Container, Card, Text, Button, Chip, Toggle, OptionsPanel, Input, Animated, StatTiles } from '@/components/ui';
 import optionsStyles from '@/components/ui/OptionsPanel.module.css';
 import { useProgressContext } from '@/context/ProgressProvider';
 import { useLanguage } from '@/context/LanguageProvider';
@@ -416,24 +416,18 @@ export default function ReadingPage() {
         return (
             <>
                 {/* Stats Row */}
-                <div className={styles.statsRow}>
-                    <div className={styles.statCard}>
-                        <span className={styles.statValue}>{byTypeStats?.reading || 0}</span>
-                        <span className={styles.statLabel}>{t('reading.stats.learned')}</span>
-                    </div>
-                    <div className={styles.statCard}>
-                        <span className={styles.statValue}>{readings.length}</span>
-                        <span className={styles.statLabel}>{t('reading.stats.total')}</span>
-                    </div>
-                    <div className={styles.statCard}>
-                        <span className={styles.statValue}>{stats.comprehensionScore}%</span>
-                        <span className={styles.statLabel}>{t('reading.stats.comprehension')}</span>
-                    </div>
-                </div>
+                <StatTiles
+                    items={[
+                        { id: 'learned', value: byTypeStats?.reading || 0, label: t('reading.stats.learned') },
+                        { id: 'total', value: readings.length, label: t('reading.stats.total') },
+                        { id: 'comprehension', value: `${stats.comprehensionScore}%`, label: t('reading.stats.comprehension') },
+                    ]}
+                />
 
                 {/* Filter section */}
                 <div className={styles.filterSection}>
                     <Input
+                        size="sm"
                         type="text"
                         placeholder={t('reading.searchPlaceholder')}
                         value={searchQuery}

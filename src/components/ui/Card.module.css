@@ -9,31 +9,13 @@
     border-color var(--duration-base) var(--ease-out);
 }
 
-.card::before {
-  content: '';
-  position: absolute;
-  inset: -1px;
-  border-radius: var(--radius-lg);
-  padding: 1px;
-  background: linear-gradient(135deg,
-      color-mix(in srgb, var(--accent-gold) 22%, transparent),
-      transparent,
-      color-mix(in srgb, var(--accent-red) 22%, transparent));
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity var(--duration-base) var(--ease-out);
-}
-
 .default {
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-sm);
 }
 
 .elevated {
   box-shadow: var(--shadow-lg);
-  border-color: var(--accent-gold);
+  border-color: var(--accent-gold-border);
 }
 
 .outlined {
@@ -42,24 +24,16 @@
 }
 
 .glass {
-  background: var(--bg-glass);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  /* Flat, quiet surface: glass blur is reserved for floating chrome */
+  background: color-mix(in srgb, var(--bg-card) 85%, transparent);
   border: 1px solid var(--glass-border);
-  box-shadow: var(--shadow-md);
-  background-image: linear-gradient(to bottom right,
-      var(--surface-overlay-soft),
-      transparent);
+  box-shadow: none;
 }
 
 .hover:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
-  border-color: var(--accent-gold);
-}
-
-.hover:hover::before {
-  opacity: 1;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--accent-gold-border);
 }
 
 /* Focus indicators for keyboard navigation */
@@ -74,10 +48,6 @@
 /* Respect reduced motion preference */
 @media (prefers-reduced-motion: reduce) {
   .card {
-    transition: none;
-  }
-
-  .card::before {
     transition: none;
   }
 

@@ -11,3 +11,4 @@ export { default as Toggle } from './Toggle';
 export { default as Chip } from './Chip';
 export { default as Animated } from './Animated';
 export { default as Spinner } from './Spinner';
+export { default as StatTiles } from './StatTiles';

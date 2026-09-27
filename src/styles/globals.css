@@ -122,7 +122,7 @@
   --leading-snug: 1.35;
   --leading-normal: 1.6;
   --tracking-tight: -0.02em;
-  --tracking-wide: 0.08em;
+  --tracking-wide: 0.05em;
 
   /* Motion */
   --ease-out: cubic-bezier(0.33, 1, 0.68, 1);

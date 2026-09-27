@@ -10,7 +10,7 @@ import MultipleChoice from '@/components/common/MultipleChoice';
 import TabSelector from '@/components/common/TabSelector';
 import LanguageContentGuard from '@/components/common/LanguageContentGuard';
 import ErrorBoundary from '@/components/common/ErrorBoundary';
-import { Container, CharacterCard, InputSection, Input, OptionsPanel, Text, Toggle, Chip, CharacterDisplay, Animated, Button } from '@/components/ui';
+import { Container, CharacterCard, InputSection, Input, OptionsPanel, Text, Toggle, Chip, CharacterDisplay, Animated, Button, StatTiles } from '@/components/ui';
 import optionsStyles from '@/components/ui/OptionsPanel.module.css';
 import { useProgressContext } from '@/context/ProgressProvider';
 import { useLanguage } from '@/context/LanguageProvider';
@@ -355,6 +355,7 @@ export default function VocabularyPage() {
             {/* Filter Section */}
             <div className={styles.filterSection}>
                 <Input
+                    size="sm"
                     type="text"
                     placeholder={t('vocabulary.searchPlaceholder')}
                     value={searchQuery}
@@ -629,24 +630,13 @@ export default function VocabularyPage() {
 
                     {/* Stats Row */}
                     {activeTab === 'myCards' && (
-                        <div className={styles.statsRow}>
-                            <div className={styles.statCard}>
-                                <span className={styles.statValue}>
-                                    {(learnedStats.byType as Record<string, number>)?.vocabulary || myVocabularyItems.length}
-                                </span>
-                                <span className={styles.statLabel}>{t('vocabulary.stats.wordsLearned')}</span>
-                            </div>
-                            <div className={styles.statCard}>
-                                <span className={styles.statValue}>{dueCount}</span>
-                                <span className={styles.statLabel}>{t('vocabulary.stats.dueForReview')}</span>
-                            </div>
-                            <div className={styles.statCard}>
-                                <span className={styles.statValue}>
-                                    {total > 0 ? Math.round((correct / total) * 100) : 0}%
-                                </span>
-                                <span className={styles.statLabel}>{t('vocabulary.stats.accuracy')}</span>
-                            </div>
-                        </div>
+                        <StatTiles
+                            items={[
+                                { id: 'learned', value: (learnedStats.byType as Record<string, number>)?.vocabulary || myVocabularyItems.length, label: t('vocabulary.stats.wordsLearned') },
+                                { id: 'due', value: dueCount, label: t('vocabulary.stats.dueForReview') },
+                                { id: 'accuracy', value: `${total > 0 ? Math.round((correct / total) * 100) : 0}%`, label: t('vocabulary.stats.accuracy') },
+                            ]}
+                        />
                     )}
 
                     {/* Tabs */}
