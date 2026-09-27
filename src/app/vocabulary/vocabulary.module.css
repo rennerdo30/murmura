@@ -33,10 +33,11 @@
 }
 
 .statsRow {
-  display: flex;
-  gap: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+  width: min(420px, 100%);
   margin-bottom: 1.5rem;
-  flex-wrap: wrap;
 }
 
 .statCard {
@@ -46,13 +47,14 @@
   background: var(--color-surface);
   border-radius: 12px;
   border: 1px solid var(--color-border);
-  min-width: 100px;
+  min-width: 0;
+  text-align: center;
 }
 
 .statValue {
   font-size: 1.25rem;
   font-weight: 700;
-  color: var(--color-primary);
+  color: var(--accent-gold);
 }
 
 .statLabel {
@@ -271,12 +273,8 @@
 
 /* Responsive */
 @media (max-width: 480px) {
-  .statsRow {
-    flex-direction: column;
-  }
-
   .statCard {
-    width: 100%;
+    padding: 0.625rem 0.5rem;
   }
 
   .browseGrid {

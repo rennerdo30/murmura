@@ -10,6 +10,10 @@
 
 .tab {
   flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
   padding: var(--space-3) var(--space-6);
   min-height: var(--tap-target-min);
   border: none;
@@ -55,11 +59,7 @@
 
 /* Responsive */
 @media (max-width: 480px) {
-  .tabContainer {
-    flex-direction: column;
-  }
-
   .tab {
-    text-align: center;
+    padding: var(--space-2) var(--space-3);
   }
 }
