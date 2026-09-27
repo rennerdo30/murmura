@@ -72,6 +72,7 @@
     -webkit-overflow-scrolling: touch;
     padding: 0.5rem;
     animation: fadeInDown 0.2s ease-out;
+    z-index: 200;
 }
 
 .option {
@@ -175,4 +176,16 @@
         min-width: 160px;
         max-height: 300px;
     }
+}
+
+/* Opens upwards, e.g. from the bottom of the sidebar */
+.dropdownUp {
+    top: auto;
+    bottom: calc(100% + 0.5rem);
+    animation-name: fadeInUp;
+}
+
+.dropdownStart {
+    right: auto;
+    left: 0;
 }

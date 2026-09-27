@@ -15,7 +15,6 @@
     padding: var(--space-6) var(--space-4) var(--space-5);
     border-right: 1px solid var(--glass-border);
     background: color-mix(in srgb, var(--bg-secondary) 55%, transparent);
-    overflow-y: auto;
   }
 }
 
@@ -36,11 +35,18 @@
   padding: 0 var(--space-1);
 }
 
+/* Only the link list scrolls; brand, language and footer stay pinned so
+   the footer dropdowns (UI language, account) always have room above them. */
 .nav {
   display: flex;
   flex-direction: column;
   gap: var(--space-1);
   flex: 1;
+  min-height: 0;
+  margin: 0 calc(-1 * var(--space-2));
+  padding: 0 var(--space-2);
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
 .list {

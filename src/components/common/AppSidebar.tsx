@@ -97,7 +97,7 @@ export default function AppSidebar() {
             </nav>
 
             <div className={styles.footer}>
-                <LanguageSwitcher />
+                <LanguageSwitcher placement="up" align="start" />
                 <AuthButton />
             </div>
         </aside>

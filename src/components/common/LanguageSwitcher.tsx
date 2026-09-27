@@ -5,7 +5,14 @@ import { IoChevronDown, IoCheckmark, IoLanguage } from 'react-icons/io5';
 import { useLanguage } from '@/context/LanguageProvider';
 import styles from './LanguageSwitcher.module.css';
 
-export default function LanguageSwitcher() {
+interface LanguageSwitcherProps {
+    /** Open the list above the button (e.g. at the bottom of the sidebar) instead of below it. */
+    placement?: 'down' | 'up';
+    /** Align the list with the button's start (left) or end (right) edge. */
+    align?: 'start' | 'end';
+}
+
+export default function LanguageSwitcher({ placement = 'down', align = 'end' }: LanguageSwitcherProps) {
     const { t, language, changeLanguage, supportedLanguages } = useLanguage();
     const [isOpen, setIsOpen] = useState(false);
     const [focusedIndex, setFocusedIndex] = useState(-1);
@@ -121,7 +128,7 @@ export default function LanguageSwitcher() {
             </button>
             {isOpen && (
                 <div
-                    className={styles.dropdown}
+                    className={`${styles.dropdown} ${placement === 'up' ? styles.dropdownUp : ''} ${align === 'start' ? styles.dropdownStart : ''}`}
                     role="listbox"
                     aria-label={t('common.selectLanguage')}
                     aria-activedescendant={focusedIndex >= 0 ? `lang-option-${supportedLanguages[focusedIndex].code}` : undefined}
