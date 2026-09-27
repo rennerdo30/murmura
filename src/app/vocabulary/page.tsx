@@ -22,6 +22,7 @@ import { loadVocabularyData, getItemLevel } from '@/lib/dataLoader';
 import { VocabularyItem, Filter } from '@/types';
 import { getModuleName } from '@/lib/learningModules';
 import study from '@/styles/study.module.css';
+import { shortMeaning } from '@/lib/meaningText';
 
 type TabType = 'myCards' | 'all';
 
@@ -202,7 +203,7 @@ export default function VocabularyPage() {
 
         const options = [correctWord, ...incorrect]
             .sort(() => Math.random() - 0.5)
-            .map(v => getDisplayMeaning(v));
+            .map(v => shortMeaning(getDisplayMeaning(v)));
 
         setMultipleChoiceOptions(options);
     }, [getDisplayMeaning]);
@@ -526,11 +527,12 @@ export default function VocabularyPage() {
                             character={currentWord.word}
                             entering={isCharacterEntering}
                             correct={isCorrect}
-                            subtext={currentWord.reading}
+                            subtext={currentWord.reading && currentWord.reading !== currentWord.word ? currentWord.reading : undefined}
                             variant="word"
                         />
                     </CharacterCard>
 
+                    {(!practiceMode || revealed) && (
                     <div className={study.reveal}>
                         <Animated animation="pulse" key={currentWord.id}>
                             <p className={`${study.revealAnswer} ${!revealed && !showHint ? study.revealPlaceholder : ''}`}>
@@ -549,6 +551,7 @@ export default function VocabularyPage() {
                             </Button>
                         )}
                     </div>
+                    )}
 
                     <InputSection>
                         {practiceMode ? (
@@ -556,7 +559,7 @@ export default function VocabularyPage() {
                                 <MultipleChoice
                                     options={multipleChoiceOptions}
                                     onSelect={(selected) => {
-                                        if (selected === getDisplayMeaning(currentWord)) handleCorrect();
+                                        if (selected === shortMeaning(getDisplayMeaning(currentWord))) handleCorrect();
                                         else handleIncorrect();
                                     }}
                                     disabled={isProcessing}

@@ -1,42 +1,65 @@
 .container {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.25rem;
-  width: min(90vw, 400px);
-  margin-bottom: 0.5rem;
+  gap: var(--space-2);
+  width: 100%;
   animation: fadeInUp 0.4s ease-out both;
 }
 
+/* Short answers (kana, single words): two columns */
+.grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+/* Longer answers: full-width rows, two columns only on wide screens */
+.list {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+@media (min-width: 768px) {
+  .list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 .choiceButton {
-  min-height: 60px;
-  font-size: 1.5rem;
+  min-height: 52px;
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--text-base);
+  font-weight: 500;
+  line-height: var(--leading-snug);
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.label {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+}
+
+.list .choiceButton {
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.grid .choiceButton {
+  justify-content: center;
   text-align: center;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  font-size: var(--text-lg);
 }
 
 .choiceButton:active:not(:disabled) {
   transform: scale(0.98);
 }
 
-@media (max-width: 640px) {
-  .container {
-    width: 85vw;
-    gap: 0.75rem;
-  }
-
-  .choiceButton {
-    font-size: 1.25rem;
-    padding: 1rem 1.25rem;
-    min-height: 55px;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .container {
     animation: none;
   }
-  .choiceButton {
-    transition: none;
+
+  .choiceButton:active:not(:disabled) {
+    transform: none;
   }
 }
-

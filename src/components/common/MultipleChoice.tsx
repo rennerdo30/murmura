@@ -4,6 +4,9 @@ import { useState } from 'react';
 import Button from '@/components/ui/Button';
 import styles from './MultipleChoice.module.css';
 
+/** Options up to this many characters fit a two-column grid (kana, single words); longer ones use full-width rows. */
+const SHORT_OPTION_MAX_LENGTH = 14;
+
 interface MultipleChoiceProps {
     options: string[];
     onSelect: (selected: string, index: number) => void;
@@ -29,8 +32,10 @@ export default function MultipleChoice({
         }
     };
 
+    const isShort = options.every(option => option.length <= SHORT_OPTION_MAX_LENGTH);
+
     return (
-        <div className={styles.container}>
+        <div className={`${styles.container} ${isShort ? styles.grid : styles.list}`}>
             {options.map((option, index) => {
                 const isSelected = selectedIndex === index;
                 const isCorrectAnswer = showCorrect && correctIndex !== null && correctIndex === index;
@@ -49,12 +54,12 @@ export default function MultipleChoice({
                     <Button
                         key={index}
                         variant={variant}
-                        size="lg"
                         onClick={() => handleClick(index)}
                         disabled={isButtonDisabled}
                         className={styles.choiceButton}
+                        title={option}
                     >
-                        {option}
+                        <span className={styles.label}>{option}</span>
                     </Button>
                 );
             })}
