@@ -18,7 +18,7 @@ import { useTargetLanguage } from '@/hooks/useTargetLanguage';
 import { useContentTranslation } from '@/hooks/useContentTranslation';
 import { useLearnedContent } from '@/hooks/useLearnedContent';
 import { useTTS } from '@/hooks/useTTS';
-import { getVocabularyData, getItemLevel } from '@/lib/dataLoader';
+import { loadVocabularyData, getItemLevel } from '@/lib/dataLoader';
 import { VocabularyItem, Filter } from '@/types';
 import styles from './vocabulary.module.css';
 
@@ -34,10 +34,12 @@ export default function VocabularyPage() {
         allLearned,
         isContentLearned,
         getLearnedByType,
+        addLearned,
         stats: learnedStats,
-        dueCount,
+        dueForReview,
         isReady: learnedReady
     } = useLearnedContent();
+    const dueCount = dueForReview.filter(item => item.contentType === 'vocabulary').length;
 
     // Tab state
     const [activeTab, setActiveTab] = useState<TabType>('myCards');
@@ -84,7 +86,15 @@ export default function VocabularyPage() {
     const [displayLimit, setDisplayLimit] = useState(50);
 
     // Get vocabulary data
-    const vocabulary = useMemo(() => getVocabularyData(targetLanguage), [targetLanguage]);
+    const [vocabulary, setVocabulary] = useState<VocabularyItem[]>([]);
+
+    useEffect(() => {
+        let active = true;
+        loadVocabularyData(targetLanguage).then(items => {
+            if (active) setVocabulary(items);
+        });
+        return () => { active = false; };
+    }, [targetLanguage]);
 
     // Get first 2 levels from language config
     const displayLevels = useMemo(() => levels.slice(0, 2), [levels]);
@@ -169,7 +179,7 @@ export default function VocabularyPage() {
     const tabs = useMemo(() => [
         {
             id: 'myCards' as TabType,
-            label: t('vocabulary.tabs.myCards'),
+            label: t('learnMode.practice'),
             badge: myVocabularyItems.length > 0 ? myVocabularyItems.length : undefined
         },
         {
@@ -177,7 +187,7 @@ export default function VocabularyPage() {
             label: t('vocabulary.tabs.allVocabulary'),
             badge: vocabulary.length
         },
-    ], [t, myVocabularyItems.length, vocabulary.length]);
+    ], [myVocabularyItems.length, vocabulary.length, t]);
 
     // Practice mode functions
     const generateMultipleChoice = useCallback((correctWord: VocabularyItem, available: VocabularyItem[]) => {
@@ -194,17 +204,14 @@ export default function VocabularyPage() {
     }, [getDisplayMeaning]);
 
     const getAvailableVocabulary = useCallback(() => {
-        // In My Cards tab, use learned vocabulary; otherwise use filtered vocabulary
-        if (activeTab === 'myCards' && myVocabularyItems.length > 0) {
-            return myVocabularyItems;
-        }
+        // Practice draws from the selected teaching levels, including new words.
         return vocabulary.filter(word => {
             const wordLevel = getItemLevel(word);
             return displayLevels.some(level =>
                 filters[level.id]?.checked && wordLevel === level.id
             );
         });
-    }, [activeTab, myVocabularyItems, vocabulary, filters, displayLevels]);
+    }, [vocabulary, filters, displayLevels]);
 
     const nextWord = useCallback(() => {
         const available = getAvailableVocabulary();
@@ -253,16 +260,22 @@ export default function VocabularyPage() {
 
         speak(currentWord.word, { audioUrl: currentWord.audioUrl });
         updateStats('vocabulary', { correct: newCorrect, total: newTotal, streak: newStreak, bestStreak: newBestStreak });
+        void addLearned('vocabulary', `${targetLanguage}-vocab-${currentWord.id}`, 'self-study', {
+            front: currentWord.word,
+            back: getDisplayMeaning(currentWord),
+            reading: currentWord.reading,
+            audioUrl: currentWord.audioUrl,
+        });
 
         timeoutsRef.current.push(setTimeout(() => {
             nextWord();
             setIsProcessing(false);
             timeoutsRef.current.push(setTimeout(() => inputRef.current?.focus(), 100));
         }, 1000));
-    }, [currentWord, speak, updateStats, nextWord]);
+    }, [currentWord, speak, updateStats, nextWord, addLearned, targetLanguage, getDisplayMeaning]);
 
     const handleIncorrect = useCallback(() => {
-        if (!currentWord) return;
+        if (!currentWord || isProcessing) return;
         setIsProcessing(true);
         setInputState('error');
 
@@ -275,20 +288,15 @@ export default function VocabularyPage() {
         speak(currentWord.word, { audioUrl: currentWord.audioUrl });
         updateStats('vocabulary', { correct: statsRef.current.correct, total: newTotal, streak: 0, bestStreak: statsRef.current.bestStreak });
 
-        timeoutsRef.current.push(setTimeout(() => {
-            nextWord();
-            setIsProcessing(false);
-            timeoutsRef.current.push(setTimeout(() => inputRef.current?.focus(), 100));
-        }, 2000));
-    }, [currentWord, speak, updateStats, nextWord]);
+    }, [currentWord, isProcessing, speak, updateStats]);
 
     const checkInput = useCallback((value: string) => {
         if (isProcessing || !currentWord) return;
         const normalizedInput = value.toLowerCase().trim();
         const displayMeaning = getDisplayMeaning(currentWord);
-        const normalizedMeaning = displayMeaning.toLowerCase().trim();
+        const acceptedMeanings = displayMeaning.split(/[,;/]|\s+[–—-]\s+/).map(meaning => meaning.toLowerCase().trim());
 
-        if (normalizedInput === normalizedMeaning) {
+        if (acceptedMeanings.includes(normalizedInput)) {
             handleCorrect();
         }
     }, [isProcessing, currentWord, handleCorrect, getDisplayMeaning]);
@@ -324,7 +332,7 @@ export default function VocabularyPage() {
             nextWord();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [filterStates, practiceMode, targetLanguage, activeTab]);
+    }, [filterStates, practiceMode, targetLanguage, activeTab, vocabulary.length]);
 
     const handleFilterChange = useCallback((id: string, checked: boolean) => {
         if (id === 'practice-mode') {
@@ -400,8 +408,10 @@ export default function VocabularyPage() {
                                         <FiCheck size={12} /> {t('vocabulary.actions.learned')}
                                     </span>
                                 ) : (
-                                    <Button href="/paths" variant="ghost" size="sm">
-                                        <FiBook size={14} /> {t('vocabulary.actions.learnInLessons')}
+                                    <Button variant="ghost" size="sm" onClick={() => {
+                                        setActiveTab('myCards');
+                                    }}>
+                                        <FiBook size={14} /> {t('learnMode.practice')}
                                     </Button>
                                 )}
                                 <Button
@@ -442,7 +452,7 @@ export default function VocabularyPage() {
     // Render practice view (My Cards tab)
     const renderPracticeView = () => {
         // No learned vocabulary yet
-        if (myVocabularyItems.length === 0 && learnedReady) {
+        if (vocabulary.length === 0 && learnedReady) {
             return (
                 <div className={styles.emptyState}>
                     <div className={styles.emptyIllustration}>
@@ -515,7 +525,7 @@ export default function VocabularyPage() {
                 <div className="mt-8 mb-4">
                     <Animated animation="pulse" key={currentWord.id}>
                         <Text variant="h2" color="gold">
-                            {isCorrect ? getDisplayMeaning(currentWord) : (showHint ? getHint() : '???')}
+                            {isCorrect || inputState === 'error' ? getDisplayMeaning(currentWord) : (showHint ? getHint() : '???')}
                         </Text>
                     </Animated>
                     {!isCorrect && !practiceMode && (
@@ -533,30 +543,65 @@ export default function VocabularyPage() {
 
                 <InputSection>
                     {practiceMode ? (
-                        <MultipleChoice
-                            options={multipleChoiceOptions}
-                            onSelect={(selected) => {
-                                if (selected === getDisplayMeaning(currentWord)) handleCorrect();
-                                else handleIncorrect();
-                            }}
-                            disabled={isProcessing}
-                        />
+                        <>
+                            <MultipleChoice
+                                options={multipleChoiceOptions}
+                                onSelect={(selected) => {
+                                    if (selected === getDisplayMeaning(currentWord)) handleCorrect();
+                                    else handleIncorrect();
+                                }}
+                                disabled={isProcessing}
+                            />
+                            {inputState === 'error' && (
+                                <div className={styles.practiceActions} role="status" aria-live="polite">
+                                    <Text>{t('exercises.fillBlank.correctAnswerIs')} {getDisplayMeaning(currentWord)}</Text>
+                                    <Button onClick={() => {
+                                        nextWord();
+                                        setIsProcessing(false);
+                                    }}>{t('common.continue')}</Button>
+                                </div>
+                            )}
+                        </>
                     ) : (
-                        <Input
-                            ref={inputRef}
-                            type="text"
-                            value={inputValue}
-                            onChange={(e) => {
-                                setInputValue(e.target.value);
-                                checkInput(e.target.value);
-                            }}
-                            placeholder={t('vocabulary.typeMeaning')}
-                            autoComplete="off"
-                            disabled={isProcessing}
-                            variant={inputState}
-                            size="lg"
-                            fullWidth
-                        />
+                        <>
+                            <Input
+                                ref={inputRef}
+                                type="text"
+                                value={inputValue}
+                                onChange={(e) => {
+                                    setInputValue(e.target.value);
+                                    checkInput(e.target.value);
+                                }}
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter' && inputValue.trim() && !isProcessing) {
+                                        handleIncorrect();
+                                    }
+                                }}
+                                placeholder={t('vocabulary.typeMeaning')}
+                                autoComplete="off"
+                                disabled={isProcessing}
+                                variant={inputState}
+                                size="lg"
+                                fullWidth
+                            />
+                            <div className={styles.practiceActions}>
+                                {inputState === 'error' ? (
+                                    <>
+                                        <Text role="status" aria-live="polite">{t('exercises.fillBlank.correctAnswerIs')} {getDisplayMeaning(currentWord)}</Text>
+                                        <Button onClick={() => {
+                                            nextWord();
+                                            setIsProcessing(false);
+                                            timeoutsRef.current.push(setTimeout(() => inputRef.current?.focus(), 100));
+                                        }}>{t('common.continue')}</Button>
+                                    </>
+                                ) : (
+                                    <>
+                                        <Button onClick={handleIncorrect} disabled={!inputValue.trim() || isProcessing}>{t('exercises.common.checkAnswer')}</Button>
+                                        <Button variant="ghost" onClick={handleIncorrect} disabled={isProcessing}>{t('review.card.showAnswer')}</Button>
+                                    </>
+                                )}
+                            </div>
+                        </>
                     )}
                     <StatsPanel correct={correct} total={total} streak={streak} />
                 </InputSection>
@@ -574,7 +619,7 @@ export default function VocabularyPage() {
                     <div className={styles.pageHeader}>
                         <Text variant="h1">{t('modules.vocabulary.title')}</Text>
                         {dueCount > 0 && (
-                            <Button variant="primary" size="sm" className={styles.reviewButton}>
+                            <Button variant="primary" size="sm" className={styles.reviewButton} onClick={() => window.location.assign('/review/')}>
                                 <FiClock />
                                 {t('grammar.actions.review')}
                                 <span className={styles.reviewCount}>{dueCount}</span>

@@ -1,0 +1,31 @@
+.layout {
+  min-width: 0;
+}
+
+.main {
+  min-width: 0;
+}
+
+.companionColumn {
+  min-width: 0;
+  padding: 0 1rem calc(5rem + var(--safe-area-bottom, 0px));
+}
+
+@media (min-width: 1024px) {
+  .layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 300px;
+    gap: 1rem;
+    max-width: 1540px;
+    margin: 0 auto;
+  }
+
+  .companionColumn {
+    align-self: start;
+    position: sticky;
+    top: calc(1rem + var(--safe-area-top, 0px));
+    padding: 2rem 1rem 2rem 0;
+    max-height: calc(100dvh - 2rem - var(--safe-area-top, 0px));
+    overflow-y: auto;
+  }
+}

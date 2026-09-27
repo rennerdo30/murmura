@@ -9,30 +9,12 @@
   overflow: hidden;
 }
 
-/* Sidebar position (desktop) */
-.companion.sidebar {
-  position: fixed;
-  top: calc(4.5rem + var(--safe-area-top));
-  right: calc(1rem + var(--safe-area-right));
-  width: var(--companion-width);
-  max-height: calc(100vh - var(--safe-area-top) - var(--safe-area-bottom) - 6rem);
-  z-index: 50;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-}
-
-/* Bottom position (mobile) */
-.companion.bottom {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
+/* The parent layout reserves space for this panel at every viewport size. */
+.companion.sidebar,
+.companion.bottom,
+.companion.auto {
+  position: relative;
   width: 100%;
-  max-height: 70vh;
-  padding-bottom: var(--safe-area-bottom);
-  border-radius: 1.5rem 1.5rem 0 0;
-  border-bottom: none;
-  z-index: 50;
-  box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.3);
 }
 
 /* Header */
@@ -66,8 +48,9 @@
   gap: 0.25rem;
 }
 
-.toggleButton,
-.closeButton {
+.toggleButton {
+  min-width: 44px;
+  min-height: 44px;
   background: transparent;
   border: none;
   color: var(--text-secondary, #888);
@@ -80,50 +63,9 @@
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-.toggleButton:hover,
-.closeButton:hover {
+.toggleButton:hover {
   background: var(--bg-hover, rgba(255, 255, 255, 0.05));
   color: var(--text-primary, #f5f0e8);
-}
-
-/* Minimized Button */
-.minimizedButton {
-  position: fixed;
-  bottom: calc(1rem + var(--safe-area-bottom));
-  right: calc(1rem + var(--safe-area-right));
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background: var(--accent-gold, #d4a574);
-  color: var(--bg-primary, #0f0f1a);
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5rem;
-  box-shadow: 0 4px 16px rgba(212, 165, 116, 0.3);
-  z-index: 50;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.minimizedButton:hover {
-  transform: scale(1.05);
-  box-shadow: 0 6px 24px rgba(212, 165, 116, 0.4);
-}
-
-.reviewBadge {
-  position: absolute;
-  top: -4px;
-  right: -4px;
-  background: var(--accent-red, #c41e3a);
-  color: white;
-  font-size: 0.75rem;
-  font-weight: 600;
-  padding: 0.125rem 0.5rem;
-  border-radius: 1rem;
-  min-width: 20px;
-  text-align: center;
 }
 
 /* Progress Ring */
@@ -409,29 +351,8 @@
   text-decoration: underline;
 }
 
-/* Responsive - Hide sidebar on mobile, show as bottom sheet */
-@media (max-width: 1023px) {
-  .companion.sidebar {
-    display: none;
-  }
-}
-
-@media (min-width: 1024px) {
-  .companion.bottom {
-    display: none;
-  }
-
-  .minimizedButton {
-    display: none;
-  }
-}
-
 /* Mobile optimizations */
 @media (max-width: 480px) {
-  .companion.bottom {
-    max-height: 80vh;
-  }
-
   .progressRing {
     width: 100px;
     height: 100px;
@@ -468,4 +389,16 @@
 
 .section {
   animation: slideUp 0.3s ease-out;
+}
+
+.toggleButton:focus-visible,
+.showMoreButton:focus-visible,
+.footerLink:focus-visible {
+  outline: 2px solid var(--accent-gold, #d4a574);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section { animation: none; }
+  .ringProgress { transition: none; }
 }

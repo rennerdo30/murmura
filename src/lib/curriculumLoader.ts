@@ -213,6 +213,7 @@ function transformLegacyCurriculum(legacyData: LegacyPath[], langCode: string): 
     // Create a single unit per level containing all milestones as lessons
     const lessons: CurriculumLesson[] = milestones.map((m) => ({
       id: m.slug,
+      legacyModule: m.module,
       title: m.name,
       description: m.description,
       content: {

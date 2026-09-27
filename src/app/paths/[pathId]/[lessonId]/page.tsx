@@ -10,6 +10,7 @@ interface LegacyPath {
   path: {
     slug: string;
   };
+  milestones?: Array<{ slug?: string }>;
 }
 
 interface Lesson {
@@ -56,6 +57,11 @@ export async function generateStaticParams() {
           for (const item of curriculumData as LegacyPath[]) {
             if (item.path?.slug) {
               pathSlugs.push(item.path.slug);
+              for (const milestone of item.milestones || []) {
+                if (milestone.slug) {
+                  params.push({ pathId: item.path.slug, lessonId: milestone.slug });
+                }
+              }
             }
           }
         }

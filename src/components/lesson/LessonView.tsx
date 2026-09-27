@@ -57,6 +57,7 @@ export default function LessonView({
 }: LessonViewProps) {
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const [exerciseAnswers, setExerciseAnswers] = useState<boolean[]>([]);
+  const [selectedChoiceIndex, setSelectedChoiceIndex] = useState<number | null>(null);
   const [currentPronunciationIndex, setCurrentPronunciationIndex] = useState(0);
   const { preloadBatch } = useTTS();
   const { targetLanguage } = useTargetLanguage();
@@ -246,22 +247,12 @@ export default function LessonView({
         setCurrentCardIndex(0);
         onCompleteLearning();
       }
-    } else if (phase === 'exercises') {
-      if (currentCardIndex < totalExerciseCards - 1) {
-        setCurrentCardIndex(currentCardIndex + 1);
-      } else {
-        const correctCount = exerciseAnswers.filter(Boolean).length;
-        onCompleteExercises(correctCount, totalExerciseCards);
-      }
     }
   }, [
     phase,
     currentCardIndex,
     totalLearningCards,
-    totalExerciseCards,
-    exerciseAnswers,
     onCompleteLearning,
-    onCompleteExercises,
   ]);
 
   const handlePrevCard = useCallback(() => {
@@ -272,10 +263,16 @@ export default function LessonView({
 
   const handleAnswerExercise = useCallback(
     (isCorrect: boolean) => {
-      setExerciseAnswers([...exerciseAnswers, isCorrect]);
-      handleNextCard();
+      const updatedAnswers = [...exerciseAnswers, isCorrect];
+      setExerciseAnswers(updatedAnswers);
+      setSelectedChoiceIndex(null);
+      if (currentCardIndex < totalExerciseCards - 1) {
+        setCurrentCardIndex(currentCardIndex + 1);
+      } else {
+        onCompleteExercises(updatedAnswers.filter(Boolean).length, totalExerciseCards);
+      }
     },
-    [exerciseAnswers, handleNextCard]
+    [exerciseAnswers, currentCardIndex, totalExerciseCards, onCompleteExercises]
   );
 
   // Render intro phase
@@ -487,6 +484,7 @@ export default function LessonView({
         case 'fill_blank':
           return (
             <FillBlank
+              key={currentCardIndex}
               exercise={currentExercise as FillBlankExercise}
               onAnswer={handleAnswerExercise}
             />
@@ -512,14 +510,29 @@ export default function LessonView({
                     key={index}
                     variant="secondary"
                     className={styles.optionButton}
-                    onClick={() =>
-                      handleAnswerExercise(index === mcExercise.correctIndex)
-                    }
+                    onClick={() => setSelectedChoiceIndex(index)}
+                    disabled={selectedChoiceIndex !== null}
+                    aria-pressed={selectedChoiceIndex === index}
                   >
                     {option}
                   </Button>
                 ))}
               </div>
+              {selectedChoiceIndex !== null && (
+                <div className={styles.answerFeedback} role="status" aria-live="polite">
+                  <Text>
+                    {selectedChoiceIndex === mcExercise.correctIndex
+                      ? t('exercises.correct')
+                      : `${t('exercises.fillBlank.correctAnswerIs')} ${mcExercise.options[mcExercise.correctIndex]}`}
+                  </Text>
+                  <Button onClick={() => handleAnswerExercise(selectedChoiceIndex === mcExercise.correctIndex)}>
+                    {currentCardIndex === totalExerciseCards - 1
+                      ? t('lessons.view.completeLesson')
+                      : t('common.continue')}
+                    <IoArrowForward />
+                  </Button>
+                </div>
+              )}
             </div>
           );
       }

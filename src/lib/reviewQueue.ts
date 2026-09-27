@@ -16,6 +16,7 @@ export type ReviewModuleName = 'vocabulary' | 'kanji' | 'grammar' | 'reading' | 
 export interface ReviewItem {
   id: string;
   module: ReviewModuleName;
+  source?: 'learnedContent';
   reviewData: ReviewData | null;
   priority: number;
   dueDate: number | null;

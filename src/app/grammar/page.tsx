@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
-import Link from 'next/link';
 import { FiBook, FiList, FiCheck, FiClock } from 'react-icons/fi';
 import { IoCheckmark } from 'react-icons/io5';
 import Navigation from '@/components/common/Navigation';
@@ -9,14 +8,13 @@ import StatsPanel from '@/components/common/StatsPanel';
 import TabSelector from '@/components/common/TabSelector';
 import LanguageContentGuard from '@/components/common/LanguageContentGuard';
 import ErrorBoundary from '@/components/common/ErrorBoundary';
-import { Container, Card, Text, Button, Chip, Animated, OptionsPanel, Input } from '@/components/ui';
-import optionsStyles from '@/components/ui/OptionsPanel.module.css';
+import { Container, Card, Text, Button, Chip, Animated, Input } from '@/components/ui';
 import { useProgressContext } from '@/context/ProgressProvider';
 import { useLanguage } from '@/context/LanguageProvider';
 import { useTargetLanguage } from '@/hooks/useTargetLanguage';
 import { useContentTranslation } from '@/hooks/useContentTranslation';
 import { useLearnedContent } from '@/hooks/useLearnedContent';
-import { GrammarItem, Filter } from '@/types';
+import { GrammarItem } from '@/types';
 import styles from './grammar.module.css';
 
 type TabType = 'myCards' | 'all';
@@ -44,12 +42,12 @@ export default function GrammarPage() {
     } = useLearnedContent();
 
     // Tab state
-    const [activeTab, setActiveTab] = useState<TabType>('myCards');
+    const [selectedTab, setActiveTab] = useState<TabType | null>(null);
+    const [isBrowsePractice, setIsBrowsePractice] = useState(false);
 
     // Data state
     const [grammarPoints, setGrammarPoints] = useState<GrammarItem[]>([]);
     const [currentGrammar, setCurrentGrammar] = useState<GrammarItem | null>(null);
-    const [currentIndex, setCurrentIndex] = useState(0);
     const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
     const [showFeedback, setShowFeedback] = useState(false);
     const [stats, setStats] = useState({
@@ -72,22 +70,6 @@ export default function GrammarPage() {
     // Get first 2 levels from language config for filters
     const displayLevels = useMemo(() => levels.slice(0, 2), [levels]);
 
-    const [filters, setFilters] = useState<Record<string, Filter>>({});
-
-    // Update filters when language changes
-    useEffect(() => {
-        const newFilters: Record<string, Filter> = {};
-        displayLevels.forEach((level) => {
-            newFilters[level.id] = {
-                id: level.id,
-                label: level.name,
-                checked: true,
-                type: 'checkbox'
-            };
-        });
-        setFilters(newFilters);
-    }, [targetLanguage, displayLevels]);
-
     // Load grammar data
     useEffect(() => {
         const abortController = new AbortController();
@@ -100,10 +82,14 @@ export default function GrammarPage() {
                 const data = await response.json();
 
                 if (!abortController.signal.aborted) {
-                    setGrammarPoints(data);
-                    setCurrentIndex(0);
+                    const levelOrder = new Map(levels.map(level => [level.id, level.order]));
+                    const orderedData = [...data as GrammarItem[]].sort((a, b) =>
+                        (levelOrder.get(a.jlpt || '') ?? Number.MAX_SAFE_INTEGER) -
+                        (levelOrder.get(b.jlpt || '') ?? Number.MAX_SAFE_INTEGER)
+                    );
+                    setGrammarPoints(orderedData);
                     if (data.length > 0) {
-                        setCurrentGrammar(data[0]);
+                        setCurrentGrammar(orderedData[0]);
                     } else {
                         setCurrentGrammar(null);
                     }
@@ -125,7 +111,7 @@ export default function GrammarPage() {
         return () => {
             abortController.abort();
         };
-    }, [targetLanguage, getDataUrl]);
+    }, [targetLanguage, getDataUrl, levels]);
 
     // Load stats
     useEffect(() => {
@@ -156,6 +142,8 @@ export default function GrammarPage() {
             return learnedIds.has(grammarId) || isContentLearned(grammarId);
         });
     }, [grammarPoints, learnedGrammar, targetLanguage, isContentLearned]);
+
+    const activeTab = selectedTab ?? (myGrammarItems.length > 0 ? 'myCards' : 'all');
 
     // Filtered grammar for browse view
     const filteredGrammar = useMemo(() => {
@@ -188,11 +176,7 @@ export default function GrammarPage() {
             label: t('grammar.tabs.allGrammar'),
             badge: grammarPoints.length
         },
-    ], [t, myGrammarItems.length, grammarPoints.length]);
-
-    const handleFilterChange = useCallback((id: string, checked: boolean) => {
-        setFilters(prev => ({ ...prev, [id]: { ...prev[id], checked } }));
-    }, []);
+    ], [myGrammarItems.length, grammarPoints.length, t]);
 
     const handleAnswerSelect = useCallback((index: number) => {
         if (showFeedback || !currentGrammar?.exercises?.[0]) return;
@@ -225,16 +209,15 @@ export default function GrammarPage() {
     const nextGrammar = useCallback(() => {
         const availableGrammar = activeTab === 'myCards' && myGrammarItems.length > 0
             ? myGrammarItems
-            : grammarPoints;
+            : filteredGrammar;
 
         if (availableGrammar.length === 0) return;
 
-        const nextIndex = (currentIndex + 1) % availableGrammar.length;
-        setCurrentIndex(nextIndex);
+        const nextIndex = (availableGrammar.indexOf(currentGrammar!) + 1) % availableGrammar.length;
         setCurrentGrammar(availableGrammar[nextIndex]);
         setSelectedAnswer(null);
         setShowFeedback(false);
-    }, [currentIndex, grammarPoints, myGrammarItems, activeTab]);
+    }, [currentGrammar, filteredGrammar, myGrammarItems, activeTab]);
 
     // Reset to first grammar when tab changes
     useEffect(() => {
@@ -243,7 +226,6 @@ export default function GrammarPage() {
             : grammarPoints;
 
         if (availableGrammar.length > 0) {
-            setCurrentIndex(0);
             setCurrentGrammar(availableGrammar[0]);
             setSelectedAnswer(null);
             setShowFeedback(false);
@@ -296,11 +278,15 @@ export default function GrammarPage() {
                                     <span className={styles.learnedBadge}>
                                         <FiCheck size={12} /> {t('grammar.actions.learned')}
                                     </span>
-                                ) : (
-                                    <Button href="/paths" variant="ghost" size="sm">
-                                        <FiBook size={14} /> {t('grammar.actions.learnInLessons')}
-                                    </Button>
-                                )}
+                                ) : null}
+                                <Button variant="ghost" size="sm" onClick={() => {
+                                    setCurrentGrammar(grammar);
+                                    setSelectedAnswer(null);
+                                    setShowFeedback(false);
+                                    setIsBrowsePractice(true);
+                                }}>
+                                    <FiBook size={14} /> {t('common.start')}
+                                </Button>
                             </div>
                         </div>
                     );
@@ -320,7 +306,7 @@ export default function GrammarPage() {
     // Render practice view
     const renderPracticeView = () => {
         // No learned grammar yet
-        if (myGrammarItems.length === 0 && learnedReady) {
+        if (activeTab === 'myCards' && myGrammarItems.length === 0 && learnedReady) {
             return (
                 <div className={styles.emptyState}>
                     <FiBook className={styles.emptyIcon} />
@@ -346,23 +332,11 @@ export default function GrammarPage() {
 
         return (
             <>
-                <OptionsPanel>
-                    <div className={optionsStyles.toggleContainer}>
-                        <Text variant="label" color="muted">Level</Text>
-                        <div className={optionsStyles.group}>
-                            {Object.values(filters).map((filter) => (
-                                <Chip
-                                    key={filter.id}
-                                    id={filter.id}
-                                    label={filter.label}
-                                    checked={filter.checked}
-                                    onChange={(checked) => handleFilterChange(filter.id, checked)}
-                                />
-                            ))}
-                        </div>
-                    </div>
-                </OptionsPanel>
-
+                {isBrowsePractice && (
+                    <Button variant="ghost" onClick={() => setIsBrowsePractice(false)}>
+                        {t('common.back')}
+                    </Button>
+                )}
                 <Card className={styles.grammarCard} variant="glass">
                     <Text variant="h2" color="gold" className={styles.grammarTitle}>
                         {getText(currentGrammar.titleTranslations, currentGrammar.title)}
@@ -423,6 +397,9 @@ export default function GrammarPage() {
                     </Card>
                 )}
 
+                {!exercise && (
+                    <Button onClick={nextGrammar}>{t('common.next')}</Button>
+                )}
                 <StatsPanel correct={stats.correct} total={stats.total} streak={stats.streak} />
             </>
         );
@@ -472,11 +449,14 @@ export default function GrammarPage() {
                     <TabSelector
                         tabs={tabs}
                         activeTab={activeTab}
-                        onTabChange={(tab) => setActiveTab(tab as TabType)}
+                        onTabChange={(tab) => {
+                            setActiveTab(tab as TabType);
+                            setIsBrowsePractice(false);
+                        }}
                     />
 
                     {/* Tab Content */}
-                    {activeTab === 'myCards' ? renderPracticeView() : renderBrowseView()}
+                    {activeTab === 'myCards' || isBrowsePractice ? renderPracticeView() : renderBrowseView()}
                 </Container>
             </LanguageContentGuard>
         </ErrorBoundary>

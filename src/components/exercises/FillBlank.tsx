@@ -34,10 +34,6 @@ export default function FillBlank({ exercise, onAnswer }: FillBlankProps) {
     setFeedback(isCorrect ? 'correct' : 'incorrect');
     setSubmitted(true);
 
-    // Delay the callback to show feedback
-    setTimeout(() => {
-      onAnswer(isCorrect);
-    }, 1500);
   }, [userInput, exercise, onAnswer]);
 
   const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
@@ -88,6 +84,14 @@ export default function FillBlank({ exercise, onAnswer }: FillBlankProps) {
               </Text>
             </>
           )}
+        </div>
+      )}
+
+      {submitted && (
+        <div className={styles.actions}>
+          <Button onClick={() => onAnswer(feedback === 'correct')}>
+            {t('common.continue')}
+          </Button>
         </div>
       )}
 

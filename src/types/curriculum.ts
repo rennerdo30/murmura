@@ -49,6 +49,7 @@ export interface LessonContent {
 
 export interface CurriculumLesson {
   id: string;              // "A1-U1-L1" or "es-a1-vocab-l1"
+  legacyModule?: string;   // Legacy milestone points to a study module, not lesson content
   milestoneId?: string;    // Parent milestone reference
   title: string;
   titleTranslations?: Record<string, string>;  // UI language translations

@@ -13,7 +13,6 @@ import {
   flattenLessons,
   getNextLesson,
   getPreviousLesson,
-  getTotalLessonCount,
 } from '@/lib/curriculumLoader';
 import type {
   Curriculum,
@@ -23,6 +22,64 @@ import type {
   LessonProgress,
   LessonStatus,
 } from '@/types/curriculum';
+
+const LEGACY_MODULE_FILES: Record<string, string> = {
+  alphabet: 'characters',
+  vocabulary: 'vocabulary',
+  kanji: 'characters',
+  grammar: 'grammar',
+  reading: 'readings',
+  listening: 'listening',
+};
+
+const moduleContentRequests = new Map<string, Promise<unknown[]>>();
+
+function loadModuleContent(language: string, file: string): Promise<unknown[]> {
+  const url = `/data/${language}/${file}.json`;
+  let request = moduleContentRequests.get(url);
+  if (!request) {
+    request = fetch(url).then(async response => {
+      if (!response.ok) return [];
+      const data: unknown = await response.json();
+      if (Array.isArray(data)) return data;
+      if (data && typeof data === 'object' && file in data) {
+        const items = (data as Record<string, unknown>)[file];
+        if (Array.isArray(items)) return items;
+      }
+      return [];
+    }).catch(() => {
+      moduleContentRequests.delete(url);
+      return [];
+    });
+    moduleContentRequests.set(url, request);
+  }
+  return request;
+}
+
+async function removeEmptyMilestones(curriculum: Curriculum | null, language: string): Promise<Curriculum | null> {
+  if (!curriculum) return null;
+  const modules = new Set(flattenLessons(curriculum).flatMap(({ lesson }) =>
+    lesson.legacyModule ? [lesson.legacyModule] : []
+  ));
+  const availableModules = new Map(await Promise.all([...modules].map(async module => {
+    const file = LEGACY_MODULE_FILES[module];
+    const items = file ? await loadModuleContent(language, file) : [];
+    return [module, items.length > 0] as const;
+  })));
+
+  return {
+    ...curriculum,
+    levels: curriculum.levels.map(level => ({
+      ...level,
+      units: level.units.map(unit => ({
+        ...unit,
+        lessons: unit.lessons.filter(lesson =>
+          !lesson.legacyModule || availableModules.get(lesson.legacyModule)
+        ),
+      })),
+    })),
+  };
+}
 
 interface UseCurriculumReturn {
   // Curriculum data
@@ -53,7 +110,7 @@ interface UseCurriculumReturn {
 }
 
 export function useCurriculum(): UseCurriculumReturn {
-  const { targetLanguage } = useTargetLanguage();
+  const { targetLanguage, levels } = useTargetLanguage();
   const [curriculum, setCurriculum] = useState<Curriculum | null>(null);
   const [lessonData, setLessonData] = useState<CurriculumLesson[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -79,13 +136,24 @@ export function useCurriculum(): UseCurriculumReturn {
 
       try {
         // Load both curriculum and lessons in parallel
-        const [curriculumData, lessonsData] = await Promise.all([
+        const [loadedCurriculum, lessonsData] = await Promise.all([
           loadCurriculum(targetLanguage),
           loadLessons(targetLanguage),
         ]);
 
+        const curriculumData = await removeEmptyMilestones(loadedCurriculum, targetLanguage);
+
         if (mounted) {
-          setCurriculum(curriculumData);
+          // Exports can list advanced levels first (for example N1 before N5).
+          // Use the language's teaching order for availability and navigation.
+          const levelOrder = new Map(levels.map(level => [level.id, level.order]));
+          setCurriculum(curriculumData ? {
+            ...curriculumData,
+            levels: [...curriculumData.levels].sort((a, b) =>
+              (levelOrder.get(a.level) ?? Number.MAX_SAFE_INTEGER) -
+              (levelOrder.get(b.level) ?? Number.MAX_SAFE_INTEGER)
+            ),
+          } : null);
           setLessonData(lessonsData);
           if (!curriculumData) {
             setError(`No curriculum available for ${targetLanguage}`);
@@ -107,7 +175,7 @@ export function useCurriculum(): UseCurriculumReturn {
     return () => {
       mounted = false;
     };
-  }, [targetLanguage]);
+  }, [targetLanguage, levels]);
 
   // Build progress map from Convex data
   const lessonProgress = useMemo(() => {
@@ -144,7 +212,7 @@ export function useCurriculum(): UseCurriculumReturn {
       if (!flattened.some((f) => f.lesson.id === lesson.id)) {
         flattened.push({
           lesson,
-          levelId: 'A1', // Default level
+          levelId: levels[0]?.id || 'A1',
           unitId: lesson.milestoneId || 'default',
           levelIndex: 0,
           unitIndex: 0,
@@ -154,7 +222,7 @@ export function useCurriculum(): UseCurriculumReturn {
     }
 
     return flattened;
-  }, [curriculum, lessonData]);
+  }, [curriculum, lessonData, levels]);
 
   // Total lesson count (includes both curriculum and lessons.json)
   const totalLessons = useMemo(() => {

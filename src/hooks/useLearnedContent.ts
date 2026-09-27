@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useQuery, useMutation } from 'convex/react';
 import { api } from '../../convex/_generated/api';
 import { useTargetLanguage } from './useTargetLanguage';
@@ -65,13 +65,6 @@ export function useLearnedContent() {
 
   // Convex queries and mutations
   const convexLearned = useQuery(api.learnedContent.getLearnedContent, {
-    languageCode: targetLanguage,
-  });
-  const dueForReview = useQuery(api.learnedContent.getDueForReview, {
-    languageCode: targetLanguage,
-    limit: 50,
-  });
-  const dueCount = useQuery(api.learnedContent.getDueCount, {
     languageCode: targetLanguage,
   });
   const learnedStats = useQuery(api.learnedContent.getLearnedStats, {
@@ -304,16 +297,19 @@ export function useLearnedContent() {
     }
   }, [localLearned, recordReviewMutation]);
 
+  const allLearned = useMemo(() => getAllLearned(), [getAllLearned]);
+  const dueForReview = allLearned.filter(item => item.nextReviewAt <= Date.now());
+
   return {
     isReady,
-    allLearned: getAllLearned(),
+    allLearned,
     isContentLearned,
     getLearnedByType,
     addLearned,
     addLearnedBatch,
     recordReview,
-    dueForReview: dueForReview ?? [],
-    dueCount: dueCount ?? 0,
+    dueForReview,
+    dueCount: dueForReview.length,
     stats: learnedStats ?? { totalLearned: 0, byType: {}, dueForReview: 0 },
   };
 }

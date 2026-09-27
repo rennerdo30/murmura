@@ -4,6 +4,7 @@ import { ReactNode } from 'react';
 import LearningCompanion from '@/components/LearningCompanion/LearningCompanion';
 import ErrorBoundary from '@/components/common/ErrorBoundary';
 import BottomNavBar from '@/components/common/BottomNavBar';
+import styles from './ClientLayout.module.css';
 import { useLanguage } from '@/context/LanguageProvider';
 
 function SkipLink() {
@@ -26,11 +27,15 @@ export default function ClientLayout({ children }: ClientLayoutProps) {
   return (
     <ErrorBoundary>
       <SkipLink />
-      <main id="main-content">
-        {children}
-      </main>
+      <div className={styles.layout}>
+        <main id="main-content" className={styles.main}>
+          {children}
+        </main>
+        <div className={styles.companionColumn}>
+          <LearningCompanion position="auto" />
+        </div>
+      </div>
       <BottomNavBar />
-      <LearningCompanion position="auto" />
     </ErrorBoundary>
   );
 }

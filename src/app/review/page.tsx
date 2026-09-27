@@ -12,6 +12,7 @@ import { useLanguage } from '@/context/LanguageProvider';
 import { useTargetLanguage } from '@/hooks/useTargetLanguage';
 import { useTTS } from '@/hooks/useTTS';
 import { useContentTranslation } from '@/hooks/useContentTranslation';
+import { useLearnedContent, type LearnedContentItem } from '@/hooks/useLearnedContent';
 import { getVocabularyData } from '@/lib/dataLoader';
 import {
   ReviewQueue,
@@ -63,6 +64,41 @@ interface GrammarData {
   content_translations?: { explanation?: Record<string, string> } | null;
 }
 
+function includeLearnedDueItems(queue: ReviewQueue, learned: LearnedContentItem[]): ReviewQueue {
+  const now = Date.now();
+  const existingIds = new Set(queue.items.map(item => item.id));
+  const items = [...queue.items];
+  const byModule = { ...queue.byModule };
+
+  for (const item of learned) {
+    if (item.nextReviewAt > now || existingIds.has(item.contentId)) continue;
+    const module: ReviewModuleName = item.contentType === 'character' ? 'kanji' : item.contentType;
+    items.push({
+      id: item.contentId,
+      module,
+      source: 'learnedContent',
+      reviewData: null,
+      priority: 1,
+      dueDate: item.nextReviewAt,
+      masteryStatus: 'learning',
+      data: item.preview,
+    });
+    byModule[module] += 1;
+    existingIds.add(item.contentId);
+  }
+
+  return {
+    ...queue,
+    items,
+    total: items.length,
+    byModule,
+    estimatedMinutes: Math.ceil(items.length * 8 / 60),
+    urgency: items.some(item => item.dueDate && item.dueDate < now - 86400000)
+      ? 'overdue'
+      : items.length > 0 ? 'due' : 'none',
+  };
+}
+
 export default function ReviewPage() {
   const router = useRouter();
   const { t } = useLanguage();
@@ -70,6 +106,7 @@ export default function ReviewPage() {
   const { speak } = useTTS();
   const { getMeaning, getText } = useContentTranslation();
   const { getModuleData, updateModuleReview } = useProgressContext();
+  const { allLearned, recordReview } = useLearnedContent();
 
   const [mode, setMode] = useState<ReviewMode>('overview');
   const [queue, setQueue] = useState<ReviewQueue | null>(null);
@@ -261,9 +298,9 @@ export default function ReviewPage() {
       data: itemDataMap[item.module]?.[item.id],
     }));
 
-    setQueue(reviewQueue);
+    setQueue(includeLearnedDueItems(reviewQueue, allLearned));
     setIsLoading(false);
-  }, [getModuleData, itemDataMap]);
+  }, [getModuleData, itemDataMap, allLearned]);
 
   // Start a review session
   const handleStartSession = useCallback(() => {
@@ -311,7 +348,11 @@ export default function ReviewPage() {
       );
 
       // Update the review data in context
-      updateModuleReview(currentItem.module, currentItem.id, updatedReviewData);
+      if (currentItem.source === 'learnedContent') {
+        void recordReview(currentItem.id, quality);
+      } else {
+        updateModuleReview(currentItem.module, currentItem.id, updatedReviewData);
+      }
 
       setSession(updatedSession);
 
@@ -322,7 +363,7 @@ export default function ReviewPage() {
         setResponseStartTime(Date.now());
       }
     },
-    [session, responseStartTime, updateModuleReview]
+    [session, responseStartTime, updateModuleReview, recordReview]
   );
 
   // Toggle module selection
@@ -370,8 +411,8 @@ export default function ReviewPage() {
       data: itemDataMap[item.module]?.[item.id],
     }));
 
-    setQueue(reviewQueue);
-  }, [getModuleData, itemDataMap]);
+    setQueue(includeLearnedDueItems(reviewQueue, allLearned));
+  }, [getModuleData, itemDataMap, allLearned]);
 
   // Calculate filtered queue stats
   const filteredQueueStats = useMemo(() => {

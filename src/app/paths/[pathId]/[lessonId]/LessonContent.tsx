@@ -83,6 +83,14 @@ export default function LessonContent() {
   const nextLesson = useMemo(() => getNextLessonAfter(lessonId), [getNextLessonAfter, lessonId]);
   const lessonStatus = useMemo(() => getLessonStatus(lessonId), [getLessonStatus, lessonId]);
 
+  // Legacy milestones are links into study modules rather than full lessons.
+  useEffect(() => {
+    const moduleRoute = lesson?.legacyModule;
+    if (moduleRoute && ['alphabet', 'vocabulary', 'grammar', 'kanji', 'reading', 'listening'].includes(moduleRoute)) {
+      router.replace(`/${moduleRoute}/`);
+    }
+  }, [lesson, router]);
+
   // Initialize phase based on loading state
   useEffect(() => {
     if (curriculumLoading) {

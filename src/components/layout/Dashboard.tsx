@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, useMemo, memo, useCallback } from 'react';
+import { useState, useMemo, memo, useCallback } from 'react';
 import Link from 'next/link';
 import { useProgressContext } from '@/context/ProgressProvider';
 import { useLanguage } from '@/context/LanguageProvider';
@@ -110,14 +110,13 @@ const ALL_MODULES: Module[] = [
 ];
 
 function Dashboard() {
-    const { summary, getModuleProgress, refresh, initialized } = useProgressContext();
+    const { summary, getModuleProgress, initialized } = useProgressContext();
     const { t } = useLanguage();
     const { getText } = useContentTranslation();
     const { targetLanguage, isModuleEnabled } = useTargetLanguage();
-    const { level, streak, dailyGoal, todayXP, isLoading: gamificationLoading } = useGamification();
-    const { lessons, lessonProgress, getLessonStatus } = useCurriculum();
+    const { level, streak, dailyGoal, todayXP } = useGamification();
+    const { lessons, getLessonStatus } = useCurriculum();
     const isMobile = useMobile();
-    const [moduleProgress, setModuleProgress] = useState<Record<string, number>>({});
     const [showWidgets, setShowWidgets] = useState(false);
     const toggleWidgets = useCallback(() => setShowWidgets(prev => !prev), []);
 
@@ -137,8 +136,8 @@ function Dashboard() {
                 return flatLesson.lesson;
             }
         }
-        // Default to first lesson if all are locked or none available
-        return lessons.length > 0 ? lessons[0].lesson : null;
+        // Do not recommend a locked lesson or restart a completed curriculum.
+        return null;
     }, [lessons, getLessonStatus]);
 
     // Filter modules based on target language and update icons
@@ -163,15 +162,15 @@ function Dashboard() {
             });
     }, [targetLanguage, isModuleEnabled]);
 
-    useEffect(() => {
+    const moduleProgress = useMemo(() => {
+        const progress: Record<string, number> = {};
         if (initialized && summary) {
-            const progress: Record<string, number> = {};
             filteredModules.forEach(module => {
                 progress[module.id] = getModuleProgress(module.id, module.totalItems);
             });
-            setModuleProgress(progress);
         }
-    }, [initialized, summary, getModuleProgress, refresh, filteredModules]);
+        return progress;
+    }, [initialized, summary, getModuleProgress, filteredModules]);
 
     if (!summary) {
         return (
@@ -258,7 +257,7 @@ function Dashboard() {
                 <Card variant="glass" hover className={`${styles.continueLessonCard} fadeInUp`}>
                     <div className={styles.continueLessonContent}>
                         <div className={styles.continueLessonInfo}>
-                            <Text variant="label" color="muted">{t('dashboard.continueLearning')}</Text>
+                            <Text variant="label" color="muted">{t(getLessonStatus(currentLesson.id) === 'in_progress' ? 'dashboard.continueLearning' : 'paths.startLearning')}</Text>
                             <Text variant="h2">{getText(currentLesson.titleTranslations, currentLesson.title)}</Text>
                             <Text variant="body" color="secondary">{getText(currentLesson.descriptionTranslations, currentLesson.description)}</Text>
                         </div>
@@ -266,7 +265,7 @@ function Dashboard() {
                             href={`/paths/${getPathIdForLanguage(targetLanguage)}/${currentLesson.id}`}
                             className={styles.continueLessonButton}
                         >
-                            <IoPlay aria-hidden="true" /> {t('common.continue')}
+                            <IoPlay aria-hidden="true" /> {t(getLessonStatus(currentLesson.id) === 'in_progress' ? 'common.continue' : 'common.start')}
                         </Button>
                     </div>
                 </Card>
