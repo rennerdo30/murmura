@@ -3,7 +3,7 @@
   gap: var(--space-1);
   padding: var(--space-1);
   background: var(--color-surface);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-pill);
   border: 1px solid var(--color-border);
   margin-bottom: var(--space-6);
 }
@@ -18,7 +18,7 @@
   min-height: var(--tap-target-min);
   border: none;
   background: transparent;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-pill);
   cursor: pointer;
   font-size: var(--text-sm);
   font-weight: 500;
