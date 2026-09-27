@@ -631,7 +631,13 @@
     "paths": "Parcours",
     "review": "Réviser",
     "settings": "Paramètres",
-    "mainNavigation": "Navigation principale"
+    "mainNavigation": "Navigation principale",
+    "learn": "Apprendre",
+    "more": "Plus",
+    "library": "Bibliothèque",
+    "pronunciation": "Prononciation",
+    "leaderboard": "Classement",
+    "placementTest": "Test de niveau"
   },
   "lessons": {
     "card": {

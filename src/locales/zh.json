@@ -631,7 +631,13 @@
     "paths": "路径",
     "review": "复习",
     "settings": "设置",
-    "mainNavigation": "主导航"
+    "mainNavigation": "主导航",
+    "learn": "学习",
+    "more": "更多",
+    "library": "资料库",
+    "pronunciation": "发音",
+    "leaderboard": "排行榜",
+    "placementTest": "分级测试"
   },
   "lessons": {
     "card": {

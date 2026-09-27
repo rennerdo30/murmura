@@ -631,7 +631,13 @@
     "paths": "पथ",
     "review": "समीक्षा",
     "settings": "सेटिंग्स",
-    "mainNavigation": "मुख्य नेविगेशन"
+    "mainNavigation": "मुख्य नेविगेशन",
+    "learn": "सीखें",
+    "more": "और",
+    "library": "लाइब्रेरी",
+    "pronunciation": "उच्चारण",
+    "leaderboard": "लीडरबोर्ड",
+    "placementTest": "स्तर परीक्षण"
   },
   "lessons": {
     "card": {

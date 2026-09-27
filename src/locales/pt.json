@@ -631,7 +631,13 @@
     "paths": "Trilhas",
     "review": "Revisar",
     "settings": "Configurações",
-    "mainNavigation": "Navegação principal"
+    "mainNavigation": "Navegação principal",
+    "learn": "Aprender",
+    "more": "Mais",
+    "library": "Biblioteca",
+    "pronunciation": "Pronúncia",
+    "leaderboard": "Classificação",
+    "placementTest": "Teste de nível"
   },
   "lessons": {
     "card": {

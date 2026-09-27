@@ -76,8 +76,8 @@
   height: calc(72px + var(--safe-area-bottom));
 }
 
-/* Hide on desktop */
-@media (min-width: 769px) {
+/* Hide on desktop, where AppSidebar takes over */
+@media (min-width: 1024px) {
   .bottomNav {
     display: none;
   }

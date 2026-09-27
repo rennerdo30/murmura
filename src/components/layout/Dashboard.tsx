@@ -2,29 +2,32 @@
 
 import { useState, useMemo, memo, useCallback } from 'react';
 import Link from 'next/link';
+import type { ReactNode } from 'react';
 import { useProgressContext } from '@/context/ProgressProvider';
 import { useLanguage } from '@/context/LanguageProvider';
 import { useTargetLanguage } from '@/hooks/useTargetLanguage';
 import { useGamification } from '@/hooks/useGamification';
 import { useCurriculum } from '@/hooks/useCurriculum';
 import { useContentTranslation } from '@/hooks/useContentTranslation';
+import { useMobile } from '@/hooks/useMobile';
 import { ModuleName } from '@/lib/language';
+import { LEARNING_MODULES, getModuleIcon, getModuleName } from '@/lib/learningModules';
+import { getGreeting } from '@/lib/greeting';
+import { getStreakMessage } from '@/lib/streak';
 import ProgressBar from '@/components/common/ProgressBar';
-import LanguageSwitcher from '@/components/common/LanguageSwitcher';
 import TargetLanguageSelector from '@/components/common/TargetLanguageSelector';
 import AuthButton from '@/components/common/AuthButton';
-import XPDisplay from '@/components/gamification/XPDisplay';
-import StreakBadge from '@/components/gamification/StreakBadge';
-import DailyGoalCard from '@/components/gamification/DailyGoalCard';
-import { Container, Card, Text, Animated, Button, Spinner } from '@/components/ui';
-import { IoBook, IoSchool, IoTime, IoDocumentText, IoHeadset, IoMap, IoRefresh, IoTrophy, IoSettings, IoPlay, IoChevronDown } from 'react-icons/io5';
-import { PiExam } from 'react-icons/pi';
-import { useMobile } from '@/hooks/useMobile';
+import Logo from '@/components/common/Logo';
+import LearningCompanion from '@/components/LearningCompanion/LearningCompanion';
 import LearningCompass from '@/components/dashboard/LearningCompass';
 import MasteryHeatmap from '@/components/dashboard/MasteryHeatmap';
 import StreakCalendar from '@/components/dashboard/StreakCalendar';
+import { Container, Button, Spinner, Text } from '@/components/ui';
+import {
+    IoBook, IoSchool, IoTime, IoPlay, IoChevronDown, IoChevronForward, IoFlame, IoStar,
+    IoLibrary, IoMic, IoTrophy, IoMap,
+} from 'react-icons/io5';
 import styles from './Dashboard.module.css';
-import Logo from '@/components/common/Logo';
 
 // Mapping from language code to primary learning path ID
 const LANGUAGE_PATH_MAP: Record<string, string> = {
@@ -41,54 +44,18 @@ const getPathIdForLanguage = (lang: string): string => {
     return LANGUAGE_PATH_MAP[lang] || LANGUAGE_PATH_MAP.ja;
 };
 
-interface Module {
-    id: ModuleName;
-    icon: React.ReactNode;
-    href: string;
-    totalItems: number;
-}
-
-// Icons that vary by language
-const ALPHABET_ICONS: Record<string, string> = {
-    ja: 'あ',
-    ko: '한',
-    zh: '拼',
-    default: 'A'
+// Rough item counts used to turn module stats into a progress percentage
+const MODULE_TOTAL_ITEMS: Record<ModuleName, number> = {
+    alphabet: 112,
+    vocabulary: 30,
+    kanji: 10,
+    grammar: 5,
+    reading: 2,
+    listening: 3,
 };
 
-const KANJI_ICONS: Record<string, string> = {
-    ja: '字',
-    zh: '汉',
-    default: '字'
-};
-
-const getAlphabetIcon = (lang: string) => ALPHABET_ICONS[lang] || ALPHABET_ICONS.default;
-const getKanjiIcon = (lang: string) => KANJI_ICONS[lang] || KANJI_ICONS.default;
-
-// Background decoration per language (culturally appropriate)
-const BACKGROUND_DECORATIONS: Record<string, string> = {
-    ja: '学',   // Japanese: "learn/study" kanji
-    es: 'Ñ',    // Spanish: distinctive letter
-    de: 'ß',    // German: distinctive letter
-    en: 'A',    // English: classic letter
-    it: '&',    // Italian: ampersand flourish
-    ko: '한',   // Korean: "han" in Hangul
-    zh: '学',   // Chinese: "learn/study" hanzi
-};
-
-const getBackgroundDecoration = (lang: string) => BACKGROUND_DECORATIONS[lang] || BACKGROUND_DECORATIONS.ja;
-
-const getModuleName = (moduleId: string, lang: string, t: (key: string) => string) => {
-    // Check for language-specific titles in translation system
-    const specificTitleKey = moduleId === 'kanji' && lang === 'ja' ? `modules.kanji.title_ja` :
-        moduleId === 'kanji' && lang === 'zh' ? `modules.kanji.title_zh` :
-            moduleId === 'alphabet' && lang === 'ko' ? `modules.alphabet.title_ko` : null;
-
-    const title = specificTitleKey ? t(specificTitleKey) : t(`modules.${moduleId}.title`);
-    const description = t(`modules.${moduleId}.description`);
-
-    return { title, description };
-};
+const SECONDS_PER_MINUTE = 60;
+const FULL_PERCENT = 100;
 
 // Language-specific stat labels
 const getStatLabel = (statKey: string, lang: string, t: (key: string) => string): string => {
@@ -101,13 +68,18 @@ const getStatLabel = (statKey: string, lang: string, t: (key: string) => string)
     return t(`dashboard.${statKey}`) || statKey;
 };
 
-const ALL_MODULES: Module[] = [
-    { id: 'alphabet', icon: <span className={styles.japaneseIcon}>あ</span>, href: '/alphabet', totalItems: 112 },
-    { id: 'vocabulary', icon: <IoBook />, href: '/vocabulary', totalItems: 30 },
-    { id: 'kanji', icon: <span className={styles.japaneseIcon}>字</span>, href: '/kanji', totalItems: 10 },
-    { id: 'grammar', icon: <PiExam />, href: '/grammar', totalItems: 5 },
-    { id: 'reading', icon: <IoDocumentText />, href: '/reading', totalItems: 2 },
-    { id: 'listening', icon: <IoHeadset />, href: '/listening', totalItems: 3 },
+interface MoreLink {
+    href: string;
+    labelKey: string;
+    icon: ReactNode;
+}
+
+// Pages that are not in the mobile bottom navigation
+const MORE_LINKS: MoreLink[] = [
+    { href: '/library', labelKey: 'nav.library', icon: <IoLibrary /> },
+    { href: '/pronunciation', labelKey: 'nav.pronunciation', icon: <IoMic /> },
+    { href: '/assessment/placement', labelKey: 'nav.placementTest', icon: <IoSchool /> },
+    { href: '/leaderboard', labelKey: 'nav.leaderboard', icon: <IoTrophy /> },
 ];
 
 function Dashboard() {
@@ -115,7 +87,7 @@ function Dashboard() {
     const { t } = useLanguage();
     const { getText } = useContentTranslation();
     const { targetLanguage, isModuleEnabled } = useTargetLanguage();
-    const { level, streak, dailyGoal, todayXP } = useGamification();
+    const { streak, dailyGoal, todayXP } = useGamification();
     const { lessons, getLessonStatus } = useCurriculum();
     const isMobile = useMobile();
     const [showWidgets, setShowWidgets] = useState(false);
@@ -123,17 +95,13 @@ function Dashboard() {
 
     // Find the current in-progress lesson or the next available one
     const currentLesson = useMemo(() => {
-        // First, check for an in-progress lesson
         for (const flatLesson of lessons) {
-            const status = getLessonStatus(flatLesson.lesson.id);
-            if (status === 'in_progress') {
+            if (getLessonStatus(flatLesson.lesson.id) === 'in_progress') {
                 return flatLesson.lesson;
             }
         }
-        // Otherwise, find the first available lesson
         for (const flatLesson of lessons) {
-            const status = getLessonStatus(flatLesson.lesson.id);
-            if (status === 'available') {
+            if (getLessonStatus(flatLesson.lesson.id) === 'available') {
                 return flatLesson.lesson;
             }
         }
@@ -141,37 +109,20 @@ function Dashboard() {
         return null;
     }, [lessons, getLessonStatus]);
 
-    // Filter modules based on target language and update icons
-    const filteredModules = useMemo(() => {
-        return ALL_MODULES
-            .filter(module => isModuleEnabled(module.id))
-            .map(module => {
-                // Update icons based on target language
-                if (module.id === 'alphabet') {
-                    return {
-                        ...module,
-                        icon: <span className={styles.japaneseIcon}>{getAlphabetIcon(targetLanguage)}</span>
-                    };
-                }
-                if (module.id === 'kanji') {
-                    return {
-                        ...module,
-                        icon: <span className={styles.japaneseIcon}>{getKanjiIcon(targetLanguage)}</span>
-                    };
-                }
-                return module;
-            });
-    }, [targetLanguage, isModuleEnabled]);
+    const modules = useMemo(
+        () => LEARNING_MODULES.filter(module => isModuleEnabled(module.id)),
+        [isModuleEnabled]
+    );
 
     const moduleProgress = useMemo(() => {
         const progress: Record<string, number> = {};
         if (initialized && summary) {
-            filteredModules.forEach(module => {
-                progress[module.id] = getModuleProgress(module.id, module.totalItems);
+            modules.forEach(module => {
+                progress[module.id] = getModuleProgress(module.id, MODULE_TOTAL_ITEMS[module.id]);
             });
         }
         return progress;
-    }, [initialized, summary, getModuleProgress, filteredModules]);
+    }, [initialized, summary, getModuleProgress, modules]);
 
     if (!summary) {
         return (
@@ -184,171 +135,187 @@ function Dashboard() {
         );
     }
 
+    const currentStreak = streak?.currentStreak ?? 0;
+    const goalPercent = dailyGoal && dailyGoal.target > 0
+        ? Math.min(FULL_PERCENT, Math.round((dailyGoal.current / dailyGoal.target) * FULL_PERCENT))
+        : 0;
+    const isLessonInProgress = currentLesson ? getLessonStatus(currentLesson.id) === 'in_progress' : false;
+
+    const stats = [
+        { id: 'words', icon: <IoBook />, value: summary.totalWords || 0, label: t('dashboard.wordsLearned') },
+        { id: 'characters', icon: <IoSchool />, value: summary.totalKanji || 0, label: getStatLabel('characters', targetLanguage, t) },
+        { id: 'time', icon: <IoTime />, value: Math.round((summary.totalStudyTime || 0) / SECONDS_PER_MINUTE), label: t('dashboard.studyTime') },
+    ];
+
+    const widgets = (
+        <>
+            <div className={styles.widgetsGrid}>
+                <LearningCompass />
+                <MasteryHeatmap />
+            </div>
+            <StreakCalendar weeks={16} />
+        </>
+    );
+
     return (
-        <Container variant="dashboard" className={styles.dashboardShell}>
-            <Animated animation="float" infinite className={styles.backgroundKanji} aria-hidden="true">
-                {getBackgroundDecoration(targetLanguage)}
-            </Animated>
-            <header className={styles.header}>
-                <div className={styles.headerContent}>
-                    <div>
-
-
-                        <Logo />
-
-
-
-
-                    </div>
-                    <div className={styles.headerActions}>
-                        <TargetLanguageSelector />
-                        <LanguageSwitcher />
-                        <AuthButton />
-                    </div>
+        <Container variant="dashboard" className={styles.shell}>
+            {/* Phone/tablet top bar; the desktop sidebar carries the logo and selectors */}
+            <div className={styles.topBar}>
+                <Logo size="sm" showTagline={false} />
+                <div className={styles.topBarActions}>
+                    <TargetLanguageSelector />
+                    <AuthButton />
                 </div>
+            </div>
+
+            <header className={styles.intro}>
+                <h1 className={styles.greeting}>{getGreeting(t)}</h1>
+                <p className={styles.tagline}>{t('dashboard.subtitle')}</p>
             </header>
 
-            {/* Continue Learning Card */}
-            {currentLesson && (
-                <Card variant="glass" hover className={`${styles.continueLessonCard} fadeInUp`}>
-                    <div className={styles.continueLessonContent}>
-                        <div className={styles.continueLessonInfo}>
-                            <Text variant="label" color="muted">{t(getLessonStatus(currentLesson.id) === 'in_progress' ? 'dashboard.continueLearning' : 'paths.startLearning')}</Text>
-                            <Text variant="h2">{getText(currentLesson.titleTranslations, currentLesson.title)}</Text>
-                            <Text variant="body" color="secondary">{getText(currentLesson.descriptionTranslations, currentLesson.description)}</Text>
-                        </div>
-                        <Button
-                            href={`/paths/${getPathIdForLanguage(targetLanguage)}/${currentLesson.id}`}
-                            className={styles.continueLessonButton}
-                        >
-                            <IoPlay aria-hidden="true" /> {t(getLessonStatus(currentLesson.id) === 'in_progress' ? 'common.continue' : 'common.start')}
-                        </Button>
+            <div className={styles.layout}>
+                {/* Today: next lesson, streak and daily goal in one card */}
+                <section className={styles.today} aria-labelledby="dashboard-today-title">
+                    <div className={styles.todayMain}>
+                        {currentLesson ? (
+                            <>
+                                <p className={styles.eyebrow}>
+                                    {t(isLessonInProgress ? 'dashboard.continueLearning' : 'paths.startLearning')}
+                                </p>
+                                <h2 id="dashboard-today-title" className={styles.todayTitle}>
+                                    {getText(currentLesson.titleTranslations, currentLesson.title)}
+                                </h2>
+                                <p className={styles.todayText}>
+                                    {getText(currentLesson.descriptionTranslations, currentLesson.description)}
+                                </p>
+                                <Button
+                                    href={`/paths/${getPathIdForLanguage(targetLanguage)}/${currentLesson.id}`}
+                                    className={styles.todayButton}
+                                >
+                                    <IoPlay aria-hidden="true" /> {t(isLessonInProgress ? 'common.continue' : 'common.start')}
+                                </Button>
+                            </>
+                        ) : (
+                            <>
+                                <p className={styles.eyebrow}>{t('paths.startLearning')}</p>
+                                <h2 id="dashboard-today-title" className={styles.todayTitle}>{t('dashboard.browsePaths')}</h2>
+                                <Button href="/paths" className={styles.todayButton}>
+                                    <IoMap aria-hidden="true" /> {t('nav.paths')}
+                                </Button>
+                            </>
+                        )}
                     </div>
-                </Card>
-            )}
 
-            {/* Gamification Section */}
-            <div className={styles.gamificationSection}>
-                <XPDisplay level={level} compact />
-                <StreakBadge streak={streak} showMessage size="md" />
-                <DailyGoalCard
-                    dailyGoal={dailyGoal}
-                    streak={streak}
-                    todayXP={todayXP}
-                    compact
-                />
-            </div>
-
-            <div className={styles.statsOverview}>
-                <Card variant="glass" hover className={`${styles.statCard} fadeInUp stagger-1`}>
-                    <div className={styles.statIcon}><IoBook /></div>
-                    <Text variant="h2" as="span" color="gold" className={styles.statValue}>
-                        {summary.totalWords || 0}
-                    </Text>
-                    <Text variant="label" color="muted" className={styles.statLabel}>
-                        {t('dashboard.wordsLearned')}
-                    </Text>
-                </Card>
-                <Card variant="glass" hover className={`${styles.statCard} fadeInUp stagger-2`}>
-                    <div className={styles.statIcon}><IoSchool /></div>
-                    <Text variant="h2" as="span" color="gold" className={styles.statValue}>
-                        {summary.totalKanji || 0}
-                    </Text>
-                    <Text variant="label" color="muted" className={styles.statLabel}>
-                        {getStatLabel('characters', targetLanguage, t)}
-                    </Text>
-                </Card>
-                <Card variant="glass" hover className={`${styles.statCard} fadeInUp stagger-3`}>
-                    <div className={styles.statIcon}><IoTime /></div>
-                    <Text variant="h2" as="span" color="gold" className={styles.statValue}>
-                        {Math.round((summary.totalStudyTime || 0) / 60)}
-                    </Text>
-                    <Text variant="label" color="muted" className={styles.statLabel}>
-                        {t('dashboard.studyTime')}
-                    </Text>
-                </Card>
-            </div>
-
-            <div className={styles.modulesGrid}>
-                {filteredModules.map((module, index) => {
-                    const moduleNames = getModuleName(module.id, targetLanguage, t);
-                    return (
-                        <Link key={module.id} href={module.href}>
-                            <Card variant="glass" hover className={`${styles.moduleCard} fadeInUp stagger-${(index % 6) + 1}`}>
-                                <div className={styles.moduleIcon}>{module.icon}</div>
-                                <Text variant="h2" as="h3" className={styles.moduleTitle}>
-                                    {moduleNames.title}
-                                </Text>
-                                <Text variant="body" color="secondary" className={styles.moduleDescription}>
-                                    {moduleNames.description}
-                                </Text>
-                                <ProgressBar
-                                    progress={moduleProgress[module.id] || 0}
-                                    showText={true}
-                                />
-                            </Card>
-                        </Link>
-                    );
-                })}
-            </div>
-
-            {/* Quick Actions */}
-            <div className={styles.quickActions}>
-                <Button href="/assessment/placement" variant="ghost" className={styles.quickActionButton}>
-                    <PiExam aria-hidden="true" /> {t('dashboard.placementTest')}
-                </Button>
-                <Button href="/paths" variant="ghost" className={styles.quickActionButton}>
-                    <IoMap aria-hidden="true" /> {t('dashboard.browsePaths')}
-                </Button>
-                <Button href="/review" variant="ghost" className={styles.quickActionButton}>
-                    <IoRefresh aria-hidden="true" /> {t('dashboard.reviewDashboardStat')}
-                </Button>
-                <Button href="/pronunciation" variant="ghost" className={styles.quickActionButton}>
-                    <IoHeadset aria-hidden="true" /> {t('dashboard.pronunciation')}
-                </Button>
-                <Button href="/leaderboard" variant="ghost" className={styles.quickActionButton}>
-                    <IoTrophy aria-hidden="true" /> {t('dashboard.leaderboardStat')}
-                </Button>
-                <Button href="/settings" variant="ghost" className={styles.quickActionButton}>
-                    <IoSettings aria-hidden="true" /> {t('dashboard.settingsStat')}
-                </Button>
-            </div>
-
-            {/* Dashboard Widgets - collapsible on mobile */}
-            {isMobile ? (
-                <div className={styles.widgetsAccordion}>
-                    <button
-                        className={`${styles.widgetsToggle} ${showWidgets ? styles.widgetsToggleOpen : ''}`}
-                        onClick={toggleWidgets}
-                        aria-expanded={showWidgets}
-                    >
-                        <Text variant="label" color="muted">{t('dashboard.moreStats') || 'Activity & Progress'}</Text>
-                        <IoChevronDown className={styles.widgetsToggleIcon} />
-                    </button>
-                    {showWidgets && (
-                        <div className={styles.widgetsCollapsible}>
-                            <div className={styles.widgetsSection}>
-                                <LearningCompass className={styles.compassWidget} />
-                                <MasteryHeatmap className={styles.heatmapWidget} />
-                            </div>
-                            <div className={styles.calendarSection}>
-                                <StreakCalendar className={styles.calendarWidget} weeks={16} />
+                    <div className={styles.todayStats}>
+                        <div className={styles.streak}>
+                            <span className={`${styles.streakIcon} ${currentStreak > 0 ? styles.streakActive : ''}`} aria-hidden="true">
+                                <IoFlame />
+                            </span>
+                            <div>
+                                <p className={styles.streakValue}>
+                                    {currentStreak > 0
+                                        ? t('gamification.streak.dayStreak', { count: currentStreak })
+                                        : t('gamification.streak.noStreak')}
+                                </p>
+                                <p className={styles.streakMessage}>{getStreakMessage(currentStreak, t)}</p>
                             </div>
                         </div>
+                        <div className={styles.goal}>
+                            <div className={styles.goalHeader}>
+                                <span className={styles.goalLabel}>
+                                    <IoStar aria-hidden="true" /> {t('gamification.dailyGoal.title')}
+                                </span>
+                                <span className={styles.goalValue}>
+                                    {dailyGoal?.completed
+                                        ? t('gamification.dailyGoal.complete')
+                                        : t('gamification.xp.today', { xp: todayXP })}
+                                </span>
+                            </div>
+                            <div
+                                className={styles.goalTrack}
+                                role="progressbar"
+                                aria-valuenow={goalPercent}
+                                aria-valuemin={0}
+                                aria-valuemax={FULL_PERCENT}
+                                aria-label={t('gamification.dailyGoal.title')}
+                            >
+                                <div className={styles.goalFill} style={{ width: `${goalPercent}%` }} />
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <dl className={styles.stats}>
+                    {stats.map(stat => (
+                        <div key={stat.id} className={styles.stat}>
+                            <span className={styles.statIcon} aria-hidden="true">{stat.icon}</span>
+                            <dt className={styles.statLabel}>{stat.label}</dt>
+                            <dd className={styles.statValue}>{stat.value}</dd>
+                        </div>
+                    ))}
+                </dl>
+
+                <section className={styles.learn} aria-labelledby="dashboard-learn-title">
+                    <h2 id="dashboard-learn-title" className={styles.sectionTitle}>{t('nav.learn')}</h2>
+                    <ul className={styles.modules}>
+                        {modules.map(module => {
+                            const names = getModuleName(module.id, targetLanguage, t);
+                            const progress = moduleProgress[module.id] || 0;
+                            return (
+                                <li key={module.id}>
+                                    <Link href={module.href} className={styles.module}>
+                                        <span className={styles.moduleIcon} aria-hidden="true">
+                                            {getModuleIcon(module.id, targetLanguage, styles.moduleGlyph)}
+                                        </span>
+                                        <span className={styles.moduleBody}>
+                                            <span className={styles.moduleTitle}>{names.title}</span>
+                                            <span className={styles.moduleDescription}>{names.description}</span>
+                                            <ProgressBar progress={progress} showText={true} />
+                                        </span>
+                                    </Link>
+                                </li>
+                            );
+                        })}
+                    </ul>
+                </section>
+
+                <aside className={styles.aside}>
+                    <LearningCompanion position="sidebar" />
+                    <nav className={styles.more} aria-labelledby="dashboard-more-title">
+                        <h2 id="dashboard-more-title" className={styles.sectionTitle}>{t('nav.more')}</h2>
+                        <ul className={styles.moreList}>
+                            {MORE_LINKS.map(link => (
+                                <li key={link.href}>
+                                    <Link href={link.href} className={styles.moreLink}>
+                                        <span className={styles.moreIcon} aria-hidden="true">{link.icon}</span>
+                                        <span className={styles.moreLabel}>{t(link.labelKey)}</span>
+                                        <IoChevronForward className={styles.moreChevron} aria-hidden="true" />
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </nav>
+                </aside>
+
+                <section className={styles.widgets} aria-label={t('dashboard.moreStats')}>
+                    {isMobile ? (
+                        <>
+                            <button
+                                type="button"
+                                className={`${styles.widgetsToggle} ${showWidgets ? styles.widgetsToggleOpen : ''}`}
+                                onClick={toggleWidgets}
+                                aria-expanded={showWidgets}
+                            >
+                                <span>{t('dashboard.moreStats')}</span>
+                                <IoChevronDown className={styles.widgetsToggleIcon} aria-hidden="true" />
+                            </button>
+                            {showWidgets && <div className={styles.widgetsBody}>{widgets}</div>}
+                        </>
+                    ) : (
+                        <div className={styles.widgetsBody}>{widgets}</div>
                     )}
-                </div>
-            ) : (
-                <>
-                    <div className={styles.widgetsSection}>
-                        <LearningCompass className={styles.compassWidget} />
-                        <MasteryHeatmap className={styles.heatmapWidget} />
-                    </div>
-                    <div className={styles.calendarSection}>
-                        <StreakCalendar className={styles.calendarWidget} weeks={16} />
-                    </div>
-                </>
-            )}
-
+                </section>
+            </div>
         </Container>
     );
 }

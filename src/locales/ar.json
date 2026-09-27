@@ -631,7 +631,13 @@
     "paths": "المسارات",
     "review": "مراجعة",
     "settings": "الإعدادات",
-    "mainNavigation": "التنقل الرئيسي"
+    "mainNavigation": "التنقل الرئيسي",
+    "learn": "تعلّم",
+    "more": "المزيد",
+    "library": "المكتبة",
+    "pronunciation": "النطق",
+    "leaderboard": "لوحة المتصدرين",
+    "placementTest": "اختبار تحديد المستوى"
   },
   "lessons": {
     "card": {

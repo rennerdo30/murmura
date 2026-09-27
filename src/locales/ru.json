@@ -631,7 +631,13 @@
     "paths": "Курсы",
     "review": "Повторение",
     "settings": "Настройки",
-    "mainNavigation": "Основная навигация"
+    "mainNavigation": "Основная навигация",
+    "learn": "Учиться",
+    "more": "Ещё",
+    "library": "Библиотека",
+    "pronunciation": "Произношение",
+    "leaderboard": "Рейтинг",
+    "placementTest": "Тест на уровень"
   },
   "lessons": {
     "card": {

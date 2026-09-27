@@ -631,7 +631,13 @@
     "paths": "코스",
     "review": "복습",
     "settings": "설정",
-    "mainNavigation": "주요 탐색"
+    "mainNavigation": "주요 탐색",
+    "learn": "학습",
+    "more": "더보기",
+    "library": "라이브러리",
+    "pronunciation": "발음",
+    "leaderboard": "리더보드",
+    "placementTest": "레벨 테스트"
   },
   "lessons": {
     "card": {

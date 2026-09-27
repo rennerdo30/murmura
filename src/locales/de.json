@@ -631,7 +631,13 @@
     "paths": "Pfade",
     "review": "Wiederholen",
     "settings": "Einstellungen",
-    "mainNavigation": "Hauptnavigation"
+    "mainNavigation": "Hauptnavigation",
+    "learn": "Lernen",
+    "more": "Mehr",
+    "library": "Bibliothek",
+    "pronunciation": "Aussprache",
+    "leaderboard": "Bestenliste",
+    "placementTest": "Einstufungstest"
   },
   "lessons": {
     "card": {

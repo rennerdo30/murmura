@@ -190,7 +190,13 @@
     "paths": "Paths",
     "review": "Review",
     "settings": "Settings",
-    "mainNavigation": "Main navigation"
+    "mainNavigation": "Main navigation",
+    "learn": "Learn",
+    "more": "More",
+    "library": "Library",
+    "pronunciation": "Pronunciation",
+    "leaderboard": "Leaderboard",
+    "placementTest": "Placement test"
   },
   "lessons": {
     "loading": "Loading lesson...",

@@ -77,13 +77,15 @@ export function LogoMark({ className = '' }: LogoMarkProps) {
 interface LogoProps {
     className?: string;
     showTagline?: boolean;
+    /** md: page header lockup, sm: compact lockup for the sidebar and mobile top bar */
+    size?: 'sm' | 'md';
 }
 
 /** Seal plus the translated product name and tagline. */
-export default function Logo({ className = '', showTagline = true }: LogoProps) {
+export default function Logo({ className = '', showTagline = true, size = 'md' }: LogoProps) {
     const { t } = useLanguage();
     return (
-        <div className={`${styles.logo} ${className}`}>
+        <div className={`${styles.logo} ${size === 'sm' ? styles.small : ''} ${className}`}>
             <LogoMark className={styles.mark} />
             <div className={styles.text}>
                 <span className={styles.name}>{t('dashboard.title')}</span>

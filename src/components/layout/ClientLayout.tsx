@@ -1,9 +1,9 @@
 'use client';
 
 import { ReactNode } from 'react';
-import LearningCompanion from '@/components/LearningCompanion/LearningCompanion';
 import ErrorBoundary from '@/components/common/ErrorBoundary';
 import BottomNavBar from '@/components/common/BottomNavBar';
+import AppSidebar from '@/components/common/AppSidebar';
 import styles from './ClientLayout.module.css';
 import { useLanguage } from '@/context/LanguageProvider';
 
@@ -28,12 +28,10 @@ export default function ClientLayout({ children }: ClientLayoutProps) {
     <ErrorBoundary>
       <SkipLink />
       <div className={styles.layout}>
+        <AppSidebar />
         <main id="main-content" className={styles.main}>
           {children}
         </main>
-        <div className={styles.companionColumn}>
-          <LearningCompanion position="auto" />
-        </div>
       </div>
       <BottomNavBar />
     </ErrorBoundary>

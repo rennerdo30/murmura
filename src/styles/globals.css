@@ -142,8 +142,8 @@
   --reading-measure: 70ch;
   /* Minimum comfortable touch target (WCAG 2.5.8) */
   --tap-target-min: 44px;
-  /* Width of the fixed Learning Companion rail on desktop */
-  --companion-width: 280px;
+  /* Width of the desktop navigation sidebar */
+  --sidebar-width: 248px;
 }
 
 /* ==========================================================================
