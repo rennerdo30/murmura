@@ -16,7 +16,7 @@ concurrency:
 
 jobs:
   build-and-deploy:
-    runs-on: [self-hosted, docs]
+    runs-on: ubuntu-latest
     
     environment:
       name: github-pages
