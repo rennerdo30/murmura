@@ -38,7 +38,7 @@
     "eslint": "^9.39.5",
     "eslint-config-next": "^16.3.6",
     "fs-extra": "^11.4.1",
-    "glob": "^13.0.6",
+    "glob": "^14.0.5",
     "png-to-ico": "^3.0.2",
     "tsx": "^4.23.15",
     "typescript": "^6.0.3"
