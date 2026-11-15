@@ -25,11 +25,11 @@ jobs:
     steps:
       # 1. Checkout code
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       
       # 2. Setup Node.js
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: '20'
           cache: 'npm'
@@ -80,11 +80,11 @@ jobs:
       
       # 6. Upload build artifacts to GitHub Pages
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: './out'
       
       # 7. Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
